@@ -40,6 +40,29 @@ public class TerraManipulation : MonoBehaviour
 
     private void ChangeTerrain(int basisX, int basisY, int width, int height, float value)
     {
+        //Bound check
+        if (basisX < 0)
+        {
+            width += basisX;
+            basisX = 0;
+        }
+
+        if (basisY < 0)
+        {
+            height += basisY;
+            basisY = 0;
+        }
+
+        if ((basisX + width) > TData.heightmapWidth)
+        {
+            width = width - ((basisX + width) - TData.heightmapWidth);
+        }
+
+        if ((basisY + height) > TData.heightmapHeight)
+        {
+            height = height - ((basisY + height) - TData.heightmapHeight);
+        }
+
         float[,] tempHeight = TData.GetHeights(basisX, basisY, width, height);
         for (int y = 0; y < tempHeight.GetLength(0); y++)
         {
@@ -61,7 +84,7 @@ public class TerraManipulation : MonoBehaviour
         RaycastHit hit;
         Ray ray = MainCamera.ScreenPointToRay(mousePos);
         bool hasHit;
-        if (hasHit = Physics.Raycast(ray, out hit, TerrainLayer))
+        if (hasHit = Physics.Raycast(ray, out hit, Mathf.Infinity, TerrainLayer))
         {
             Vector3 relativePoint = (hit.point - transform.position);
 
