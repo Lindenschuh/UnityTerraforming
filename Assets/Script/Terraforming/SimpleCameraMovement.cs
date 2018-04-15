@@ -7,11 +7,8 @@ public class SimpleCameraMovement : MonoBehaviour
     public float MovementSpeed;
     public float ScrollSpeed;
 
-    private Camera cam;
-
     private void Start()
     {
-        cam = GetComponent<Camera>();
     }
 
     // Update is called once per frame

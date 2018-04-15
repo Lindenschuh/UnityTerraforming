@@ -8,19 +8,13 @@ public class TerraManipulation : MonoBehaviour
     public LayerMask TerrainLayer;
     public Camera MainCamera;
 
-    private GameObject HoverIndicator;
+    public int PullUpFactor;
+    public int PushDownFactor;
 
-    public int BrushWidth;
-    public int BrushHeight;
-
-    public float PullUpFactor;
-    public float PushDownFactor;
-
-    public Material IndicatorMaterial;
+    public Brush brush;
 
     private Terrain Terra;
     private TerrainData TData;
-    private TerrainCollider TColl;
 
     private int mouseImpactX;
     private int mouseImpactY;
@@ -30,16 +24,14 @@ public class TerraManipulation : MonoBehaviour
     {
         Terra = GetComponent<Terrain>();
         TData = Terra.terrainData;
-        TColl = GetComponent<TerrainCollider>();
-        HoverIndicator = GameObject.CreatePrimitive(PrimitiveType.Cube);
-        HoverIndicator.transform.localScale = new Vector3(BrushWidth, .5f, BrushHeight);
-        HoverIndicator.SetActive(false);
-        HoverIndicator.GetComponent<Renderer>().material = IndicatorMaterial;
         ResetTerrain();
     }
 
-    private void ChangeTerrain(int basisX, int basisY, int width, int height, float value)
+    private void ChangeTerrain(int basisX, int basisY, int value)
     {
+        int width = brush.BrushWidth;
+        int height = brush.BrushHeight;
+
         //Bound check
         if (basisX < 0)
         {
@@ -63,16 +55,7 @@ public class TerraManipulation : MonoBehaviour
             height = height - ((basisY + height) - TData.heightmapHeight);
         }
 
-        float[,] tempHeight = TData.GetHeights(basisX, basisY, width, height);
-        for (int y = 0; y < tempHeight.GetLength(0); y++)
-        {
-            for (int x = 0; x < tempHeight.GetLength(1); x++)
-            {
-                tempHeight[y, x] += value;
-            }
-        }
-
-        TData.SetHeights(basisX, basisY, tempHeight);
+        TData.SetHeights(basisX, basisY, brush.CalculateBrushValues(TData.GetHeights(basisX, basisY, width, height), value));
     }
 
     private bool CalculateInpactPoint()
@@ -80,7 +63,7 @@ public class TerraManipulation : MonoBehaviour
         var mousePos = Input.mousePosition;
         mouseImpactX = 0;
         mouseImpactY = 0;
-        HoverIndicator.SetActive(false);
+        brush.HoverIndicator.SetActive(false);
         RaycastHit hit;
         Ray ray = MainCamera.ScreenPointToRay(mousePos);
         bool hasHit;
@@ -88,14 +71,14 @@ public class TerraManipulation : MonoBehaviour
         {
             Vector3 relativePoint = (hit.point - transform.position);
 
-            HoverIndicator.SetActive(true);
-            HoverIndicator.transform.position = relativePoint;
+            brush.HoverIndicator.SetActive(true);
+            brush.HoverIndicator.transform.position = relativePoint;
 
             Vector3 normalizedTerrainCoords = new Vector3(relativePoint.x / TData.size.x, relativePoint.y / TData.size.y, relativePoint.z / TData.size.z);
             int TerrainSpaceX = (int)(normalizedTerrainCoords.x * TData.heightmapWidth);
             int TerrainSpaceY = (int)(normalizedTerrainCoords.z * TData.heightmapHeight);
-            mouseImpactX = TerrainSpaceX - (int)(BrushWidth * 0.5f);
-            mouseImpactY = TerrainSpaceY - (int)(BrushHeight * 0.5f);
+            mouseImpactX = TerrainSpaceX - (int)(brush.BrushWidth * 0.5f);
+            mouseImpactY = TerrainSpaceY - (int)(brush.BrushHeight * 0.5f);
         }
         return hasHit;
     }
@@ -107,12 +90,12 @@ public class TerraManipulation : MonoBehaviour
         {
             if (Input.GetKey(KeyCode.Mouse0))
             {
-                ChangeTerrain(mouseImpactX, mouseImpactY, BrushWidth, BrushHeight, PullUpFactor);
+                ChangeTerrain(mouseImpactX, mouseImpactY, PullUpFactor);
             }
 
             if (Input.GetKey(KeyCode.Mouse1))
             {
-                ChangeTerrain(mouseImpactX, mouseImpactY, BrushWidth, BrushHeight, PushDownFactor);
+                ChangeTerrain(mouseImpactX, mouseImpactY, PushDownFactor);
             }
         }
     }
