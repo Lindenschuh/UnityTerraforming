@@ -16,7 +16,6 @@ public class SimpleCameraMovement : MonoBehaviour
     {
         Vector2 movement = new Vector2(Input.GetAxis("Vertical"), Input.GetAxis("Horizontal")) * MovementSpeed * Time.deltaTime;
         float scroll = Input.mouseScrollDelta.y * ScrollSpeed * Time.deltaTime;
-
         transform.position = new Vector3(transform.position.x - movement.x, transform.position.y - scroll, transform.position.z + movement.y);
     }
 }

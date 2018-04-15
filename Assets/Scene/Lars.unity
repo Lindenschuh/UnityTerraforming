@@ -373,6 +373,63 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &1657106229
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4674250826878576, guid: ee40ce4ffc3f7e947945638c5a9a0726, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4674250826878576, guid: ee40ce4ffc3f7e947945638c5a9a0726, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4674250826878576, guid: ee40ce4ffc3f7e947945638c5a9a0726, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4674250826878576, guid: ee40ce4ffc3f7e947945638c5a9a0726, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4674250826878576, guid: ee40ce4ffc3f7e947945638c5a9a0726, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4674250826878576, guid: ee40ce4ffc3f7e947945638c5a9a0726, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4674250826878576, guid: ee40ce4ffc3f7e947945638c5a9a0726, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4674250826878576, guid: ee40ce4ffc3f7e947945638c5a9a0726, type: 2}
+      propertyPath: m_RootOrder
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 114669964678433922, guid: ee40ce4ffc3f7e947945638c5a9a0726,
+        type: 2}
+      propertyPath: IndicatorMaterial
+      value: 
+      objectReference: {fileID: 2100000, guid: c6e320b0eb4826d4e88969a967bfec2d, type: 2}
+    - target: {fileID: 114669964678433922, guid: ee40ce4ffc3f7e947945638c5a9a0726,
+        type: 2}
+      propertyPath: TerMani
+      value: 
+      objectReference: {fileID: 1796846425}
+    - target: {fileID: 114669964678433922, guid: ee40ce4ffc3f7e947945638c5a9a0726,
+        type: 2}
+      propertyPath: Terrain
+      value: 
+      objectReference: {fileID: 1796846425}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: ee40ce4ffc3f7e947945638c5a9a0726, type: 2}
+  m_IsPrefabParent: 0
 --- !u!1 &1796846421
 GameObject:
   m_ObjectHideFlags: 0
@@ -460,8 +517,3 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 256
   MainCamera: {fileID: 717264981}
-  BrushWidth: 50
-  BrushHeight: 50
-  PullUpFactor: 0.001
-  PushDownFactor: -0.001
-  IndicatorMaterial: {fileID: 2100000, guid: c6e320b0eb4826d4e88969a967bfec2d, type: 2}

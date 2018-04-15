@@ -19,9 +19,9 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4674250826878576}
-  - component: {fileID: 114669964678433922}
+  - component: {fileID: 114479055086831106}
   m_Layer: 0
-  m_Name: BasicBrush
+  m_Name: SmoothBrush
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -40,7 +40,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &114669964678433922
+--- !u!114 &114479055086831106
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -48,10 +48,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1481043958909684}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f438d6df8a74a7649b4b968b6e9be4db, type: 3}
+  m_Script: {fileID: 11500000, guid: 1a6b6858036385c40bdae5e0cf21bcc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Value: 0.001
+  Value: 0.1
   BrushWidth: 50
   BrushHeight: 50
   IndicatorMaterial: {fileID: 2100000, guid: c6e320b0eb4826d4e88969a967bfec2d, type: 2}

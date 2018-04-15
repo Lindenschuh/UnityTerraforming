@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -8,16 +9,8 @@ public class TerraManipulation : MonoBehaviour
     public LayerMask TerrainLayer;
     public Camera MainCamera;
 
-    public int PullUpFactor;
-    public int PushDownFactor;
-
-    public Brush brush;
-
     private Terrain Terra;
     private TerrainData TData;
-
-    private int mouseImpactX;
-    private int mouseImpactY;
 
     // Use this for initialization
     private void Start()
@@ -27,11 +20,8 @@ public class TerraManipulation : MonoBehaviour
         ResetTerrain();
     }
 
-    private void ChangeTerrain(int basisX, int basisY, int value)
+    public void ChangeTerrain(int basisX, int basisY, int width, int height, Func<float[,], float[,]> brushFunction)
     {
-        int width = brush.BrushWidth;
-        int height = brush.BrushHeight;
-
         //Bound check
         if (basisX < 0)
         {
@@ -55,30 +45,24 @@ public class TerraManipulation : MonoBehaviour
             height = height - ((basisY + height) - TData.heightmapHeight);
         }
 
-        TData.SetHeights(basisX, basisY, brush.CalculateBrushValues(TData.GetHeights(basisX, basisY, width, height), value));
+        TData.SetHeights(basisX, basisY, brushFunction(TData.GetHeights(basisX, basisY, width, height)));
     }
 
-    private bool CalculateInpactPoint()
+    public bool CalculateInpactPoint(Vector3 mousePos, out Vector3 relativePoint, out Vector2 mouseImpact)
     {
-        var mousePos = Input.mousePosition;
-        mouseImpactX = 0;
-        mouseImpactY = 0;
-        brush.HoverIndicator.SetActive(false);
+        mouseImpact = new Vector2();
+        relativePoint = new Vector3();
         RaycastHit hit;
         Ray ray = MainCamera.ScreenPointToRay(mousePos);
         bool hasHit;
         if (hasHit = Physics.Raycast(ray, out hit, Mathf.Infinity, TerrainLayer))
         {
-            Vector3 relativePoint = (hit.point - transform.position);
-
-            brush.HoverIndicator.SetActive(true);
-            brush.HoverIndicator.transform.position = relativePoint;
-
+            relativePoint = (hit.point - transform.position);
             Vector3 normalizedTerrainCoords = new Vector3(relativePoint.x / TData.size.x, relativePoint.y / TData.size.y, relativePoint.z / TData.size.z);
             int TerrainSpaceX = (int)(normalizedTerrainCoords.x * TData.heightmapWidth);
             int TerrainSpaceY = (int)(normalizedTerrainCoords.z * TData.heightmapHeight);
-            mouseImpactX = TerrainSpaceX - (int)(brush.BrushWidth * 0.5f);
-            mouseImpactY = TerrainSpaceY - (int)(brush.BrushHeight * 0.5f);
+            mouseImpact.x = TerrainSpaceX;
+            mouseImpact.y = TerrainSpaceY;
         }
         return hasHit;
     }
@@ -86,18 +70,6 @@ public class TerraManipulation : MonoBehaviour
     // Update is called once per frame
     private void FixedUpdate()
     {
-        if (CalculateInpactPoint())
-        {
-            if (Input.GetKey(KeyCode.Mouse0))
-            {
-                ChangeTerrain(mouseImpactX, mouseImpactY, PullUpFactor);
-            }
-
-            if (Input.GetKey(KeyCode.Mouse1))
-            {
-                ChangeTerrain(mouseImpactX, mouseImpactY, PushDownFactor);
-            }
-        }
     }
 
     private void ResetTerrain()
