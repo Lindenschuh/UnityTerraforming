@@ -19,7 +19,7 @@ public class SmoothBrush : Brush
         {
             for (int x = 0; x < currentBrushValues.GetLength(1); x++)
             {
-                ret[y, x] = Mathf.Lerp(ret[y, x], mean, Value);
+                ret[y, x] = Mathf.Lerp(ret[y, x], mean, Value * sizeModificator);
             }
         }
 

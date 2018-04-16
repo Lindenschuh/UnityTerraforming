@@ -4,14 +4,6 @@ using UnityEngine;
 
 public class BasicBrush : Brush
 {
-    private void Start()
-    {
-        HoverIndicator = GameObject.CreatePrimitive(PrimitiveType.Cube);
-        HoverIndicator.transform.localScale = new Vector3(BrushWidth, .5f, BrushHeight);
-        HoverIndicator.SetActive(false);
-        HoverIndicator.GetComponent<Renderer>().material = IndicatorMaterial;
-    }
-
     public override float[,] CalculateBrushUp(float[,] currentBrushValues)
     {
         float[,] ret = currentBrushValues;
@@ -19,7 +11,7 @@ public class BasicBrush : Brush
         {
             for (int x = 0; x < currentBrushValues.GetLength(1); x++)
             {
-                ret[y, x] += Value;
+                ret[y, x] += Value * sizeModificator;
             }
         }
 
@@ -33,7 +25,7 @@ public class BasicBrush : Brush
         {
             for (int x = 0; x < currentBrushValues.GetLength(1); x++)
             {
-                ret[y, x] -= Value;
+                ret[y, x] -= Value * sizeModificator;
             }
         }
 
