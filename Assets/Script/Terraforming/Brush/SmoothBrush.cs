@@ -4,14 +4,6 @@ using UnityEngine;
 
 public class SmoothBrush : Brush
 {
-    private void Start()
-    {
-        HoverIndicator = GameObject.CreatePrimitive(PrimitiveType.Cube);
-        HoverIndicator.transform.localScale = new Vector3(BrushWidth, .5f, BrushHeight);
-        HoverIndicator.SetActive(false);
-        HoverIndicator.GetComponent<Renderer>().material = IndicatorMaterial;
-    }
-
     public override float[,] CalculateBrushUp(float[,] currentBrushValues)
     {
         float mean = 0;

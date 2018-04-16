@@ -67,11 +67,6 @@ public class TerraManipulation : MonoBehaviour
         return hasHit;
     }
 
-    // Update is called once per frame
-    private void FixedUpdate()
-    {
-    }
-
     private void ResetTerrain()
     {
         float[,] tempHeight = new float[TData.heightmapHeight, TData.heightmapWidth];
