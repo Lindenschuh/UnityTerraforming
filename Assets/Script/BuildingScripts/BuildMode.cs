@@ -7,14 +7,12 @@ public class BuildMode : MonoBehaviour {
     public Transform normalSquare;
     public Transform transparentSquare;
     public Transform map;
-    public Grid grid;
     public float maxRay;
     public float gridSize;
 
     private Vector3 position;
     private bool isBuildModeActive;
     private Transform square;
-    private Vector3 testPoint;
 
     protected vThirdPersonCamera tpCamera;
     // Use this for initialization
@@ -28,6 +26,9 @@ public class BuildMode : MonoBehaviour {
         if (Input.GetKeyUp(KeyCode.Q))
         {
             isBuildModeActive = true;
+
+
+            square = Instantiate(transparentSquare, position, Quaternion.identity);
         }
         if (isBuildModeActive)
         {
@@ -47,12 +48,9 @@ public class BuildMode : MonoBehaviour {
                 }
                 if(finalPos != position)
                 {
-                    if (square != null)
-                    {
-                        Destroy(square.gameObject);
-                    }
+
                     position = finalPos;
-                    square = Instantiate(transparentSquare, finalPos, Quaternion.identity);
+                    square.position = finalPos;
                 }
             }
             if (Input.GetKeyUp(KeyCode.Mouse0))
@@ -69,10 +67,7 @@ public class BuildMode : MonoBehaviour {
         float snapPointY = hitPoint.y + 0.05f;
         float snapPointZ = hitPoint.z + ((gridSize - hitPoint.z) % gridSize);
         float halfGridSize = gridSize / 2;
-        float snapXAbs = Mathf.Abs(snapPointX);
-        float snapZAbs = Mathf.Abs(snapPointZ);
-        float hitXAbs = Mathf.Abs(hitPoint.x);
-        float hitZAbs = Mathf.Abs(hitPoint.z);
+
         if (!(snapPointX + halfGridSize >= hitPoint.x)) snapPointX += gridSize;
         else if (!(snapPointX - halfGridSize <= hitPoint.x)) snapPointX -= gridSize;
 
@@ -92,10 +87,9 @@ public class BuildMode : MonoBehaviour {
         int xPoint = (int)hitPoint.x +2 ;
         int yPoint = (int)(hitPoint.y);
         int zPoint = (int)hitPoint.z;
-
+        
         Vector3Int cellPoint = new Vector3Int(xPoint, yPoint, zPoint);
-        Vector3 cellCenterWorldPoint = grid.GetCellCenterWorld(cellPoint);
-        Vector3Int finalPosition = grid.WorldToCell(cellCenterWorldPoint);
-        return finalPosition;
+
+        return cellPoint;
     }
 }
