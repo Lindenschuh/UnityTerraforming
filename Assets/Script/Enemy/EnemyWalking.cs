@@ -5,25 +5,23 @@ using UnityEngine.AI;
 
 public class EnemyWalking : MonoBehaviour
 {
-    public Transform destination;
+    public Transform Destination;
     public float moveSpeed = 6;
 
-    private Rigidbody rigidbody;
-    private Vector3 velocity;
+    private Rigidbody _rigidbody;
+    private Vector3 _velocity;
 
     private void Awake()
     {
-        rigidbody = GetComponent<Rigidbody>();
+        _rigidbody = GetComponent<Rigidbody>();
     }
 
     // Update is called once per frame
     private void Update()
     {
         // Calculate Direction
-        var heading = destination.position - transform.position;
-        var distance = heading.magnitude;
-        var direction = heading / distance;
-        Debug.DrawLine(transform.position, destination.position);
+        var heading = (Destination.position - transform.position).normalized;
+        Debug.DrawLine(transform.position, transform.position + heading * 10);
         // Walk Times Enemy Walking Speed
         // Walk
     }
@@ -33,8 +31,8 @@ public class EnemyWalking : MonoBehaviour
         var horiz = Input.GetAxis("Horizontal");
         var vert = Input.GetAxis("Vertical");
 
-        velocity = new Vector3(horiz, 0, vert) * moveSpeed;
+        _velocity = new Vector3(horiz, 0, vert) * moveSpeed;
 
-        rigidbody.MovePosition(rigidbody.position + velocity * Time.fixedDeltaTime);
+        _rigidbody.MovePosition(_rigidbody.position + _velocity * Time.fixedDeltaTime);
     }
 }
