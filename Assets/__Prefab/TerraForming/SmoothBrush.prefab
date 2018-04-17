@@ -57,5 +57,5 @@ MonoBehaviour:
   MaxBrushValue: 100
   sizeModificator: 0
   GoodIndicator: {fileID: 2100000, guid: c6e320b0eb4826d4e88969a967bfec2d, type: 2}
-  BadIndicator: {fileID: 0}
+  BadIndicator: {fileID: 2100000, guid: 79185ed6c6bccc843ba87a179d18b03a, type: 2}
   Terrain: {fileID: 0}
