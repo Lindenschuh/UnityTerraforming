@@ -1,38 +1,50 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System;
+using System.Collections;
 using UnityEngine;
-using UnityEngine.AI;
 
-public class EnemyWalking : MonoBehaviour
+namespace Script.Enemy
 {
-    public Transform Destination;
-    public float moveSpeed = 6;
-
-    private Rigidbody _rigidbody;
-    private Vector3 _velocity;
-
-    private void Awake()
+    public class EnemyWalking : MonoBehaviour
     {
-        _rigidbody = GetComponent<Rigidbody>();
-    }
+        public Transform Destination;
+        public float MoveSpeed = 6;
 
-    // Update is called once per frame
-    private void Update()
-    {
-        // Calculate Direction
-        var heading = (Destination.position - transform.position).normalized;
-        Debug.DrawLine(transform.position, transform.position + heading * 10);
-        // Walk Times Enemy Walking Speed
-        // Walk
-    }
+        private Rigidbody _rigidbody;
+        private Vector3 _velocity;
+        private bool _playerInSight;
 
-    private void FixedUpdate()
-    {
-        var horiz = Input.GetAxis("Horizontal");
-        var vert = Input.GetAxis("Vertical");
+        private void Awake()
+        {
+            _rigidbody = GetComponent<Rigidbody>();
+            _playerInSight = false;
 
-        _velocity = new Vector3(horiz, 0, vert) * moveSpeed;
+        }
 
-        _rigidbody.MovePosition(_rigidbody.position + _velocity * Time.fixedDeltaTime);
+        private void Update()
+        {
+            
+            // TODO: Player Interaction,
+            // TODO: Think of logic if enemy reaches Destination (Game Master Script?)
+            // TODO: Obsticle avoidence
+            // TODO: Methods for checking (Coroutines)
+            // TODO: What happens if the Enemy comes to anoter height?
+            
+             var destination = (Destination.position - transform.position).normalized;
+            
+            if (_playerInSight)
+            {
+                // Set the destination from the Player to the Destination of the Enemy
+            }
+            
+            Debug.DrawLine(transform.position, transform.position + destination * 5);
+            _velocity = destination * MoveSpeed;
+            Debug.Log(_velocity);
+        }
+
+        private void FixedUpdate()
+        {
+            _rigidbody.MovePosition(_rigidbody.position + _velocity * Time.fixedDeltaTime);
+        }
+
     }
 }
