@@ -1,29 +1,303 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.UI;
+using System.Linq;
+using UnityEngine.SceneManagement;
 
-public class NetworkManager : MonoBehaviour {
+public class NetworkManager : Photon.PunBehaviour
+{
 
-    const string VERSION = "0.0.1";
-    public string roomName = "UnityTerraforming";
+    #region Public Variables
 
-    public string playerPrefabName = "Priest";
-    public Transform spawnPoint;
+    // pun standard settings
+    public PhotonLogLevel Loglevel = PhotonLogLevel.Informational;
+    public byte MaxPlayersPerRoom = 2;
 
-	void Start () {
-        PhotonNetwork.ConnectUsingSettings(VERSION);
-	}
 
-    void OnJoinedLobby()
+
+    // Menu panels
+    public GameObject mainMenuPanel;
+    public GameObject lobbyPanel;
+    public GameObject roomPanel;
+
+
+    // stuff to create tables
+    public GridLayoutGroup roomGridLayout;
+    public Button joinButton;
+    public Text gameName;
+    public Text playerCount;
+    public Text gameType;
+
+    public GridLayoutGroup playerGridLayout;
+    public Text playerName;
+    public Dropdown playerRole;
+    public Dropdown playerTeam;
+    public Toggle playerReady;
+
+
+    #endregion
+
+
+    #region Private Variables
+
+    const string _gameVersion = "0.0.1";
+    public Dictionary<RoomInfo, LobbyGui> lobby;
+    public Dictionary<RoomInfo, List<RoomGui>> rooms;
+
+    #endregion
+
+    #region MonoBehaviour CallBacks
+
+    private void Awake()
     {
-        RoomOptions roomOptions = new RoomOptions();
-        roomOptions.IsVisible = false;
-        roomOptions.MaxPlayers = 4;
-        PhotonNetwork.JoinOrCreateRoom(roomName, roomOptions, TypedLobby.Default);
+        PhotonNetwork.autoJoinLobby = false;
+        PhotonNetwork.automaticallySyncScene = true;
+        PhotonNetwork.logLevel = Loglevel;
+        lobby = new Dictionary<RoomInfo, LobbyGui>();
+        rooms = new Dictionary<RoomInfo, List<RoomGui>>();
+
     }
 
-    void OnJoinedRoom()
+    void Start()
     {
-        PhotonNetwork.Instantiate(playerPrefabName, spawnPoint.position, spawnPoint.rotation, 0);
+        lobbyPanel.SetActive(false);
+        mainMenuPanel.SetActive(true);
     }
+
+    #endregion
+
+    #region Photon.PunBehaviour CallBacks
+
+    public override void OnConnectedToMaster()
+    {
+        Debug.LogWarning("Join Lobby");
+        PhotonNetwork.JoinLobby();
+    }
+
+    public override void OnDisconnectedFromPhoton()
+    {
+        lobbyPanel.SetActive(false);
+        mainMenuPanel.SetActive(true);
+        Debug.LogWarning("OnDisconnectedFromPhoton() was called by PUN");
+    }
+
+    public override void OnJoinedRoom()
+    {
+        lobbyPanel.SetActive(false);
+        roomPanel.SetActive(true);
+        string playerName = "Name";
+        int playerID = PhotonNetwork.player.ID;
+        photonView.RPC("RPCUpdateRoom", PhotonTargets.AllBufferedViaServer, playerName, playerID);
+    }
+
+    public override void OnLeftRoom()
+    {
+        roomPanel.SetActive(false);
+        lobbyPanel.SetActive(true);
+    }
+
+    public override void OnReceivedRoomListUpdate()
+    {
+        Debug.LogWarning("OnReceivedRoomListUpdate");
+        CheckForNewLobbyEntries();
+        CheckForOldLobbyEntries();
+    }
+
+    #endregion
+
+    #region Helper Methods
+
+    public void Connect()
+    {
+        lobbyPanel.SetActive(true);
+        mainMenuPanel.SetActive(false);
+        if (!PhotonNetwork.connected)
+            PhotonNetwork.ConnectUsingSettings(_gameVersion);
+    }
+
+    public void Disconnect()
+    {
+        PhotonNetwork.Disconnect();
+    }
+
+    public void CreateNewRoom()
+    {
+        PhotonNetwork.CreateRoom(null, new RoomOptions() { MaxPlayers = MaxPlayersPerRoom }, null);
+        lobbyPanel.SetActive(false);
+        roomPanel.SetActive(true);
+    }
+
+    public static void JoinRoom(string roomName)
+    {
+        Debug.LogWarning(roomName);
+        PhotonNetwork.JoinRoom(roomName);
+    }
+
+    public void LeaveRoom()
+    {
+        PhotonNetwork.LeaveRoom();
+    }
+
+    public void ChangeMaxNumberOfUsersInRoom()
+    {
+
+    }
+
+
+    private void CheckForNewLobbyEntries()
+    {
+        foreach (RoomInfo element in PhotonNetwork.GetRoomList())
+        {
+            LobbyGui lobbyGui;
+            if (!lobby.Keys.Contains(element))
+            {
+                lobbyGui = new LobbyGui(joinButton, gameName, playerCount, gameType);
+                lobbyGui.joinButtonAddListener(element.Name);
+                lobby.Add(element, lobbyGui);
+            }
+
+            foreach (RoomInfo roomInfo in lobby.Keys)
+            {
+                if (roomInfo.Equals(element))
+                {
+                    lobby.TryGetValue(roomInfo, out lobbyGui);
+                    lobbyGui.updateValues(element);
+                    lobbyGui.attachToParent(roomGridLayout);
+                    break;
+                }
+            }
+        }
+    }
+
+    private void CheckForOldLobbyEntries()
+    {
+        List<RoomInfo> oldRooms = new List<RoomInfo>();
+        foreach (RoomInfo roomInfo in lobby.Keys)
+        {
+            if(!PhotonNetwork.GetRoomList().Contains(roomInfo))
+            {
+                oldRooms.Add(roomInfo);
+            }
+        }
+
+        foreach (RoomInfo roomInfo in oldRooms)
+        {
+            lobby[roomInfo].destroyComponents();
+            lobby.Remove(roomInfo);
+        }
+    }
+
+    public void CheckForGameStart()
+    {
+        byte roleCounter = 0;
+        List<RoomGui> roomGuis = rooms[PhotonNetwork.room];
+        foreach (RoomGui roomGui in roomGuis)
+        {
+            if (roomGui.playerReady.isOn)
+            {
+                if (roomGui.playerRole.value == 1)
+                    roleCounter++;
+                else if (roomGui.playerRole.value == 2)
+                    roleCounter--;
+            }
+            else
+            {
+                roleCounter = 1;
+                break;
+            }
+        }
+
+        if (roleCounter == 0)
+        {
+            string levelName = "Lars";
+            photonView.RPC("RPCStartGame", PhotonTargets.AllBufferedViaServer, levelName);
+        }
+    }
+
+    public void ChangePlayerRole(Dropdown pPlayerRole, int pPlayerID)
+    {
+        int roleValue = pPlayerRole.value;
+        photonView.RPC("RPCChangePlayerRole", PhotonTargets.OthersBuffered, roleValue, pPlayerID);
+    }
+    private void ChangePlayerTeam(Dropdown pPlayerTeam, int pPlayerID)
+    {
+        int teamValue = pPlayerTeam.value;
+        Debug.LogWarning("playerTeam_:" + teamValue);
+        photonView.RPC("RPCChangePlayerTeam", PhotonTargets.OthersBuffered, teamValue, pPlayerID);
+    }
+
+    private void ChangePlayerReady(bool pReadyValue, int pPlayerID)
+    {
+        photonView.RPC("RPCChangePlayerReady", PhotonTargets.OthersBuffered, pReadyValue, pPlayerID);
+    }
+
+
+
+    #endregion
+
+    #region PunRPC
+
+    [PunRPC]
+    private void RPCUpdateRoom(string pPlayerName, int pPlayerID)
+    {
+        if (!rooms.ContainsKey(PhotonNetwork.room))
+        {
+            rooms.Add(PhotonNetwork.room, new List<RoomGui>());
+        }
+        RoomGui roomGui = new RoomGui(playerName, playerRole, playerTeam, playerReady, pPlayerID);
+        roomGui.playerName.text = pPlayerName;
+        roomGui.playerRole.onValueChanged.AddListener(delegate { ChangePlayerRole(playerRole, pPlayerID); });
+        roomGui.playerTeam.onValueChanged.AddListener(delegate { ChangePlayerTeam(playerTeam, pPlayerID); });
+        roomGui.playerReady.onValueChanged.AddListener(delegate { ChangePlayerReady(playerReady, pPlayerID); });
+        List<RoomGui> roomGuiList = rooms[PhotonNetwork.room];
+        roomGuiList.Add(roomGui);
+        roomGui.attachToParent(playerGridLayout);
+    }
+
+    [PunRPC]
+    private void RPCChangePlayerRole(int pRoleValue, int pPlayerID)
+    {
+        foreach (RoomGui roomGui in rooms[PhotonNetwork.room])
+        {
+            if (roomGui.playerID == pPlayerID)
+            {
+                roomGui.playerRole.value = pRoleValue;
+            }
+        }
+    }
+
+    [PunRPC]
+    private void RPCChangePlayerTeam(int pTeamValue, int pPlayerID)
+    {
+        foreach (RoomGui roomGui in rooms[PhotonNetwork.room])
+        {
+            if (roomGui.playerID == pPlayerID)
+            {
+                roomGui.playerTeam.value = pTeamValue;
+            }
+        }
+    }
+
+    [PunRPC]
+    private void RPCChangePlayerReady(bool pReadyValue, int pPlayerID)
+    {
+        foreach (RoomGui roomGui in rooms[PhotonNetwork.room])
+        {
+            if (roomGui.playerID == pPlayerID)
+            {
+                roomGui.playerReady.isOn = pReadyValue;
+            }
+        }
+    }
+
+
+    [PunRPC]
+    private void RPCStartGame(string pLevelName)
+    {
+        SceneManager.LoadScene(pLevelName);
+    }
+
+    #endregion
 }
