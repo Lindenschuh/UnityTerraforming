@@ -27,7 +27,7 @@ public class SmoothRoundBrush : Brush
                 else if (distance <= (radius * radius))
                 {
                     float smoothing = (quaterRadius2 * 3f - (distance - quaterRadius2)) / (quaterRadius2 * 3f);
-                    ret[y, x] += Value * smoothing;
+                    ret[y, x] += Value * smoothing * sizeModificator;
                 }
             }
         }
@@ -58,7 +58,7 @@ public class SmoothRoundBrush : Brush
                 else if (distance <= (radius * radius))
                 {
                     float smoothing = (quaterRadius2 * 3f - (distance - quaterRadius2)) / (quaterRadius2 * 3f);
-                    ret[y, x] -= Value * smoothing;
+                    ret[y, x] -= Value * smoothing * sizeModificator;
                 }
             }
         }
@@ -72,6 +72,7 @@ public class SmoothRoundBrush : Brush
         {
             HoverIndicator = GameObject.CreatePrimitive(PrimitiveType.Sphere);
             HoverIndicator.GetComponent<Renderer>().material = GoodIndicator;
+            HoverIndicator.transform.parent = transform;
             HoverIndicator.SetActive(false);
         }
         HoverIndicator.transform.localScale = new Vector3(BrushWidth, .5f, BrushHeight);

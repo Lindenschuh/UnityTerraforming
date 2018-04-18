@@ -101,6 +101,7 @@ public abstract class Brush : MonoBehaviour
         {
             HoverIndicator = GameObject.CreatePrimitive(PrimitiveType.Cube);
             HoverIndicator.GetComponent<Renderer>().material = GoodIndicator;
+            HoverIndicator.transform.parent = transform;
             HoverIndicator.SetActive(false);
         }
         HoverIndicator.transform.localScale = new Vector3(BrushWidth, .5f, BrushHeight);

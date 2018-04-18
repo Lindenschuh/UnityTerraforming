@@ -55,6 +55,7 @@ public class RoundBrush : Brush
         {
             HoverIndicator = GameObject.CreatePrimitive(PrimitiveType.Sphere);
             HoverIndicator.GetComponent<Renderer>().material = GoodIndicator;
+            HoverIndicator.transform.parent = transform;
             HoverIndicator.SetActive(false);
         }
         HoverIndicator.transform.localScale = new Vector3(BrushWidth, .5f, BrushHeight);
