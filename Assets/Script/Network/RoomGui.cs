@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-[Serializable]
 public class RoomGui : Photon.PunBehaviour {
 
     public Text playerName;
@@ -32,6 +30,18 @@ public class RoomGui : Photon.PunBehaviour {
         playerRole.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
         playerTeam.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
         playerReady.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+    }
+
+    public void destroyComponents()
+    {
+        playerName.transform.SetParent(null);
+        Destroy(playerName);
+        playerRole.transform.SetParent(null);
+        Destroy(playerRole);
+        playerTeam.transform.SetParent(null);
+        Destroy(playerTeam);
+        playerReady.transform.SetParent(null);
+        Destroy(playerReady);
     }
 
 }

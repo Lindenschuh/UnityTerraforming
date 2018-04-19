@@ -138,6 +138,13 @@ public class NetworkManager : Photon.PunBehaviour
 
     public void LeaveRoom()
     {
+        foreach (RoomGui roomGui in rooms[PhotonNetwork.room])
+        {
+            roomGui.destroyComponents();
+        }
+        rooms.Clear();
+
+        photonView.RPC("RPCLeaveRoom", PhotonTargets.Others, PhotonNetwork.player.ID);
         PhotonNetwork.LeaveRoom();
     }
 
@@ -301,6 +308,23 @@ public class NetworkManager : Photon.PunBehaviour
     private void RPCStartGame(string pLevelName)
     {
         SceneManager.LoadScene(pLevelName);
+    }
+
+    [PunRPC]
+    private void RPCLeaveRoom(int pPlayerID)
+    {
+        RoomGui roomGuiTmp = null;
+        foreach (RoomGui roomGui in rooms[PhotonNetwork.room])
+        {
+            if (roomGui.playerID == pPlayerID)
+            {
+                roomGuiTmp = roomGui;
+                roomGui.destroyComponents();
+                break;
+            }
+        }
+        Debug.LogWarning("Roomgui:" + roomGuiTmp.playerID);
+        rooms[PhotonNetwork.room].Remove(roomGuiTmp);
     }
 
     #endregion

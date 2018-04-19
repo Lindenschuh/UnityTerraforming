@@ -44,4 +44,5 @@ MonoBehaviour:
   - RPCChangePlayerTeam
   - RPCStartGame
   - RPCUpdateRoom
+  - RPCLeaveRoom
   DisableAutoOpenWizard: 1
