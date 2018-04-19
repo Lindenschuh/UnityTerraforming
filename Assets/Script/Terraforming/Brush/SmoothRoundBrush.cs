@@ -66,6 +66,25 @@ public class SmoothRoundBrush : Brush
         return ret;
     }
 
+    protected override bool IsAreaFree(Vector3 destination)
+    {
+        Collider[] colls = Physics.OverlapSphere(destination, BrushWidth / 2);
+
+        foreach (Collider col in colls)
+        {
+            if (col.gameObject == Terrain.gameObject)
+                continue;
+
+            if (col.GetComponent<Rigidbody>() == null)
+                return false;
+
+            if (col.GetComponent<Rigidbody>().isKinematic)
+                return false;
+        }
+
+        return true;
+    }
+
     protected override void MakeIndicator()
     {
         if (HoverIndicator == null)

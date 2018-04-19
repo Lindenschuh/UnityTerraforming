@@ -1,9 +1,13 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RoundBrush : Brush
+public class EaseBrush : Brush
 {
+    public EaseFunctions Ease;
+    private Func<float, float, float, float> EasingFunction;
+
     public override float[,] CalculateBrushUp(float[,] currentBrushValues)
     {
         float[,] ret = currentBrushValues;
@@ -20,7 +24,7 @@ public class RoundBrush : Brush
                 float distance = ((x - midX) * (x - midX) + (y - midY) * (y - midY));
                 if (distance <= radius * radius)
                 {
-                    ret[y, x] = Mathf.Lerp(ret[y, x], ret[y, x] + Value * sizeModificator, ((radius * radius) - distance) / (radius * radius));
+                    ret[y, x] = EasingFunction(ret[y, x], ret[y, x] + Value * sizeModificator, ((radius * radius) - distance) / (radius * radius));
                 }
             }
         }
@@ -43,7 +47,7 @@ public class RoundBrush : Brush
                 float distance = ((x - midX) * (x - midX) + (y - midY) * (y - midY));
                 if (distance <= radius * radius)
                 {
-                    ret[y, x] = Mathf.Lerp(ret[y, x], ret[y, x] - Value * sizeModificator, ((radius * radius) - distance) / (radius * radius));
+                    ret[y, x] = EasingFunction(ret[y, x], ret[y, x] - Value * sizeModificator, ((radius * radius) - distance) / (radius * radius));
                 }
             }
         }
@@ -80,5 +84,6 @@ public class RoundBrush : Brush
             HoverIndicator.SetActive(false);
         }
         HoverIndicator.transform.localScale = new Vector3(BrushWidth, .5f, BrushHeight);
+        EasingFunction = TerraMath.GetEaseFunction(Ease);
     }
 }

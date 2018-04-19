@@ -66,7 +66,7 @@ public abstract class Brush : MonoBehaviour
         }
     }
 
-    private bool IsAreaFree(Vector3 destination)
+    protected virtual bool IsAreaFree(Vector3 destination)
     {
         RaycastHit[] hits;
         hits = Physics.BoxCastAll(destination, new Vector3(BrushWidth / 2f, 5f, BrushHeight / 2f), Vector3.one);
