@@ -4,6 +4,7 @@ using UnityEngine;
 
 namespace Script.Enemy
 {
+    [RequireComponent(typeof(Rigidbody))]
     public class EnemyWalking : MonoBehaviour
     {
         public Transform Destination;
@@ -17,34 +18,30 @@ namespace Script.Enemy
         {
             _rigidbody = GetComponent<Rigidbody>();
             _playerInSight = false;
-
         }
 
         private void Update()
         {
-            
             // TODO: Player Interaction,
             // TODO: Think of logic if enemy reaches Destination (Game Master Script?)
             // TODO: Obsticle avoidence
             // TODO: Methods for checking (Coroutines)
             // TODO: What happens if the Enemy comes to anoter height?
-            
-             var destination = (Destination.position - transform.position).normalized;
-            
+
+            var destination = (Destination.position - transform.position).normalized;
+
             if (_playerInSight)
             {
                 // Set the destination from the Player to the Destination of the Enemy
             }
-            
+
             Debug.DrawLine(transform.position, transform.position + destination * 5);
-            _velocity = destination * MoveSpeed;
-            Debug.Log(_velocity);
+            _velocity = new Vector3(destination.x * MoveSpeed, 0, destination.z * MoveSpeed);
         }
 
         private void FixedUpdate()
         {
             _rigidbody.MovePosition(_rigidbody.position + _velocity * Time.fixedDeltaTime);
         }
-
     }
 }
