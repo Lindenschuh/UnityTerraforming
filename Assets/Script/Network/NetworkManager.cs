@@ -98,6 +98,7 @@ public class NetworkManager : Photon.PunBehaviour
         lobbyPanel.SetActive(true);
     }
 
+
     public override void OnReceivedRoomListUpdate()
     {
         Debug.LogWarning("OnReceivedRoomListUpdate");
@@ -216,21 +217,18 @@ public class NetworkManager : Photon.PunBehaviour
         }
     }
 
-    public void ChangePlayerRole(Dropdown pPlayerRole, int pPlayerID)
+    public void ChangePlayerRole(int pPlayerRoleValue, int pPlayerID)
     {
-        int roleValue = pPlayerRole.value;
-        photonView.RPC("RPCChangePlayerRole", PhotonTargets.OthersBuffered, roleValue, pPlayerID);
+        photonView.RPC("RPCChangePlayerRole", PhotonTargets.OthersBuffered, pPlayerRoleValue, pPlayerID);
     }
-    private void ChangePlayerTeam(Dropdown pPlayerTeam, int pPlayerID)
+    private void ChangePlayerTeam(int pPlayerTeamValue, int pPlayerID)
     {
-        int teamValue = pPlayerTeam.value;
-        Debug.LogWarning("playerTeam_:" + teamValue);
-        photonView.RPC("RPCChangePlayerTeam", PhotonTargets.OthersBuffered, teamValue, pPlayerID);
+        photonView.RPC("RPCChangePlayerTeam", PhotonTargets.OthersBuffered, pPlayerTeamValue, pPlayerID);
     }
 
-    private void ChangePlayerReady(bool pReadyValue, int pPlayerID)
+    private void ChangePlayerReady(bool pPlayerReadyValue, int pPlayerID)
     {
-        photonView.RPC("RPCChangePlayerReady", PhotonTargets.OthersBuffered, pReadyValue, pPlayerID);
+        photonView.RPC("RPCChangePlayerReady", PhotonTargets.OthersBuffered, pPlayerReadyValue, pPlayerID);
     }
 
 
@@ -248,12 +246,18 @@ public class NetworkManager : Photon.PunBehaviour
         }
         RoomGui roomGui = new RoomGui(playerName, playerRole, playerTeam, playerReady, pPlayerID);
         roomGui.playerName.text = pPlayerName;
-        roomGui.playerRole.onValueChanged.AddListener(delegate { ChangePlayerRole(playerRole, pPlayerID); });
-        roomGui.playerTeam.onValueChanged.AddListener(delegate { ChangePlayerTeam(playerTeam, pPlayerID); });
-        roomGui.playerReady.onValueChanged.AddListener(delegate { ChangePlayerReady(playerReady, pPlayerID); });
+        roomGui.playerRole.onValueChanged.AddListener(delegate { ChangePlayerRole(roomGui.playerRole.value, pPlayerID); });
+        roomGui.playerTeam.onValueChanged.AddListener(delegate { ChangePlayerTeam(roomGui.playerTeam.value, pPlayerID); });
+        roomGui.playerReady.onValueChanged.AddListener(delegate { ChangePlayerReady(roomGui.playerReady.isOn, pPlayerID); });
         List<RoomGui> roomGuiList = rooms[PhotonNetwork.room];
         roomGuiList.Add(roomGui);
         roomGui.attachToParent(playerGridLayout);
+        if (PhotonNetwork.player.ID != pPlayerID)
+        {
+            roomGui.playerRole.interactable = false;
+            roomGui.playerTeam.interactable = false;
+            roomGui.playerReady.interactable = false;
+        }
     }
 
     [PunRPC]
