@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657844, g: 0.49641222, b: 0.57481694, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -132,8 +132,10 @@ MonoBehaviour:
     type: 2}
   transparentSquare: {fileID: 4539895013043266, guid: 9afa3461422adda4f8f555b7ada5cdf9,
     type: 2}
+  normalWall: {fileID: 4893787972531802, guid: 3f368718f1c39cc4a9b4a766d3a3cf68, type: 2}
+  transparentWall: {fileID: 4630201776185976, guid: 5f8367ab501e67742a5c7ed1b316bcb1,
+    type: 2}
   map: {fileID: 0}
-  grid: {fileID: 0}
   maxRay: 8
   gridSize: 4
 --- !u!1001 &272037952
@@ -149,7 +151,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 469886, guid: ee2d107a34692a64e95ce85aed5e41f0, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 0.62
       objectReference: {fileID: 0}
     - target: {fileID: 469886, guid: ee2d107a34692a64e95ce85aed5e41f0, type: 2}
       propertyPath: m_LocalPosition.z
@@ -629,7 +631,7 @@ Light:
   serializedVersion: 8
   m_Type: 1
   m_Color: {r: 1, g: 0.95686275, b: 0.8392157, a: 1}
-  m_Intensity: 1
+  m_Intensity: 0.55
   m_Range: 10
   m_SpotAngle: 30
   m_CookieSize: 10
@@ -662,7 +664,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 965237756}
   m_LocalRotation: {x: 0.40821788, y: -0.23456968, z: 0.10938163, w: 0.8754261}
-  m_LocalPosition: {x: 0, y: 3, z: 0}
+  m_LocalPosition: {x: 2.44, y: 12.06, z: -4.21}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -788,7 +790,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1355753650}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0.11}
+  m_LocalPosition: {x: 0, y: -0.5, z: 0.11}
   m_LocalScale: {x: 28.313765, y: 1, z: 28.285471}
   m_Children: []
   m_Father: {fileID: 0}
