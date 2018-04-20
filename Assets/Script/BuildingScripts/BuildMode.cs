@@ -7,12 +7,15 @@ public class BuildMode : MonoBehaviour {
     {
             buildModeOff,
             buildModeGround,
-            buildModeWall
+            buildModeWall,
+            buildModeRamp
     }
     public Transform normalSquare;
     public Transform transparentSquare;
     public Transform normalWall;
     public Transform transparentWall;
+    public Transform normalRamp;
+    public Transform transparentRamp;
     public Transform map;
     public float maxRay;
     public float gridSize;
@@ -32,6 +35,12 @@ public class BuildMode : MonoBehaviour {
         isBuildModeActive = false;
         tpCamera = FindObjectOfType<vThirdPersonCamera>();
         presentBuildMode = buildMode.buildModeOff;
+        float scaleX = normalWall.localScale.x;
+        float scaleZ = normalWall.localScale.z;
+        float scaleY = Mathf.Sqrt(normalWall.localScale.y * normalWall.localScale.y + normalWall.localScale.z * normalWall.localScale.z);
+
+        normalRamp.localScale = new Vector3(scaleX, scaleY, scaleZ);
+        transparentRamp.localScale = new Vector3(scaleX, scaleY, scaleZ);
     }
 	
 	// Update is called once per frame
@@ -57,6 +66,15 @@ public class BuildMode : MonoBehaviour {
             }
             square = Instantiate(transparentWall, position, Quaternion.identity);
         }
+        if (Input.GetKeyUp(KeyCode.X))
+        {
+            isBuildModeActive = true;
+            presentBuildMode = buildMode.buildModeRamp;
+
+            if (square != null) Destroy(square.gameObject);
+            square = Instantiate(transparentRamp, position, Quaternion.identity);
+
+        }
         if (isBuildModeActive)
         {
             RaycastHit hit;
@@ -80,7 +98,7 @@ public class BuildMode : MonoBehaviour {
                     square.position = finalPos;
              }
             }
-            if (Input.GetKeyUp(KeyCode.Mouse0))
+            if (Input.GetKeyUp(KeyCode.Mouse0) && position != null)
             {
                 switch (presentBuildMode)
                 {
@@ -90,16 +108,13 @@ public class BuildMode : MonoBehaviour {
                     case buildMode.buildModeWall:
                         Instantiate(normalWall, position, square.rotation);
                         return;
+                    case buildMode.buildModeRamp:
+                        Instantiate(normalRamp, position, square.rotation);
+                        return;
                     default:
                         return;
 
                 }
-                
-                    
-
-                        
-                
-                
             }
         }      
 	}
@@ -123,18 +138,38 @@ public class BuildMode : MonoBehaviour {
 
         var rotation = tpCamera.transform.rotation.eulerAngles;
         rotation.x = 0;
-        rotation.y = Mathf.Round(rotation.y / 90) * 90;
+        rotation.y = Mathf.Round(rotation.y / 90) * 90 - 90;
         rotation.z = 0;
-        square.rotation = Quaternion.Euler(rotation.x, rotation.y, rotation.z);
+        
         if (presentBuildMode == buildMode.buildModeWall)
         {
-            snapPointX += halfGridSize;
+            
+            if (Mathf.Abs(rotation.y) == 90 || Mathf.Abs(rotation.y) == 270 )
+            {
+                snapPointZ += halfGridSize;
+            }else snapPointX += halfGridSize;
+
             snapPointY += halfGridSize;
             //snapPointZ += halfGridSize;
         }
-        Debug.Log("hitpoint x:" + hitPoint.x + " hitpoint z: " + hitPoint.z + " snappoint x:" + snapPointX + " snappoint z:" + snapPointZ + " mod x:" + (gridSize - hitPoint.x) % gridSize);
+
+        if(presentBuildMode == buildMode.buildModeRamp)
+        {
+            if (Mathf.Abs(rotation.y) == 90 || Mathf.Abs(rotation.y) == 270)
+            {
+                rotation.z = -45;
+                //snapPointZ -= halfGridSize;
+            }
+            else
+            {
+                rotation.z = -45;
+                //snapPointX -= halfGridSize;
+            }
+            snapPointY += halfGridSize;
+        }
+        square.rotation = Quaternion.Euler(rotation.x, rotation.y, rotation.z);
         Vector3 gridPosition = new Vector3(snapPointX, snapPointY, snapPointZ);
-        Debug.Log("grid position:" + gridPosition);
+
         return gridPosition;
             
         
