@@ -6,7 +6,7 @@ public class BrushSwitch : MonoBehaviour
 {
     private List<Brush> AllBrushes = new List<Brush>();
     public List<KeyCode> AllKeys = new List<KeyCode>();
-    private Brush CurrentActive;
+    public Brush CurrentActive;
 
     // Use this for initialization
     private void Start()

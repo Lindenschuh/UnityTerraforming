@@ -8,9 +8,13 @@ public class TerraManipulation : MonoBehaviour
 {
     public LayerMask TerrainLayer;
     public Camera MainCamera;
+    public BrushSwitch BrushSwitcher;
 
     private Terrain Terra;
     private TerrainData TData;
+
+    private Vector3 lastRelative;
+    private Vector2Int lastImpact;
 
     // Use this for initialization
     private void Start()
@@ -20,9 +24,22 @@ public class TerraManipulation : MonoBehaviour
         ResetTerrain();
     }
 
-    public void ChangeTerrain(int basisX, int basisY, int width, int height, Func<float[,], float[,]> brushFunction)
+    private void LiftTerrain(int basisX, int basisY, int width, int height)
     {
         //Bound check
+        CheckBounds(ref basisX, ref basisY, ref width, ref height);
+        TData.SetHeights(basisX, basisY, BrushSwitcher.CurrentActive.CalculateBrushUp(TData.GetHeights(basisX, basisY, width, height)));
+    }
+
+    private void LowerTerrain(int basisX, int basisY, int width, int height)
+    {
+        //Bound check
+        CheckBounds(ref basisX, ref basisY, ref width, ref height);
+        TData.SetHeights(basisX, basisY, BrushSwitcher.CurrentActive.CalculateBrushUp(TData.GetHeights(basisX, basisY, width, height)));
+    }
+
+    private void CheckBounds(ref int basisX, ref int basisY, ref int width, ref int height)
+    {
         if (basisX < 0)
         {
             width += basisX;
@@ -44,13 +61,29 @@ public class TerraManipulation : MonoBehaviour
         {
             height = height - ((basisY + height) - TData.heightmapHeight);
         }
-
-        TData.SetHeights(basisX, basisY, brushFunction(TData.GetHeights(basisX, basisY, width, height)));
     }
 
-    public bool CalculateInpactPoint(Vector3 mousePos, out Vector3 relativePoint, out Vector2 mouseImpact)
+    private void FixedUpdate()
     {
-        mouseImpact = new Vector2();
+        if (CalculateInpactPoint(Input.mousePosition, out lastRelative, out lastImpact))
+        {
+            if (BrushSwitcher.CurrentActive.IsAreaFree(lastRelative))
+            {
+                if (Input.GetMouseButton(0))
+                {
+                    LiftTerrain(lastImpact.x, lastImpact.y, BrushSwitcher.CurrentActive.BrushWidth, BrushSwitcher.CurrentActive.BrushHeight);
+                }
+                if (Input.GetMouseButton(1))
+                {
+                    LowerTerrain(lastImpact.x, lastImpact.y, BrushSwitcher.CurrentActive.BrushWidth, BrushSwitcher.CurrentActive.BrushHeight);
+                }
+            }
+        }
+    }
+
+    public bool CalculateInpactPoint(Vector3 mousePos, out Vector3 relativePoint, out Vector2Int mouseImpact)
+    {
+        mouseImpact = new Vector2Int();
         relativePoint = new Vector3();
         RaycastHit hit;
         Ray ray = MainCamera.ScreenPointToRay(mousePos);
@@ -61,8 +94,8 @@ public class TerraManipulation : MonoBehaviour
             Vector3 normalizedTerrainCoords = new Vector3(relativePoint.x / TData.size.x, relativePoint.y / TData.size.y, relativePoint.z / TData.size.z);
             int TerrainSpaceX = (int)(normalizedTerrainCoords.x * TData.heightmapWidth);
             int TerrainSpaceY = (int)(normalizedTerrainCoords.z * TData.heightmapHeight);
-            mouseImpact.x = TerrainSpaceX;
-            mouseImpact.y = TerrainSpaceY;
+            mouseImpact.x = TerrainSpaceX - BrushSwitcher.CurrentActive.BrushWidth / 2;
+            mouseImpact.y = TerrainSpaceY - BrushSwitcher.CurrentActive.BrushHeight / 2;
         }
         return hasHit;
     }

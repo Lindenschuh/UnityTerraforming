@@ -11,12 +11,8 @@ public abstract class Brush : MonoBehaviour
     public float sizeModificator;
     public Material GoodIndicator;
     public Material BadIndicator;
-    public TerraManipulation Terrain;
 
     protected GameObject HoverIndicator;
-
-    private Vector3 lastRelativePoint;
-    private Vector2 lastMouseImpactPoint;
 
     public abstract float[,] CalculateBrushUp(float[,] currentBrushValues);
 
@@ -30,32 +26,6 @@ public abstract class Brush : MonoBehaviour
 
     private void FixedUpdate()
     {
-        HoverIndicator.SetActive(false);
-        if (Terrain.CalculateInpactPoint(Input.mousePosition, out lastRelativePoint, out lastMouseImpactPoint))
-        {
-            if (IsAreaFree(lastRelativePoint))
-            {
-                Vector2 centeredImpact = new Vector2(lastMouseImpactPoint.x - BrushWidth / 2, lastMouseImpactPoint.y - BrushHeight / 2);
-                HoverIndicator.SetActive(true);
-                HoverIndicator.transform.position = lastRelativePoint;
-                HoverIndicator.GetComponent<Renderer>().material = GoodIndicator;
-                if (Input.GetKey(KeyCode.Mouse0))
-                {
-                    Terrain.ChangeTerrain((int)centeredImpact.x, (int)centeredImpact.y, BrushWidth, BrushHeight, CalculateBrushUp);
-                }
-
-                if (Input.GetKey(KeyCode.Mouse1))
-                {
-                    Terrain.ChangeTerrain((int)centeredImpact.x, (int)centeredImpact.y, BrushWidth, BrushHeight, CalculateBrushDown);
-                }
-            }
-            else
-            {
-                HoverIndicator.SetActive(true);
-                HoverIndicator.transform.position = lastRelativePoint;
-                HoverIndicator.GetComponent<Renderer>().material = BadIndicator;
-            }
-        }
         if (Input.GetKeyDown(KeyCode.PageUp))
         {
             ChangebrushSize(BrushWidth + 5, BrushHeight + 5);
@@ -66,24 +36,37 @@ public abstract class Brush : MonoBehaviour
         }
     }
 
-    protected virtual bool IsAreaFree(Vector3 destination)
+    public virtual bool IsAreaFree(Vector3 destination)
     {
         RaycastHit[] hits;
         hits = Physics.BoxCastAll(destination, new Vector3(BrushWidth / 2f, 5f, BrushHeight / 2f), Vector3.one);
 
         foreach (RaycastHit hit in hits)
         {
-            if (hit.collider.gameObject == Terrain.gameObject)
+            if (hit.collider.GetComponent<Terrain>() != null || hit.collider.gameObject == HoverIndicator)
                 continue;
 
             if (hit.rigidbody == null)
+            {
+                PlaceIndicator(false, destination);
                 return false;
+            }
 
             if (hit.rigidbody.isKinematic)
+            {
+                PlaceIndicator(false, destination);
                 return false;
+            }
         }
-
+        PlaceIndicator(true, destination);
         return true;
+    }
+
+    protected void PlaceIndicator(bool isFree, Vector3 destination)
+    {
+        HoverIndicator.SetActive(true);
+        HoverIndicator.transform.position = destination;
+        HoverIndicator.GetComponent<Renderer>().material = isFree ? GoodIndicator : BadIndicator;
     }
 
     public void ChangebrushSize(int width, int height)

@@ -51,22 +51,28 @@ public class RoundBrush : Brush
         return ret;
     }
 
-    protected override bool IsAreaFree(Vector3 destination)
+    public override bool IsAreaFree(Vector3 destination)
     {
         Collider[] colls = Physics.OverlapSphere(destination, BrushWidth / 2);
 
-        foreach (Collider col in colls)
+        foreach (Collider hit in colls)
         {
-            if (col.gameObject == Terrain.gameObject)
+            if (hit.GetComponent<Terrain>() != null || hit.gameObject == HoverIndicator)
                 continue;
 
-            if (col.GetComponent<Rigidbody>() == null)
+            if (hit.GetComponent<Rigidbody>() == null)
+            {
+                PlaceIndicator(false, destination);
                 return false;
+            }
 
-            if (col.GetComponent<Rigidbody>().isKinematic)
+            if (hit.GetComponent<Rigidbody>().isKinematic)
+            {
+                PlaceIndicator(false, destination);
                 return false;
+            }
         }
-
+        PlaceIndicator(true, destination);
         return true;
     }
 
