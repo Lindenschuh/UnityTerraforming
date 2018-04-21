@@ -13,7 +13,7 @@ public class SteeringBehaviour
 
     public Vector3 ApplySteering()
     {
-        _steering = Vector3.ClampMagnitude(_steering, _entity.MaxSpeed);
+        _steering = Vector3.ClampMagnitude(_steering, _entity.MaxForce);
         _steering /= _entity.Mass;
 
         var force = _steering;
