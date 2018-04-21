@@ -1,5 +1,4 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class SteeringBehaviour
 {
@@ -35,9 +34,9 @@ public class SteeringBehaviour
         _steering += DoFlee(targetPosition) * weight - _entity.Velocity;
     }
 
-    public void Wander(float wanderRadius, float weight = 1f)
+    public Vector3 NextWanderTarget(float wanderRadius, float weight = 1f)
     {
-        _steering += DoWander(wanderRadius) * weight - _entity.Velocity;
+        return FindNextWanderTarget(wanderRadius);
     }
 
     public void Evade(GameEntity target, float weight = 1f)
@@ -75,18 +74,24 @@ public class SteeringBehaviour
         return (targetPosition - _entity.transform.position).normalized * _entity.MaxVelocity;
     }
 
-    private Vector3 DoWander(float wanderRadius)
+    private Vector3 FindNextWanderTarget(float wanderRadius)
     {
-        return new Vector3();
+        return new Vector3(Random.Range(.1f, wanderRadius), _entity.Velocity.y, Random.Range(.1f, wanderRadius));
     }
 
-    public Vector3 DoEvade(GameEntity target)
+    private Vector3 DoEvade(GameEntity target)
     {
-        return DoFlee(target.transform.position);
+        var distance = target.transform.position - _entity.transform.position;
+        var updatedNeeded = distance.magnitude / _entity.MaxVelocity;
+        var futurePosition = target.transform.position + target.Velocity * updatedNeeded;
+        return DoFlee(futurePosition);
     }
 
     private Vector3 DoPersuit(GameEntity target)
     {
-        return DoSeek(target.transform.position);
+        var distance = target.transform.position - _entity.transform.position;
+        var updatesNeeded = distance.magnitude / _entity.MaxVelocity;
+        var futurePosition = target.transform.position + target.Velocity * updatesNeeded;
+        return DoSeek(futurePosition);
     }
 }
