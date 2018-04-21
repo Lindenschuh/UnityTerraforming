@@ -4,8 +4,13 @@ using UnityEngine;
 
 public class Spawner : MonoBehaviour
 {
+    private const float MIN_SPAWN_RATE_SLIDER = 1f;
+    private const float MAX_SPAWN_RATE_SLIDER = 5f;
+
     public GameEntity Prefab;
     public int MaxEntities;
+
+    [Range(MIN_SPAWN_RATE_SLIDER, MAX_SPAWN_RATE_SLIDER)]
     public float SpawnRate;
 
     // If WaveCount is 0 then there is no Wave Limit
@@ -13,13 +18,13 @@ public class Spawner : MonoBehaviour
 
     public float WaveMultiplier;
 
-    public Transform Destination;
+    public GameEntity Destination;
 
     private float _nextSpawnTime;
     private int _entitiyCount;
     private bool pausedSpawning;
 
-    public void Init(GameEntity prefab, Transform destination, int maxEntities = 10, float spawnRate = .5f, int waveCount = 0, float waveMultipier = 1f)
+    public void Init(GameEntity prefab, GameEntity destination, int maxEntities = 10, float spawnRate = .5f, int waveCount = 0, float waveMultipier = 1f)
     {
         Prefab = prefab;
         MaxEntities = maxEntities;

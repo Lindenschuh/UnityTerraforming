@@ -6,10 +6,10 @@ using UnityEngine;
 public abstract class GameEntity : MonoBehaviour
 {
     public float Mass { get { return _rigidbody.mass; } set { _rigidbody.mass = value; } }
-    public float MaxSpeed;
+    public float MaxVelocity;
     public float MaxForce;
     public float SlowingRadius;
-    public Transform Destination;
+    public GameEntity Destination;
     public Spawner Spawner;
 
     protected Rigidbody _rigidbody;
@@ -24,12 +24,12 @@ public abstract class GameEntity : MonoBehaviour
         _steeringBehaviour = new SteeringBehaviour(this);
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         CalculatePath();
-        var steering = _steeringBehaviour.ApplySteering();
+        var steering = _steeringBehaviour.UpdateSteering();
         _velocity += steering;
-        _velocity = Vector3.ClampMagnitude(_velocity, MaxSpeed);
+        _velocity = Vector3.ClampMagnitude(_velocity, MaxVelocity);
         _velocity = new Vector3(_velocity.x, 0, _velocity.z);
         _rigidbody.MovePosition(_rigidbody.position + _velocity * Time.fixedDeltaTime);
         if (_velocity != Vector3.zero)
@@ -42,12 +42,4 @@ public abstract class GameEntity : MonoBehaviour
     }
 
     public abstract void CalculatePath();
-
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.tag == "Destination")
-        {
-            Spawner.DestroyChild(this);
-        }
-    }
 }

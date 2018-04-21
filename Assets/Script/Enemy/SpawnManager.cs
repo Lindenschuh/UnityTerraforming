@@ -12,7 +12,7 @@ public class SpawnManager : MonoBehaviour
     public GameEntity[] BasePrefabs;
     public Spawner SpawnPrefab;
     public Transform Field;
-    public Transform MainDestination;
+    public GameEntity MainDestination;
 
     public int MaxEntityToSpawn;
 

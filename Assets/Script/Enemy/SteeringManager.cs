@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 public class SteeringBehaviour
 {
@@ -11,33 +12,81 @@ public class SteeringBehaviour
         _steering = new Vector3();
     }
 
-    public Vector3 ApplySteering()
+    public Vector3 UpdateSteering()
     {
         _steering = Vector3.ClampMagnitude(_steering, _entity.MaxForce);
         _steering /= _entity.Mass;
 
-        var force = _steering;
-        _steering = new Vector3();
-        return force;
+        return _steering;
     }
 
-    public void Seek()
+    public void ResetSteering()
     {
-        var desiredForce = _entity.Destination.position - _entity.transform.position;
+        _steering = new Vector3();
+    }
+
+    public void Seek(Vector3 targetPosition, float slowingRadius, float weight = 1f)
+    {
+        _steering += DoSeek(targetPosition, slowingRadius) * weight - _entity.Velocity;
+    }
+
+    public void Flee(Vector3 targetPosition, float weight = 1f)
+    {
+        _steering += DoFlee(targetPosition) * weight - _entity.Velocity;
+    }
+
+    public void Wander(float wanderRadius, float weight = 1f)
+    {
+        _steering += DoWander(wanderRadius) * weight - _entity.Velocity;
+    }
+
+    public void Evade(GameEntity target, float weight = 1f)
+    {
+        _steering += DoEvade(target) * weight - _entity.Velocity;
+    }
+
+    public void Persuit(GameEntity target, float weight = 1f)
+    {
+        _steering += DoPersuit(target) * weight - _entity.Velocity;
+    }
+
+    private Vector3 DoSeek(Vector3 targetPosition, float slowingRadius = 0f)
+    {
+        var desiredForce = targetPosition - _entity.transform.position;
 
         var distance = desiredForce.magnitude;
 
         desiredForce.Normalize();
 
-        if (distance <= _entity.SlowingRadius)
+        if (distance <= slowingRadius)
         {
-            desiredForce *= _entity.MaxSpeed * (distance / _entity.SlowingRadius);
+            desiredForce *= _entity.MaxVelocity * (distance / slowingRadius);
         }
         else
         {
-            desiredForce *= _entity.MaxSpeed;
+            desiredForce *= _entity.MaxVelocity;
         }
 
-        _steering += desiredForce - _entity.Velocity;
+        return desiredForce;
+    }
+
+    private Vector3 DoFlee(Vector3 targetPosition)
+    {
+        return (targetPosition - _entity.transform.position).normalized * _entity.MaxVelocity;
+    }
+
+    private Vector3 DoWander(float wanderRadius)
+    {
+        return new Vector3();
+    }
+
+    public Vector3 DoEvade(GameEntity target)
+    {
+        return DoFlee(target.transform.position);
+    }
+
+    private Vector3 DoPersuit(GameEntity target)
+    {
+        return DoSeek(target.transform.position);
     }
 }
