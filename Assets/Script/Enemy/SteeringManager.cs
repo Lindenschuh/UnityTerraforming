@@ -5,10 +5,13 @@ public class SteeringBehaviour
     private GameEntity _entity;
     private Vector3 _steering;
 
+    private float _wanderAngle;
+
     public SteeringBehaviour(GameEntity entity)
     {
         _entity = entity;
         _steering = new Vector3();
+        _wanderAngle = 0;
     }
 
     public Vector3 UpdateSteering()
@@ -34,9 +37,9 @@ public class SteeringBehaviour
         _steering += DoFlee(targetPosition) * weight - _entity.Velocity;
     }
 
-    public Vector3 NextWanderTarget(float wanderRadius, float weight = 1f)
+    public void Wander(float wanderDistance, float wanderRadius, float angleChange, float weight = 1f)
     {
-        return FindNextWanderTarget(wanderRadius);
+        _steering += DoWander(wanderDistance, wanderRadius, angleChange) * weight;
     }
 
     public void Evade(GameEntity target, float weight = 1f)
@@ -47,6 +50,11 @@ public class SteeringBehaviour
     public void Persuit(GameEntity target, float weight = 1f)
     {
         _steering += DoPersuit(target) * weight - _entity.Velocity;
+    }
+
+    public void Avoid(Vector3 avoidPoint, float avoidanceForce, float weight = 1f)
+    {
+        _steering += avoidPoint.normalized * avoidanceForce;
     }
 
     private Vector3 DoSeek(Vector3 targetPosition, float slowingRadius = 0f)
@@ -71,12 +79,17 @@ public class SteeringBehaviour
 
     private Vector3 DoFlee(Vector3 targetPosition)
     {
-        return (targetPosition - _entity.transform.position).normalized * _entity.MaxVelocity;
+        return -((targetPosition - _entity.transform.position).normalized * _entity.MaxVelocity);
     }
 
-    private Vector3 FindNextWanderTarget(float wanderRadius)
+    private Vector3 DoWander(float wanderDistance, float wanderRadius, float angleChange)
     {
-        return new Vector3(Random.Range(.1f, wanderRadius), _entity.Velocity.y, Random.Range(.1f, wanderRadius));
+        var circleCenter = _entity.Velocity.normalized * wanderDistance;
+        var displacement = new Vector3(Mathf.Cos(_wanderAngle) * wanderRadius, 0, Mathf.Sin(_wanderAngle) * wanderRadius);
+        _wanderAngle = Random.value * angleChange - angleChange * .5f;
+
+        circleCenter += displacement;
+        return circleCenter;
     }
 
     private Vector3 DoEvade(GameEntity target)
