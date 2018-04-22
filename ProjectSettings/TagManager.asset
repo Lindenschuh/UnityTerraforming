@@ -5,6 +5,8 @@ TagManager:
   serializedVersion: 2
   tags:
   - BuildSquare
+  - Peter
+  - Destination
   layers:
   - Default
   - TransparentFX
@@ -15,6 +17,9 @@ TagManager:
   - 
   - 
   - BuildComponent
+  - Terrain
+  - Player
+  - Destination
   - 
   - 
   - 
@@ -34,10 +39,7 @@ TagManager:
   - 
   - 
   - 
-  - 
-  - 
-  - 
-  - 
+  -  
   m_SortingLayers:
   - name: Default
     uniqueID: 0
