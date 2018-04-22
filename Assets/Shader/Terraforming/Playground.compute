@@ -1,0 +1,13 @@
+﻿// Each #kernel tells which function to compile; you can have many kernels
+#pragma kernel CSMain
+
+RWStructuredBuffer<float> Result;
+uint BufferSize;
+
+[numthreads(10, 10, 1)]
+void CSMain(uint2 id : SV_DispatchThreadID)
+{
+	int newID = id.x + id.y * ((BufferSize / 10) * 10);
+
+	Result[newID] = id.x;
+}

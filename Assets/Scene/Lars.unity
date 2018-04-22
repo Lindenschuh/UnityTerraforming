@@ -206,13 +206,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Value: 0.001
-  BrushWidth: 50
-  BrushHeight: 50
-  MaxBrushValue: 100
+  BrushWidth: 300
+  BrushHeight: 300
+  MaxBrushValue: 1000
   sizeModificator: 0
   GoodIndicator: {fileID: 2100000, guid: c6e320b0eb4826d4e88969a967bfec2d, type: 2}
   BadIndicator: {fileID: 2100000, guid: 79185ed6c6bccc843ba87a179d18b03a, type: 2}
   Ease: 2
+  CS: {fileID: 7200000, guid: b7435ba3a2a10354ba33f6825f8bffcf, type: 3}
 --- !u!1 &717264978
 GameObject:
   m_ObjectHideFlags: 0

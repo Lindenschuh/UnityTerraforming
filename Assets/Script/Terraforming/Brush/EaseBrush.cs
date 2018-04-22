@@ -6,30 +6,14 @@ using UnityEngine;
 public class EaseBrush : Brush
 {
     public EaseFunctions Ease;
+    public ComputeShader CS;
+    private TerraCompute TC;
+
     private Func<float, float, float, float> EasingFunction;
 
     public override float[,] CalculateBrushUp(float[,] currentBrushValues)
     {
-        float[,] ret = currentBrushValues;
-        int lengthY = currentBrushValues.GetLength(0);
-        int lengthX = currentBrushValues.GetLength(1);
-        int midX = lengthX / 2;
-        int midY = lengthY / 2;
-        int radius = BrushWidth / 2;
-
-        for (int y = 0; y < lengthY; y++)
-        {
-            for (int x = 0; x < lengthX; x++)
-            {
-                float distance = ((x - midX) * (x - midX) + (y - midY) * (y - midY));
-                if (distance <= radius * radius)
-                {
-                    ret[y, x] = EasingFunction(ret[y, x], ret[y, x] + Value * sizeModificator, ((radius * radius) - distance) / (radius * radius));
-                }
-            }
-        }
-
-        return ret;
+        return TC.CalculateWihtShader(currentBrushValues, Value * sizeModificator);
     }
 
     public override float[,] CalculateBrushDown(float[,] currentBrushValues)
@@ -88,6 +72,7 @@ public class EaseBrush : Brush
             HoverIndicator.GetComponent<Renderer>().material = GoodIndicator;
             HoverIndicator.transform.parent = transform;
             HoverIndicator.SetActive(false);
+            TC = new TerraCompute(CS);
         }
         HoverIndicator.transform.localScale = new Vector3(BrushWidth, .5f, BrushHeight);
         EasingFunction = TerraMath.GetEaseFunction(Ease);

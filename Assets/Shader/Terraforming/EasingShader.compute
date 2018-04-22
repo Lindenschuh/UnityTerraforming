@@ -1,0 +1,23 @@
+﻿// Each #kernel tells which function to compile; you can have many kernels
+#pragma kernel CSMain
+
+RWStructuredBuffer<float> Result;
+uint BufferSize;
+float Value;
+
+float EaseInCubic(float start, float end, float value)
+{
+	end -= start;
+	return end * value * value * value + start;
+}
+
+[numthreads(10, 10, 1)]
+void CSMain(uint2 id : SV_DispatchThreadID)
+{
+	int newID = id.x + id.y * ((BufferSize / 10) * 10);
+
+	float HalfBufferSize = BufferSize / 2;
+	float distance = ((((float)id.x) - HalfBufferSize) * (((float)id.x) - HalfBufferSize) + (((float)id.y) - HalfBufferSize) * (((float)id.y) - HalfBufferSize));
+	float percentage = ((HalfBufferSize * HalfBufferSize) - distance) / (HalfBufferSize * HalfBufferSize);
+	Result[newID] = EaseInCubic(Result[newID], Result[newID] + Value, max(percentage, 0));
+}

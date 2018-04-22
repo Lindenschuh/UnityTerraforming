@@ -35,7 +35,7 @@ public class TerraManipulation : MonoBehaviour
     {
         //Bound check
         CheckBounds(ref basisX, ref basisY, ref width, ref height);
-        TData.SetHeights(basisX, basisY, BrushSwitcher.CurrentActive.CalculateBrushUp(TData.GetHeights(basisX, basisY, width, height)));
+        TData.SetHeights(basisX, basisY, BrushSwitcher.CurrentActive.CalculateBrushDown(TData.GetHeights(basisX, basisY, width, height)));
     }
 
     private void CheckBounds(ref int basisX, ref int basisY, ref int width, ref int height)
