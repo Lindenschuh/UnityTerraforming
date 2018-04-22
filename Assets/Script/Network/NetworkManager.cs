@@ -307,7 +307,30 @@ public class NetworkManager : Photon.PunBehaviour
     [PunRPC]
     private void RPCStartGame(string pLevelName)
     {
-        SceneManager.LoadScene(pLevelName);
+        int playerType = 0;
+        string playerTypeText = "";
+        foreach (RoomGui roomGui in rooms[PhotonNetwork.room])
+        {
+            if (roomGui.playerID == PhotonNetwork.player.ID)
+            {
+                playerType = roomGui.playerRole.value;
+                break;
+            }
+        }
+        switch (playerType)
+        {
+            case 1:
+                playerTypeText = "God";
+                break;
+            case 2:
+                playerTypeText = "Priest";
+                break;
+            default:
+                playerTypeText = "Noob";
+                break;
+        }
+        PhotonNetwork.player.NickName = playerTypeText;
+        SceneManager.LoadScene("Level_01");
     }
 
     [PunRPC]

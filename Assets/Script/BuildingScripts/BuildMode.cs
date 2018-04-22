@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BuildMode : MonoBehaviour {
+public class BuildMode : Photon.PunBehaviour {
     private enum buildMode
     {
             buildModeOff,
@@ -168,13 +168,13 @@ public class BuildMode : MonoBehaviour {
             switch (presentBuildMode)
             {
                 case buildMode.buildModeGround:
-                    Instantiate(normalSquare, position, square.rotation);
+                    photonView.RPC("RPCBuildGround", PhotonTargets.All, position, square.rotation);
                     return;
                 case buildMode.buildModeWall:
-                    Instantiate(normalWall, position, square.rotation);
+                    photonView.RPC("RPCBuildWall", PhotonTargets.All, position, square.rotation);
                     return;
                 case buildMode.buildModeRamp:
-                    Instantiate(normalRamp, position, square.rotation);
+                    photonView.RPC("RPCBuildRamp", PhotonTargets.All, position, square.rotation);
                     return;
                 default:
                     return;
@@ -182,5 +182,28 @@ public class BuildMode : MonoBehaviour {
             }
         }
     }
+
+
+    #region PunRPC
+
+    [PunRPC]
+    private void RPCBuildGround(Vector3 position, Quaternion rotation)
+    {
+        Instantiate(normalSquare, position, rotation);
+    }
+
+    [PunRPC]
+    private void RPCBuildWall(Vector3 position, Quaternion rotation)
+    {
+        Instantiate(normalWall, position, rotation);
+    }
+
+    [PunRPC]
+    private void RPCBuildRamp(Vector3 position, Quaternion rotation)
+    {
+        Instantiate(normalRamp, position, rotation);
+    }
+
+    #endregion
 
 }

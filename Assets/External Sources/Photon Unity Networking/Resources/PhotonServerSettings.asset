@@ -45,4 +45,9 @@ MonoBehaviour:
   - RPCStartGame
   - RPCUpdateRoom
   - RPCLeaveRoom
+  - RPCLiftTerrain
+  - RPCLowerTerrain
+  - RPCBuildGround
+  - RPCBuildRamp
+  - RPCBuildWall
   DisableAutoOpenWizard: 1

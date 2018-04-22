@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 33361976871294486}
   - component: {fileID: 65305781495550448}
   - component: {fileID: 23705153879387412}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: RampNormal
   m_TagString: Untagged
   m_Icon: {fileID: 0}

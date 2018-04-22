@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(TerrainData))]
-public class TerraManipulation : MonoBehaviour
+public class TerraManipulation : Photon.PunBehaviour
 {
     public LayerMask TerrainLayer;
     public Camera MainCamera;
@@ -22,20 +22,6 @@ public class TerraManipulation : MonoBehaviour
         Terra = GetComponent<Terrain>();
         TData = Terra.terrainData;
         ResetTerrain();
-    }
-
-    private void LiftTerrain(int basisX, int basisY, int width, int height)
-    {
-        //Bound check
-        CheckBounds(ref basisX, ref basisY, ref width, ref height);
-        TData.SetHeights(basisX, basisY, BrushSwitcher.CurrentActive.CalculateBrushUp(TData.GetHeights(basisX, basisY, width, height)));
-    }
-
-    private void LowerTerrain(int basisX, int basisY, int width, int height)
-    {
-        //Bound check
-        CheckBounds(ref basisX, ref basisY, ref width, ref height);
-        TData.SetHeights(basisX, basisY, BrushSwitcher.CurrentActive.CalculateBrushUp(TData.GetHeights(basisX, basisY, width, height)));
     }
 
     private void CheckBounds(ref int basisX, ref int basisY, ref int width, ref int height)
@@ -71,11 +57,13 @@ public class TerraManipulation : MonoBehaviour
             {
                 if (Input.GetMouseButton(0))
                 {
-                    LiftTerrain(lastImpact.x, lastImpact.y, BrushSwitcher.CurrentActive.BrushWidth, BrushSwitcher.CurrentActive.BrushHeight);
+                    //LiftTerrain(lastImpact.x, lastImpact.y, BrushSwitcher.CurrentActive.BrushWidth, BrushSwitcher.CurrentActive.BrushHeight);
+                    photonView.RPC("RPCLiftTerrain", PhotonTargets.All, lastImpact.x, lastImpact.y, BrushSwitcher.CurrentActive.BrushWidth, BrushSwitcher.CurrentActive.BrushHeight);
                 }
                 if (Input.GetMouseButton(1))
                 {
-                    LowerTerrain(lastImpact.x, lastImpact.y, BrushSwitcher.CurrentActive.BrushWidth, BrushSwitcher.CurrentActive.BrushHeight);
+                    //LowerTerrain(lastImpact.x, lastImpact.y, BrushSwitcher.CurrentActive.BrushWidth, BrushSwitcher.CurrentActive.BrushHeight);
+                    photonView.RPC("RPCLowerTerrain", PhotonTargets.All, lastImpact.x, lastImpact.y, BrushSwitcher.CurrentActive.BrushWidth, BrushSwitcher.CurrentActive.BrushHeight);
                 }
             }
         }
@@ -105,4 +93,24 @@ public class TerraManipulation : MonoBehaviour
         float[,] tempHeight = new float[TData.heightmapHeight, TData.heightmapWidth];
         TData.SetHeights(0, 0, tempHeight);
     }
+
+    #region PunRPC
+
+    [PunRPC]
+    private void RPCLiftTerrain(int basisX, int basisY, int width, int height)
+    {
+        //Bound check
+        CheckBounds(ref basisX, ref basisY, ref width, ref height);
+        TData.SetHeights(basisX, basisY, BrushSwitcher.CurrentActive.CalculateBrushUp(TData.GetHeights(basisX, basisY, width, height)));
+    }
+
+    [PunRPC]
+    private void RPCLowerTerrain(int basisX, int basisY, int width, int height)
+    {
+        //Bound check
+        CheckBounds(ref basisX, ref basisY, ref width, ref height);
+        TData.SetHeights(basisX, basisY, BrushSwitcher.CurrentActive.CalculateBrushUp(TData.GetHeights(basisX, basisY, width, height)));
+    }
+
+    #endregion
 }
