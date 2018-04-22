@@ -16,13 +16,9 @@ public class BuildMode : MonoBehaviour {
     public Transform transparentWall;
     public Transform normalRamp;
     public Transform transparentRamp;
-    public Transform map;
-    public float maxRay;
     public float gridSize;
-
+    public LayerMask buildLayer;
     private Vector3 position;
-    private bool isBuildModeActive;
-    private bool canBuild;
     private Transform square;
 
 
@@ -32,94 +28,72 @@ public class BuildMode : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-        isBuildModeActive = false;
+
         tpCamera = FindObjectOfType<vThirdPersonCamera>();
         presentBuildMode = buildMode.buildModeOff;
+
+        //adjust the scale of the ramp to fit in grid.
         float scaleX = normalWall.localScale.x;
         float scaleZ = normalWall.localScale.z;
         float scaleY = Mathf.Sqrt(normalWall.localScale.y * normalWall.localScale.y + normalWall.localScale.z * normalWall.localScale.z);
-
         normalRamp.localScale = new Vector3(scaleX, scaleY, scaleZ);
         transparentRamp.localScale = new Vector3(scaleX, scaleY, scaleZ);
     }
-	
-	// Update is called once per frame
-	void Update () {
+
+    // Update is called once per frame
+    void Update() {
+
         if (Input.GetKeyUp(KeyCode.Q))
         {
-            isBuildModeActive = true;
-
-            presentBuildMode = buildMode.buildModeGround;
-            if(square != null)
-            {
-                Destroy(square.gameObject);
-            }
-            square = Instantiate(transparentSquare, position, Quaternion.identity);
+            InitBuilding(transparentSquare, buildMode.buildModeGround);
         }
-        if(Input.GetKeyUp(KeyCode.R))
-        {
-            isBuildModeActive = true;
-            presentBuildMode = buildMode.buildModeWall;
-            if (square != null)
-            {
-                Destroy(square.gameObject);
-            }
-            square = Instantiate(transparentWall, position, Quaternion.identity);
-        }
-        if (Input.GetKeyUp(KeyCode.X))
-        {
-            isBuildModeActive = true;
-            presentBuildMode = buildMode.buildModeRamp;
 
-            if (square != null) Destroy(square.gameObject);
-            square = Instantiate(transparentRamp, position, Quaternion.identity);
+        if (Input.GetKeyUp(KeyCode.E))
+        {
+            InitBuilding(transparentWall, buildMode.buildModeWall);
 
         }
-        if (isBuildModeActive)
-        {
-            RaycastHit hit;
-            Ray ray = new Ray(tpCamera.transform.position, tpCamera.transform.forward);
-            if (Physics.Raycast(ray, out hit, maxRay))
-            {
-                Vector3 finalPos;
-                if (hit.transform.tag.Equals("BuildSquare"))
-                {
-                    finalPos = AlignAndGenerateSquare(hit.point);
-                }
-                else
-                {
-                     finalPos = AlignAndGenerateSquare(hit.point);
-                    Debug.Log("hit: " + hit.point);
-                }
-                if(finalPos != position)
-                {
 
-                    position = finalPos;
-                    square.position = finalPos;
-             }
-            }
+        if (Input.GetKeyUp(KeyCode.R))
+        {
+            InitBuilding(transparentRamp, buildMode.buildModeRamp);
+        }
+
+        if (presentBuildMode != buildMode.buildModeOff)
+        {
+            Vector3 pos = tpCamera.transform.position + tpCamera.transform.forward * (gridSize + 2);
+
+            position = SnapToNearestGridcell(pos);
+            square.position = position;
+
+        }
+    
             if (Input.GetKeyUp(KeyCode.Mouse0) && position != null)
             {
-                switch (presentBuildMode)
-                {
-                    case buildMode.buildModeGround:
-                        Instantiate(normalSquare, position, square.rotation);
-                        return;
-                    case buildMode.buildModeWall:
-                        Instantiate(normalWall, position, square.rotation);
-                        return;
-                    case buildMode.buildModeRamp:
-                        Instantiate(normalRamp, position, square.rotation);
-                        return;
-                    default:
-                        return;
-
-                }
+            BuildComponent();
             }
         }      
-	}
 
-    Vector3 AlignAndGenerateSquare(Vector3 hitPoint)
+    void InitBuilding(Transform component, buildMode mode)
+    {
+        if (square != null) Destroy(square.gameObject);
+        if (presentBuildMode == mode)
+        {
+            presentBuildMode = buildMode.buildModeOff;
+            return;
+        }else
+        {
+            presentBuildMode = mode;
+            square = Instantiate(component, position, Quaternion.identity);
+        }
+    }
+	
+    /*
+     *Calculate the position of the nearest cell
+     * of the given grid and adjusted the position
+     * for different building components 
+     */
+    Vector3 SnapToNearestGridcell(Vector3 hitPoint)
     {
 
         float snapPointX = hitPoint.x + ((gridSize - hitPoint.x) % gridSize);
@@ -136,6 +110,7 @@ public class BuildMode : MonoBehaviour {
         if (!(snapPointZ + halfGridSize >= hitPoint.z)) snapPointZ += gridSize;
         else if (!(snapPointZ - halfGridSize <= hitPoint.z)) snapPointZ -= gridSize;
 
+        //Get the nearest 90° rotation of y-Achsis to rotate the component into this position
         var rotation = tpCamera.transform.rotation.eulerAngles;
         rotation.x = 0;
         rotation.y = Mathf.Round(rotation.y / 90) * 90 - 90;
@@ -150,7 +125,6 @@ public class BuildMode : MonoBehaviour {
             }else snapPointX += halfGridSize;
 
             snapPointY += halfGridSize;
-            //snapPointZ += halfGridSize;
         }
 
         if(presentBuildMode == buildMode.buildModeRamp)
@@ -158,12 +132,10 @@ public class BuildMode : MonoBehaviour {
             if (Mathf.Abs(rotation.y) == 90 || Mathf.Abs(rotation.y) == 270)
             {
                 rotation.z = -45;
-                //snapPointZ -= halfGridSize;
             }
             else
             {
                 rotation.z = -45;
-                //snapPointX -= halfGridSize;
             }
             snapPointY += halfGridSize;
         }
@@ -175,14 +147,40 @@ public class BuildMode : MonoBehaviour {
         
     }
 
-    Vector3Int GetNearestCell(Vector3 hitPoint)
+    /*
+     * Check if component can be build and instantiate at the given point
+     * */
+    void BuildComponent()
     {
-        int xPoint = (int)hitPoint.x +2 ;
-        int yPoint = (int)(hitPoint.y);
-        int zPoint = (int)hitPoint.z;
-        
-        Vector3Int cellPoint = new Vector3Int(xPoint, yPoint, zPoint);
+        //Check if there are colliders arount the component or if there is already build something
+        bool canBuild = true;
+        Collider[] boxColliders = Physics.OverlapBox(position, square.transform.localScale / 2, square.transform.rotation, buildLayer);
+        if (boxColliders.Length == 0) canBuild = false;
+        else
+        {
+            foreach (Collider collider in boxColliders)
+            {
+                if (collider.transform.position == position) canBuild = false;
+            }
+        }
+        if (canBuild)
+        {
+            switch (presentBuildMode)
+            {
+                case buildMode.buildModeGround:
+                    Instantiate(normalSquare, position, square.rotation);
+                    return;
+                case buildMode.buildModeWall:
+                    Instantiate(normalWall, position, square.rotation);
+                    return;
+                case buildMode.buildModeRamp:
+                    Instantiate(normalRamp, position, square.rotation);
+                    return;
+                default:
+                    return;
 
-        return cellPoint;
+            }
+        }
     }
+
 }

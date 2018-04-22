@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 33090228745069620}
   - component: {fileID: 65740886504102616}
   - component: {fileID: 23608695859795596}
-  m_Layer: 0
+  m_Layer: 1
   m_Name: RampTransparent
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -37,7 +37,7 @@ Transform:
   m_GameObject: {fileID: 1942297092433668}
   m_LocalRotation: {x: 0.27059805, y: 0.6532815, z: 0.27059805, w: 0.6532815}
   m_LocalPosition: {x: 2.12, y: 2.29, z: 6.473874}
-  m_LocalScale: {x: 0.05, y: 4, z: 4}
+  m_LocalScale: {x: 0.05, y: 5.656854, z: 4}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0

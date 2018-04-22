@@ -141,6 +141,9 @@ MonoBehaviour:
   map: {fileID: 0}
   maxRay: 8
   gridSize: 4
+  buildLayer:
+    serializedVersion: 2
+    m_Bits: 1
 --- !u!1001 &272037952
 Prefab:
   m_ObjectHideFlags: 0
