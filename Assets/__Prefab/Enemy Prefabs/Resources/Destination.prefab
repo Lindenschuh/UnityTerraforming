@@ -24,8 +24,9 @@ GameObject:
   - component: {fileID: 23010692766711654}
   - component: {fileID: 114320197820886774}
   - component: {fileID: 54678314194187070}
+  - component: {fileID: 114337126853831890}
   m_Layer: 0
-  m_Name: Destionation
+  m_Name: Destination
   m_TagString: Destination
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -116,6 +117,34 @@ MonoBehaviour:
   SlowingRadius: 0
   Destination: {fileID: 0}
   Spawner: {fileID: 0}
+  LookRadius: 0
+  AvoidanceForce: 0
+--- !u!114 &114337126853831890
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1802668065496030}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ownerId: 0
+  group: 0
+  OwnerShipWasTransfered: 0
+  prefixBackup: -1
+  synchronization: 0
+  onSerializeTransformOption: 3
+  onSerializeRigidBodyOption: 2
+  ownershipTransfer: 0
+  ObservedComponents:
+  - {fileID: 0}
+  ObservedComponentsFoldoutOpen: 1
+  viewIdField: 0
+  instantiationId: -1
+  currentMasterID: -1
+  isRuntimeInstantiated: 0
 --- !u!135 &135889113181293312
 SphereCollider:
   m_ObjectHideFlags: 1

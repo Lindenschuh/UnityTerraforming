@@ -36,13 +36,16 @@ public class Spawner : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (!pausedSpawning)
+        if (PhotonNetwork.isMasterClient)
         {
-            SpawnEntity();
-        }
+            if (!pausedSpawning)
+            {
+                SpawnEntity();
+            }
 
-        Debug.Log(_entitiyCount);
-        Debug.Log(pausedSpawning);
+            Debug.Log(_entitiyCount);
+            Debug.Log(pausedSpawning);
+        }
     }
 
     private void SpawnEntity()
@@ -50,9 +53,9 @@ public class Spawner : MonoBehaviour
         if (Time.time > _nextSpawnTime && _entitiyCount < MaxEntities)
         {
             _nextSpawnTime = Time.time + SpawnRate;
-            var entity = Instantiate(Prefab, new Vector3(transform.position.x, Prefab.transform.localScale.y / 2, transform.position.z), Quaternion.identity);
-            entity.Destination = Destination;
-            entity.Spawner = this;
+            var entity = PhotonNetwork.Instantiate(Prefab.name, new Vector3(transform.position.x, Prefab.transform.localScale.y / 2, transform.position.z), Quaternion.identity, 0);
+            entity.GetComponent<Enemy>().Destination = Destination;
+            entity.GetComponent<Enemy>().Spawner = this;
             _entitiyCount++;
             if (_entitiyCount == MaxEntities)
             {

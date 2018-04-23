@@ -8,10 +8,19 @@ public class GameManager : MonoBehaviour {
     // Use this for initialization
     void Start()
     {
-        PhotonNetwork.networkingPeer.QuickResendAttempts = 4;
-        PhotonNetwork.networkingPeer.SentCountAllowance = 7;
-        Debug.LogWarning("Spielername ist: " + PhotonNetwork.player.NickName);
-        Transform spawnPoint = GameObject.Find("SpawnPoint_" + PhotonNetwork.player.NickName).transform;
+        Transform spawnPoint;
+        if (PhotonNetwork.isMasterClient)
+        {
+            spawnPoint = GameObject.Find("SpawnPoint_Destination").transform;
+            GameObject destinationGO = PhotonNetwork.Instantiate("Destination", spawnPoint.position, spawnPoint.rotation, 0);
+            GameEntity destination = destinationGO.GetComponent<Destination>();
+
+            spawnPoint = GameObject.Find("SpawnPoint_Spawner").transform;
+            GameObject spawner = PhotonNetwork.Instantiate("Spawner", spawnPoint.position, spawnPoint.rotation, 0);
+            spawner.GetComponent<Spawner>().Destination = destination;
+        }
+
+        spawnPoint = GameObject.Find("SpawnPoint_" + PhotonNetwork.player.NickName).transform;
         PhotonNetwork.Instantiate(PhotonNetwork.player.NickName, spawnPoint.position, spawnPoint.rotation, 0);
 
         if (PhotonNetwork.player.NickName == "Priest")
@@ -35,9 +44,4 @@ public class GameManager : MonoBehaviour {
             terrain.GetComponent<TerraManipulation>().MainCamera = mainCamera;
         }
     }
-
-    // Update is called once per frame
-    void Update () {
-		
-	}
 }

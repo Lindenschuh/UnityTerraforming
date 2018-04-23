@@ -50,4 +50,6 @@ MonoBehaviour:
   - RPCBuildGround
   - RPCBuildRamp
   - RPCBuildWall
+  - RPCMoveEnemy
+  - RPCCreateEnemies
   DisableAutoOpenWizard: 1

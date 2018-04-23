@@ -28,7 +28,6 @@ public class BuildMode : Photon.PunBehaviour {
 
     // Use this for initialization
     void Start () {
-
         tpCamera = FindObjectOfType<vThirdPersonCamera>();
         presentBuildMode = buildMode.buildModeOff;
 

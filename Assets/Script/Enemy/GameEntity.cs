@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
-public abstract class GameEntity : MonoBehaviour
+public abstract class GameEntity : Photon.PunBehaviour
 {
     public float Mass { get { return _rigidbody.mass; } set { _rigidbody.mass = value; } }
     public float MaxVelocity;
@@ -35,7 +35,7 @@ public abstract class GameEntity : MonoBehaviour
         _velocity = Vector3.ClampMagnitude(_velocity, MaxVelocity);
         _velocity = new Vector3(_velocity.x, 0, _velocity.z);
         _rigidbody.MovePosition(_rigidbody.position + _velocity * Time.fixedDeltaTime);
-        if (_velocity != Vector3.zero)
+        if (_velocity != Vector3.zero && PhotonNetwork.isMasterClient)
         {
             _rigidbody.MoveRotation(Quaternion.LookRotation(_velocity));
         }
