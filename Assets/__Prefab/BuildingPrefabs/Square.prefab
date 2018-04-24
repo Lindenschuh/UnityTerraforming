@@ -24,7 +24,7 @@ GameObject:
   - component: {fileID: 23418386318638732}
   m_Layer: 8
   m_Name: Square
-  m_TagString: BuildSquare
+  m_TagString: Obsticle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
