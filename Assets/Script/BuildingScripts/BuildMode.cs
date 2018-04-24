@@ -20,7 +20,7 @@ public class BuildMode : Photon.PunBehaviour {
     public LayerMask buildLayer;
     private Vector3 position;
     private Transform square;
-
+    private bool canBuild;
 
 
     protected vThirdPersonCamera tpCamera;
@@ -64,6 +64,26 @@ public class BuildMode : Photon.PunBehaviour {
 
             position = SnapToNearestGridcell(pos);
             square.position = position;
+            //Check if there are colliders arount the component or if there is already build something
+            canBuild = true;
+            Collider[] boxColliders = Physics.OverlapBox(position, square.transform.localScale / 2, square.transform.rotation, buildLayer);
+            if (boxColliders.Length == 0) canBuild = false;
+            else
+            {
+                foreach (Collider collider in boxColliders)
+                {
+                    if (collider.transform.position == position) canBuild = false;
+                }
+            }
+
+            if (!canBuild)
+            {
+                //square.GetComponent<Renderer>().material.color = Color.red;
+                square.GetComponent<Renderer>().material.color = new Color(1.0f, 0.0f, 0.0f, 0.5f);
+            }else
+            {
+                square.GetComponent<Renderer>().material.color = new Color(0.5f, 0.5f, 0.5f, 0.5f);
+            }
 
         }
     
@@ -151,17 +171,7 @@ public class BuildMode : Photon.PunBehaviour {
      * */
     void BuildComponent()
     {
-        //Check if there are colliders arount the component or if there is already build something
-        bool canBuild = true;
-        Collider[] boxColliders = Physics.OverlapBox(position, square.transform.localScale / 2, square.transform.rotation, buildLayer);
-        if (boxColliders.Length == 0) canBuild = false;
-        else
-        {
-            foreach (Collider collider in boxColliders)
-            {
-                if (collider.transform.position == position) canBuild = false;
-            }
-        }
+
         if (canBuild)
         {
             switch (presentBuildMode)
