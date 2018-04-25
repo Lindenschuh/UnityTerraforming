@@ -4,7 +4,6 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - BuildSquare
   - Peter
   - Destination
   - Obsticle
@@ -40,7 +39,7 @@ TagManager:
   - 
   - 
   - 
-  -  
+  - 
   m_SortingLayers:
   - name: Default
     uniqueID: 0
