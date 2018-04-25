@@ -18,7 +18,7 @@ public class TerraCompute
         ComputeBuffer CBuffer = new ComputeBuffer(data.GetLength(0) * data.GetLength(1), sizeof(float));
         CShader.SetBuffer(kernel, "Result", CBuffer);
         CShader.SetFloat("Value", value);
-        CShader.SetInt("BufferSize", data.GetLength(1));
+        CShader.SetFloats("BrushSize", new float[] { data.GetLength(0), data.GetLength(1) });
         CBuffer.SetData(data);
         CShader.Dispatch(kernel, data.GetLength(0) / 10, data.GetLength(1) / 10, 1);
 

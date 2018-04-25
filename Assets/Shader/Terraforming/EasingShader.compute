@@ -2,7 +2,7 @@
 #pragma kernel CSMain
 
 RWStructuredBuffer<float> Result;
-uint BufferSize;
+float2 BrushSize;
 float Value;
 
 float EaseInCubic(float start, float end, float value)
@@ -11,13 +11,38 @@ float EaseInCubic(float start, float end, float value)
 	return end * value * value * value + start;
 }
 
+float when_lt(float x, float y)
+{
+	return max(sign(y - x), 0.0);
+}
+
+float when_ge(float x, float y)
+{
+	return 1.0 - when_lt(x, y);
+}
+float when_eq(float x, float y)
+{
+	return 1.0 - abs(sign(x - y));
+}
+float EaseInOutCubic(float start, float end, float value)
+{
+	value /= .5f;
+	end -= start;
+	float easeIn = (end * 0.5f * value * value * value + start) *  when_lt(value, 1);
+	value -= 2;
+	float easeOut = (end * 0.5f * (value * value * value + 2) + start) * when_eq(easeIn, 0);
+
+	return easeIn + easeOut;
+}
+
 [numthreads(10, 10, 1)]
 void CSMain(uint2 id : SV_DispatchThreadID)
 {
-	int newID = id.x + id.y * ((BufferSize / 10) * 10);
+	int newID = id.x + id.y * ((BrushSize.y / 10) * 10);
 
-	float HalfBufferSize = BufferSize / 2;
-	float distance = ((((float)id.x) - HalfBufferSize) * (((float)id.x) - HalfBufferSize) + (((float)id.y) - HalfBufferSize) * (((float)id.y) - HalfBufferSize));
-	float percentage = ((HalfBufferSize * HalfBufferSize) - distance) / (HalfBufferSize * HalfBufferSize);
+	float HalfBufferSizeX = BrushSize.x / 2;
+	float HalfBufferSizeY = BrushSize.y / 2;
+	float distance = ((((float)id.x) - HalfBufferSizeX) * (((float)id.x) - HalfBufferSizeX) + (((float)id.y) - HalfBufferSizeY) * (((float)id.y) - HalfBufferSizeY));
+	float percentage = ((HalfBufferSizeX * HalfBufferSizeX) - distance) / (HalfBufferSizeX * HalfBufferSizeX);
 	Result[newID] = EaseInCubic(Result[newID], Result[newID] + Value, max(percentage, 0));
 }

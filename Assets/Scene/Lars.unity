@@ -205,9 +205,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 098049cb71d898b48aff6a0e6696d9c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Value: 0.001
-  BrushWidth: 300
-  BrushHeight: 300
+  Value: 0.0001
+  BrushWidth: 10
+  BrushHeight: 10
   MaxBrushValue: 1000
   sizeModificator: 0
   GoodIndicator: {fileID: 2100000, guid: c6e320b0eb4826d4e88969a967bfec2d, type: 2}
