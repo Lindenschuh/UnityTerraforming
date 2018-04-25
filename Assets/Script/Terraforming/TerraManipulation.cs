@@ -62,7 +62,7 @@ public class TerraManipulation : Photon.PunBehaviour
                 }
                 if (Input.GetMouseButton(1))
                 {
-                    //LowerTerrain(lastImpact.x, lastImpact.y, BrushSwitcher.CurrentActive.BrushWidth, BrushSwitcher.CurrentActive.BrushHeight);
+                    //LowerTerrain(lastImpact.x, lastImpact.y, BrushSwitcher.CurrentActive.BrushWidth, BrushSwitcher.CurrentActive.BrushHeight);12
                     photonView.RPC("RPCLowerTerrain", PhotonTargets.All, lastImpact.x, lastImpact.y, BrushSwitcher.CurrentActive.BrushWidth, BrushSwitcher.CurrentActive.BrushHeight);
                 }
             }
@@ -112,5 +112,5 @@ public class TerraManipulation : Photon.PunBehaviour
         TData.SetHeights(basisX, basisY, BrushSwitcher.CurrentActive.CalculateBrushUp(TData.GetHeights(basisX, basisY, width, height)));
     }
 
-    #endregion
+    #endregion PunRPC
 }
