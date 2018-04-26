@@ -52,4 +52,5 @@ MonoBehaviour:
   - RPCBuildWall
   - RPCMoveEnemy
   - RPCCreateEnemies
+  - RPCSwitchBrush
   DisableAutoOpenWizard: 1
