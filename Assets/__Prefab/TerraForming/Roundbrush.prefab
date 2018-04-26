@@ -51,7 +51,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac6c26a661f260243ab5f4f7498328f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Value: 0.001
+  Value: 0.0005
   BrushWidth: 10
   BrushHeight: 10
   MaxBrushValue: 20
