@@ -1,13 +1,13 @@
 ﻿using UnityEngine;
 
-public class SteeringBehaviour
+public class SteeringManager
 {
     private GameEntity _entity;
     private Vector3 _steering;
 
     private float _wanderAngle;
 
-    public SteeringBehaviour(GameEntity entity)
+    public SteeringManager(GameEntity entity)
     {
         _entity = entity;
         _steering = new Vector3();

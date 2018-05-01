@@ -14,7 +14,7 @@ public abstract class GameEntity : Photon.PunBehaviour
 
     protected Rigidbody _rigidbody;
     protected Vector3 _velocity;
-    protected SteeringBehaviour _steeringBehaviour;
+    protected SteeringManager _steeringBehaviour;
     protected Vector3 _avoidanceForce;
 
     public Vector3 Velocity { get { return _velocity; } private set { _velocity = value; } }
@@ -22,7 +22,7 @@ public abstract class GameEntity : Photon.PunBehaviour
     public void Start()
     {
         _rigidbody = GetComponent<Rigidbody>();
-        _steeringBehaviour = new SteeringBehaviour(this);
+        _steeringBehaviour = new SteeringManager(this);
         _avoidanceForce = new Vector3();
     }
 
