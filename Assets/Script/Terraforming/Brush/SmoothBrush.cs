@@ -13,17 +13,7 @@ public class SmoothBrush : Brush
         }
         mean /= currentBrushValues.LongLength;
 
-        float[,] ret = currentBrushValues;
-
-        for (int y = 0; y < currentBrushValues.GetLength(0); y++)
-        {
-            for (int x = 0; x < currentBrushValues.GetLength(1); x++)
-            {
-                ret[y, x] = Mathf.Lerp(ret[y, x], mean, Value * sizeModificator);
-            }
-        }
-
-        return ret;
+        return CSHandler.CalculateWihtShader(currentBrushValues, mean, EasingFunctions.Mean);
     }
 
     public override float[,] CalculateBrushDown(float[,] currentBrushValues)

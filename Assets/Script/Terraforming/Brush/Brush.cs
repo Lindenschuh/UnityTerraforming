@@ -13,6 +13,7 @@ public abstract class Brush : MonoBehaviour
     public Material BadIndicator;
 
     protected GameObject HoverIndicator;
+    public ShaderManager CSHandler;
 
     public abstract float[,] CalculateBrushUp(float[,] currentBrushValues);
 
@@ -38,21 +39,20 @@ public abstract class Brush : MonoBehaviour
 
     public virtual bool IsAreaFree(Vector3 destination)
     {
-        RaycastHit[] hits;
-        hits = Physics.BoxCastAll(destination, new Vector3(BrushWidth / 2f, 5f, BrushHeight / 2f), Vector3.one);
+        Collider[] colls = Physics.OverlapSphere(destination, BrushWidth / 2);
 
-        foreach (RaycastHit hit in hits)
+        foreach (Collider hit in colls)
         {
-            if (hit.collider.GetComponent<Terrain>() != null || hit.collider.gameObject == HoverIndicator)
+            if (hit.GetComponent<Terrain>() != null || hit.gameObject == HoverIndicator)
                 continue;
 
-            if (hit.rigidbody == null)
+            if (hit.GetComponent<Rigidbody>() == null)
             {
                 PlaceIndicator(false, destination);
                 return false;
             }
 
-            if (hit.rigidbody.isKinematic)
+            if (hit.GetComponent<Rigidbody>().isKinematic)
             {
                 PlaceIndicator(false, destination);
                 return false;
@@ -82,7 +82,7 @@ public abstract class Brush : MonoBehaviour
     {
         if (HoverIndicator == null)
         {
-            HoverIndicator = GameObject.CreatePrimitive(PrimitiveType.Cube);
+            HoverIndicator = GameObject.CreatePrimitive(PrimitiveType.Sphere);
             HoverIndicator.GetComponent<Renderer>().material = GoodIndicator;
             HoverIndicator.transform.parent = transform;
             HoverIndicator.SetActive(false);
