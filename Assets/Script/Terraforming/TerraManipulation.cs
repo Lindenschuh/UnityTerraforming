@@ -109,7 +109,7 @@ public class TerraManipulation : Photon.PunBehaviour
     {
         //Bound check
         CheckBounds(ref basisX, ref basisY, ref width, ref height);
-        TData.SetHeights(basisX, basisY, BrushSwitcher.CurrentActive.CalculateBrushUp(TData.GetHeights(basisX, basisY, width, height)));
+        TData.SetHeights(basisX, basisY, BrushSwitcher.CurrentActive.CalculateBrushDown(TData.GetHeights(basisX, basisY, width, height)));
     }
 
     #endregion PunRPC
