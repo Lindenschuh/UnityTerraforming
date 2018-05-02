@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BrushSwitch : MonoBehaviour
+public class BrushSwitch : Photon.PunBehaviour
 {
     private List<Brush> AllBrushes = new List<Brush>();
     public List<KeyCode> AllKeys = new List<KeyCode>();
@@ -26,11 +26,12 @@ public class BrushSwitch : MonoBehaviour
         for (int i = 0; i < AllKeys.Count; i++)
         {
             if (Input.GetKeyDown(AllKeys[i]))
-                SwitchBrush(i);
+                photonView.RPC("RPCSwitchBrush", PhotonTargets.All, i);
         }
     }
 
-    private void SwitchBrush(int brushNR)
+    [PunRPC]
+    private void RPCSwitchBrush(int brushNR)
     {
         if (brushNR >= AllBrushes.Count)
             return;

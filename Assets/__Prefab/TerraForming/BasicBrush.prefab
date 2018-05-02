@@ -51,11 +51,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f438d6df8a74a7649b4b968b6e9be4db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Value: 0.001
-  BrushWidth: 50
-  BrushHeight: 50
-  MaxBrushValue: 100
+  Value: 0.0005
+  BrushWidth: 10
+  BrushHeight: 10
+  MaxBrushValue: 20
   sizeModificator: 0
   GoodIndicator: {fileID: 2100000, guid: c6e320b0eb4826d4e88969a967bfec2d, type: 2}
   BadIndicator: {fileID: 2100000, guid: 79185ed6c6bccc843ba87a179d18b03a, type: 2}
-  Terrain: {fileID: 0}

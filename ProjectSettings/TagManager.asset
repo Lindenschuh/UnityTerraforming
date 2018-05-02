@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Peter
   - Destination
+  - Obsticle
   layers:
   - Default
   - TransparentFX
@@ -15,10 +16,10 @@ TagManager:
   - UI
   - 
   - 
+  - BuildComponent
   - Terrain
   - Player
   - Destination
-  - 
   - 
   - 
   - 
