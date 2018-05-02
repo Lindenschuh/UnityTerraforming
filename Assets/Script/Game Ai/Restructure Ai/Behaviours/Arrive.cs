@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class Arrive : SteeringManager
+public class Arrive : SteeringBehaviour
 {
     private Transform target;
     private float maxAcceleration;

@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class Flee : SteeringManager
+public class Flee : SteeringBehaviour
 {
     private Transform target;
     private float maxAcceleration;

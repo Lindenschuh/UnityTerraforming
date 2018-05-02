@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class Seek : SteeringManager
+public class Seek : SteeringBehaviour
 {
     private Transform target;
     private float maxAcceleration;
