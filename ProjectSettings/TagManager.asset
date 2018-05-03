@@ -7,6 +7,31 @@ TagManager:
   - Peter
   - Destination
   - Obsticle
+  - Action
+  - Weapon
+  - Dirt
+  - Interactable
+  - Enemy
+  - Collectable
+  - LadderTrigger
+  - LookAt
+  - Ignore Ragdoll
+  - AutoCrouch
+  - ClimbUp
+  - StepUp
+  - JumpOver
+  - Metal
+  - Barrel
+  - Wood
+  - Boss
+  - Ragdoll
+  - CompanionAI
+  - PlayerUI
+  - Water
+  - FreeClimb
+  - ClimbDirection
+  - Zipline
+  - Sters
   layers:
   - Default
   - TransparentFX
@@ -20,12 +45,12 @@ TagManager:
   - Terrain
   - Player
   - Destination
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
+  - Enemy
+  - CompanionAI
+  - Triggers
+  - StopMove
+  - HeadTrack
+  - BodyPart
   - 
   - 
   - 
