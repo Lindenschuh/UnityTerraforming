@@ -21,13 +21,28 @@ public class BrushSwitch : Photon.PunBehaviour
     }
 
     // Update is called once per frame
-    private void Update()
+    private void FixedUpdate()
     {
         for (int i = 0; i < AllKeys.Count; i++)
         {
             if (Input.GetKeyDown(AllKeys[i]))
                 photonView.RPC("RPCSwitchBrush", PhotonTargets.All, i);
         }
+
+        if (Input.GetKeyDown(KeyCode.PageUp))
+        {
+            photonView.RPC("RPCChangeCurrentBrushSize", PhotonTargets.All, CurrentActive.BrushWidth + 5, CurrentActive.BrushHeight + 5);
+        }
+        if (Input.GetKeyDown(KeyCode.PageDown))
+        {
+            photonView.RPC("RPCChangeCurrentBrushSize", PhotonTargets.All, CurrentActive.BrushWidth - 5, CurrentActive.BrushHeight - 5);
+        }
+    }
+
+    [PunRPC]
+    private void RPCChangeCurrentBrushSize(int width, int height)
+    {
+        CurrentActive.ChangebrushSize(width, height);
     }
 
     [PunRPC]

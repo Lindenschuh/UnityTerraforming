@@ -25,43 +25,6 @@ public abstract class Brush : MonoBehaviour
         ChangebrushSize(BrushWidth, BrushHeight);
     }
 
-    private void FixedUpdate()
-    {
-        if (Input.GetKeyDown(KeyCode.PageUp))
-        {
-            ChangebrushSize(BrushWidth + 5, BrushHeight + 5);
-        }
-        if (Input.GetKeyDown(KeyCode.PageDown))
-        {
-            ChangebrushSize(BrushWidth - 5, BrushHeight - 5);
-        }
-    }
-
-    public virtual bool IsAreaFree(Vector3 destination)
-    {
-        Collider[] colls = Physics.OverlapSphere(destination, BrushWidth / 2);
-
-        foreach (Collider hit in colls)
-        {
-            if (hit.GetComponent<Terrain>() != null || hit.gameObject == HoverIndicator)
-                continue;
-
-            if (hit.GetComponent<Rigidbody>() == null)
-            {
-                PlaceIndicator(false, destination);
-                return false;
-            }
-
-            if (hit.GetComponent<Rigidbody>().isKinematic)
-            {
-                PlaceIndicator(false, destination);
-                return false;
-            }
-        }
-        PlaceIndicator(true, destination);
-        return true;
-    }
-
     protected void PlaceIndicator(bool isFree, Vector3 destination)
     {
         HoverIndicator.SetActive(true);
@@ -71,10 +34,10 @@ public abstract class Brush : MonoBehaviour
 
     public void ChangebrushSize(int width, int height)
     {
-        BrushHeight = (int)Mathf.Clamp(height, 0, MaxBrushValue);
-        BrushWidth = (int)Mathf.Clamp(width, 0, MaxBrushValue);
-        float percentage = MaxBrushValue * 2 - (BrushWidth + BrushHeight);
-        sizeModificator = percentage / (MaxBrushValue * 2);
+        BrushHeight = (int)Mathf.Clamp(height, 5, MaxBrushValue);
+        BrushWidth = (int)Mathf.Clamp(width, 5, MaxBrushValue);
+        float percentage = (MaxBrushValue + 10) * 2 - (BrushWidth + BrushHeight);
+        sizeModificator = percentage / ((MaxBrushValue + 10) * 2);
         MakeIndicator();
     }
 

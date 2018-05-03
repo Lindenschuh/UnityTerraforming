@@ -50,7 +50,7 @@ float Lerp(float start, float end, float value)
 
 //Entry Points
 
-[numthreads(10, 10, 1)]
+[numthreads(5, 5, 1)]
 void CSLerp(uint2 id : SV_DispatchThreadID)
 {
 	int newID = id.x + id.y * ((BrushSize.y / 10) * 10);
@@ -62,7 +62,7 @@ void CSLerp(uint2 id : SV_DispatchThreadID)
 	Result[newID] = Lerp(Result[newID], Result[newID] + Value, percentage);
 }
 
-[numthreads(10, 10, 1)]
+[numthreads(5, 5, 1)]
 void CSCubic(uint2 id : SV_DispatchThreadID)
 {
 	int newID = id.x + id.y * ((BrushSize.y / 10) * 10);
@@ -74,10 +74,10 @@ void CSCubic(uint2 id : SV_DispatchThreadID)
 	Result[newID] = EaseInOutCubic(Result[newID], Result[newID] + Value, percentage);
 }
 
-[numthreads(10, 10, 1)]
+[numthreads(5, 5, 1)]
 void CSMean(uint2 id : SV_DispatchThreadID)
 {
-	int newID = id.x + id.y * ((BrushSize.y / 10) * 10);
+	int newID = id.x + id.y * ((ceil(BrushSize.y / 10)) * 10);
 
 	float HalfBufferSizeX = BrushSize.x / 2.0;
 	float HalfBufferSizeY = BrushSize.y / 2.0;

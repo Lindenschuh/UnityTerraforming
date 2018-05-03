@@ -50,7 +50,7 @@ public class ShaderManager : MonoBehaviour
         CShader.SetFloats("BrushSize", new float[] { data.GetLength(0), data.GetLength(1) });
 
         CBuffer.SetData(data);
-        CShader.Dispatch(kernel, data.GetLength(0) / 10, data.GetLength(1) / 10, 1);
+        CShader.Dispatch(kernel, Mathf.CeilToInt(data.GetLength(0) / 5), Mathf.CeilToInt(data.GetLength(1) / 5), 1);
 
         CBuffer.GetData(data);
         CBuffer.Dispose();
