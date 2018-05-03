@@ -1,28 +1,17 @@
 ﻿using UnityEngine;
 
-public class Arrive : SteeringBehaviour
+public static class Arrive
 {
-    private Transform target;
-    private float maxAcceleration;
-    private float targetRadius;
-    private float slowRadius;
+    private static float TIME_TO_TARGET = .1f;
 
-    public Arrive(GameEntity character, Transform target, float maxAcceleration, float targetRadius, float slowRadius) : base(character)
+    public static SteeringOutput CalculateForces(NewGameEntity character, Vector3 targetPosition)
     {
-        this.target = target;
-        this.maxAcceleration = maxAcceleration;
-        this.targetRadius = targetRadius;
-        this.slowRadius = slowRadius;
-    }
+        var linear = character.transform.position - targetPosition;
 
-    public override void CalculateForces()
-    {
-        var dir = target.position - Character.transform.position;
-        var distance = dir.magnitude;
+        // Bin ich im target Radius
 
-        if (distance < targetRadius) return;
+        // Bin ich im slow Radius
 
-        direction = dir.normalized * maxAcceleration;
-        if (distance <= slowRadius) direction *= (distance / slowRadius);
+        return new SteeringOutput(linear: linear);
     }
 }

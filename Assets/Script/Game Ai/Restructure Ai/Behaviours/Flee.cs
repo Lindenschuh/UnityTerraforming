@@ -1,18 +1,10 @@
 ﻿using UnityEngine;
 
-public class Flee : SteeringBehaviour
+public static class Flee
 {
-    private Transform target;
-    private float maxAcceleration;
-
-    public Flee(GameEntity character, Transform target, float maxAcceleration) : base(character)
+    public static SteeringOutput CalculateForces(NewGameEntity character, Vector3 targetPosition)
     {
-        this.target = target;
-        this.maxAcceleration = maxAcceleration;
-    }
-
-    public override void CalculateForces()
-    {
-        direction = (Character.transform.position - target.position).normalized * maxAcceleration;
+        var linear = (targetPosition - character.transform.position).normalized * character.MaxAcceleration;
+        return new SteeringOutput(linear: linear);
     }
 }

@@ -1,18 +1,11 @@
 ﻿using UnityEngine;
 
-public class Seek : SteeringBehaviour
+public static class Seek
 {
-    private Transform target;
-    private float maxAcceleration;
-
-    public Seek(GameEntity character, Transform target, float maxAcceleration) : base(character)
+    public static SteeringOutput CalculateForces(NewGameEntity character, Vector3 target)
     {
-        this.target = target;
-        this.maxAcceleration = maxAcceleration;
-    }
+        var linear = (character.transform.position - target).normalized * character.MaxAcceleration;
 
-    public override void CalculateForces()
-    {
-        direction = (target.position - Character.transform.position).normalized * maxAcceleration;
+        return new SteeringOutput(linear: linear);
     }
 }
