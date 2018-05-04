@@ -63,35 +63,74 @@ public class BuildMode : Photon.PunBehaviour {
         {
             Vector3 pos = tpCamera.transform.position + tpCamera.transform.forward * (gridSize + 2);
 
-            position = SnapToNearestGridcell(pos);
-            square.position = position;
-            //Check if there are colliders arount the component or if there is already build something
-            canBuild = true;
-            Collider[] boxColliders = Physics.OverlapBox(position, square.transform.localScale / 2, square.transform.rotation, buildLayer);
-            if (boxColliders.Length == 0) canBuild = false;
-            else
+            Vector3 tempPosition = SnapToNearestGridcell(pos);
+            if (tempPosition != position )
             {
-                foreach (Collider collider in boxColliders)
+                position = tempPosition;
+                square.position = position;
+                //Check if there are colliders arount the component or if there is already build something
+                canBuild = true;
+                List<Vector3> scaleList = new List<Vector3>();
+                if (square.transform.localScale.x >= 4)
                 {
-                    if (collider.transform.position == position) canBuild = false;
+                    scaleList.Add(new Vector3(square.transform.localScale.x - gridSize / 2, square.transform.localScale.y, square.transform.localScale.z));
                 }
+                if (square.transform.localScale.y >= 4)
+                {
+                    scaleList.Add(new Vector3(square.transform.localScale.x, square.transform.localScale.y - gridSize / 2, square.transform.localScale.z));
+                }
+                if (square.transform.localScale.z >= 4)
+                {
+                    scaleList.Add(new Vector3(square.transform.localScale.x, square.transform.localScale.y, square.transform.localScale.z - gridSize / 2));
+                }
+                List<Collider[]> colliderList = new List<Collider[]>();
+                int arrayLength = 0;
+                foreach (Vector3 scale in scaleList)
+                {
+                    Collider[] colArray = Physics.OverlapBox(position, scale / 2, square.transform.rotation, buildLayer);
+                    if (colArray.Length > 0)
+                    {
+                        colliderList.Add(colArray);
+                        arrayLength += colArray.Length;
+                    }
+                }
+
+                Collider[] boxColliders = new Collider[arrayLength];
+                int copyInt = 0;
+                foreach (Collider[] colArray in colliderList)
+                {
+
+                    colArray.CopyTo(boxColliders, copyInt);
+                    copyInt += colArray.Length;
+                }
+                if (boxColliders.Length == 0) canBuild = false;
+                else
+                {
+                    foreach (Collider collider in boxColliders)
+                    {
+                        if (collider.transform.position == position) canBuild = false;
+
+
+                    }
+                }
+
+                if (!canBuild)
+                {
+                    //square.GetComponent<Renderer>().material.color = Color.red;
+                    square.GetComponent<Renderer>().material.color = new Color(1.0f, 0.0f, 0.0f, 0.5f);
+                }
+                else
+                {
+                    square.GetComponent<Renderer>().material.color = new Color(0.5f, 0.5f, 0.5f, 0.5f);
+                }
+
             }
 
-            if (!canBuild)
-            {
-                //square.GetComponent<Renderer>().material.color = Color.red;
-                square.GetComponent<Renderer>().material.color = new Color(1.0f, 0.0f, 0.0f, 0.5f);
-            }else
-            {
-                square.GetComponent<Renderer>().material.color = new Color(0.5f, 0.5f, 0.5f, 0.5f);
-            }
-
-        }
-    
             if (Input.GetKeyUp(KeyCode.Mouse0) && position != null)
             {
-            BuildComponent();
+                BuildComponent();
             }
+        }
         }      
 
     void InitBuilding(Transform component, buildMode mode)
@@ -179,17 +218,19 @@ public class BuildMode : Photon.PunBehaviour {
             {
                 case buildMode.buildModeGround:
                     photonView.RPC("RPCBuildGround", PhotonTargets.All, position, square.rotation);
-                    return;
+                    break;
                 case buildMode.buildModeWall:
                     photonView.RPC("RPCBuildWall", PhotonTargets.All, position, square.rotation);
-                    return;
+                    break;
                 case buildMode.buildModeRamp:
                     photonView.RPC("RPCBuildRamp", PhotonTargets.All, position, square.rotation);
-                    return;
+                    break;
                 default:
                     return;
 
             }
+            canBuild = false;
+            
         }
     }
 
