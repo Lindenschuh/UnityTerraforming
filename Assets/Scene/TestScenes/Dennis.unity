@@ -848,7 +848,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   openCloseEvents: 0
   openCloseWindow: 1
-  selectedToolbar: 0
+  selectedToolbar: 1
   lockInput: 0
   unlockCursorOnStart: 0
   showCursorOnStart: 0
@@ -1229,7 +1229,7 @@ MonoBehaviour:
   jumpHeight: 4
   groundCheckMethod: 1
   groundMinDistance: 0.25
-  groundMaxDistance: 4
+  groundMaxDistance: 0.5
   stepOffsetEnd: 0.45
   stepOffsetStart: 0
   stepSmooth: 4
