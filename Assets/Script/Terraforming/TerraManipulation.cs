@@ -53,6 +53,7 @@ public class TerraManipulation : Photon.PunBehaviour
     {
         if (CalculateInpactPoint(Input.mousePosition, out lastRelative, out lastImpact))
         {
+            BrushSwitcher.CurrentActive.PlaceIndicator(lastRelative);
             if (Input.GetMouseButton(0))
             {
                 //LiftTerrain(lastImpact.x, lastImpact.y, BrushSwitcher.CurrentActive.BrushWidth, BrushSwitcher.CurrentActive.BrushHeight);

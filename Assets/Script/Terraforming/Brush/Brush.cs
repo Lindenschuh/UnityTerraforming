@@ -25,11 +25,10 @@ public abstract class Brush : MonoBehaviour
         ChangebrushSize(BrushWidth, BrushHeight);
     }
 
-    protected void PlaceIndicator(bool isFree, Vector3 destination)
+    public void PlaceIndicator(Vector3 destination)
     {
         HoverIndicator.SetActive(true);
         HoverIndicator.transform.position = destination;
-        HoverIndicator.GetComponent<Renderer>().material = isFree ? GoodIndicator : BadIndicator;
     }
 
     public void ChangebrushSize(int width, int height)
