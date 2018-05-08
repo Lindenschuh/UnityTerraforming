@@ -178,13 +178,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 860f037e154dc4faab926990d9291a38, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MaxVelocity: 3
-  MaxForce: 4
+  MaxVelocity: 10
+  MaxForce: 20
   SlowingRadius: 16
-  Destination: {fileID: 0}
   Spawner: {fileID: 0}
-  LookRadius: 20
-  AvoidanceForce: 20
+  LookRadius: 30
+  AvoidanceForce: 30
+  AvoidanceWeight: 3
+  Destination: {fileID: 0}
+  SeekingWeight: 1
 --- !u!114 &114410452049650464
 MonoBehaviour:
   m_ObjectHideFlags: 1

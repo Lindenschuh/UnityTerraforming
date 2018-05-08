@@ -18,8 +18,6 @@ public class Spawner : MonoBehaviour
 
     public float WaveMultiplier;
 
-    public GameEntity Destination;
-
     private float _nextSpawnTime;
     private int _entitiyCount;
     private bool pausedSpawning;
@@ -31,7 +29,6 @@ public class Spawner : MonoBehaviour
         SpawnRate = spawnRate;
         WaveCount = waveCount;
         WaveMultiplier = waveMultipier;
-        Destination = destination;
     }
 
     private void FixedUpdate()
@@ -42,9 +39,6 @@ public class Spawner : MonoBehaviour
             {
                 SpawnEntity();
             }
-
-            Debug.Log(_entitiyCount);
-            Debug.Log(pausedSpawning);
         }
     }
 
@@ -54,7 +48,6 @@ public class Spawner : MonoBehaviour
         {
             _nextSpawnTime = Time.time + SpawnRate;
             var entity = PhotonNetwork.Instantiate(Prefab.name, new Vector3(transform.position.x, Prefab.transform.localScale.y / 2, transform.position.z), Quaternion.identity, 0);
-            entity.GetComponent<Enemy>().Destination = Destination;
             entity.GetComponent<Enemy>().Spawner = this;
             _entitiyCount++;
             if (_entitiyCount == MaxEntities)

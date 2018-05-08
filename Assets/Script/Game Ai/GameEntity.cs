@@ -3,14 +3,21 @@
 [RequireComponent(typeof(Rigidbody))]
 public abstract class GameEntity : Photon.PunBehaviour
 {
+    public const float MAX_RANGE = 10f;
+
     public float Mass { get { return _rigidbody.mass; } set { _rigidbody.mass = value; } }
     public float MaxVelocity;
     public float MaxForce;
     public float SlowingRadius;
-    public GameEntity Destination;
+
     public Spawner Spawner;
     public float LookRadius;
     public float AvoidanceForce;
+
+    public LayerMask ObsticleLayers;
+
+    [Range(0, MAX_RANGE)]
+    public float AvoidanceWeight;
 
     protected Rigidbody _rigidbody;
     protected Vector3 _velocity;
@@ -48,54 +55,57 @@ public abstract class GameEntity : Photon.PunBehaviour
 
     private void ObserveSourroundings()
     {
-        // Overlaping Sphere Cast
+        RaycastHit hit;
+        Ray obsticleCheck = new Ray(transform.position, transform.forward);
+        Debug.DrawRay(obsticleCheck.origin, obsticleCheck.direction * LookRadius, Color.cyan);
 
-        Collider[] collider = Physics.OverlapSphere(transform.position, LookRadius);
-
-        foreach (Collider col in collider)
+        if (Physics.Raycast(obsticleCheck, out hit, LookRadius))
         {
-            if (col.tag == "Obsticle")
+            var layer = hit.collider.gameObject.layer;
+
+            if (ObsticleLayers == (ObsticleLayers | (1 << layer)))
             {
-                AvoidObsticle(col);
+                var go = new GameObject();
+                go.transform.position = hit.point;
+                var sphere = go.AddComponent<SphereCollider>();
+                sphere.radius = AvoidanceForce;
+                sphere.isTrigger = true;
             }
         }
-
-        // Wenn im SpereCast ein Obsticle
-        // Sende Ray Casts
-
-        // Mit Raycast Punkt führe Aktion aus.
     }
 
     private void AvoidObsticle(Collider collider)
     {
-        RaycastHit hitCenter;
+        //RaycastHit hitCenter;
         RaycastHit hitLeft;
         RaycastHit hitRight;
 
-        Ray rayCenter = new Ray(transform.position, transform.forward);
-        Ray rayRight = new Ray(transform.position, (transform.right + transform.forward).normalized);
-        Ray rayLeft = new Ray(transform.position, (-transform.right + transform.forward).normalized);
+        //Ray rayCenter = new Ray(transform.position, transform.forward);
+        Ray rayRight = new Ray(transform.position, (transform.right / 2 + transform.forward).normalized);
+        Ray rayLeft = new Ray(transform.position, (-transform.right / 2 + transform.forward).normalized);
 
         //Debug.DrawRay(rayCenter.origin, rayCenter.direction * LookRadius, Color.magenta);
-        //Debug.DrawRay(rayRight.origin, rayRight.direction * LookRadius, Color.magenta);
-        //Debug.DrawRay(rayLeft.origin, rayLeft.direction * LookRadius, Color.magenta);
+        Debug.DrawRay(rayRight.origin, rayRight.direction * LookRadius, Color.magenta);
+        Debug.DrawRay(rayLeft.origin, rayLeft.direction * LookRadius, Color.magenta);
 
         Vector3 avoid = new Vector3();
         Vector3 ahead = transform.position + Velocity.normalized * LookRadius;
         Vector3 pointsTogether = new Vector3();
         //Debug.DrawLine(transform.position, ahead);
 
-        if (Physics.Raycast(rayCenter, out hitCenter, LookRadius))
-        {
-            _steeringBehaviour.Avoid(ahead - hitCenter.point, AvoidanceForce);
-        }
+        //if (Physics.Raycast(rayCenter, out hitCenter, LookRadius))
+        //{
+        //    _steeringBehaviour.Avoid(ahead - hitCenter.point, AvoidanceForce, weight);
+        //}
+        var rightHited = false;
         if (Physics.Raycast(rayRight, out hitRight, LookRadius))
         {
-            _steeringBehaviour.Avoid(ahead - hitRight.point, AvoidanceForce);
+            _steeringBehaviour.Avoid(ahead - hitRight.point, AvoidanceForce, AvoidanceWeight);
+            rightHited = true;
         }
-        if (Physics.Raycast(rayLeft, out hitLeft, LookRadius))
+        if (Physics.Raycast(rayLeft, out hitLeft, LookRadius) && !rightHited)
         {
-            _steeringBehaviour.Avoid(ahead - hitLeft.point, AvoidanceForce);
+            _steeringBehaviour.Avoid(ahead - hitLeft.point, AvoidanceForce, AvoidanceWeight);
         }
     }
 }
