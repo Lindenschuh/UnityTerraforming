@@ -56,11 +56,21 @@ public class Agent : MonoBehaviour
             Rotation = 0;
         }
 
+        if (Velocity.y != 0)
+        {
+            Velocity.y = 0;
+        }
+
         if (steering.linear.sqrMagnitude == 0)
         {
             Velocity = Vector3.zero;
         }
 
         steering = new Steering();
+    }
+
+    public GameObject GetAriveDestination()
+    {
+        return GameManager.instance.MainDestination.gameObject;
     }
 }

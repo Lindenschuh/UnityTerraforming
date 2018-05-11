@@ -8,10 +8,8 @@ public class SpawnManager : MonoBehaviour
     private const float MIN_SPAWN_RATE_SLIDER = 1f;
     private const float MAX_SPAWN_RATE_SLIDER = 5f;
 
-    public GameEntity[] BasePrefabs;
     public Spawner SpawnPrefab;
     public Transform Field;
-    public GameEntity MainDestination;
 
     public int MaxEntityToSpawn;
 
@@ -55,8 +53,6 @@ public class SpawnManager : MonoBehaviour
 
         var spawner = Instantiate(SpawnPrefab, position, Quaternion.identity);
         spawner.Init(
-            prefab: BasePrefabs[Random.Range(0, BasePrefabs.Length)],
-            destination: MainDestination,
             maxEntities: Random.Range(1, MaxEntityToSpawn),
             spawnRate: Random.Range(MinSpawnRate, MAX_SPAWN_RATE_SLIDER),
             waveCount: Random.Range(0, MaxWaveCount),

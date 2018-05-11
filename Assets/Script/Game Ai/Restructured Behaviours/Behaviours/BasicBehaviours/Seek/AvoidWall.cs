@@ -33,20 +33,20 @@ public class AvoidWall : Seek
         if (Physics.Raycast(position, direction, out hit, LookAhead))
         {
             Target.transform.position = hit.point + hit.normal * AvoidDistance; ;
-            Debug.DrawRay(hit.point, hit.normal * AvoidDistance, Color.yellow);
+            Debug.DrawRay(hit.point, Target.transform.position, Color.yellow);
             return base.GetSteering();
         }
         if (Physics.Raycast(position, directionLeft, out hit, LookAhead / FeelerScale))
         {
             Target.transform.position = hit.point + hit.normal * AvoidDistance; ;
-            Debug.DrawRay(hit.point, hit.normal * AvoidDistance, Color.yellow);
+            Debug.DrawRay(hit.point, Target.transform.position, Color.yellow);
             return base.GetSteering();
         }
 
         if (Physics.Raycast(position, directionRight, out hit, LookAhead / FeelerScale))
         {
-            Target.transform.position = hit.point - hit.normal * AvoidDistance; ;
-            Debug.DrawRay(hit.point, hit.normal * AvoidDistance, Color.yellow);
+            Target.transform.position = hit.point + hit.normal * AvoidDistance; ;
+            Debug.DrawRay(hit.point, Target.transform.position, Color.yellow);
             return base.GetSteering();
         }
 

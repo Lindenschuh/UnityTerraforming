@@ -7,7 +7,6 @@ public class Spawner : MonoBehaviour
     private const float MIN_SPAWN_RATE_SLIDER = 1f;
     private const float MAX_SPAWN_RATE_SLIDER = 5f;
 
-    public GameEntity Prefab;
     public int MaxEntities;
 
     [Range(MIN_SPAWN_RATE_SLIDER, MAX_SPAWN_RATE_SLIDER)]
@@ -22,9 +21,8 @@ public class Spawner : MonoBehaviour
     private int _entitiyCount;
     private bool pausedSpawning;
 
-    public void Init(GameEntity prefab, GameEntity destination, int maxEntities = 10, float spawnRate = .5f, int waveCount = 0, float waveMultipier = 1f)
+    public void Init(int maxEntities = 10, float spawnRate = .5f, int waveCount = 0, float waveMultipier = 1f)
     {
-        Prefab = prefab;
         MaxEntities = maxEntities;
         SpawnRate = spawnRate;
         WaveCount = waveCount;
@@ -47,23 +45,11 @@ public class Spawner : MonoBehaviour
         if (Time.time > _nextSpawnTime && _entitiyCount < MaxEntities)
         {
             _nextSpawnTime = Time.time + SpawnRate;
-            var entity = PhotonNetwork.Instantiate(Prefab.name, new Vector3(transform.position.x, Prefab.transform.localScale.y / 2, transform.position.z), Quaternion.identity, 0);
-            entity.GetComponent<Enemy>().Spawner = this;
             _entitiyCount++;
             if (_entitiyCount == MaxEntities)
             {
                 pausedSpawning = true;
             }
-        }
-    }
-
-    public void DestroyChild(GameEntity entity)
-    {
-        Destroy(entity.gameObject);
-        _entitiyCount--;
-        if (_entitiyCount <= 0)
-        {
-            pausedSpawning = false;
         }
     }
 }

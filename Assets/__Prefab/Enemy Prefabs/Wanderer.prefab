@@ -22,8 +22,11 @@ GameObject:
   - component: {fileID: 33801580000005462}
   - component: {fileID: 136312048130263858}
   - component: {fileID: 23579498016292306}
-  - component: {fileID: 114248976548828218}
   - component: {fileID: 54102989710552830}
+  - component: {fileID: 114690415115320376}
+  - component: {fileID: 114951576952196354}
+  - component: {fileID: 114666297876763722}
+  - component: {fileID: 114114385895585898}
   m_Layer: 0
   m_Name: Wanderer
   m_TagString: Untagged
@@ -38,7 +41,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1272905197640062}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -48.67761, y: 1.32, z: -53.391502}
+  m_LocalPosition: {x: -26.105967, y: 1, z: 38.6686}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -100,7 +103,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
---- !u!114 &114248976548828218
+--- !u!114 &114114385895585898
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -108,19 +111,71 @@ MonoBehaviour:
   m_GameObject: {fileID: 1272905197640062}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4c1a1eca287fe5740b806b8deafdffb1, type: 3}
+  m_Script: {fileID: 11500000, guid: 3b4a7f7daa8b8604c9eb37c01044996a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MaxVelocity: 10
-  MaxForce: 10
-  SlowingRadius: 15
-  Destination: {fileID: 0}
-  Spawner: {fileID: 0}
-  LookRadius: 20
-  AvoidanceForce: 10
-  WanderRadius: 20
-  WanderDistance: 10
-  AngleChange: 3.5
+  Target: {fileID: 0}
+  Agent: {fileID: 0}
+  Weight: 1
+  AvoidDistance: 10
+  LookAhead: 15
+  FeelerAngle: 60
+  FeelerScale: 6
+--- !u!114 &114666297876763722
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1272905197640062}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5c93ebf74c75c4041b398ebcecb612e1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Target: {fileID: 0}
+  Agent: {fileID: 0}
+  Weight: 1
+  TargetRadius: 0.1
+  SlowRadius: 3
+  TimeToTarget: 0.1
+  Offset: 5
+  Radius: 3
+  Rate: 50
+--- !u!114 &114690415115320376
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1272905197640062}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38588c6fe738a274c879fc3add368abf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MaxSpeed: 3
+  MaxAccel: 5
+  MaxRotation: 80
+  MaxAngularAccel: 150
+  Orientation: 0
+  Rotation: 0
+  Velocity: {x: 0, y: 0, z: 0}
+--- !u!114 &114951576952196354
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1272905197640062}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 505e1fdda98b4714d9d1c06790a3d93e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Target: {fileID: 0}
+  Agent: {fileID: 0}
+  Weight: 1
+  ColisionRadius: 4
+  ScanRadius: 10
+  ScanTime: 0.5
 --- !u!136 &136312048130263858
 CapsuleCollider:
   m_ObjectHideFlags: 1

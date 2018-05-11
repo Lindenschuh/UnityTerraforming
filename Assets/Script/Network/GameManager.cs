@@ -9,7 +9,7 @@ public class GameManager : MonoBehaviour
     public static GameManager instance;
 
     [HideInInspector]
-    public GameEntity MainDestination;
+    public GameObject MainDestination;
 
     private void Awake()
     {
@@ -31,7 +31,7 @@ public class GameManager : MonoBehaviour
         {
             spawnPoint = GameObject.Find("SpawnPoint_Destination").transform;
             GameObject destinationGO = PhotonNetwork.Instantiate("Destination", spawnPoint.position, spawnPoint.rotation, 0);
-            MainDestination = destinationGO.GetComponent<Destination>();
+            MainDestination = destinationGO.gameObject;
 
             spawnPoint = GameObject.Find("SpawnPoint_Spawner").transform;
             GameObject spawner = PhotonNetwork.Instantiate("Spawner", spawnPoint.position, spawnPoint.rotation, 0);

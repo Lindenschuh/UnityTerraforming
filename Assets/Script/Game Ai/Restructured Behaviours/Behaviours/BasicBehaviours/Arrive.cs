@@ -8,6 +8,9 @@ public class Arrive : AgentBehaviour
 
     public override Steering GetSteering()
     {
+        //if (Target == null)
+        //    Target = Agent.GetAriveDestination();
+
         Steering steering = new Steering();
         Vector3 direction = Target.transform.position - transform.position;
         float distance = direction.magnitude;
