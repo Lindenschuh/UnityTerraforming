@@ -5,9 +5,12 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
-    path: Assets/Scene/Lobby.unity
+  - enabled: 0
+    path: Assets/Scene/MainGame/Lobby.unity
     guid: bb0ba4220c9a56f419bc550bf56eba9d
-  - enabled: 1
-    path: Assets/Scene/Level_01.unity
+  - enabled: 0
+    path: Assets/Scene/MainGame/Level_01.unity
     guid: 8fc3f6aac364dd749ac37c0e4414db1d
+  - enabled: 1
+    path: Assets/Scene/TestScenes/Holger.unity
+    guid: 84abf114dd7001a4ea128fdcd53ce740
