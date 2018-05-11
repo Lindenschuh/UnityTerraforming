@@ -4,41 +4,47 @@ using UnityEngine;
 
 public class ObjectPlacer : MonoBehaviour
 {        
-        public GameObject[] prefabs;
+    public GameObject[] prefabs;
+    public int tries;
+    public int prefabsCount;
+    public Terrain terrain;
 
     void Start()
     {
-        SpawnObjects(prefabs, 100, 0, 100, 0, 100);
+        GetComponent<MapGenerator>().GenerateMap();
+        StartCoroutine(SpawnObjects(prefabs, RandomizeOnTerrain, prefabsCount, tries));
     }
 
-    private void SpawnObjects(GameObject[] prefabsToSpawn, int spawnCount, float minX, float maxX, float minY, float maxY, int maximumRetry = 200)
+    private IEnumerator SpawnObjects(GameObject[] prefabsToSpawn, System.Action<PositionCheck> randomizeDelegate, int spawnCount, int maximumRetry = 50)
     {
         foreach (GameObject prefab in prefabsToSpawn)
         {
-            StartCoroutine(SpawnObject(prefab, Mathf.RoundToInt(spawnCount / prefabsToSpawn.Length), minX, maxX, minY, maxY, maximumRetry));
+            PositionCheck positionCheck = new PositionCheck();
+            yield return StartCoroutine(SpawnObject(prefab, positionCheck, randomizeDelegate, Mathf.RoundToInt(spawnCount / prefabsToSpawn.Length), maximumRetry));
         }
     }
 
-    IEnumerator SpawnObject(GameObject prefabToSpawn, int spawnCount, float minX, float maxX, float minY, float maxY, int maximumRetry = 200)
+    IEnumerator SpawnObject(GameObject prefabToSpawn, PositionCheck positionCheck, System.Action<PositionCheck> randomizeDelegate, int spawnCount, int maximumRetry = 50, bool allowOverdraw = false)
     {
         int currentObjectsCount = 0;
         int currentRetry = 0;
-        Vector3 randomPosition;
+
+        if (prefabToSpawn.GetComponent<Collider>() == null)
+            allowOverdraw = true;
 
         CheckForCollisions template = Instantiate(prefabToSpawn).AddComponent<CheckForCollisions>();
-        PositionCheck positionCheck = new PositionCheck();
 
 
         while (currentObjectsCount < spawnCount && currentRetry < maximumRetry)
         {
             positionCheck.Reset();
-            positionCheck.PossitionAllowed();
-            randomPosition = new Vector3(Random.Range(minX, maxX), 0, Random.Range(minY, maxY));
-            positionCheck.randomPosition = randomPosition;
+            RandomizeOnTerrain(positionCheck);
+            if (!allowOverdraw)
+                yield return StartCoroutine(template.IsColliding(positionCheck));
+            else
+                positionCheck.PossitionAllowed();
 
-            yield return StartCoroutine(template.IsColliding(positionCheck));
-
-            if (!positionCheck.isPositionAvailable || positionCheck.isColliding)
+            if (positionCheck.isColliding)
             {
                 currentRetry++;
                 continue;
@@ -47,5 +53,34 @@ public class ObjectPlacer : MonoBehaviour
             Instantiate(prefabToSpawn, positionCheck.randomPosition, positionCheck.normalizedRotation);
             currentObjectsCount++;
         }
+        Destroy(template.gameObject);
+    }
+
+    public void RandomizeOnTerrain(PositionCheck positionCheck)
+    {
+        positionCheck.randomPosition = AlignToTerrain(terrain, 50, 450, 50, 450);
+        positionCheck.normalizedRotation = AlignToTerrain(terrain, positionCheck.randomPosition, 20);
+    }
+
+    private Vector3 AlignToTerrain(Terrain terrain, float minX, float maxX, float minY, float maxY)
+    {
+        Vector3 randomizedPosition = new Vector3(Random.Range(minX, maxX), 0, Random.Range(minY, maxY));
+
+        RaycastHit hit;
+        Physics.Raycast(new Vector3(randomizedPosition.x, 500, randomizedPosition.z), -Vector3.up, out hit, Mathf.Infinity, 1 << LayerMask.NameToLayer("Terrain"));
+
+        randomizedPosition.y = hit.point.y;
+        return randomizedPosition;
+    }
+
+    private Quaternion AlignToTerrain(Terrain terrain, Vector3 randomPosition, float maxAngle, bool checkAngle = true)
+    {
+        Vector3 normalizedRotationAtPoint = terrain.terrainData.GetInterpolatedNormal(randomPosition.x / terrain.terrainData.size.x, randomPosition.z / terrain.terrainData.size.z);
+        Quaternion rotation = Quaternion.FromToRotation(Vector3.up, normalizedRotationAtPoint);
+
+        if (checkAngle && Quaternion.Angle(rotation, Quaternion.identity) > maxAngle)
+            rotation = Quaternion.AngleAxis(maxAngle, Vector3.up);
+
+        return rotation * Quaternion.Euler(Vector3.up * Random.Range(-180f, 180f));
     }
 }

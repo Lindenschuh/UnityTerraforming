@@ -5,9 +5,9 @@ using UnityEngine;
 public class PositionCheck : MonoBehaviour {
 
     public bool isPositionAvailable;
-    public bool isColliding { get; private set; }
+    public bool isColliding { get; set; }
     public Vector3 randomPosition { get; set; }
-    public Quaternion normalizedRotation { get; private set; }
+    public Quaternion normalizedRotation { get; set; }
 
     public PositionCheck() { }
 

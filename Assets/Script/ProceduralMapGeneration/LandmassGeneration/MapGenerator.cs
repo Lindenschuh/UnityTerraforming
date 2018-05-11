@@ -6,8 +6,7 @@ public class MapGenerator : MonoBehaviour {
 
     public int width = 513;
     public int height = 513;
-    [Range(0,6)]
-    public int levelOfDetail;
+
     public float noiseScale;
 
     public int octaves;
@@ -18,13 +17,11 @@ public class MapGenerator : MonoBehaviour {
     public int seed;
     public Vector2 offset;
 
-    public float meshHeightMultiplier;
-    public AnimationCurve meshHeightCurve;
-
     public bool autoUpdate;
 
     public float[,] GenerateMap ()
     {
+        seed = Random.Range(0, 100000);
         float[,] noiseMap = Noise.GenerateNoiseMap(width, height, seed, noiseScale, octaves, persistance, lacunarity, offset);
         TerrainData terrain = GameObject.Find("Terrain").GetComponent<Terrain>().terrainData;
         terrain.SetHeights(0, 0, noiseMap);
