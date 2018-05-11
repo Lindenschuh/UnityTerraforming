@@ -6,7 +6,8 @@ public enum EasingFunctions
 {
     Lerp,
     Cubic,
-    Mean
+    Mean,
+    Quint
 }
 
 public class ShaderManager : MonoBehaviour
@@ -15,12 +16,14 @@ public class ShaderManager : MonoBehaviour
     private int LerpKernel;
     private int CubicKernel;
     private int MeanKernel;
+    private int QuintKernel;
 
     private void Start()
     {
         LerpKernel = CShader.FindKernel("CSLerp");
         CubicKernel = CShader.FindKernel("CSCubic");
         MeanKernel = CShader.FindKernel("CSMean");
+        QuintKernel = CShader.FindKernel("CSQuint");
     }
 
     private int ResolveKernel(EasingFunctions eF)
@@ -35,6 +38,9 @@ public class ShaderManager : MonoBehaviour
 
             case EasingFunctions.Mean:
                 return MeanKernel;
+
+            case EasingFunctions.Quint:
+                return QuintKernel;
 
             default:
                 return -1;
