@@ -19,11 +19,15 @@ public class BuildMode : Photon.PunBehaviour {
     public Transform transparentRamp;
     public float gridSize;
     public LayerMask buildLayer;
+    public KeyCode groundKey;
+    public KeyCode wallKey;
+    public KeyCode rampKey;
     private Vector3 position;
     private Transform square;
     private bool canBuild;
-
-
+    private UIControl uiController;
+    private BuildResources selectedMaterial;
+    private ResourceControl resourceControl;
     protected vThirdPersonCamera tpCamera;
     private buildMode presentBuildMode;
 
@@ -31,30 +35,31 @@ public class BuildMode : Photon.PunBehaviour {
     void Start () {
         tpCamera = FindObjectOfType<vThirdPersonCamera>();
         presentBuildMode = buildMode.buildModeOff;
-
+        resourceControl = GetComponent<ResourceControl>();
         //adjust the scale of the ramp to fit in grid.
         float scaleX = normalWall.localScale.x;
         float scaleZ = normalWall.localScale.z;
         float scaleY = Mathf.Sqrt(normalWall.localScale.y * normalWall.localScale.y + normalWall.localScale.z * normalWall.localScale.z);
         normalRamp.localScale = new Vector3(scaleX, scaleY, scaleZ);
         transparentRamp.localScale = new Vector3(scaleX, scaleY, scaleZ);
+        uiController = GetComponentInParent<UIControl>();
+        selectedMaterial = BuildResources.Wood;
     }
 
     // Update is called once per frame
     void Update() {
 
-        if (Input.GetKeyUp(KeyCode.Q))
+        if (Input.GetKeyUp(groundKey))
         {
-            InitBuilding(transparentSquare, buildMode.buildModeGround);
+            InitBuilding(transparentSquare, buildMode.buildModeGround);            
         }
 
-        if (Input.GetKeyUp(KeyCode.E))
+        if (Input.GetKeyUp(wallKey))
         {
             InitBuilding(transparentWall, buildMode.buildModeWall);
-
         }
 
-        if (Input.GetKeyUp(KeyCode.R))
+        if (Input.GetKeyUp(rampKey))
         {
             InitBuilding(transparentRamp, buildMode.buildModeRamp);
         }
@@ -63,10 +68,9 @@ public class BuildMode : Photon.PunBehaviour {
         {
             Vector3 pos = tpCamera.transform.position + tpCamera.transform.forward * (gridSize + 2);
 
-            Vector3 tempPosition = SnapToNearestGridcell(pos);
-            if (tempPosition != position )
-            {
-                position = tempPosition;
+            position = SnapToNearestGridcell(pos);
+
+                
                 square.position = position;
                 //Check if there are colliders arount the component or if there is already build something
                 canBuild = true;
@@ -114,7 +118,7 @@ public class BuildMode : Photon.PunBehaviour {
                     }
                 }
 
-                if (!canBuild)
+                if (!canBuild || resourceControl.GetResourceInfo(selectedMaterial) < 10)
                 {
                     //square.GetComponent<Renderer>().material.color = Color.red;
                     square.GetComponent<Renderer>().material.color = new Color(1.0f, 0.0f, 0.0f, 0.5f);
@@ -126,12 +130,13 @@ public class BuildMode : Photon.PunBehaviour {
 
             }
 
-            if (Input.GetKeyUp(KeyCode.Mouse0) && position != null)
+            if (Input.GetKeyUp(KeyCode.Mouse0) && position != null && resourceControl.GetResourceInfo(selectedMaterial) >= 10)
             {
                 BuildComponent();
+            resourceControl.UseResource(selectedMaterial, 10);
             }
         }
-        }      
+              
 
     void InitBuilding(Transform component, buildMode mode)
     {

@@ -32,6 +32,7 @@ TagManager:
   - ClimbDirection
   - Zipline
   - Sters
+  - BuildResource
   layers:
   - Default
   - TransparentFX
@@ -51,7 +52,7 @@ TagManager:
   - StopMove
   - HeadTrack
   - BodyPart
-  - 
+  - Resource
   - 
   - 
   - 
