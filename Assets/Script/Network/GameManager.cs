@@ -8,6 +8,9 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
 
+    public GameObject DestinationPrefab;
+    public GameObject SpawnerPrefab;
+
     [HideInInspector]
     public GameObject MainDestination;
 
@@ -27,15 +30,13 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         Transform spawnPoint;
-        if (PhotonNetwork.isMasterClient)
-        {
-            spawnPoint = GameObject.Find("SpawnPoint_Destination").transform;
-            GameObject destinationGO = PhotonNetwork.Instantiate("Destination", spawnPoint.position, spawnPoint.rotation, 0);
-            MainDestination = destinationGO.gameObject;
 
-            spawnPoint = GameObject.Find("SpawnPoint_Spawner").transform;
-            GameObject spawner = PhotonNetwork.Instantiate("Spawner", spawnPoint.position, spawnPoint.rotation, 0);
-        }
+        spawnPoint = GameObject.Find("SpawnPoint_Destination").transform;
+        GameObject destinationGO = Instantiate(DestinationPrefab, spawnPoint);
+        MainDestination = destinationGO.gameObject;
+
+        spawnPoint = GameObject.Find("SpawnPoint_Spawner").transform;
+        GameObject spawner = Instantiate(SpawnerPrefab, spawnPoint);
 
         spawnPoint = GameObject.Find("SpawnPoint_" + PhotonNetwork.player.NickName).transform;
         PhotonNetwork.Instantiate(PhotonNetwork.player.NickName, spawnPoint.position, spawnPoint.rotation, 0);

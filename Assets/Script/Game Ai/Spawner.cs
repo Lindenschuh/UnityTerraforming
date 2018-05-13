@@ -2,53 +2,56 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Spawner : MonoBehaviour
+namespace UnityTerraforming.GameAi
 {
-    private const float MIN_SPAWN_RATE_SLIDER = 1f;
-    private const float MAX_SPAWN_RATE_SLIDER = 5f;
-
-    public int MaxEntities;
-
-    [Range(MIN_SPAWN_RATE_SLIDER, MAX_SPAWN_RATE_SLIDER)]
-    public float SpawnRate;
-
-    // If WaveCount is 0 then there is no Wave Limit
-    public int WaveCount;
-
-    public float WaveMultiplier;
-
-    private float _nextSpawnTime;
-    private int _entitiyCount;
-    private bool pausedSpawning;
-
-    public void Init(int maxEntities = 10, float spawnRate = .5f, int waveCount = 0, float waveMultipier = 1f)
+    public class Spawner : MonoBehaviour
     {
-        MaxEntities = maxEntities;
-        SpawnRate = spawnRate;
-        WaveCount = waveCount;
-        WaveMultiplier = waveMultipier;
-    }
+        private const float MIN_SPAWN_RATE_SLIDER = 1f;
+        private const float MAX_SPAWN_RATE_SLIDER = 5f;
 
-    private void FixedUpdate()
-    {
-        if (PhotonNetwork.isMasterClient)
+        public int MaxEntities;
+
+        [Range(MIN_SPAWN_RATE_SLIDER, MAX_SPAWN_RATE_SLIDER)]
+        public float SpawnRate;
+
+        // If WaveCount is 0 then there is no Wave Limit
+        public int WaveCount;
+
+        public float WaveMultiplier;
+
+        private float _nextSpawnTime;
+        private int _entitiyCount;
+        private bool pausedSpawning;
+
+        public void Init(int maxEntities = 10, float spawnRate = .5f, int waveCount = 0, float waveMultipier = 1f)
         {
-            if (!pausedSpawning)
+            MaxEntities = maxEntities;
+            SpawnRate = spawnRate;
+            WaveCount = waveCount;
+            WaveMultiplier = waveMultipier;
+        }
+
+        private void FixedUpdate()
+        {
+            if (PhotonNetwork.isMasterClient)
             {
-                SpawnEntity();
+                if (!pausedSpawning)
+                {
+                    SpawnEntity();
+                }
             }
         }
-    }
 
-    private void SpawnEntity()
-    {
-        if (Time.time > _nextSpawnTime && _entitiyCount < MaxEntities)
+        private void SpawnEntity()
         {
-            _nextSpawnTime = Time.time + SpawnRate;
-            _entitiyCount++;
-            if (_entitiyCount == MaxEntities)
+            if (Time.time > _nextSpawnTime && _entitiyCount < MaxEntities)
             {
-                pausedSpawning = true;
+                _nextSpawnTime = Time.time + SpawnRate;
+                _entitiyCount++;
+                if (_entitiyCount == MaxEntities)
+                {
+                    pausedSpawning = true;
+                }
             }
         }
     }
