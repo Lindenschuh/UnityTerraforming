@@ -19,9 +19,12 @@ public class MapGenerator : MonoBehaviour {
 
     public bool autoUpdate;
 
-    public float[,] GenerateMap ()
+    public float[,] GenerateMap (int pSeed = 0)
     {
-        seed = Random.Range(0, 100000);
+        if (pSeed != 0)
+            seed = Random.Range(0, 100000);
+        else
+            seed = pSeed;
         float[,] noiseMap = Noise.GenerateNoiseMap(width, height, seed, noiseScale, octaves, persistance, lacunarity, offset);
         TerrainData terrain = GameObject.Find("Terrain").GetComponent<Terrain>().terrainData;
         terrain.SetHeights(0, 0, noiseMap);

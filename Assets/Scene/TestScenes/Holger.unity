@@ -378,7 +378,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1036098438998508, guid: 54aa2db14001d914bb4ac34534a2e6aa, type: 2}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 54aa2db14001d914bb4ac34534a2e6aa, type: 2}
@@ -460,38 +460,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   width: 513
   height: 513
-  levelOfDetail: 1
   noiseScale: 100
   octaves: 1
-  persistance: 0.536
+  persistance: 0.523
   lacunarity: 3.38
-  seed: 170
+  seed: 0
   offset: {x: 0, y: 0}
-  meshHeightMultiplier: 100
-  meshHeightCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 2
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-    - serializedVersion: 2
-      time: 0.41439518
-      value: 0.008327156
-      inSlope: 0.03708583
-      outSlope: 0.03708583
-      tangentMode: 0
-    - serializedVersion: 2
-      time: 1
-      value: 1
-      inSlope: 2
-      outSlope: 2
-      tangentMode: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 0
   autoUpdate: 1
 --- !u!114 &660597230
 MonoBehaviour:
@@ -510,7 +484,7 @@ MonoBehaviour:
   - {fileID: 1167206470166340, guid: f4b40071d52d45445b02ae5b33ca4247, type: 2}
   - {fileID: 1975899248202810, guid: 3f368718f1c39cc4a9b4a766d3a3cf68, type: 2}
   tries: 100
-  prefabsCount: 50
+  prefabsCount: 500
   terrain: {fileID: 1160914897}
 --- !u!4 &660597231
 Transform:
@@ -1077,6 +1051,10 @@ Prefab:
       propertyPath: instantiationId
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1766385123758698, guid: f21c6057120252d41911680a82b4aa04, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: f21c6057120252d41911680a82b4aa04, type: 2}
   m_IsPrefabParent: 0
@@ -1164,7 +1142,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4920440730594218, guid: 6e637731f9a059f45864c4f3556cac26, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 2
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 4920440730594218, guid: 6e637731f9a059f45864c4f3556cac26, type: 2}
       propertyPath: m_LocalPosition.z

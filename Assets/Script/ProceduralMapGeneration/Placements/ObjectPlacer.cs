@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ObjectPlacer : MonoBehaviour
+public class ObjectPlacer : Photon.PunBehaviour
 {        
     public GameObject[] prefabs;
     public int tries;
@@ -11,8 +11,12 @@ public class ObjectPlacer : MonoBehaviour
 
     void Start()
     {
-        GetComponent<MapGenerator>().GenerateMap();
-        StartCoroutine(SpawnObjects(prefabs, RandomizeOnTerrain, prefabsCount, tries));
+        int seed = 0;
+        if (PhotonNetwork.isMasterClient)
+            seed = Random.Range(0, 100000);
+        GetComponent<MapGenerator>().GenerateMap(seed);
+        if (PhotonNetwork.isMasterClient)
+            StartCoroutine(SpawnObjects(prefabs, RandomizeOnTerrain, prefabsCount, tries));
     }
 
     private IEnumerator SpawnObjects(GameObject[] prefabsToSpawn, System.Action<PositionCheck> randomizeDelegate, int spawnCount, int maximumRetry = 50)
@@ -49,8 +53,7 @@ public class ObjectPlacer : MonoBehaviour
                 currentRetry++;
                 continue;
             }
-
-            Instantiate(prefabToSpawn, positionCheck.randomPosition, positionCheck.normalizedRotation);
+            PhotonNetwork.Instantiate(prefabToSpawn.name, positionCheck.randomPosition, positionCheck.normalizedRotation, 0);
             currentObjectsCount++;
         }
         Destroy(template.gameObject);
