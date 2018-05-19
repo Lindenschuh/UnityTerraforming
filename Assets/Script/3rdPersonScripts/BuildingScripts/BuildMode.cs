@@ -19,11 +19,15 @@ public class BuildMode : Photon.PunBehaviour {
     public Transform transparentRamp;
     public float gridSize;
     public LayerMask buildLayer;
+    public KeyCode groundKey;
+    public KeyCode wallKey;
+    public KeyCode rampKey;
     private Vector3 position;
     private Transform square;
     private bool canBuild;
-
-
+    private UIControl uiController;
+    private BuildResources selectedMaterial;
+    private ResourceControl resourceControl;
     protected vThirdPersonCamera tpCamera;
     private buildMode presentBuildMode;
 
@@ -31,30 +35,31 @@ public class BuildMode : Photon.PunBehaviour {
     void Start () {
         tpCamera = FindObjectOfType<vThirdPersonCamera>();
         presentBuildMode = buildMode.buildModeOff;
-
+        resourceControl = GetComponent<ResourceControl>();
         //adjust the scale of the ramp to fit in grid.
         float scaleX = normalWall.localScale.x;
         float scaleZ = normalWall.localScale.z;
         float scaleY = Mathf.Sqrt(normalWall.localScale.y * normalWall.localScale.y + normalWall.localScale.z * normalWall.localScale.z);
         normalRamp.localScale = new Vector3(scaleX, scaleY, scaleZ);
         transparentRamp.localScale = new Vector3(scaleX, scaleY, scaleZ);
+        uiController = GetComponentInParent<UIControl>();
+        selectedMaterial = BuildResources.Wood;
     }
 
     // Update is called once per frame
     void Update() {
 
-        if (Input.GetKeyUp(KeyCode.Q))
+        if (Input.GetKeyUp(groundKey))
         {
-            InitBuilding(transparentSquare, buildMode.buildModeGround);
+            InitBuilding(transparentSquare, buildMode.buildModeGround);            
         }
 
-        if (Input.GetKeyUp(KeyCode.E))
+        if (Input.GetKeyUp(wallKey))
         {
             InitBuilding(transparentWall, buildMode.buildModeWall);
-
         }
 
-        if (Input.GetKeyUp(KeyCode.R))
+        if (Input.GetKeyUp(rampKey))
         {
             InitBuilding(transparentRamp, buildMode.buildModeRamp);
         }
@@ -64,35 +69,74 @@ public class BuildMode : Photon.PunBehaviour {
             Vector3 pos = tpCamera.transform.position + tpCamera.transform.forward * (gridSize + 2);
 
             position = SnapToNearestGridcell(pos);
-            square.position = position;
-            //Check if there are colliders arount the component or if there is already build something
-            canBuild = true;
-            Collider[] boxColliders = Physics.OverlapBox(position, square.transform.localScale / 2, square.transform.rotation, buildLayer);
-            if (boxColliders.Length == 0) canBuild = false;
-            else
-            {
-                foreach (Collider collider in boxColliders)
+
+                
+                square.position = position;
+                //Check if there are colliders arount the component or if there is already build something
+                canBuild = true;
+                List<Vector3> scaleList = new List<Vector3>();
+                if (square.transform.localScale.x >= 4)
                 {
-                    if (collider.transform.position == position) canBuild = false;
+                    scaleList.Add(new Vector3(square.transform.localScale.x - gridSize / 2, square.transform.localScale.y, square.transform.localScale.z));
                 }
+                if (square.transform.localScale.y >= 4)
+                {
+                    scaleList.Add(new Vector3(square.transform.localScale.x, square.transform.localScale.y - gridSize / 2, square.transform.localScale.z));
+                }
+                if (square.transform.localScale.z >= 4)
+                {
+                    scaleList.Add(new Vector3(square.transform.localScale.x, square.transform.localScale.y, square.transform.localScale.z - gridSize / 2));
+                }
+                List<Collider[]> colliderList = new List<Collider[]>();
+                int arrayLength = 0;
+                foreach (Vector3 scale in scaleList)
+                {
+                    Collider[] colArray = Physics.OverlapBox(position, scale / 2, square.transform.rotation, buildLayer);
+                    if (colArray.Length > 0)
+                    {
+                        colliderList.Add(colArray);
+                        arrayLength += colArray.Length;
+                    }
+                }
+
+                Collider[] boxColliders = new Collider[arrayLength];
+                int copyInt = 0;
+                foreach (Collider[] colArray in colliderList)
+                {
+
+                    colArray.CopyTo(boxColliders, copyInt);
+                    copyInt += colArray.Length;
+                }
+                if (boxColliders.Length == 0) canBuild = false;
+                else
+                {
+                    foreach (Collider collider in boxColliders)
+                    {
+                        if (collider.transform.position == position) canBuild = false;
+
+
+                    }
+                }
+
+                if (!canBuild || resourceControl.GetResourceInfo(selectedMaterial) < 10)
+                {
+                    //square.GetComponent<Renderer>().material.color = Color.red;
+                    square.GetComponent<Renderer>().material.color = new Color(1.0f, 0.0f, 0.0f, 0.5f);
+                }
+                else
+                {
+                    square.GetComponent<Renderer>().material.color = new Color(0.5f, 0.5f, 0.5f, 0.5f);
+                }
+
             }
 
-            if (!canBuild)
+            if (Input.GetKeyUp(KeyCode.Mouse0) && position != null && resourceControl.GetResourceInfo(selectedMaterial) >= 10)
             {
-                //square.GetComponent<Renderer>().material.color = Color.red;
-                square.GetComponent<Renderer>().material.color = new Color(1.0f, 0.0f, 0.0f, 0.5f);
-            }else
-            {
-                square.GetComponent<Renderer>().material.color = new Color(0.5f, 0.5f, 0.5f, 0.5f);
+                BuildComponent();
+            
             }
-
         }
-    
-            if (Input.GetKeyUp(KeyCode.Mouse0) && position != null)
-            {
-            BuildComponent();
-            }
-        }      
+              
 
     void InitBuilding(Transform component, buildMode mode)
     {
@@ -175,21 +219,25 @@ public class BuildMode : Photon.PunBehaviour {
 
         if (canBuild)
         {
+           
             switch (presentBuildMode)
             {
+                
                 case buildMode.buildModeGround:
                     photonView.RPC("RPCBuildGround", PhotonTargets.All, position, square.rotation);
-                    return;
+                    break;
                 case buildMode.buildModeWall:
                     photonView.RPC("RPCBuildWall", PhotonTargets.All, position, square.rotation);
-                    return;
+                    break;
                 case buildMode.buildModeRamp:
                     photonView.RPC("RPCBuildRamp", PhotonTargets.All, position, square.rotation);
-                    return;
+                    break;
                 default:
                     return;
-
+                    
             }
+            canBuild = false;
+            resourceControl.UseResource(selectedMaterial, 10);
         }
     }
 
