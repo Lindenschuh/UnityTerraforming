@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 public class GameManager : MonoBehaviour {
 
@@ -20,10 +21,10 @@ public class GameManager : MonoBehaviour {
             spawner.GetComponent<Spawner>().Destination = destination;
         }
 
-        spawnPoint = GameObject.Find("SpawnPoint_" + PhotonNetwork.player.NickName).transform;
-        PhotonNetwork.Instantiate(PhotonNetwork.player.NickName, spawnPoint.position, spawnPoint.rotation, 0);
+        spawnPoint = GameObject.Find("SpawnPoint_" + PhotonNetwork.player.CustomProperties["role"].ToString()).transform;
+        PhotonNetwork.Instantiate(PhotonNetwork.player.CustomProperties["role"].ToString(), spawnPoint.position, spawnPoint.rotation, 0);
 
-        if (PhotonNetwork.player.NickName == "Priest")
+        if (PhotonNetwork.player.CustomProperties["role"].ToString() == "Priest")
         {
             Debug.LogWarning(PhotonNetwork.player.NickName);
             GameObject priest = GameObject.Find("Priest(Clone)");

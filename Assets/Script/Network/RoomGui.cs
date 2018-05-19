@@ -11,7 +11,7 @@ public class RoomGui : Photon.PunBehaviour {
     public Toggle playerReady;
     public int playerID;
 
-    public RoomGui (Text pPlayerName, Dropdown pPlayerRole, Dropdown pPlayerTeam, Toggle pPlayerReady, int pPlayerID)
+    public RoomGui(Text pPlayerName, Dropdown pPlayerRole, Dropdown pPlayerTeam, Toggle pPlayerReady, int pPlayerID)
     {
         playerName = Instantiate(pPlayerName);
         playerRole = Instantiate(pPlayerRole);

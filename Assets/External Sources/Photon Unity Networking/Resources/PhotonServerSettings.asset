@@ -53,4 +53,6 @@ MonoBehaviour:
   - RPCMoveEnemy
   - RPCCreateEnemies
   - RPCSwitchBrush
+  - changeRoomMaxPlayers
+  - RPCChangeRoomMaxPlayers
   DisableAutoOpenWizard: 1
