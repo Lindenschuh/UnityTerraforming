@@ -20,8 +20,11 @@ public class TerraManipulation : Photon.PunBehaviour
     // Use this for initialization
     private void Start()
     {
+        int seed = 0;
+        if (PhotonNetwork.isMasterClient)
+            seed = UnityEngine.Random.Range(0, 100000);
         MapGenerator mapGenerator = GameObject.Find("MapGenerator").GetComponent<MapGenerator>();
-        HeightMap = mapGenerator.GenerateMap();
+        HeightMap = mapGenerator.GenerateMap(seed);
         Terra = GetComponent<Terrain>();
         TData = Terra.terrainData;
         ResetTerrain();

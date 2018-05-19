@@ -13,7 +13,7 @@ OcclusionCullingSettings:
 --- !u!104 &2
 RenderSettings:
   m_ObjectHideFlags: 0
-  serializedVersion: 8
+  serializedVersion: 9
   m_Fog: 0
   m_FogColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
   m_FogMode: 3
@@ -39,6 +39,7 @@ RenderSettings:
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
   m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
+  m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -54,11 +55,10 @@ LightmapSettings:
     m_EnableBakedLightmaps: 1
     m_EnableRealtimeLightmaps: 1
   m_LightmapEditorSettings:
-    serializedVersion: 9
+    serializedVersion: 10
     m_Resolution: 2
     m_BakeResolution: 40
-    m_TextureWidth: 1024
-    m_TextureHeight: 1024
+    m_AtlasSize: 1024
     m_AO: 0
     m_AOMaxDistance: 1
     m_CompAOExponent: 1
@@ -152,9 +152,114 @@ Prefab:
       propertyPath: m_RootOrder
       value: 7
       objectReference: {fileID: 0}
+    - target: {fileID: 114259735006641792, guid: 54aa2db14001d914bb4ac34534a2e6aa,
+        type: 2}
+      propertyPath: DestinationPrefab
+      value: 
+      objectReference: {fileID: 1802668065496030, guid: 9930dcc504397b741bf6be62c16782ff,
+        type: 2}
+    - target: {fileID: 114259735006641792, guid: 54aa2db14001d914bb4ac34534a2e6aa,
+        type: 2}
+      propertyPath: SpawnerPrefab
+      value: 
+      objectReference: {fileID: 1243623761956138, guid: 4f05a592be2e53d4280912264d5ff62d,
+        type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 54aa2db14001d914bb4ac34534a2e6aa, type: 2}
   m_IsPrefabParent: 0
+--- !u!1 &88281452
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 88281456}
+  - component: {fileID: 88281455}
+  - component: {fileID: 88281454}
+  - component: {fileID: 88281453}
+  m_Layer: 0
+  m_Name: MapGenerator
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &88281453
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 88281452}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b381c3198b0806544b1414c855d2b01f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefabs:
+  - {fileID: 1802668065496030, guid: 9930dcc504397b741bf6be62c16782ff, type: 2}
+  tries: 100
+  prefabsCount: 1
+  terrain: {fileID: 1796846424}
+--- !u!114 &88281454
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 88281452}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ownerId: 0
+  group: 0
+  OwnerShipWasTransfered: 0
+  prefixBackup: -1
+  synchronization: 0
+  onSerializeTransformOption: 3
+  onSerializeRigidBodyOption: 2
+  ownershipTransfer: 0
+  ObservedComponents:
+  - {fileID: 0}
+  ObservedComponentsFoldoutOpen: 1
+  viewIdField: 4
+  instantiationId: 4
+  currentMasterID: -1
+  isRuntimeInstantiated: 0
+--- !u!114 &88281455
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 88281452}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 95c2804ef9ac40f4b80465c0a26ad931, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  width: 513
+  height: 513
+  noiseScale: 100
+  octaves: 1
+  persistance: 0.523
+  lacunarity: 3.38
+  seed: 0
+  offset: {x: 0, y: 0}
+  autoUpdate: 1
+--- !u!4 &88281456
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 88281452}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 10
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &418632111
 Prefab:
   m_ObjectHideFlags: 0
@@ -450,6 +555,7 @@ MeshRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RenderingLayerMask: 4294967295
   m_Materials:
   - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
@@ -639,7 +745,7 @@ TerrainCollider:
   m_GameObject: {fileID: 1796846421}
   m_Material: {fileID: 13400000, guid: 1ed575bd5f02de74b9b9b852ea0b352a, type: 2}
   m_Enabled: 1
-  m_TerrainData: {fileID: 15600000, guid: d575b97a5b8a72e40b4cc9ebe382c2e1, type: 2}
+  m_TerrainData: {fileID: 15600000, guid: 4342bb2ef4bafa04faae12e016ba3948, type: 2}
   m_EnableTreeColliders: 1
 --- !u!218 &1796846424
 Terrain:
@@ -649,7 +755,7 @@ Terrain:
   m_GameObject: {fileID: 1796846421}
   m_Enabled: 1
   serializedVersion: 3
-  m_TerrainData: {fileID: 15600000, guid: d575b97a5b8a72e40b4cc9ebe382c2e1, type: 2}
+  m_TerrainData: {fileID: 15600000, guid: 4342bb2ef4bafa04faae12e016ba3948, type: 2}
   m_TreeDistance: 5000
   m_TreeBillboardDistance: 50
   m_TreeCrossFadeLength: 5

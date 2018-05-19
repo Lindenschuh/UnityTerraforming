@@ -10,11 +10,7 @@ public class ObjectPlacer : Photon.PunBehaviour
     public Terrain terrain;
 
     void Start()
-    {
-        int seed = 0;
-        if (PhotonNetwork.isMasterClient)
-            seed = Random.Range(0, 100000);
-        GetComponent<MapGenerator>().GenerateMap(seed);
+    { 
         if (PhotonNetwork.isMasterClient)
             StartCoroutine(SpawnObjects(prefabs, RandomizeOnTerrain, prefabsCount, tries));
     }
