@@ -385,6 +385,56 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1559142370
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 1156170896483242, guid: 03f090d382e53fd4594cbc5b7f790bba,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1559142371}
+  - component: {fileID: 1559142372}
+  m_Layer: 0
+  m_Name: QuintBrush
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1559142371
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 4872565409208334, guid: 03f090d382e53fd4594cbc5b7f790bba,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1559142370}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 2140977561}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1559142372
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1559142370}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0b4717c076fe8e046a0b26f50e6ef22e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Value: 0.0001
+  BrushWidth: 10
+  BrushHeight: 10
+  MaxBrushValue: 150
+  sizeModificator: 0
+  GoodIndicator: {fileID: 2100000, guid: c6e320b0eb4826d4e88969a967bfec2d, type: 2}
+  BadIndicator: {fileID: 2100000, guid: 79185ed6c6bccc843ba87a179d18b03a, type: 2}
+  CSHandler: {fileID: 188085025}
 --- !u!1 &1796846421
 GameObject:
   m_ObjectHideFlags: 0
@@ -436,7 +486,7 @@ Terrain:
   m_Enabled: 1
   serializedVersion: 3
   m_TerrainData: {fileID: 15600000, guid: d575b97a5b8a72e40b4cc9ebe382c2e1, type: 2}
-  m_TreeDistance: 5000
+  m_TreeDistance: 2000
   m_TreeBillboardDistance: 50
   m_TreeCrossFadeLength: 5
   m_TreeMaximumFullLODCount: 50
@@ -449,12 +499,12 @@ Terrain:
   m_DrawHeightmap: 1
   m_DrawTreesAndFoliage: 1
   m_ReflectionProbeUsage: 1
-  m_MaterialType: 0
+  m_MaterialType: 3
   m_LegacySpecular:
     serializedVersion: 2
     rgba: 4286545791
   m_LegacyShininess: 0.078125
-  m_MaterialTemplate: {fileID: 0}
+  m_MaterialTemplate: {fileID: 2100000, guid: 249a9671a52d915468cb9ba6d988acb3, type: 2}
   m_BakeLightProbesForTrees: 1
   m_ScaleInLightmap: 0.0512
   m_LightmapParameters: {fileID: 15203, guid: 0000000000000000f000000000000000, type: 0}
@@ -507,6 +557,11 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 114617309503107390, guid: 03f090d382e53fd4594cbc5b7f790bba,
+        type: 2}
+      propertyPath: AllKeys.Array.size
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 4601272777220868, guid: 03f090d382e53fd4594cbc5b7f790bba, type: 2}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -557,12 +612,12 @@ Prefab:
     - target: {fileID: 114744240823517264, guid: 03f090d382e53fd4594cbc5b7f790bba,
         type: 2}
       propertyPath: BrushWidth
-      value: 2
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 114744240823517264, guid: 03f090d382e53fd4594cbc5b7f790bba,
         type: 2}
       propertyPath: BrushHeight
-      value: 2
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 114547508127232254, guid: 03f090d382e53fd4594cbc5b7f790bba,
         type: 2}
@@ -578,6 +633,20 @@ Prefab:
         type: 2}
       propertyPath: BrushHeight
       value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 114547508127232254, guid: 03f090d382e53fd4594cbc5b7f790bba,
+        type: 2}
+      propertyPath: Value
+      value: 0.001
+      objectReference: {fileID: 0}
+    - target: {fileID: 4911764196887090, guid: 03f090d382e53fd4594cbc5b7f790bba, type: 2}
+      propertyPath: m_RootOrder
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 114617309503107390, guid: 03f090d382e53fd4594cbc5b7f790bba,
+        type: 2}
+      propertyPath: AllKeys.Array.data[3]
+      value: 52
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 03f090d382e53fd4594cbc5b7f790bba, type: 2}
@@ -665,3 +734,8 @@ MonoBehaviour:
   instantiationId: 1
   currentMasterID: -1
   isRuntimeInstantiated: 0
+--- !u!4 &2140977561 stripped
+Transform:
+  m_PrefabParentObject: {fileID: 4601272777220868, guid: 03f090d382e53fd4594cbc5b7f790bba,
+    type: 2}
+  m_PrefabInternal: {fileID: 1832119596}
