@@ -5,6 +5,7 @@ using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using System.Linq;
 using UnityEngine.SceneManagement;
+using System;
 
 public class NetworkManager : Photon.PunBehaviour
 {
@@ -16,10 +17,11 @@ public class NetworkManager : Photon.PunBehaviour
     public byte MaxPlayersPerRoom = 2;
 
 
-
     // Menu panels
     public GameObject mainMenuPanel;
+    public GameObject userNameInputPanel;
     public GameObject lobbyPanel;
+    public GameObject roomNameInputPanel;
     public GameObject roomPanel;
 
 
@@ -35,6 +37,9 @@ public class NetworkManager : Photon.PunBehaviour
     public Dropdown playerRole;
     public Dropdown playerTeam;
     public Toggle playerReady;
+
+    public Dropdown maxPlayerCount;
+    public Dropdown gameMode;
 
 
     #endregion
@@ -87,7 +92,7 @@ public class NetworkManager : Photon.PunBehaviour
     {
         lobbyPanel.SetActive(false);
         roomPanel.SetActive(true);
-        string playerName = "Name";
+        string playerName = PhotonNetwork.player.NickName;
         int playerID = PhotonNetwork.player.ID;
         photonView.RPC("RPCUpdateRoom", PhotonTargets.AllBufferedViaServer, playerName, playerID);
     }
@@ -98,6 +103,11 @@ public class NetworkManager : Photon.PunBehaviour
         lobbyPanel.SetActive(true);
     }
 
+
+    public override void OnPhotonMaxCccuReached()
+    {
+        base.OnPhotonMaxCccuReached();
+    }
 
     public override void OnReceivedRoomListUpdate()
     {
@@ -110,9 +120,22 @@ public class NetworkManager : Photon.PunBehaviour
 
     #region Helper Methods
 
+    public void EnterName()
+    {
+        userNameInputPanel.SetActive(false);
+        lobbyPanel.SetActive(true);
+        PhotonNetwork.player.NickName = userNameInputPanel.transform.GetChild(1).GetChild(2).GetComponent<Text>().text;
+    }
+
+    public void EnterNameCancel()
+    {
+        userNameInputPanel.SetActive(false);
+        mainMenuPanel.SetActive(true);
+    }
+
     public void Connect()
     {
-        lobbyPanel.SetActive(true);
+        userNameInputPanel.SetActive(true);
         mainMenuPanel.SetActive(false);
         if (!PhotonNetwork.connected)
             PhotonNetwork.ConnectUsingSettings(_gameVersion);
@@ -125,8 +148,21 @@ public class NetworkManager : Photon.PunBehaviour
 
     public void CreateNewRoom()
     {
-        PhotonNetwork.CreateRoom(null, new RoomOptions() { MaxPlayers = MaxPlayersPerRoom }, null);
         lobbyPanel.SetActive(false);
+        roomNameInputPanel.SetActive(true);
+    }
+
+    public void CreateNewRoomCancel()
+    {
+        roomNameInputPanel.SetActive(false);
+        lobbyPanel.SetActive(true);
+    }
+
+    public void ApplyRoom()
+    {
+        string roomName = roomNameInputPanel.transform.GetChild(1).GetChild(2).GetComponent<Text>().text;
+        PhotonNetwork.CreateRoom(roomName, new RoomOptions() { MaxPlayers = MaxPlayersPerRoom }, null);
+        roomNameInputPanel.SetActive(false);
         roomPanel.SetActive(true);
     }
 
@@ -138,19 +174,21 @@ public class NetworkManager : Photon.PunBehaviour
 
     public void LeaveRoom()
     {
-        foreach (RoomGui roomGui in rooms[PhotonNetwork.room])
+        try
         {
-            roomGui.destroyComponents();
+            if (rooms != null)
+            {
+                foreach (RoomGui roomGui in rooms[PhotonNetwork.room])
+                {
+                    roomGui.destroyComponents();
+                }
+                rooms.Clear();
+            }
+
+            photonView.RPC("RPCLeaveRoom", PhotonTargets.Others, PhotonNetwork.player.ID);
+            PhotonNetwork.LeaveRoom();
         }
-        rooms.Clear();
-
-        photonView.RPC("RPCLeaveRoom", PhotonTargets.Others, PhotonNetwork.player.ID);
-        PhotonNetwork.LeaveRoom();
-    }
-
-    public void ChangeMaxNumberOfUsersInRoom()
-    {
-
+        catch (ArgumentNullException) { }
     }
 
 
@@ -219,12 +257,21 @@ public class NetworkManager : Photon.PunBehaviour
 
         if (roleCounter == 0)
         {
-            string levelName = "Lars";
+            string levelName = "Level_01";
             photonView.RPC("RPCStartGame", PhotonTargets.AllBufferedViaServer, levelName);
         }
     }
 
-    public void ChangePlayerRole(int pPlayerRoleValue, int pPlayerID)
+    private void ChangeRoomMaxPlayers(int pMaxPlayerCountValue)
+    {
+        if ((pMaxPlayerCountValue + 1) * 2 >= PhotonNetwork.room.PlayerCount)
+        {
+            PhotonNetwork.room.MaxPlayers = 2 + pMaxPlayerCountValue * 2;
+            photonView.RPC("RPCChangeRoomMaxPlayers", PhotonTargets.OthersBuffered, pMaxPlayerCountValue);
+        }
+    }
+
+    private void ChangePlayerRole(int pPlayerRoleValue, int pPlayerID)
     {
         photonView.RPC("RPCChangePlayerRole", PhotonTargets.OthersBuffered, pPlayerRoleValue, pPlayerID);
     }
@@ -256,6 +303,7 @@ public class NetworkManager : Photon.PunBehaviour
         roomGui.playerRole.onValueChanged.AddListener(delegate { ChangePlayerRole(roomGui.playerRole.value, pPlayerID); });
         roomGui.playerTeam.onValueChanged.AddListener(delegate { ChangePlayerTeam(roomGui.playerTeam.value, pPlayerID); });
         roomGui.playerReady.onValueChanged.AddListener(delegate { ChangePlayerReady(roomGui.playerReady.isOn, pPlayerID); });
+        maxPlayerCount.onValueChanged.AddListener(delegate { ChangeRoomMaxPlayers(maxPlayerCount.value); });
         List<RoomGui> roomGuiList = rooms[PhotonNetwork.room];
         roomGuiList.Add(roomGui);
         roomGui.attachToParent(playerGridLayout);
@@ -265,6 +313,12 @@ public class NetworkManager : Photon.PunBehaviour
             roomGui.playerTeam.interactable = false;
             roomGui.playerReady.interactable = false;
         }
+    }
+
+    [PunRPC]
+    private void RPCChangeRoomMaxPlayers(int pMaxPlayerCountValue)
+    {
+        maxPlayerCount.value = pMaxPlayerCountValue;
     }
 
     [PunRPC]
@@ -329,7 +383,9 @@ public class NetworkManager : Photon.PunBehaviour
                 playerTypeText = "Noob";
                 break;
         }
-        PhotonNetwork.player.NickName = playerTypeText;
+        ExitGames.Client.Photon.Hashtable role = new ExitGames.Client.Photon.Hashtable();
+        role.Add("role", playerTypeText);
+        PhotonNetwork.player.SetCustomProperties(role);
         SceneManager.LoadScene("Level_01");
     }
 
