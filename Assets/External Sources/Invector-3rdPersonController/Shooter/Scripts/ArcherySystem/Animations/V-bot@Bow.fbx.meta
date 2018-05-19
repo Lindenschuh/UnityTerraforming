@@ -1,9 +1,7 @@
 fileFormatVersion: 2
 guid: d061db31840de5840905cbb32d538280
-timeCreated: 1513028808
-licenseType: Store
 ModelImporter:
-  serializedVersion: 19
+  serializedVersion: 22
   fileIDToRecycleName:
     100000: Bone.001
     100002: Bone.002
@@ -376,28 +374,65 @@ ModelImporter:
     7400012: Bow_Shot
     9500000: //RootNode
     13700000: V_Bot
+    2186277476908879412: ImportLogs
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: base-1
+    second: {fileID: 2100000, guid: cffef3a32fba7f744b27ad302682c3f8, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: base-2
+    second: {fileID: 2100000, guid: 04e2f2d874672da4db4d5edb5248d082, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: chrome
+    second: {fileID: 2100000, guid: 277812c0af1657044982f514815474b6, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: metal
+    second: {fileID: 2100000, guid: cec23be7d90a4cf4b86be23b94ce1118, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: rubber
+    second: {fileID: 2100000, guid: 8219b4e5fe0d50d469b64f44c7e41694, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: vArrow
+    second: {fileID: 2100000, guid: 139d0caa08c330e4eb7ac784a8598a56, type: 2}
   materials:
     importMaterials: 1
     materialName: 0
     materialSearch: 1
+    materialLocation: 0
   animations:
     legacyGenerateAnimations: 4
     bakeSimulation: 0
     resampleCurves: 1
     optimizeGameObjects: 0
     motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: "Copied Avatar Rig Configuration mis-match. Bone length in
+      copied configuration does not match position in animation file:\n\t'LeftUpLeg'
+      : position error = 2.795819 mm\n\t'LeftFoot' : position error = 7.701340 mm\n\t'RightUpLeg'
+      : position error = 1.979812 mm\n\t'RightFoot' : position error = 7.846946 mm\n"
     animationImportErrors: 
-    animationImportWarnings: "Copied Avatar Rig Configuration mis-match. Bone length
-      in copied configuration does not match position in animation file\nV-bot@Bow\nClip
-      'Bow_Idle' has import animation warnings that might lower retargeting quality:\nNote:
-      Activate translation DOF on avatar to improve retargeting quality.\n\t'Spine2'
-      is inbetween humanoid transforms and has rotation animation that will be discarded.\n\nClip
-      'Bow_walk_back' has import animation warnings that might lower retargeting quality:\nNote:
-      Activate translation DOF on avatar to improve retargeting quality.\n\t'Spine2'
-      is inbetween humanoid transforms and has rotation animation that will be discarded.\n\nClip
-      'Bow_walk_forward' has import animation warnings that might lower retargeting
-      quality:\nNote: Activate translation DOF on avatar to improve retargeting quality.\n\t'Spine2'
-      is inbetween humanoid transforms and has rotation animation that will be discarded.\n\nClip
+    animationImportWarnings: "\nClip 'Bow_Idle' has import animation warnings that
+      might lower retargeting quality:\nNote: Activate translation DOF on avatar to
+      improve retargeting quality.\n\t'Spine2' is inbetween humanoid transforms and
+      has rotation animation that will be discarded.\n\nClip 'Bow_walk_back' has import
+      animation warnings that might lower retargeting quality:\nNote: Activate translation
+      DOF on avatar to improve retargeting quality.\n\t'Spine2' is inbetween humanoid
+      transforms and has rotation animation that will be discarded.\n\nClip 'Bow_walk_forward'
+      has import animation warnings that might lower retargeting quality:\nNote: Activate
+      translation DOF on avatar to improve retargeting quality.\n\t'Spine2' is inbetween
+      humanoid transforms and has rotation animation that will be discarded.\n\nClip
       'Bow_walk_left' has import animation warnings that might lower retargeting quality:\nNote:
       Activate translation DOF on avatar to improve retargeting quality.\n\t'Spine2'
       is inbetween humanoid transforms and has rotation animation that will be discarded.\n\nClip
@@ -406,12 +441,15 @@ ModelImporter:
       is inbetween humanoid transforms and has rotation animation that will be discarded.\n"
     animationRetargetingWarnings: 
     animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
     animationCompression: 3
     animationRotationError: 0.5
     animationPositionError: 0.5
     animationScaleError: 0.5
     animationWrapMode: 0
     extraExposedTransformPaths: []
+    extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
       name: Bow_Idle
@@ -3121,13 +3159,18 @@ ModelImporter:
     globalScale: 1
     meshCompression: 0
     addColliders: 0
+    importVisibility: 0
     importBlendShapes: 1
+    importCameras: 0
+    importLights: 0
     swapUVChannels: 0
     generateSecondaryUV: 0
     useFileUnits: 1
     optimizeMeshForGPU: 1
     keepQuads: 0
     weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 1
     secondaryUVAngleDistortion: 8
     secondaryUVAreaDistortion: 15.000001
     secondaryUVHardAngle: 88
@@ -3137,6 +3180,7 @@ ModelImporter:
     normalSmoothAngle: 60
     normalImportMode: 0
     tangentImportMode: 3
+    normalCalculationMode: 0
   importAnimation: 1
   copyAvatar: 1
   humanDescription:

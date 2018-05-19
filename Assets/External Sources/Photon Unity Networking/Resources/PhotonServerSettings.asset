@@ -54,4 +54,5 @@ MonoBehaviour:
   - RPCCreateEnemies
   - RPCSwitchBrush
   - RPCChangeCurrentBrushSize
+  - RPCSendRandom
   DisableAutoOpenWizard: 1
