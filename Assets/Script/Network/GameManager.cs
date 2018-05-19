@@ -3,28 +3,46 @@ using Invector.vCharacterController;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
-public class GameManager : MonoBehaviour {
+public class GameManager : MonoBehaviour
+{
+    public static GameManager instance;
+
+    public GameObject DestinationPrefab;
+    public GameObject SpawnerPrefab;
+
+    [HideInInspector]
+    public GameObject MainDestination;
+
+    private void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
 
     // Use this for initialization
-    void Start()
+    private void Start()
     {
         Transform spawnPoint;
-        if (PhotonNetwork.isMasterClient)
-        {
-            spawnPoint = GameObject.Find("SpawnPoint_Destination").transform;
-            GameObject destinationGO = PhotonNetwork.Instantiate("Destination", spawnPoint.position, spawnPoint.rotation, 0);
-            GameEntity destination = destinationGO.GetComponent<Destination>();
 
-            spawnPoint = GameObject.Find("SpawnPoint_Spawner").transform;
-            GameObject spawner = PhotonNetwork.Instantiate("Spawner", spawnPoint.position, spawnPoint.rotation, 0);
-            spawner.GetComponent<Spawner>().Destination = destination;
-        }
+        spawnPoint = GameObject.Find("SpawnPoint_Destination").transform;
+        GameObject destinationGO = Instantiate(DestinationPrefab, spawnPoint);
+        MainDestination = destinationGO.gameObject;
 
-        spawnPoint = GameObject.Find("SpawnPoint_" + PhotonNetwork.player.NickName).transform;
-        PhotonNetwork.Instantiate(PhotonNetwork.player.NickName, spawnPoint.position, spawnPoint.rotation, 0);
+        spawnPoint = GameObject.Find("SpawnPoint_Spawner").transform;
+        GameObject spawner = Instantiate(SpawnerPrefab, spawnPoint);
 
-        if (PhotonNetwork.player.NickName == "Priest")
+        spawnPoint = GameObject.Find("SpawnPoint_" + PhotonNetwork.player.CustomProperties["role"].ToString()).transform;
+        PhotonNetwork.Instantiate(PhotonNetwork.player.CustomProperties["role"].ToString(), spawnPoint.position, spawnPoint.rotation, 0);
+
+        if (PhotonNetwork.player.CustomProperties["role"].ToString() == "Priest")
         {
             Debug.LogWarning(PhotonNetwork.player.NickName);
             GameObject priest = GameObject.Find("Priest(Clone)");

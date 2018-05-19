@@ -1,7 +1,5 @@
 fileFormatVersion: 2
 guid: e932ff5b71e43e241aed00b9f518a72c
-timeCreated: 1439652915
-licenseType: Store
 ModelImporter:
   serializedVersion: 22
   fileIDToRecycleName:
@@ -143,6 +141,7 @@ ModelImporter:
     7400000: SprintUnarmed
     9500000: //RootNode
     13700000: V_Bot
+    2186277476908879412: ImportLogs
   externalObjects: {}
   materials:
     importMaterials: 1
@@ -176,6 +175,7 @@ ModelImporter:
       mm and maximum position error 32.4 mm at time 0:23 (88.5%) Frame 23\n"
     animationDoRetargetingWarnings: 1
     importAnimatedCustomProperties: 0
+    importConstraints: 0
     animationCompression: 3
     animationRotationError: 0.5
     animationPositionError: 0.5
