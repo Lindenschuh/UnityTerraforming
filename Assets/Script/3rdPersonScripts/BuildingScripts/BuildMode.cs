@@ -133,7 +133,7 @@ public class BuildMode : Photon.PunBehaviour {
             if (Input.GetKeyUp(KeyCode.Mouse0) && position != null && resourceControl.GetResourceInfo(selectedMaterial) >= 10)
             {
                 BuildComponent();
-            resourceControl.UseResource(selectedMaterial, 10);
+            
             }
         }
               
@@ -219,8 +219,10 @@ public class BuildMode : Photon.PunBehaviour {
 
         if (canBuild)
         {
+           
             switch (presentBuildMode)
             {
+                
                 case buildMode.buildModeGround:
                     photonView.RPC("RPCBuildGround", PhotonTargets.All, position, square.rotation);
                     break;
@@ -232,10 +234,10 @@ public class BuildMode : Photon.PunBehaviour {
                     break;
                 default:
                     return;
-
+                    
             }
             canBuild = false;
-            
+            resourceControl.UseResource(selectedMaterial, 10);
         }
     }
 
