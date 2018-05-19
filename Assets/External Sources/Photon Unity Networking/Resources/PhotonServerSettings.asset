@@ -57,4 +57,5 @@ MonoBehaviour:
   - RPCChangeRoomMaxPlayers
   - RPCChangeCurrentBrushSize
   - RPCSendRandom
+  - RPCGenerateMap
   DisableAutoOpenWizard: 1

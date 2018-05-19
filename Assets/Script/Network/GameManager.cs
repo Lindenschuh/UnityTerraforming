@@ -4,6 +4,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using Invector.vShooter;
+using Invector.vItemManager;
+using Invector.vCharacterController.vActions;
 
 public class GameManager : MonoBehaviour
 {
@@ -46,11 +49,16 @@ public class GameManager : MonoBehaviour
         {
             Debug.LogWarning(PhotonNetwork.player.NickName);
             GameObject priest = GameObject.Find("Priest(Clone)");
+            priest.GetComponent<vThirdPersonController>().enabled = true;
+            priest.transform.GetChild(0).gameObject.SetActive(true);
+            priest.GetComponent<vShooterMeleeInput>().enabled = true;
+            priest.GetComponent<vShooterManager>().enabled = true;
+            priest.GetComponent<vAmmoManager>().enabled = true;
+            priest.GetComponent<vHeadTrack>().enabled = true;
+            priest.GetComponent<vGenericAction>().enabled = true;
+            priest.GetComponent<BuildMode>().enabled = true;
             priest.GetComponentInChildren<vThirdPersonCamera>().enabled = true;
             priest.GetComponentInChildren<Camera>().enabled = true;
-            priest.GetComponent<BuildMode>().enabled = true;
-            priest.GetComponent<vThirdPersonInput>().enabled = true;
-            priest.GetComponent<vThirdPersonController>().enabled = true;
         }
         else
         {
@@ -58,7 +66,6 @@ public class GameManager : MonoBehaviour
             god.GetComponentInChildren<Camera>().enabled = true;
             god.GetComponentInChildren<SimpleCameraMovement>().enabled = true;
             Camera mainCamera = GameObject.Find("God(Clone)").GetComponentInChildren<Camera>();
-            Debug.LogWarning(PhotonNetwork.player.NickName);
             GameObject terrain = GameObject.Find("Terrain");
             terrain.GetComponent<TerraManipulation>().MainCamera = mainCamera;
         }

@@ -12,7 +12,6 @@ public class TerraManipulation : Photon.PunBehaviour
 
     private Terrain Terra;
     private TerrainData TData;
-    private float[,] HeightMap;
 
     private Vector3 lastRelative;
     private Vector2Int lastImpact;
@@ -20,11 +19,6 @@ public class TerraManipulation : Photon.PunBehaviour
     // Use this for initialization
     private void Start()
     {
-        int seed = 0;
-        if (PhotonNetwork.isMasterClient)
-            seed = UnityEngine.Random.Range(0, 100000);
-        MapGenerator mapGenerator = GameObject.Find("MapGenerator").GetComponent<MapGenerator>();
-        HeightMap = mapGenerator.GenerateMap(seed);
         Terra = GetComponent<Terrain>();
         TData = Terra.terrainData;
         ResetTerrain();
@@ -96,7 +90,6 @@ public class TerraManipulation : Photon.PunBehaviour
     {
         float[,] tempHeight = new float[TData.heightmapHeight, TData.heightmapWidth];
         TData.SetHeights(0, 0, tempHeight);
-        TData.SetHeights(0, 0, HeightMap);
     }
 
     #region PunRPC

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MapGenerator : MonoBehaviour {
+public class MapGenerator : Photon.PunBehaviour {
 
     public int width = 513;
     public int height = 513;
@@ -19,16 +19,26 @@ public class MapGenerator : MonoBehaviour {
 
     public bool autoUpdate;
 
-    public float[,] GenerateMap (int pSeed = 0)
+    private void Start()
     {
-        if (pSeed != 0)
-            seed = Random.Range(0, 100000);
-        else
-            seed = pSeed;
-        float[,] noiseMap = Noise.GenerateNoiseMap(width, height, seed, noiseScale, octaves, persistance, lacunarity, offset);
-        TerrainData terrain = GameObject.Find("Terrain").GetComponent<Terrain>().terrainData;
-        terrain.SetHeights(0, 0, noiseMap);
-        return noiseMap;
+        GenerateMap();
+    }
+
+    public void GenerateMap()
+    {
+        if (PhotonNetwork.isMasterClient)
+        {
+            System.Random prng = new System.Random(seed);
+            Vector2[] octaveOffsets = new Vector2[octaves];
+
+            for (int i = 0; i < octaves; i++)
+            {
+                float offSetX = prng.Next(-100000, 100000) + offset.x;
+                float offSetY = prng.Next(-100000, 100000) + offset.y;
+                octaveOffsets[i] = new Vector2(offSetX, offSetY);
+            }
+            photonView.RPC("RPCGenerateMap", PhotonTargets.AllBufferedViaServer, octaveOffsets);
+        }      
     }
 
     private void OnValidate()
@@ -37,5 +47,13 @@ public class MapGenerator : MonoBehaviour {
             lacunarity = 1;
         if (octaves < 0)
             octaves = 0;
+    }
+
+    [PunRPC]
+    private void RPCGenerateMap(Vector2[] octaveOffsets)
+    {
+        float[,] noiseMap = Noise.GenerateNoiseMap(width, height, octaveOffsets, noiseScale, octaves, persistance, lacunarity, offset);
+        TerrainData terrain = GameObject.Find("Terrain").GetComponent<Terrain>().terrainData;
+        terrain.SetHeights(0, 0, noiseMap);
     }
 }
