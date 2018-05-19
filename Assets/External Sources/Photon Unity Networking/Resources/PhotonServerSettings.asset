@@ -55,4 +55,5 @@ MonoBehaviour:
   - RPCSwitchBrush
   - changeRoomMaxPlayers
   - RPCChangeRoomMaxPlayers
+  - RPCChangeCurrentBrushSize
   DisableAutoOpenWizard: 1
