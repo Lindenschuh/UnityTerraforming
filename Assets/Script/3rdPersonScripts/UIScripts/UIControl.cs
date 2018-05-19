@@ -16,6 +16,7 @@ public class UIControl : MonoBehaviour {
     private GameObject woodCount;
     public Dictionary<BuildResources, int> resourceInfo;
     private ResourceControl resControl;
+    private bool isCounting;
 	// Use this for initialization
 	void Start () {
         buildScript = GameObject.FindGameObjectWithTag("Player").GetComponent<BuildMode>();
@@ -23,7 +24,7 @@ public class UIControl : MonoBehaviour {
         resourceInfo = new Dictionary<BuildResources, int>();
         resourceInfo.Add(BuildResources.Wood, 0);
         woodCount = GameObject.Find("WoodCount");
-        woodCount.GetComponent<Text>().text = resControl.GetResourceInfo(BuildResources.Wood).ToString();
+        isCounting = false;
 	}
 	
 	// Update is called once per frame
@@ -59,28 +60,28 @@ public class UIControl : MonoBehaviour {
         switch (resourceType)
         {
             case BuildResources.Wood:
-                if(oldAmount > newAmount)
+                if (!isCounting)
                 {
-                    StartCoroutine(Wait(oldAmount, newAmount));
+                    StartCoroutine(Wait(oldAmount));
                 }
                 break;
 
         }
     }
 
-    IEnumerator Wait(int oldAmount, int newAmount)
+    IEnumerator Wait(int oldAmount)
     {
-
-
-        if (oldAmount > newAmount)
-        {
-            while (newAmount != oldAmount)
+        isCounting = true;
+            while (resControl.GetResourceInfo(BuildResources.Wood) != oldAmount )
             {
-                oldAmount--;
-                yield return new WaitForSeconds(0.2f);
+            if (resControl.GetResourceInfo(BuildResources.Wood) < oldAmount) oldAmount--;
+            else oldAmount++;
+            yield return new WaitForSeconds(0.05f);
                 woodCount.GetComponent<Text>().text = oldAmount.ToString();
 
             }
+        
+        isCounting = false;
         }
-    }
+    
 }

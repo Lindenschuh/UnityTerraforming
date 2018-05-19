@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Invector.vCamera;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -11,14 +12,18 @@ public class ResourceControl : MonoBehaviour {
     public BuildResources resourceType;
     private GameObject head;
     protected Dictionary<BuildResources, int> resourceInfo;
-	// Use this for initialization
-	void Start () {
+
+    protected vThirdPersonCamera tpCamera;
+    // Use this for initialization
+    void Start () {
+        tpCamera = FindObjectOfType<vThirdPersonCamera>();
         resourceType = BuildResources.Wood;
         resourceInfo = new Dictionary<BuildResources, int>();
-        resourceInfo[resourceType] = 50;
+        resourceInfo[resourceType] = 0;
         resLayer = LayerMask.NameToLayer("Resource");
         uiControl = GetComponent<UIControl>();
         head = GameObject.Find("Head");
+
         //Physics.IgnoreLayerCollision(gameObject.layer, LayerMask.NameToLayer("Player"));
 	}
 	
@@ -56,8 +61,11 @@ public class ResourceControl : MonoBehaviour {
     }
     private void TakeResource(Collision collision)
     {
-
-            collision.rigidbody.velocity = (head.transform.position - collision.transform.position).normalized*5;
+        ResourceObject resourceTaken = collision.transform.GetComponent<ResourceObject>();
+        AddResource(resourceTaken.resourceType, resourceTaken.resourceAmount);
+        collision.rigidbody.MovePosition(tpCamera.transform.position + tpCamera.transform.forward * 2);
+        //collision.rigidbody.velocity = ((tpCamera.transform.position + tpCamera.transform.forward*2) - collision.transform.position) * 5;
+        collision.rigidbody.MovePosition(head.transform.position);
         Destroy(collision.gameObject);
     }
 

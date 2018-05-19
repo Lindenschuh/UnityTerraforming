@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Invector.vShooter;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -17,10 +18,13 @@ public class BuildingHealth : MonoBehaviour {
 
     private void OnCollisionEnter(Collision collision)
     {
-        //Health -= 50;
+        if(collision.gameObject.GetComponent<vProjectileControl>() != null)
+        {
+            Health -= collision.gameObject.GetComponent<vProjectileControl>().damage.damageValue;
+        }
         if(Health <= 0)
         {
-            //Destroy(gameObject);
+            Destroy(gameObject);
         }
     }
 }
