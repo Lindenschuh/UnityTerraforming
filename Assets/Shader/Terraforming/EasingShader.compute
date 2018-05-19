@@ -2,6 +2,7 @@
 #pragma kernel CSLerp
 #pragma kernel CSCubic
 #pragma kernel CSMean
+#pragma kernel CSQuint
 
 RWStructuredBuffer<float> Result;
 
@@ -48,6 +49,13 @@ float Lerp(float start, float end, float value)
 	return (start + value * (end - start));
 }
 
+float EaseOutQuint(float start, float end, float value)
+{
+	value--;
+	end -= start;
+	return end * (value * value * value * value * value + 1) + start;
+}
+
 //Entry Points
 
 [numthreads(5, 5, 1)]
@@ -72,6 +80,18 @@ void CSCubic(uint2 id : SV_DispatchThreadID)
 	float distance = (pow(id.x - HalfBufferSizeX, 2) + pow(id.y - HalfBufferSizeY, 2));
 	float percentage = ((pow(HalfBufferSizeX, 2) - distance) / pow(HalfBufferSizeX, 2)) * when_le(distance, pow(HalfBufferSizeX, 2));
 	Result[newID] = EaseInOutCubic(Result[newID], Result[newID] + Value, percentage);
+}
+
+[numthreads(5, 5, 1)]
+void CSQuint(uint2 id : SV_DispatchThreadID)
+{
+	int newID = id.x + id.y * ((BrushSize.y / 10) * 10);
+
+	float HalfBufferSizeX = BrushSize.x / 2.0;
+	float HalfBufferSizeY = BrushSize.y / 2.0;
+	float distance = (pow(id.x - HalfBufferSizeX, 2) + pow(id.y - HalfBufferSizeY, 2));
+	float percentage = ((pow(HalfBufferSizeX, 2) - distance) / pow(HalfBufferSizeX, 2)) * when_le(distance, pow(HalfBufferSizeX, 2));
+	Result[newID] = EaseOutQuint(Result[newID], Result[newID] + Value, percentage);
 }
 
 [numthreads(5, 5, 1)]

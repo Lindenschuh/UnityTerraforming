@@ -12,7 +12,6 @@ public class TerraManipulation : Photon.PunBehaviour
 
     private Terrain Terra;
     private TerrainData TData;
-
     private Vector3 lastRelative;
     private Vector2Int lastImpact;
 
