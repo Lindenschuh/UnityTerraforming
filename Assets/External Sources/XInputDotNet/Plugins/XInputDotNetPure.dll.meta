@@ -1,7 +1,5 @@
 fileFormatVersion: 2
 guid: b36a7f6d28503d045b758e8fb3c40d0f
-timeCreated: 1491640590
-licenseType: Free
 PluginImporter:
   externalObjects: {}
   serializedVersion: 2
@@ -50,7 +48,7 @@ PluginImporter:
       settings:
         CPU: x86_64
         DefaultValueInitialized: true
-        OS: Windows
+        OS: AnyOS
   - first:
       Facebook: Win
     second:
