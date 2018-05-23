@@ -8,6 +8,9 @@ public class BrushSwitch : Photon.PunBehaviour
     public List<KeyCode> AllKeys = new List<KeyCode>();
     public Brush CurrentActive;
 
+    public Transform BoundCenter;
+    public float BoundRadius;
+
     // Use this for initialization
     private void Start()
     {
@@ -39,6 +42,19 @@ public class BrushSwitch : Photon.PunBehaviour
         }
     }
 
+    public void ChangeBoundRadius(float radius)
+    {
+        photonView.RPC("RPCChangeRadius", PhotonTargets.All, radius);
+    }
+
+    #region RPC
+
+    [PunRPC]
+    private void RPCChangeRadius(float radius)
+    {
+        BoundRadius = radius;
+    }
+
     [PunRPC]
     private void RPCChangeCurrentBrushSize(int width, int height)
     {
@@ -55,4 +71,6 @@ public class BrushSwitch : Photon.PunBehaviour
         CurrentActive = AllBrushes[brushNR];
         CurrentActive.gameObject.SetActive(true);
     }
+
+    #endregion RPC
 }

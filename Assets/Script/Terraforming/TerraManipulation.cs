@@ -49,20 +49,28 @@ public class TerraManipulation : Photon.PunBehaviour
         }
     }
 
+    public bool isInRange()
+    {
+        return (lastRelative - BrushSwitcher.BoundCenter.position).magnitude <= BrushSwitcher.BoundRadius;
+    }
+
     private void FixedUpdate()
     {
         if (CalculateInpactPoint(Input.mousePosition, out lastRelative, out lastImpact))
         {
-            BrushSwitcher.CurrentActive.PlaceIndicator(lastRelative);
-            if (Input.GetMouseButton(0))
+            if (isInRange())
             {
-                //LiftTerrain(lastImpact.x, lastImpact.y, BrushSwitcher.CurrentActive.BrushWidth, BrushSwitcher.CurrentActive.BrushHeight);
-                photonView.RPC("RPCLiftTerrain", PhotonTargets.All, lastImpact.x, lastImpact.y, BrushSwitcher.CurrentActive.BrushWidth, BrushSwitcher.CurrentActive.BrushHeight);
-            }
-            if (Input.GetMouseButton(1))
-            {
-                //LowerTerrain(lastImpact.x, lastImpact.y, BrushSwitcher.CurrentActive.BrushWidth, BrushSwitcher.CurrentActive.BrushHeight);12
-                photonView.RPC("RPCLowerTerrain", PhotonTargets.All, lastImpact.x, lastImpact.y, BrushSwitcher.CurrentActive.BrushWidth, BrushSwitcher.CurrentActive.BrushHeight);
+                BrushSwitcher.CurrentActive.PlaceIndicator(lastRelative);
+                if (Input.GetMouseButton(0))
+                {
+                    //LiftTerrain(lastImpact.x, lastImpact.y, BrushSwitcher.CurrentActive.BrushWidth, BrushSwitcher.CurrentActive.BrushHeight);
+                    photonView.RPC("RPCLiftTerrain", PhotonTargets.All, lastImpact.x, lastImpact.y, BrushSwitcher.CurrentActive.BrushWidth, BrushSwitcher.CurrentActive.BrushHeight);
+                }
+                if (Input.GetMouseButton(1))
+                {
+                    //LowerTerrain(lastImpact.x, lastImpact.y, BrushSwitcher.CurrentActive.BrushWidth, BrushSwitcher.CurrentActive.BrushHeight);12
+                    photonView.RPC("RPCLowerTerrain", PhotonTargets.All, lastImpact.x, lastImpact.y, BrushSwitcher.CurrentActive.BrushWidth, BrushSwitcher.CurrentActive.BrushHeight);
+                }
             }
         }
     }

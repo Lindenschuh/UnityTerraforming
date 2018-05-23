@@ -45,6 +45,7 @@ public abstract class Brush : MonoBehaviour
         if (HoverIndicator == null)
         {
             HoverIndicator = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+            Destroy(HoverIndicator.GetComponent<SphereCollider>());
             HoverIndicator.GetComponent<Renderer>().material = GoodIndicator;
             HoverIndicator.transform.parent = transform;
             HoverIndicator.SetActive(false);
