@@ -6,7 +6,9 @@ public class BrushSwitch : Photon.PunBehaviour
 {
     private List<Brush> AllBrushes = new List<Brush>();
     public List<KeyCode> AllKeys = new List<KeyCode>();
-    public Brush CurrentActive;
+
+    public int CurrentActiveIndex { get; private set; }
+    public Brush CurrentActive { get; private set; }
 
     public Transform BoundCenter;
     public float BoundRadius;
@@ -69,6 +71,7 @@ public class BrushSwitch : Photon.PunBehaviour
 
         CurrentActive.gameObject.SetActive(false);
         CurrentActive = AllBrushes[brushNR];
+        CurrentActiveIndex = brushNR;
         CurrentActive.gameObject.SetActive(true);
     }
 

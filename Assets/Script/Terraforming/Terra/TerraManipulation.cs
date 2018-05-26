@@ -9,6 +9,7 @@ public class TerraManipulation : Photon.PunBehaviour
     public LayerMask TerrainLayer;
     public Camera MainCamera;
     public BrushSwitch BrushSwitcher;
+    public GodData GD;
 
     private Terrain Terra;
     private TerrainData TData;
@@ -60,17 +61,21 @@ public class TerraManipulation : Photon.PunBehaviour
         {
             if (isInRange())
             {
-                BrushSwitcher.CurrentActive.PlaceIndicator(lastRelative);
+                BrushSwitcher.CurrentActive.PlaceIndicatorPositive(lastRelative);
                 if (Input.GetMouseButton(0))
                 {
-                    //LiftTerrain(lastImpact.x, lastImpact.y, BrushSwitcher.CurrentActive.BrushWidth, BrushSwitcher.CurrentActive.BrushHeight);
-                    photonView.RPC("RPCLiftTerrain", PhotonTargets.All, lastImpact.x, lastImpact.y, BrushSwitcher.CurrentActive.BrushWidth, BrushSwitcher.CurrentActive.BrushHeight);
+                    if (GD.Lift())
+                        photonView.RPC("RPCLiftTerrain", PhotonTargets.All, lastImpact.x, lastImpact.y, BrushSwitcher.CurrentActive.BrushWidth, BrushSwitcher.CurrentActive.BrushHeight);
                 }
                 if (Input.GetMouseButton(1))
                 {
-                    //LowerTerrain(lastImpact.x, lastImpact.y, BrushSwitcher.CurrentActive.BrushWidth, BrushSwitcher.CurrentActive.BrushHeight);12
-                    photonView.RPC("RPCLowerTerrain", PhotonTargets.All, lastImpact.x, lastImpact.y, BrushSwitcher.CurrentActive.BrushWidth, BrushSwitcher.CurrentActive.BrushHeight);
+                    if (GD.Lower())
+                        photonView.RPC("RPCLowerTerrain", PhotonTargets.All, lastImpact.x, lastImpact.y, BrushSwitcher.CurrentActive.BrushWidth, BrushSwitcher.CurrentActive.BrushHeight);
                 }
+            }
+            else
+            {
+                BrushSwitcher.CurrentActive.PlaceIndicatorNegative(lastRelative);
             }
         }
     }

@@ -5,13 +5,15 @@
 	}
 		SubShader{
 			Tags { "Queue" = "Transparent" "RenderType" = "Transparent" }
-			Blend SrcAlpha OneMinusSrcAlpha
-			Cull Off
+
+		ZWrite Off
+		Blend SrcAlpha OneMinusSrcAlpha
+
 			LOD 200
 
 			CGPROGRAM
 		// Physically based Standard lighting model, and enable shadows on all light types
-		#pragma surface surf Standard fullforwardshadows
+		#pragma surface surf Standard fullforwardshadows alpha:auto
 
 		// Use shader model 3.0 target, to get nicer looking lighting
 		#pragma target 3.0
@@ -31,11 +33,10 @@
 		{
 			fixed4 c = _Color;
 
-			o.Alpha = c.a;
-			//1.0 - saturate(sign(_Radius - length(IN.worldPos.xz - _BoundCenter)));
+			o.Alpha = 1.0 - smoothstep(0,.4,max(_Radius - length(IN.worldPos.xz - _BoundCenter),0) / _Radius);
+			o.Albedo = c.rgb;
+		}
 
-		o.Albedo = c.rgb;
-	}
 	ENDCG
 	}
 		FallBack "Diffuse"

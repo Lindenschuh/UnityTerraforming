@@ -25,8 +25,20 @@ public abstract class Brush : MonoBehaviour
         ChangebrushSize(BrushWidth, BrushHeight);
     }
 
-    public void PlaceIndicator(Vector3 destination)
+    public void PlaceIndicatorPositive(Vector3 destination)
     {
+        if (HoverIndicator.GetComponent<Renderer>().material != GoodIndicator)
+            HoverIndicator.GetComponent<Renderer>().material = GoodIndicator;
+
+        HoverIndicator.SetActive(true);
+        HoverIndicator.transform.position = destination;
+    }
+
+    public void PlaceIndicatorNegative(Vector3 destination)
+    {
+        if (HoverIndicator.GetComponent<Renderer>().material != BadIndicator)
+            HoverIndicator.GetComponent<Renderer>().material = BadIndicator;
+
         HoverIndicator.SetActive(true);
         HoverIndicator.transform.position = destination;
     }
