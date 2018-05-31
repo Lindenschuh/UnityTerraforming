@@ -59,4 +59,7 @@ MonoBehaviour:
   - RPCSendRandom
   - RPCGenerateMap
   - RPCChangeRadius
+  - RPCSwitchAbility
+  - RPCSwitchMode
+  - RPCUseAbility
   DisableAutoOpenWizard: 1

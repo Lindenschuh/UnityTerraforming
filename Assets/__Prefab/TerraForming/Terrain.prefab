@@ -9,21 +9,21 @@ Prefab:
     m_Modifications: []
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
-  m_RootGameObject: {fileID: 1185958054390676}
+  m_RootGameObject: {fileID: 1508438894196488}
   m_IsPrefabParent: 1
---- !u!1 &1185958054390676
+--- !u!1 &1508438894196488
 GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 5
   m_Component:
-  - component: {fileID: 4164748485796934}
-  - component: {fileID: 218416555439450746}
-  - component: {fileID: 154930221291568342}
-  - component: {fileID: 114592462720541094}
-  - component: {fileID: 114840103433519366}
-  - component: {fileID: 114828374885156272}
+  - component: {fileID: 4575597546321538}
+  - component: {fileID: 218641979602827358}
+  - component: {fileID: 154252761588228094}
+  - component: {fileID: 114878938466503566}
+  - component: {fileID: 114549777525745826}
+  - component: {fileID: 114954183578084956}
   m_Layer: 8
   m_Name: Terrain
   m_TagString: Untagged
@@ -31,12 +31,12 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4164748485796934
+--- !u!4 &4575597546321538
 Transform:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1185958054390676}
+  m_GameObject: {fileID: 1508438894196488}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -44,12 +44,38 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &114592462720541094
+--- !u!114 &114549777525745826
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1185958054390676}
+  m_GameObject: {fileID: 1508438894196488}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ownerId: 0
+  group: 0
+  OwnerShipWasTransfered: 0
+  prefixBackup: -1
+  synchronization: 0
+  onSerializeTransformOption: 3
+  onSerializeRigidBodyOption: 2
+  ownershipTransfer: 0
+  ObservedComponents:
+  - {fileID: 0}
+  ObservedComponentsFoldoutOpen: 1
+  viewIdField: 0
+  instantiationId: -1
+  currentMasterID: -1
+  isRuntimeInstantiated: 0
+--- !u!114 &114878938466503566
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1508438894196488}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7c6a7c4834eda8d44935ba3f71a5aac9, type: 3}
@@ -59,13 +85,14 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 256
   MainCamera: {fileID: 0}
-  BrushSwitcher: {fileID: 0}
---- !u!114 &114828374885156272
+  GodState: {fileID: 0}
+  GD: {fileID: 0}
+--- !u!114 &114954183578084956
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1185958054390676}
+  m_GameObject: {fileID: 1508438894196488}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 89bfb4714d0a07d488492d737518331c, type: 3}
@@ -98,51 +125,25 @@ MonoBehaviour:
     startHeight: 0.78
     blendStrength: 0.123
     textureScale: 0
-  BS: {fileID: 0}
-  FogColor: {r: 0.735849, g: 0.735849, b: 0.735849, a: 0}
+  GodState: {fileID: 0}
+  FogColor: {r: 0.3773585, g: 0.3773585, b: 0.3773585, a: 0}
   FogOfWarUpdateSpeed: 0.5
---- !u!114 &114840103433519366
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1185958054390676}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ownerId: 0
-  group: 0
-  OwnerShipWasTransfered: 0
-  prefixBackup: -1
-  synchronization: 0
-  onSerializeTransformOption: 3
-  onSerializeRigidBodyOption: 2
-  ownershipTransfer: 0
-  ObservedComponents:
-  - {fileID: 0}
-  ObservedComponentsFoldoutOpen: 1
-  viewIdField: 0
-  instantiationId: -1
-  currentMasterID: -1
-  isRuntimeInstantiated: 0
---- !u!154 &154930221291568342
+--- !u!154 &154252761588228094
 TerrainCollider:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1185958054390676}
+  m_GameObject: {fileID: 1508438894196488}
   m_Material: {fileID: 13400000, guid: 1ed575bd5f02de74b9b9b852ea0b352a, type: 2}
   m_Enabled: 1
   m_TerrainData: {fileID: 15600000, guid: 4342bb2ef4bafa04faae12e016ba3948, type: 2}
   m_EnableTreeColliders: 1
---- !u!218 &218416555439450746
+--- !u!218 &218641979602827358
 Terrain:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1185958054390676}
+  m_GameObject: {fileID: 1508438894196488}
   m_Enabled: 1
   serializedVersion: 3
   m_TerrainData: {fileID: 15600000, guid: 4342bb2ef4bafa04faae12e016ba3948, type: 2}
