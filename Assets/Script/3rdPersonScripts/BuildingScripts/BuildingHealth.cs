@@ -6,6 +6,8 @@ using UnityEngine;
 public class BuildingHealth : MonoBehaviour {
 
     public int Health;
+
+
 	// Use this for initialization
 	void Start () {
 		
@@ -16,15 +18,15 @@ public class BuildingHealth : MonoBehaviour {
 		
 	}
 
-    private void OnCollisionEnter(Collision collision)
+
+    public void AddDamage(int damage)
     {
-        if(collision.gameObject.GetComponent<vProjectileControl>() != null)
-        {
-            Health -= collision.gameObject.GetComponent<vProjectileControl>().damage.damageValue;
-        }
+        Health -= damage;
         if(Health <= 0)
         {
-            Destroy(gameObject);
+            BuildingDestroyer.Instance.CheckBuildings(gameObject);
         }
     }
+
+    
 }

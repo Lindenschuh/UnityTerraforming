@@ -136,6 +136,11 @@ namespace Invector.vShooter
                             {
                                 bulletLife = 0;
                                 transform.position = hitInfo.point;
+                                BuildingHealth buildScript = hitInfo.transform.GetComponent<BuildingHealth>();
+                                if (buildScript != null)
+                                {
+                                    buildScript.AddDamage(damage.damageValue);
+                                }
                                 onDestroyProjectile.Invoke(hitInfo);
                                 Destroy(gameObject);
                             }
