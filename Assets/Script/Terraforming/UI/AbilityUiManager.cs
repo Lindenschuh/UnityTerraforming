@@ -1,33 +1,32 @@
-﻿using System;
+﻿using System.Collections;
 using System.Linq;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class UIBrushManager : MonoBehaviour
+public class AbilityUiManager : MonoBehaviour
 {
-    public BrushManager BS;
+    public AbilityManager AS;
     public Color NotLit;
     public Color Lit;
 
     private Image[] uiBackGrounds;
-    private int currentActiveBrushIndex;
+    private int currentActiveAbilityIndex;
 
     // Use this for initialization
     private void Start()
     {
         uiBackGrounds = GetComponentsInChildren<Image>();
-        currentActiveBrushIndex = BS.CurrentActiveIndex;
+        currentActiveAbilityIndex = AS.CurrentActiveIndex;
         uiBackGrounds.ToList().ForEach(i => i.color = NotLit);
-        UpdateHighLights(currentActiveBrushIndex);
+        UpdateHighLights(currentActiveAbilityIndex);
     }
 
     // Update is called once per frame
     private void Update()
     {
-        if (currentActiveBrushIndex != BS.CurrentActiveIndex)
-            UpdateHighLights(BS.CurrentActiveIndex);
+        if (currentActiveAbilityIndex != AS.CurrentActiveIndex)
+            UpdateHighLights(AS.CurrentActiveIndex);
     }
 
     private void UpdateHighLights(int currentActiveIndex)
@@ -35,8 +34,8 @@ public class UIBrushManager : MonoBehaviour
         if (currentActiveIndex >= uiBackGrounds.Length)
             return;
 
-        uiBackGrounds[currentActiveBrushIndex].color = NotLit;
+        uiBackGrounds[currentActiveAbilityIndex].color = NotLit;
         uiBackGrounds[currentActiveIndex].color = Lit;
-        currentActiveBrushIndex = currentActiveIndex;
+        currentActiveAbilityIndex = currentActiveIndex;
     }
 }

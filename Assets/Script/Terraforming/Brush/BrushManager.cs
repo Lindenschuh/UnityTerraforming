@@ -2,16 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BrushSwitch : Photon.PunBehaviour
+public class BrushManager : Photon.PunBehaviour
 {
     private List<Brush> AllBrushes = new List<Brush>();
     public List<KeyCode> AllKeys = new List<KeyCode>();
 
     public int CurrentActiveIndex { get; private set; }
     public Brush CurrentActive { get; private set; }
-
-    public Transform BoundCenter;
-    public float BoundRadius;
 
     // Use this for initialization
     private void Start()
@@ -44,18 +41,7 @@ public class BrushSwitch : Photon.PunBehaviour
         }
     }
 
-    public void ChangeBoundRadius(float radius)
-    {
-        photonView.RPC("RPCChangeRadius", PhotonTargets.All, radius);
-    }
-
     #region RPC
-
-    [PunRPC]
-    private void RPCChangeRadius(float radius)
-    {
-        BoundRadius = radius;
-    }
 
     [PunRPC]
     private void RPCChangeCurrentBrushSize(int width, int height)

@@ -17,7 +17,7 @@ public class FogOfWarManager : MonoBehaviour
 
     //FOG Paras
 
-    public BrushSwitch BS;
+    public GodStateManager GodState;
     public Color FogColor;
     public float FogOfWarUpdateSpeed;
 
@@ -29,7 +29,7 @@ public class FogOfWarManager : MonoBehaviour
 
     private void Start()
     {
-        CurrentRadius = BS.BoundRadius;
+        CurrentRadius = GodState.BoundRadius;
         tRain = GetComponent<Terrain>();
         texturesArray = GenerateTextureArray(Layers.Select(x => x.texture).ToArray());
     }
@@ -37,7 +37,7 @@ public class FogOfWarManager : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
-        CurrentRadius = Mathf.Lerp(CurrentRadius, BS.BoundRadius, FogOfWarUpdateSpeed * Time.deltaTime);
+        CurrentRadius = Mathf.Lerp(CurrentRadius, GodState.BoundRadius, FogOfWarUpdateSpeed * Time.deltaTime);
 
         MaterialPropertyBlock materialProperty = new MaterialPropertyBlock();
 
@@ -51,7 +51,7 @@ public class FogOfWarManager : MonoBehaviour
         materialProperty.SetTexture("baseTextures", texturesArray);
         //Fog
         materialProperty.SetFloat("Radius", CurrentRadius);
-        materialProperty.SetVector("BoundCenter", new Vector2(BS.BoundCenter.position.x, BS.BoundCenter.position.z));
+        materialProperty.SetVector("BoundCenter", new Vector2(GodState.BoundCenter.position.x, GodState.BoundCenter.position.z));
         materialProperty.SetColor("FogColor", FogColor);
 
         materialProperty.SetFloat("minHeight", MinHeight);
