@@ -21,7 +21,7 @@ public class TerraManipulation : Photon.PunBehaviour
     {
         Terra = GetComponent<Terrain>();
         TData = Terra.terrainData;
-        ResetTerrain();
+        //ResetTerrain();
     }
 
     private void CheckBounds(ref int basisX, ref int basisY, ref int width, ref int height)
