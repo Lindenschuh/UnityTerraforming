@@ -4,16 +4,14 @@ using UnityEngine;
 
 public class ObjectSettings : MonoBehaviour {
 
-    [Range(0,1)]
-    public float point;
-    public bool circle;
+    public Vector2 point;
     [Range(0, 1)]
     public float outerCircle;
     [Range(0, 1)]
     public float innerCircle;
-    [Range(0, 20)]
+    [Range(0, 50)]
     public int size;
-    [Range(0, 20)]
+    [Range(0, 5)]
     public float distanceBetweenObjects;
     [Range(0, 50)]
     public float distanceBetweenLocations;
@@ -23,22 +21,10 @@ public class ObjectSettings : MonoBehaviour {
 
     private int minDistance = 0;
     private int maxDistance = 1;
-    public float center;
 
 
 	// Use this for initialization
 	void Start () {
-        // set point to value between 0 and 100
-        if (point < minDistance)
-            point = minDistance;
-        else if (point > maxDistance)
-            point = maxDistance;
-
-        // set center of spawning
-        if (circle)
-            center = point;
-        else
-            center = 0;
 
         // set width of cicle
         if (outerCircle < minDistance)

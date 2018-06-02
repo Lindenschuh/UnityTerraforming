@@ -103,15 +103,16 @@ public class ObjectPlacer : Photon.PunBehaviour
         foreach (ObjectSettings prefab in prefabsToSpawn)
         {
             PositionCheck positionCheck = new PositionCheck();
-            yield return StartCoroutine(SpawnObject(prefab, positionCheck, randomizeDelegate, maximumRetry));
+            float[][] positions = GetActualPosition(prefab);
+            for (int i = 0; i < positions.GetLength(0); i++)
+                yield return StartCoroutine(SpawnObject(prefab, positionCheck, randomizeDelegate, positions[i], maximumRetry));
         }
     }
 
-    IEnumerator SpawnObject(ObjectSettings prefabToSpawn, PositionCheck positionCheck, System.Action<PositionCheck, float[]> randomizeDelegate, int maximumRetry = 50, bool allowOverdraw = false)
+    IEnumerator SpawnObject(ObjectSettings prefabToSpawn, PositionCheck positionCheck, System.Action<PositionCheck, float[]> randomizeDelegate, float[] position, int maximumRetry = 50, bool allowOverdraw = false)
     {
         int currentObjectsCount = 0;
         int currentRetry = 0;
-        float[][] positions = GetActualPosition(prefabToSpawn);
 
         if (prefabToSpawn.GetComponent<Collider>() == null)
             allowOverdraw = true;
@@ -119,11 +120,10 @@ public class ObjectPlacer : Photon.PunBehaviour
         CheckForCollisions template = Instantiate(prefabToSpawn.preFab).AddComponent<CheckForCollisions>();
 
 
-        while (currentObjectsCount < prefabToSpawn.amount * prefabToSpawn.differentLocations && currentRetry < maximumRetry)
+        while (currentObjectsCount < prefabToSpawn.amount && currentRetry < maximumRetry)
         {
-            int i = prefabToSpawn.amount;
             positionCheck.Reset();
-            RandomizeOnTerrain(positionCheck, positions[i]);
+            RandomizeOnTerrain(positionCheck, position);
             if (!allowOverdraw)
                 yield return StartCoroutine(template.IsColliding(positionCheck));
             else
@@ -136,62 +136,100 @@ public class ObjectPlacer : Photon.PunBehaviour
             }
             PhotonNetwork.Instantiate(prefabToSpawn.preFab.name, positionCheck.randomPosition, positionCheck.normalizedRotation, 0);
             currentObjectsCount++;
-            i--;
         }
         Destroy(template.gameObject);
     }
 
     private float[][] GetActualPosition(ObjectSettings prefabToSpawn)
     {
+        // check if spawnpoint is within map
+        if (prefabToSpawn.point.x > terrainWidth)
+            prefabToSpawn.point.x = terrainWidth;
+        else if (prefabToSpawn.point.x < 0)
+            prefabToSpawn.point.x = 0;
+
+        if (prefabToSpawn.point.y > terrainHeight)
+            prefabToSpawn.point.y = terrainHeight;
+        else if (prefabToSpawn.point.y < 0)
+            prefabToSpawn.point.y = 0;
+
         // get Center of spawning circle with procentural values from settings
-        float[] center = new float[] { terrainWidth - (prefabToSpawn.center * terrainWidth), terrainHeight - (prefabToSpawn.center * terrainHeight) };
-        float outerWidth = center[0] - (prefabToSpawn.outerCircle * terrainWidth);
-        float outerHeight = center[1] - (prefabToSpawn.outerCircle * terrainHeight);
+        float[] center = new float[] {prefabToSpawn.point.x, prefabToSpawn.point.y };
+        float outerWidth = center[0] + (prefabToSpawn.outerCircle * terrainWidth);
+        float outerHeight = center[1] + (prefabToSpawn.outerCircle * terrainHeight);
 
         // check if outer circle is within terrain coords
-        if (terrainWidth - center[0] < 0 || terrainWidth - outerWidth < 0)
+        if (terrainWidth - center[0] < 0) // || outerWidth - terrainWidth < 0)
         {
-            center[0] = center[0] + outerWidth / 2;
-            outerWidth = center[0] - (prefabToSpawn.outerCircle * terrainWidth);
+            center[0] = center[0] + outerWidth;
+            outerWidth = center[0] + (prefabToSpawn.outerCircle * terrainWidth);
         }
 
-        if (terrainHeight - center[1] < 0 || terrainHeight - outerHeight < 0)
+        if (terrainHeight - center[1] < 0) // || outerHeight - terrainHeight < 0)
         {
-            center[1] = center[1] + outerHeight / 2;
-            outerHeight = center[1] - (prefabToSpawn.outerCircle * terrainHeight);
+            center[1] = center[1] + outerHeight;
+            outerHeight = center[1] + (prefabToSpawn.outerCircle * terrainHeight);
         }
 
-        float innerWidth = center[0] - (prefabToSpawn.innerCircle * terrainWidth);
-        float innerHeight = center[1] - (prefabToSpawn.innerCircle * terrainHeight);
-
+        float innerWidth = center[0] + (prefabToSpawn.innerCircle * terrainWidth);
+        float innerHeight = center[1] + (prefabToSpawn.innerCircle * terrainHeight);
         // areas of spawning
+
         float[][] positions = new float[prefabToSpawn.differentLocations][];
         for (int i = 0; i < prefabToSpawn.differentLocations; i++)
         {
             positions[i] = new float[4];
+            float rndWidth = 0;
+            float rndHeight = 0;
             int chances = 50;
             while (chances > 0)
             {
-                float rndWidth = Random.Range(innerWidth, outerWidth);
-                float rndHeight = Random.Range(innerHeight, outerHeight);
+                bool spawnOk = true;
+
+                int check = Random.Range(0, 4);
+
+                if (check <= 1)
+                {
+                    rndWidth = Random.Range(center[0] - (outerWidth - center[0]), outerWidth);
+                    rndHeight = Random.Range(innerHeight, outerHeight);
+                }
+                else if (check <= 2)
+                {
+                    rndWidth = Random.Range(innerWidth, outerWidth);
+                    rndHeight = Random.Range(center[1] - (outerHeight - center[1]), outerHeight);
+                }
+                else
+                {
+                    rndWidth = Random.Range(innerWidth, outerWidth);
+                    rndHeight = Random.Range(innerHeight, outerHeight);
+                }
+
+                if (Random.Range(0, 100) <= 50)
+                    rndWidth = center[0] - (rndWidth - center[0]);
+                if (Random.Range(0, 100) <= 50)
+                    rndHeight = center[1] - (rndHeight - center[1]);
+
                 if (i > 0)
                 {
                     for (int j = 0; j < i; j++)
                     {
-                        if ((positions[j][0] <= rndWidth && positions[j][1] >= rndWidth) && (positions[j][2] <= rndHeight && positions[j][3] >= rndHeight))
+                        if ((positions[j][0] <= rndWidth + prefabToSpawn.distanceBetweenLocations && positions[j][1] >= rndWidth - prefabToSpawn.distanceBetweenLocations) && (positions[j][2] <= rndHeight + prefabToSpawn.distanceBetweenLocations && positions[j][3] >= rndHeight - prefabToSpawn.distanceBetweenLocations))
                         {
                             chances--;
+                            spawnOk = false;
                             break;
                         }
                     }
                 }
-
-                int size = prefabToSpawn.size / 2;
-                positions[i][0] = rndWidth - size < 0 ? 0 : rndWidth - size;
-                positions[i][1] = rndWidth + size > terrainWidth * 2 ? terrainWidth * 2 : rndWidth + size;
-                positions[i][2] = rndHeight - size < 0 ? 0 : rndHeight - size;
-                positions[i][3] = rndHeight + size > terrainHeight * 2 ? terrainHeight * 2 : rndHeight + size;
-                break;
+                if (spawnOk && chances > 0)
+                {
+                    int size = prefabToSpawn.size / 2;
+                    positions[i][0] = rndWidth - size < 0 ? 0 : rndWidth - size;
+                    positions[i][1] = rndWidth + size > terrainWidth * 2 ? terrainWidth * 2: rndWidth + size;
+                    positions[i][2] = rndHeight - size < 0 ? 0 : rndHeight - size;
+                    positions[i][3] = rndHeight + size > terrainHeight * 2 ? terrainHeight * 2 : rndHeight + size;
+                    break;
+                }
             }
         }
         return positions;
