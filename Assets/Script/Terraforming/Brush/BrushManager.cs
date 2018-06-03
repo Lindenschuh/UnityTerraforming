@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BrushSwitch : Photon.PunBehaviour
+public class BrushManager : Photon.PunBehaviour
 {
     private List<Brush> AllBrushes = new List<Brush>();
     public List<KeyCode> AllKeys = new List<KeyCode>();
-    public Brush CurrentActive;
+
+    public int CurrentActiveIndex { get; private set; }
+    public Brush CurrentActive { get; private set; }
 
     // Use this for initialization
     private void Start()
@@ -39,6 +41,8 @@ public class BrushSwitch : Photon.PunBehaviour
         }
     }
 
+    #region RPC
+
     [PunRPC]
     private void RPCChangeCurrentBrushSize(int width, int height)
     {
@@ -53,6 +57,9 @@ public class BrushSwitch : Photon.PunBehaviour
 
         CurrentActive.gameObject.SetActive(false);
         CurrentActive = AllBrushes[brushNR];
+        CurrentActiveIndex = brushNR;
         CurrentActive.gameObject.SetActive(true);
     }
+
+    #endregion RPC
 }

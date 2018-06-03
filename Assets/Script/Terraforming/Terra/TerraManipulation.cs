@@ -8,7 +8,8 @@ public class TerraManipulation : Photon.PunBehaviour
 {
     public LayerMask TerrainLayer;
     public Camera MainCamera;
-    public BrushSwitch BrushSwitcher;
+    public GodStateManager GodState;
+    public GodData GD;
 
     private Terrain Terra;
     private TerrainData TData;
@@ -49,25 +50,59 @@ public class TerraManipulation : Photon.PunBehaviour
         }
     }
 
+    public bool isInRange()
+    {
+        return (lastRelative - GodState.BoundCenter.position).magnitude <= GodState.BoundRadius;
+    }
+
     private void FixedUpdate()
     {
-        if (CalculateInpactPoint(Input.mousePosition, out lastRelative, out lastImpact))
+        if (GodState.BrushMng.gameObject.GetActive())
+            BrushBehaivor();
+        else
+            AbilityBehaivor();
+    }
+
+    private void AbilityBehaivor()
+    {
+        if (CalculateInpactPoint(Input.mousePosition, new Vector2Int((int)GodState.AbilityMng.CurrentAbility.Width, (int)GodState.AbilityMng.CurrentAbility.Height), out lastRelative, out lastImpact))
         {
-            BrushSwitcher.CurrentActive.PlaceIndicator(lastRelative);
-            if (Input.GetMouseButton(0))
+            if (isInRange())
             {
-                //LiftTerrain(lastImpact.x, lastImpact.y, BrushSwitcher.CurrentActive.BrushWidth, BrushSwitcher.CurrentActive.BrushHeight);
-                photonView.RPC("RPCLiftTerrain", PhotonTargets.All, lastImpact.x, lastImpact.y, BrushSwitcher.CurrentActive.BrushWidth, BrushSwitcher.CurrentActive.BrushHeight);
-            }
-            if (Input.GetMouseButton(1))
-            {
-                //LowerTerrain(lastImpact.x, lastImpact.y, BrushSwitcher.CurrentActive.BrushWidth, BrushSwitcher.CurrentActive.BrushHeight);12
-                photonView.RPC("RPCLowerTerrain", PhotonTargets.All, lastImpact.x, lastImpact.y, BrushSwitcher.CurrentActive.BrushWidth, BrushSwitcher.CurrentActive.BrushHeight);
+                if (Input.GetMouseButtonDown(0))
+                {
+                    photonView.RPC("RPCUseAbility", PhotonTargets.All, lastRelative);
+                }
             }
         }
     }
 
-    public bool CalculateInpactPoint(Vector3 mousePos, out Vector3 relativePoint, out Vector2Int mouseImpact)
+    private void BrushBehaivor()
+    {
+        if (CalculateInpactPoint(Input.mousePosition, new Vector2Int(GodState.BrushMng.CurrentActive.BrushWidth, GodState.BrushMng.CurrentActive.BrushHeight), out lastRelative, out lastImpact))
+        {
+            if (isInRange())
+            {
+                GodState.BrushMng.CurrentActive.PlaceIndicatorPositive(lastRelative);
+                if (Input.GetMouseButton(0))
+                {
+                    if (GD.Lift())
+                        photonView.RPC("RPCLiftTerrain", PhotonTargets.All, lastImpact.x, lastImpact.y, GodState.BrushMng.CurrentActive.BrushWidth, GodState.BrushMng.CurrentActive.BrushHeight);
+                }
+                if (Input.GetMouseButton(1))
+                {
+                    if (GD.Lower())
+                        photonView.RPC("RPCLowerTerrain", PhotonTargets.All, lastImpact.x, lastImpact.y, GodState.BrushMng.CurrentActive.BrushWidth, GodState.BrushMng.CurrentActive.BrushHeight);
+                }
+            }
+            else
+            {
+                GodState.BrushMng.CurrentActive.PlaceIndicatorNegative(lastRelative);
+            }
+        }
+    }
+
+    public bool CalculateInpactPoint(Vector3 mousePos, Vector2Int size, out Vector3 relativePoint, out Vector2Int mouseImpact)
     {
         mouseImpact = new Vector2Int();
         relativePoint = new Vector3();
@@ -80,8 +115,8 @@ public class TerraManipulation : Photon.PunBehaviour
             Vector3 normalizedTerrainCoords = new Vector3(relativePoint.x / TData.size.x, relativePoint.y / TData.size.y, relativePoint.z / TData.size.z);
             int TerrainSpaceX = (int)(normalizedTerrainCoords.x * TData.heightmapWidth);
             int TerrainSpaceY = (int)(normalizedTerrainCoords.z * TData.heightmapHeight);
-            mouseImpact.x = TerrainSpaceX - BrushSwitcher.CurrentActive.BrushWidth / 2;
-            mouseImpact.y = TerrainSpaceY - BrushSwitcher.CurrentActive.BrushHeight / 2;
+            mouseImpact.x = TerrainSpaceX - size.x / 2;
+            mouseImpact.y = TerrainSpaceY - size.y / 2;
         }
         return hasHit;
     }
@@ -95,11 +130,17 @@ public class TerraManipulation : Photon.PunBehaviour
     #region PunRPC
 
     [PunRPC]
+    private void RPCUseAbility(Vector3 position)
+    {
+        GodState.AbilityMng.CurrentAbility.UseAbility(position);
+    }
+
+    [PunRPC]
     private void RPCLiftTerrain(int basisX, int basisY, int width, int height)
     {
         //Bound check
         CheckBounds(ref basisX, ref basisY, ref width, ref height);
-        TData.SetHeights(basisX, basisY, BrushSwitcher.CurrentActive.CalculateBrushUp(TData.GetHeights(basisX, basisY, width, height)));
+        TData.SetHeights(basisX, basisY, GodState.BrushMng.CurrentActive.CalculateBrushUp(TData.GetHeights(basisX, basisY, width, height)));
     }
 
     [PunRPC]
@@ -107,7 +148,7 @@ public class TerraManipulation : Photon.PunBehaviour
     {
         //Bound check
         CheckBounds(ref basisX, ref basisY, ref width, ref height);
-        TData.SetHeights(basisX, basisY, BrushSwitcher.CurrentActive.CalculateBrushDown(TData.GetHeights(basisX, basisY, width, height)));
+        TData.SetHeights(basisX, basisY, GodState.BrushMng.CurrentActive.CalculateBrushDown(TData.GetHeights(basisX, basisY, width, height)));
     }
 
     #endregion PunRPC
