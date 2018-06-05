@@ -169,8 +169,8 @@ MonoBehaviour:
   ObservedComponents:
   - {fileID: 114678707882684158}
   ObservedComponentsFoldoutOpen: 1
-  viewIdField: 2
-  instantiationId: 2
+  viewIdField: 0
+  instantiationId: -1
   currentMasterID: -1
   isRuntimeInstantiated: 0
 --- !u!114 &114115887715042886
@@ -184,8 +184,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ece3fa1e5c82028498fdf62e92823657, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TrueNode: {fileID: 114492012440776448}
-  FalseNode: {fileID: 114424337999632220}
+  TrueNode: {fileID: 0}
+  FalseNode: {fileID: 0}
 --- !u!114 &114199075930543228
 MonoBehaviour:
   m_ObjectHideFlags: 1
