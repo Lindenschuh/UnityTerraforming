@@ -1,4 +1,5 @@
 ﻿using Invector.vShooter;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -14,7 +15,8 @@ public class UIControl : MonoBehaviour {
 
     private GameObject uiCanvas;
     private BuildMode buildScript;
-    private GameObject woodCount;
+    private GameObject woodCountUI;
+    private GameObject woodCountInventory;
     public Dictionary<BuildResources, int> resourceInfo;
     private ResourceControl resControl;
     private bool isCounting;
@@ -26,7 +28,8 @@ public class UIControl : MonoBehaviour {
         resControl = GetComponent<ResourceControl>();
         resourceInfo = new Dictionary<BuildResources, int>();
         resourceInfo.Add(BuildResources.Wood, 0);
-        woodCount = GameObject.Find("WoodCount");
+        woodCountUI = GameObject.Find("WoodCount");
+        woodCountInventory = GameObject.Find("WoodCountInventory");
         isCounting = false;
         inventoryObject = GameObject.Find("InventoryPanel");
 
@@ -49,10 +52,12 @@ public class UIControl : MonoBehaviour {
         switch (resourceType)
         {
             case BuildResources.Wood:
+                resourceInfo[resourceType] = newAmount;
                 if (!isCounting)
                 {
                     StartCoroutine(Wait(oldAmount));
                 }
+                
                 break;
 
         }
@@ -91,8 +96,8 @@ public class UIControl : MonoBehaviour {
         if (Input.GetKeyUp(KeyCode.P))
         {
             inventoryObject.SetActive(!inventoryObject.GetActive());
-            inventoryObject.GetComponentInChildren<UIComponentControl>().enabled = inventoryObject.GetActive();
-            uiCanvas.SetActive(!inventoryObject.GetActive());
+            //inventoryObject.GetComponentInChildren<UIComponentControl>().enabled = inventoryObject.GetActive();
+            //uiCanvas.SetActive(!inventoryObject.GetActive());
             inputScript.lockInput = inventoryObject.GetActive();
             inputScript.LockCursor(inventoryObject.GetActive());
             inputScript.ShowCursor(inventoryObject.GetActive());
@@ -100,7 +105,7 @@ public class UIControl : MonoBehaviour {
         }
         if (inventoryObject.GetActive())
         {
-           
+            woodCountInventory.GetComponent<Text>().text = resourceInfo[BuildResources.Wood].ToString();
             if (Input.GetKeyDown(KeyCode.Mouse0))
             {
 
@@ -130,6 +135,8 @@ public class UIControl : MonoBehaviour {
             inputScript.SetLockCameraInput(false);
         }
     }
+
+
     IEnumerator Wait(int oldAmount)
     {
         isCounting = true;
@@ -138,7 +145,7 @@ public class UIControl : MonoBehaviour {
             if (resControl.GetResourceInfo(BuildResources.Wood) < oldAmount) oldAmount--;
             else oldAmount++;
             yield return new WaitForSeconds(0.05f);
-                woodCount.GetComponent<Text>().text = oldAmount.ToString();
+                woodCountUI.GetComponent<Text>().text = oldAmount.ToString();
 
             }
         

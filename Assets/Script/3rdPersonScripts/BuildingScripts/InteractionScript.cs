@@ -1,11 +1,20 @@
-﻿using System.Collections;
+﻿using Invector.vCamera;
+using Invector.vCharacterController;
+using Invector.vCharacterController.vActions;
+using Invector.vItemManager;
+using Invector.vShooter;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BuildingDestroyer:MonoBehaviour {
+public class InteractionScript: Photon.PunBehaviour
+{
 
-    private static BuildingDestroyer instance;
+    
+    public GameObject woodResource;
+    private static InteractionScript instance;
 
+    private GameObject player;
     private List<GameObject> plateList;
     private bool isOneAtGround;
     private GameObject mainPlate;
@@ -13,23 +22,42 @@ public class BuildingDestroyer:MonoBehaviour {
     private void Start()
     {
         instance = this;
+        player = GameObject.FindGameObjectWithTag("Player");
+        GameObject priest = GameObject.Find("PriestNew");
+        priest.GetComponent<vThirdPersonController>().enabled = true;
+        priest.transform.GetChild(0).gameObject.SetActive(true);
+        priest.GetComponent<vShooterMeleeInput>().enabled = true;
+        priest.GetComponent<vShooterManager>().enabled = true;
+        priest.GetComponent<vAmmoManager>().enabled = true;
+        priest.GetComponent<vHeadTrack>().enabled = true;
+        priest.GetComponent<vGenericAction>().enabled = true;
+        priest.GetComponent<BuildMode>().enabled = true;
+        priest.GetComponent<vItemManager>().enabled = true;
+        priest.GetComponent<ResourceControl>().enabled = true;
+        priest.GetComponent<UIControl>().enabled = true;
+        priest.GetComponentInChildren<vThirdPersonCamera>().enabled = true;
+        priest.GetComponentInChildren<Camera>().enabled = true;
     }
-    private BuildingDestroyer() { }
+    private InteractionScript() { }
 	
 
 
-    public static BuildingDestroyer Instance
+    public static InteractionScript Instance
     {
         get
         {
             if(instance == null)
             {
-                instance = new BuildingDestroyer();
+                instance = new InteractionScript();
             }
             return instance;
         }
     }
 
+    public void DropInventoryObject()
+    {
+
+    }
     public void CheckBuildings(GameObject plate)
     {
         mainPlate = plate;
@@ -77,7 +105,7 @@ public class BuildingDestroyer:MonoBehaviour {
         Collider[] checkCollider = Physics.OverlapBox(objectToCheck.position, objectToCheck.localScale / 2, objectToCheck.rotation);
         foreach (Collider colAtGround in checkCollider)
         {
-            if (colAtGround.transform.gameObject.layer == LayerMask.NameToLayer("Default"))
+            if (colAtGround.transform.gameObject.layer == LayerMask.NameToLayer("Terrain"))
             {
                 isAtGround = true;
             }
@@ -133,8 +161,25 @@ public class BuildingDestroyer:MonoBehaviour {
     {
         foreach (GameObject building in plateList)
         {
-            Destroy(building);           
+            photonView.RPC("RPCDestroyBuilding", PhotonTargets.All, building.transform.position, building.transform.localScale, building.transform.rotation);
             yield return new WaitForSeconds(0.5f);
         }
     }
+
+    #region PunRPC
+
+    [PunRPC]
+    private void RPCDestroyBuilding(Vector3 position, Vector3 scale, Quaternion rotation)
+    {
+        Collider[] colArray = Physics.OverlapBox(position, new Vector3(scale.x/2, scale.y/2, scale.z/2) / 2, rotation);
+        foreach(Collider collider in colArray)
+        {
+            if(collider.gameObject.layer == LayerMask.NameToLayer("BuildComponent"))
+            {
+                Destroy(collider.gameObject);
+            }
+        }
+    }
+
+    #endregion
 }

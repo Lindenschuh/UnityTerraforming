@@ -1,4 +1,8 @@
 ﻿using Invector.vCamera;
+using Invector.vCharacterController;
+using Invector.vCharacterController.vActions;
+using Invector.vItemManager;
+using Invector.vShooter;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -33,6 +37,7 @@ public class BuildMode : Photon.PunBehaviour {
 
     // Use this for initialization
     void Start () {
+
         tpCamera = FindObjectOfType<vThirdPersonCamera>();
         presentBuildMode = buildMode.buildModeOff;
         resourceControl = GetComponent<ResourceControl>();

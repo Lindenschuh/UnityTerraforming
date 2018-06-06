@@ -58,4 +58,6 @@ MonoBehaviour:
   - RPCChangeCurrentBrushSize
   - RPCSendRandom
   - RPCGenerateMap
+  - RPCDestroyBuilding
+  - RPCDropResources
   DisableAutoOpenWizard: 1

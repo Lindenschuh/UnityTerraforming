@@ -24,7 +24,7 @@ public class BuildingHealth : MonoBehaviour {
         Health -= damage;
         if(Health <= 0)
         {
-            BuildingDestroyer.Instance.CheckBuildings(gameObject);
+            InteractionScript.Instance.CheckBuildings(gameObject);
         }
     }
 
