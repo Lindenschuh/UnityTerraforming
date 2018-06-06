@@ -201,6 +201,8 @@ MonoBehaviour:
   tries: 100
   prefabsCount: 1
   terrain: {fileID: 1796846424}
+  objects:
+  - {fileID: 114962200983228234, guid: 7d625e6bd5a7a2449bbdfd20a669df1e, type: 2}
 --- !u!114 &88281454
 MonoBehaviour:
   m_ObjectHideFlags: 0
