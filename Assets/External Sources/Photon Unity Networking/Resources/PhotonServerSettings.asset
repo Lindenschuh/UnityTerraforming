@@ -11,10 +11,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f3758f8f58fdef43803eb9be1df0608, type: 3}
   m_Name: PhotonServerSettings
   m_EditorClassIdentifier: 
-  AppID: b9b00c1d-20f4-4795-8709-18d33bb9f711
+  AppID: 
   VoiceAppID: 
-  ChatAppID: b9b00c1d-20f4-4795-8709-18d33bb9f711
-  HostType: 1
+  ChatAppID: 
+  HostType: 0
   PreferredRegion: 0
   EnabledRegions: -1
   Protocol: 0
@@ -23,7 +23,7 @@ MonoBehaviour:
   VoiceServerPort: 5055
   JoinLobby: 0
   EnableLobbyStatistics: 0
-  PunLogging: 2
+  PunLogging: 0
   NetworkLogging: 1
   RunInBackground: 1
   RpcList:
@@ -36,30 +36,26 @@ MonoBehaviour:
   - PunRespawn
   - RequestForPickupItems
   - RequestForPickupTimes
-  - UpdatePlayerCount
-  - UpdateLobby
-  - UpdateRoom
-  - RPCChangePlayerReady
-  - RPCChangePlayerRole
-  - RPCChangePlayerTeam
-  - RPCStartGame
-  - RPCUpdateRoom
-  - RPCLeaveRoom
-  - RPCLiftTerrain
-  - RPCLowerTerrain
   - RPCBuildGround
   - RPCBuildRamp
   - RPCBuildWall
-  - RPCMoveEnemy
-  - RPCCreateEnemies
-  - RPCSwitchBrush
-  - changeRoomMaxPlayers
-  - RPCChangeRoomMaxPlayers
   - RPCChangeCurrentBrushSize
-  - RPCSendRandom
-  - RPCGenerateMap
+  - RPCChangePlayerReady
+  - RPCChangePlayerRole
+  - RPCChangePlayerTeam
   - RPCChangeRadius
+  - RPCChangeRoomMaxPlayers
+  - RPCDestroyBuilding
+  - RPCDropResources
+  - RPCGenerateMap
+  - RPCLeaveRoom
+  - RPCLiftTerrain
+  - RPCLowerTerrain
+  - RPCSendRandom
+  - RPCStartGame
   - RPCSwitchAbility
+  - RPCSwitchBrush
   - RPCSwitchMode
+  - RPCUpdateRoom
   - RPCUseAbility
   DisableAutoOpenWizard: 1

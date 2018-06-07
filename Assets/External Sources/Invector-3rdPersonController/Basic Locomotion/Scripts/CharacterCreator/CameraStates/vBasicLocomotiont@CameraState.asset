@@ -32,10 +32,10 @@ MonoBehaviour:
     cullingMinDist: 0.01
     fov: 60
     useZoom: 0
-    fixedAngle: {x: 360, y: 78}
+    fixedAngle: {x: 0, y: 0}
     lookPoints:
     - pointName: point_01
-      positionPoint: {x: 0, y: 1, z: -10}
+      positionPoint: {x: 0, y: 0, z: 0}
       eulerAngle: {x: -0, y: 0, z: 0}
       freeRotation: 0
     cameraMode: 0
@@ -105,7 +105,7 @@ MonoBehaviour:
     fixedAngle: {x: 0, y: 0}
     lookPoints:
     - pointName: point_01
-      positionPoint: {x: 27.36, y: 7.46, z: -18.86}
-      eulerAngle: {x: 358.52017, y: 0.653597, z: 0.0000026122177}
+      positionPoint: {x: 0, y: 0, z: 0}
+      eulerAngle: {x: -0, y: 0, z: 0}
       freeRotation: 1
     cameraMode: 2

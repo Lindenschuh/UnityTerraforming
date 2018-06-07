@@ -47,8 +47,8 @@ public class GameManager : MonoBehaviour
 
         if (PhotonNetwork.player.CustomProperties["role"].ToString() == "Priest")
         {
-            Debug.LogWarning(PhotonNetwork.player.NickName);
-            GameObject priest = GameObject.Find("Priest(Clone)");
+            Debug.LogWarning(PhotonNetwork.player.NickName);        
+            GameObject priest = GameObject.FindGameObjectWithTag("Player");
             priest.GetComponent<vThirdPersonController>().enabled = true;
             priest.transform.GetChild(0).gameObject.SetActive(true);
             priest.GetComponent<vShooterMeleeInput>().enabled = true;
@@ -57,8 +57,12 @@ public class GameManager : MonoBehaviour
             priest.GetComponent<vHeadTrack>().enabled = true;
             priest.GetComponent<vGenericAction>().enabled = true;
             priest.GetComponent<BuildMode>().enabled = true;
+            priest.GetComponent<vItemManager>().enabled = true;
+            priest.GetComponent<ResourceControl>().enabled = true;
+            priest.GetComponent<UIControl>().enabled = true;
             priest.GetComponentInChildren<vThirdPersonCamera>().enabled = true;
             priest.GetComponentInChildren<Camera>().enabled = true;
+            priest.GetComponentInChildren<Health>().enabled = true;
         }
         else
         {
