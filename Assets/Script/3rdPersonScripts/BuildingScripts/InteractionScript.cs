@@ -23,7 +23,7 @@ public class InteractionScript: Photon.PunBehaviour
     {
         instance = this;
         player = GameObject.FindGameObjectWithTag("Player");
-        GameObject priest = GameObject.Find("PriestNew");
+        GameObject priest = GameObject.FindGameObjectWithTag("Player");
         priest.GetComponent<vThirdPersonController>().enabled = true;
         priest.transform.GetChild(0).gameObject.SetActive(true);
         priest.GetComponent<vShooterMeleeInput>().enabled = true;

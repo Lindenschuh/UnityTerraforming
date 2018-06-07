@@ -136,7 +136,7 @@ namespace Invector.vShooter
                             {
                                 bulletLife = 0;
                                 transform.position = hitInfo.point;
-                                BuildingHealth buildScript = hitInfo.transform.GetComponent<BuildingHealth>();
+                                Health buildScript = hitInfo.transform.GetComponent<Health>();
                                 if (buildScript != null)
                                 {
                                     buildScript.AddDamage(damage.damageValue);
