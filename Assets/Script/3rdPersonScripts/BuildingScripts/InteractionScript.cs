@@ -37,6 +37,7 @@ public class InteractionScript: Photon.PunBehaviour
         priest.GetComponent<UIControl>().enabled = true;
         priest.GetComponentInChildren<vThirdPersonCamera>().enabled = true;
         priest.GetComponentInChildren<Camera>().enabled = true;
+        priest.GetComponentInChildren<Health>().enabled = true;
     }
     private InteractionScript() { }
 	
