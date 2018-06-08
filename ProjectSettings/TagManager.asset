@@ -33,6 +33,7 @@ TagManager:
   - Zipline
   - Sters
   - BuildResource
+  - MovableUI
   layers:
   - Default
   - TransparentFX
@@ -53,8 +54,8 @@ TagManager:
   - HeadTrack
   - BodyPart
   - Resource
-  - 
-  - 
+  - MoveableUI
+  - Minimap
   - 
   - 
   - 
