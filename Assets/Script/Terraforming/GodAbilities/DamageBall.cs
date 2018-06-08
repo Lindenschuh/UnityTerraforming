@@ -4,8 +4,13 @@ using UnityEngine;
 
 public class DamageBall : GodAbility
 {
+    public float DMGRadius;
+
     public override void UseAbility(Vector3 Impact)
     {
-        Debug.Log("Annihilation");
+        Collider[] colls = Physics.OverlapSphere(Impact, DMGRadius);
+        foreach (Collider col in colls)
+        {
+        }
     }
 }
