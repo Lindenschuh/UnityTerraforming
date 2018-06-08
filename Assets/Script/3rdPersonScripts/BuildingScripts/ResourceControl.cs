@@ -61,7 +61,7 @@ public class ResourceControl : MonoBehaviour {
     }
     private void TakeResource(Collision collision)
     {
-        ResourceObject resourceTaken = collision.transform.GetComponent<ResourceObject>();
+        ResourceObject resourceTaken = collision.transform.gameObject.GetComponent<ResourceObject>();
         AddResource(resourceTaken.resourceType, resourceTaken.resourceAmount);
         collision.rigidbody.MovePosition(tpCamera.transform.position + tpCamera.transform.forward * 2);
         //collision.rigidbody.velocity = ((tpCamera.transform.position + tpCamera.transform.forward*2) - collision.transform.position) * 5;
