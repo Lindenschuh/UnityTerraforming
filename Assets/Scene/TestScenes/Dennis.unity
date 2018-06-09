@@ -1951,6 +1951,62 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 512380571}
+--- !u!1001 &522107245
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4248446108441644, guid: e3749c0cb678ace4b901f00d69f1a992, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 1.356
+      objectReference: {fileID: 0}
+    - target: {fileID: 4248446108441644, guid: e3749c0cb678ace4b901f00d69f1a992, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 1.301
+      objectReference: {fileID: 0}
+    - target: {fileID: 4248446108441644, guid: e3749c0cb678ace4b901f00d69f1a992, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: -8.036
+      objectReference: {fileID: 0}
+    - target: {fileID: 4248446108441644, guid: e3749c0cb678ace4b901f00d69f1a992, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0.95853996
+      objectReference: {fileID: 0}
+    - target: {fileID: 4248446108441644, guid: e3749c0cb678ace4b901f00d69f1a992, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0.19279578
+      objectReference: {fileID: 0}
+    - target: {fileID: 4248446108441644, guid: e3749c0cb678ace4b901f00d69f1a992, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0.10788953
+      objectReference: {fileID: 0}
+    - target: {fileID: 4248446108441644, guid: e3749c0cb678ace4b901f00d69f1a992, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: -0.17997448
+      objectReference: {fileID: 0}
+    - target: {fileID: 4248446108441644, guid: e3749c0cb678ace4b901f00d69f1a992, type: 2}
+      propertyPath: m_RootOrder
+      value: 14
+      objectReference: {fileID: 0}
+    - target: {fileID: 1536768557994300, guid: e3749c0cb678ace4b901f00d69f1a992, type: 2}
+      propertyPath: m_Name
+      value: WoodRes (5)
+      objectReference: {fileID: 0}
+    - target: {fileID: 114630447736467784, guid: e3749c0cb678ace4b901f00d69f1a992,
+        type: 2}
+      propertyPath: viewIdField
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 114630447736467784, guid: e3749c0cb678ace4b901f00d69f1a992,
+        type: 2}
+      propertyPath: instantiationId
+      value: 10
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: e3749c0cb678ace4b901f00d69f1a992, type: 2}
+  m_IsPrefabParent: 0
 --- !u!1 &522256199
 GameObject:
   m_ObjectHideFlags: 0
