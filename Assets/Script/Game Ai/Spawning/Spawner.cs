@@ -1,6 +1,8 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 namespace UnityTerraforming.GameAi
 {
@@ -11,15 +13,100 @@ namespace UnityTerraforming.GameAi
 
     public abstract class Spawner : MonoBehaviour
     {
-        public float WaveIntervall;
+        public GameObject EntityPrefab;
+
+        // In Which Radius will the Enemies Spawn
         public float SpawnRadius;
-        public float WaveCount;
+
+        // How big will the Waves be.
+        public int WaveCount;
+
+        // How big should the Wave be the next time
         public float EntityGrowFactor;
 
-        private List<Agent> _entitiesAlive;
+        public int MaxEntitiesAtOnce;
+
+        public float DistanceBetweenEntities;
+
+        public SpawnerEye SpawnerEye;
+
+        public float WaitBetweenSpawn;
+        public float WaitBetweenWaves;
+        public float WaitOnStart;
+
+        private List<GameObject> _entitiesAlive;
         private List<ISpawnerObserver> _observers;
 
         private bool _captured = false;
+        private int _currentWaveCounter;
+
+        private void Start()
+        {
+            StartCoroutine(SpawnWaves());
+        }
+
+        public IEnumerator SpawnWaves()
+        {
+            yield return new WaitForSeconds(WaitOnStart);
+
+            // as long the point is not captured
+            while (!_captured)
+            {
+                int enemiesToSpawn = Math.Min(MaxEntitiesAtOnce, WaveCount - _currentWaveCounter);
+                var pointsForSpawn = new List<Vector3>();
+
+                // initialise all points where enemies will spawn
+                for (int i = 0; i < enemiesToSpawn; i++)
+                {
+                    var point = SpawnerEye.GetRandomSpawnPoint();
+                    if (IsPointvalid(point, pointsForSpawn))
+                    {
+                        pointsForSpawn.Add(point);
+                    }
+                }
+
+                // Spawn the Entities
+                pointsForSpawn.ForEach(point =>
+                {
+                    var spawned = Instantiate(EntityPrefab, point, Quaternion.identity);
+                    InitialiseTowerSpecificEnemy(spawned);
+                });
+
+                if (WaveCount < _currentWaveCounter)
+                {
+                    yield return new WaitForSeconds(WaitBetweenWaves);
+                    _currentWaveCounter = 0;
+                }
+                else
+                {
+                    yield return new WaitForSeconds(WaitBetweenSpawn);
+                }
+            }
+        }
+
+        private bool IsPointvalid(Vector3 point, List<Vector3> setPoints)
+        {
+            List<Vector3> agentPoints = (from ag in _entitiesAlive
+                                         select ag.transform.position).ToList();
+
+            return !(PointInRange(point, setPoints) || PointInRange(point, agentPoints));
+        }
+
+        public bool PointInRange(Vector3 point, List<Vector3> positions)
+        {
+            foreach (Vector3 pos in positions)
+            {
+                if ((pos - point).magnitude < DistanceBetweenEntities)
+                    return true;
+            }
+            return false;
+        }
+
+        public abstract void InitialiseTowerSpecificEnemy(GameObject spawnedEntity);
+
+        public void SpawnerCapturedEvent() => _observers.ForEach(o => o.OnCaptured());
+
+        #region Observer
 
         /// <summary>
         /// Subscribe an observer which has implemented the ISpawnerObserver interface.
@@ -49,8 +136,6 @@ namespace UnityTerraforming.GameAi
             return true;
         }
 
-        public abstract void SpawnWave();
-
-        public void SpawnerCapturedEvent() => _observers.ForEach(o => o.OnCaptured());
+        #endregion Observer
     }
 }
