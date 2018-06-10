@@ -1,4 +1,8 @@
 ﻿using Invector.vCamera;
+using Invector.vCharacterController;
+using Invector.vCharacterController.vActions;
+using Invector.vItemManager;
+using Invector.vShooter;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
