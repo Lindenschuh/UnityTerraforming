@@ -12,7 +12,7 @@ namespace UnityTerraforming.GameAi
     [RequireComponent(typeof(AvoidWall))]
     public class Guardian : MonoBehaviour
     {
-        public Transform GuardianDestination;
+        public Spawner GuardianDestination;
         public float GuardRadius;
         public float LookRadius;
         public float AttacRadius;
@@ -42,7 +42,7 @@ namespace UnityTerraforming.GameAi
         public bool InsideGuardRadius()
         {
             if (GuardianDestination == null) return false;
-            return (transform.position - GuardianDestination.position).magnitude < GuardRadius;
+            return (transform.position - GuardianDestination.transform.position).magnitude < GuardRadius;
         }
 
         public bool CheckPlayerInSight()

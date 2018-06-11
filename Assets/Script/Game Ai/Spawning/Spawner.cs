@@ -43,6 +43,7 @@ namespace UnityTerraforming.GameAi
         private void Start()
         {
             StartCoroutine(SpawnWaves());
+            _entitiesAlive = new List<GameObject>();
         }
 
         public IEnumerator SpawnWaves()
@@ -58,7 +59,7 @@ namespace UnityTerraforming.GameAi
                 // initialise all points where enemies will spawn
                 for (int i = 0; i < enemiesToSpawn; i++)
                 {
-                    var point = SpawnerEye.GetRandomSpawnPoint();
+                    var point = SpawnerEye.GetRandomSpawnPoint(SpawnRadius);
                     if (IsPointvalid(point, pointsForSpawn))
                     {
                         pointsForSpawn.Add(point);
@@ -70,6 +71,7 @@ namespace UnityTerraforming.GameAi
                 {
                     var spawned = Instantiate(EntityPrefab, point, Quaternion.identity);
                     InitialiseTowerSpecificEnemy(spawned);
+                    _entitiesAlive.Add(spawned);
                 });
 
                 if (WaveCount < _currentWaveCounter)
