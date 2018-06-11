@@ -18,6 +18,8 @@ public class UIControl : MonoBehaviour {
     private BuildMode buildScript;
     private GameObject woodCountUI;
     private GameObject woodCountInventory;
+    private GameObject trapCountUI;
+    private GameObject trapCountInventory;
     public Dictionary<BuildResources, int> resourceInfo;
     private ResourceControl resControl;
     private bool isCounting;
@@ -31,8 +33,11 @@ public class UIControl : MonoBehaviour {
         resControl = GetComponent<ResourceControl>();
         resourceInfo = new Dictionary<BuildResources, int>();
         resourceInfo.Add(BuildResources.Wood, 0);
+        resourceInfo.Add(BuildResources.Trap, 0);
         woodCountUI = GameObject.Find("WoodCount");
         woodCountInventory = GameObject.Find("WoodCountInventory");
+        trapCountUI = GameObject.Find("TrapCount");
+        trapCountInventory = GameObject.Find("TrapCountInventory");
         isCounting = false;
         inventoryObject = GameObject.Find("InventoryPanel");
 
@@ -77,9 +82,15 @@ public class UIControl : MonoBehaviour {
                 resourceInfo[resourceType] = newAmount;
                 if (!isCounting)
                 {
-                    StartCoroutine(Wait(oldAmount));
+                    StartCoroutine(Wait(oldAmount, BuildResources.Wood, woodCountUI));
+                }             
+                break;
+            case BuildResources.Trap:
+                resourceInfo[resourceType] = newAmount;
+                if (!isCounting)
+                {
+                    StartCoroutine(Wait(oldAmount, BuildResources.Trap, trapCountUI));
                 }
-                
                 break;
 
         }
@@ -127,7 +138,7 @@ public class UIControl : MonoBehaviour {
         }
         if (inventoryObject.GetActive())
         {
-            woodCountInventory.GetComponent<Text>().text = resourceInfo[BuildResources.Wood].ToString();
+            //woodCountInventory.GetComponent<Text>().text = resourceInfo[BuildResources.Wood].ToString();
             if (Input.GetKeyDown(KeyCode.Mouse0))
             {
 
@@ -159,15 +170,15 @@ public class UIControl : MonoBehaviour {
     }
 
 
-    IEnumerator Wait(int oldAmount)
+    IEnumerator Wait(int oldAmount, BuildResources resource, GameObject uiControll)
     {
         isCounting = true;
-            while (resControl.GetResourceInfo(BuildResources.Wood) != oldAmount )
+            while (resControl.GetResourceInfo(resource) != oldAmount )
             {
-            if (resControl.GetResourceInfo(BuildResources.Wood) < oldAmount) oldAmount--;
+            if (resControl.GetResourceInfo(resource) < oldAmount) oldAmount--;
             else oldAmount++;
             yield return new WaitForSeconds(0.05f);
-                woodCountUI.GetComponent<Text>().text = oldAmount.ToString();
+                uiControll.GetComponent<Text>().text = oldAmount.ToString();
 
             }
         

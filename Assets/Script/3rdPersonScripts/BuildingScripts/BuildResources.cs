@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public enum BuildResources {
-    Wood
+    Wood,
+    Trap
 
 }

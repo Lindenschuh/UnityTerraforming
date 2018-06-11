@@ -251,6 +251,7 @@ GameObject:
   - component: {fileID: 114255202575065826}
   - component: {fileID: 114238025243710128}
   - component: {fileID: 114176701809258162}
+  - component: {fileID: 114418591948066332}
   m_Layer: 10
   m_Name: Priest
   m_TagString: Player
@@ -1770,7 +1771,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1234179483241218}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.23, z: 0}
+  m_LocalPosition: {x: 3, y: 100, z: 3}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4803132351512614}
@@ -3157,6 +3158,21 @@ MonoBehaviour:
         Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   applyAttributeEvents: []
   inEquip: 0
+--- !u!114 &114418591948066332
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1234179483241218}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 30e6517706dd4af4cb77d66cdc2d7135, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TrapPrefabs:
+  - {fileID: 0}
+  - {fileID: 0}
+  TrapKeyCodes: 3800000039000000
 --- !u!114 &114498523390942218
 MonoBehaviour:
   m_ObjectHideFlags: 1
