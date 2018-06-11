@@ -9,7 +9,7 @@ public class ResourceControl : MonoBehaviour {
     public LayerMask playerLayer;
     private LayerMask resLayer;
     private UIControl uiControl;
-    public BuildResources resourceType;
+    public BuildResources[] resourceType;
     private GameObject head;
     protected Dictionary<BuildResources, int> resourceInfo;
 
@@ -17,9 +17,11 @@ public class ResourceControl : MonoBehaviour {
     // Use this for initialization
     void Start () {
         tpCamera = FindObjectOfType<vThirdPersonCamera>();
-        resourceType = BuildResources.Wood;
+        //resourceType = BuildResources.Wood;
         resourceInfo = new Dictionary<BuildResources, int>();
-        resourceInfo[resourceType] = 0;
+        resourceInfo.Add(BuildResources.Wood, 0);
+        resourceInfo.Add(BuildResources.Trap, 0);
+        //resourceInfo[resourceType] = 0;
         resLayer = LayerMask.NameToLayer("Resource");
         uiControl = GetComponent<UIControl>();
         head = GameObject.Find("Head");
