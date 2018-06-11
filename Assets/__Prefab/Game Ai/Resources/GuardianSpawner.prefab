@@ -102,7 +102,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4906713905976638}
   - component: {fileID: 114701520458898714}
-  - component: {fileID: 114170840777564596}
   m_Layer: 0
   m_Name: GuardianSpawner
   m_TagString: Untagged
@@ -651,31 +650,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MaxTries: 5
---- !u!114 &114170840777564596
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1637144095446534}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ownerId: 0
-  group: 0
-  OwnerShipWasTransfered: 0
-  prefixBackup: -1
-  synchronization: 0
-  onSerializeTransformOption: 3
-  onSerializeRigidBodyOption: 2
-  ownershipTransfer: 0
-  ObservedComponents: []
-  ObservedComponentsFoldoutOpen: 1
-  viewIdField: 0
-  instantiationId: -1
-  currentMasterID: -1
-  isRuntimeInstantiated: 0
 --- !u!114 &114659821948816518
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -691,11 +665,12 @@ MonoBehaviour:
   group: 0
   OwnerShipWasTransfered: 0
   prefixBackup: -1
-  synchronization: 0
+  synchronization: 3
   onSerializeTransformOption: 3
   onSerializeRigidBodyOption: 2
   ownershipTransfer: 0
-  ObservedComponents: []
+  ObservedComponents:
+  - {fileID: 114095454001305284}
   ObservedComponentsFoldoutOpen: 1
   viewIdField: 0
   instantiationId: -1

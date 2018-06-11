@@ -16,6 +16,7 @@ namespace UnityTerraforming.GameAi
             {
                 guardian.PlayerTransform = PlayerTransform;
                 guardian.GuardianDestination = this;
+                guardian.ArriveRef.Target = gameObject;
             }
             else
                 throw new MissingComponentException("In the Spawned Prefab is no Guardian Script attached. Maybe you choose the wrong Prefab.");
