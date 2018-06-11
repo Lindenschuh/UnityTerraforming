@@ -14,6 +14,7 @@ public abstract class GodAbility : MonoBehaviour
         Destroy(indicator.GetComponent<SphereCollider>());
         indicator.GetComponent<Renderer>().material = Indicator_mat;
         indicator.transform.localScale = new Vector3(Radius * 2, 0.5f, Radius * 2);
+        indicator.transform.parent = transform;
     }
 
     public abstract void UseAbility(Vector3 Impact);
