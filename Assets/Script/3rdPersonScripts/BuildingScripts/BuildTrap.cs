@@ -123,5 +123,6 @@ public class BuildTrap : Photon.PunBehaviour {
         GameObject rpcTrap = Resources.Load(prefabName) as GameObject;
         rpcTrap = Instantiate(rpcTrap, position, rotation);
         rpcTrap.transform.localScale = scale;
+        rpcTrap.GetComponent<Trap>().enabled = true;
     }
 }

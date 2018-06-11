@@ -3170,14 +3170,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TrapPrefabs:
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 1244475482265986, guid: 4582014ea3dbada428d40a9bb79a8033, type: 2}
+  - {fileID: 1244475482265986, guid: b0bcb343ba933f14da6c403e25a7f566, type: 2}
   TrapKeyCodes: 1e01000039000000
   BuildingLayers:
     serializedVersion: 2
     m_Bits: 256
   maxBuildingRange: 10
-  materialCost: 0
+  materialCost: 20
 --- !u!114 &114498523390942218
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3417,8 +3417,8 @@ MonoBehaviour:
   inventory: {fileID: 0}
   playerLayer:
     serializedVersion: 2
-    m_Bits: 0
-  resourceType: 
+    m_Bits: 1
+  resourceType: 0000000001000000
 --- !u!114 &114895288125254708
 MonoBehaviour:
   m_ObjectHideFlags: 1
