@@ -2527,6 +2527,62 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 626002482}
+--- !u!1001 &633984034
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4248446108441644, guid: b9991cfe6c4f4a3438729f790aa83489, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 3.21
+      objectReference: {fileID: 0}
+    - target: {fileID: 4248446108441644, guid: b9991cfe6c4f4a3438729f790aa83489, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0.874
+      objectReference: {fileID: 0}
+    - target: {fileID: 4248446108441644, guid: b9991cfe6c4f4a3438729f790aa83489, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: -2.982
+      objectReference: {fileID: 0}
+    - target: {fileID: 4248446108441644, guid: b9991cfe6c4f4a3438729f790aa83489, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0.95853996
+      objectReference: {fileID: 0}
+    - target: {fileID: 4248446108441644, guid: b9991cfe6c4f4a3438729f790aa83489, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0.19279578
+      objectReference: {fileID: 0}
+    - target: {fileID: 4248446108441644, guid: b9991cfe6c4f4a3438729f790aa83489, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0.10788953
+      objectReference: {fileID: 0}
+    - target: {fileID: 4248446108441644, guid: b9991cfe6c4f4a3438729f790aa83489, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: -0.17997448
+      objectReference: {fileID: 0}
+    - target: {fileID: 4248446108441644, guid: b9991cfe6c4f4a3438729f790aa83489, type: 2}
+      propertyPath: m_RootOrder
+      value: 16
+      objectReference: {fileID: 0}
+    - target: {fileID: 1536768557994300, guid: b9991cfe6c4f4a3438729f790aa83489, type: 2}
+      propertyPath: m_Name
+      value: TrapRes (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 114630447736467784, guid: b9991cfe6c4f4a3438729f790aa83489,
+        type: 2}
+      propertyPath: viewIdField
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 114630447736467784, guid: b9991cfe6c4f4a3438729f790aa83489,
+        type: 2}
+      propertyPath: instantiationId
+      value: 11
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: b9991cfe6c4f4a3438729f790aa83489, type: 2}
+  m_IsPrefabParent: 0
 --- !u!1 &653811789
 GameObject:
   m_ObjectHideFlags: 0
@@ -5743,6 +5799,12 @@ Prefab:
       propertyPath: instantiationId
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 114805870322234866, guid: 1e964724d843e8b4f9a4fb3c688eb954,
+        type: 2}
+      propertyPath: instantTrap
+      value: 
+      objectReference: {fileID: 1536768557994300, guid: b9991cfe6c4f4a3438729f790aa83489,
+        type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 1e964724d843e8b4f9a4fb3c688eb954, type: 2}
   m_IsPrefabParent: 0
@@ -5967,21 +6029,6 @@ Prefab:
         type: 2}
       propertyPath: instantiationId
       value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 114418591948066332, guid: 7c44da013295810449a514d22156a36d,
-        type: 2}
-      propertyPath: TrapKeyCodes.Array.data[0]
-      value: 286
-      objectReference: {fileID: 0}
-    - target: {fileID: 114418591948066332, guid: 7c44da013295810449a514d22156a36d,
-        type: 2}
-      propertyPath: maxBuildingRange
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 114418591948066332, guid: 7c44da013295810449a514d22156a36d,
-        type: 2}
-      propertyPath: BuildingLayers.m_Bits
-      value: 256
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 7c44da013295810449a514d22156a36d, type: 2}
@@ -7587,12 +7634,12 @@ Prefab:
     - target: {fileID: 114630447736467784, guid: b9991cfe6c4f4a3438729f790aa83489,
         type: 2}
       propertyPath: viewIdField
-      value: 11
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 114630447736467784, guid: b9991cfe6c4f4a3438729f790aa83489,
         type: 2}
       propertyPath: instantiationId
-      value: 11
+      value: 12
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: b9991cfe6c4f4a3438729f790aa83489, type: 2}

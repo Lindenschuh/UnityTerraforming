@@ -9,6 +9,8 @@ using UnityEngine.UI;
 public class UIComponentControl : Photon.PunBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     public GameObject woodRes;
+    public GameObject instantTrap;
+    public GameObject tickTrap;
     private bool isEntered;
     private GameObject movableUIComp;
     private GameObject dropAmountInput;
@@ -17,6 +19,7 @@ public class UIComponentControl : Photon.PunBehaviour, IPointerEnterHandler, IPo
     private UIControl uiControl;
     private Vector3 position;
     private vThirdPersonCamera tpCamera;
+
     public void OnPointerEnter(PointerEventData eventData)
     {
         
@@ -67,7 +70,12 @@ public class UIComponentControl : Photon.PunBehaviour, IPointerEnterHandler, IPo
 
     private void DropItem(GameObject item, int amount)
     {
-
+        Vector3 dropPosition = tpCamera.transform.position + tpCamera.transform.forward * 5;
+        GameObject instItem = Instantiate(item);
+        instItem.transform.position = dropPosition;
+        movableUIComp.GetComponent<Image>().sprite = null;
+        movableUIComp.GetComponent<Image>().color = new Color(255f, 255f, 255f, 0);
+        movableUIComp.GetComponent<SlotManager>().Reset();
     }
     // Use this for initialization
     void Start () {
@@ -90,7 +98,7 @@ public class UIComponentControl : Photon.PunBehaviour, IPointerEnterHandler, IPo
         }
         if (dropAmountInput.GetActive())
         {
-
+            
 
         }
     }
@@ -111,7 +119,19 @@ public class UIComponentControl : Photon.PunBehaviour, IPointerEnterHandler, IPo
                     {
                         objectToDrop = movableUIComp.GetComponent<SlotManager>().objectInInventory;
                         dropAmountInput.SetActive(true);
-                        
+
+                    }else
+                    {
+                        switch (movableUIComp.GetComponent<SlotManager>().res)
+                        {
+                            case BuildResources.TrapInstant:
+                                DropItem(instantTrap, 1);
+                                
+                                break;
+                            case BuildResources.TrapTick:
+                                DropItem(tickTrap, 1);
+                                break;
+                        }
                     }
                 }
             }

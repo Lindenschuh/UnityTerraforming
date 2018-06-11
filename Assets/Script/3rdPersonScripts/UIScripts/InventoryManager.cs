@@ -10,19 +10,35 @@ public class InventoryManager : MonoBehaviour {
     private int selectedCount;
 	// Use this for initialization
 	void Start () {
+        selectedCount = 0;
         //slotList = new List<GameObject>();
         //slotList.Add(GameObject.Find("InventorySlot"));
         //for(int i = 1; i <9; i++)
         //{
-          //  slotList.Add(GameObject.Find("InventorySlot (" + i + ")"));
+        //  slotList.Add(GameObject.Find("InventorySlot (" + i + ")"));
         //}
-	}
+    }
 	
 	// Update is called once per frame
 	void Update () {
-		
+
 	}
 
+    public void Reset()
+    {
+            for (int i = 0; i < slotList.Count; i++)
+            {
+                if (slotList[i].GetComponent<SlotManager>().objectInInventory != null)
+                {
+                    selectedTrapSlot = slotList[i];
+                    selectedCount = i;
+                GameObject.Find("TrapPanel").GetComponent<Image>().sprite = selectedTrapSlot.GetComponent<Image>().sprite;
+                return;
+                }
+            }
+            selectedTrapSlot = null;
+        GameObject.Find("TrapPanel").GetComponent<Image>().sprite = null;
+    }
     public void PickupItem(GameObject item)
     {
 
@@ -35,11 +51,12 @@ public class InventoryManager : MonoBehaviour {
                 slotList[i].GetComponent<Image>().sprite = item.GetComponent<ResourceObject>().inventoryIcon;
                 slotList[i].GetComponent<Image>().color = new Color(255f, 255f, 255f, 1f);
                 slotList[i].GetComponent<SlotManager>().objectInInventory = item.GetComponent<ResourceObject>().objectPrefab;
+                slotList[i].GetComponent<SlotManager>().res = item.GetComponent<ResourceObject>().resourceType;
                 if (selectedTrapSlot == null)
                 {
                     selectedTrapSlot = slotList[i];
                     selectedCount = i;
-                    GameObject.Find("TrapPanel").GetComponent<Image>().sprite = slotList[i].GetComponent<Image>().sprite;
+                    GameObject.Find("TrapPanel").GetComponent<Image>().sprite = selectedTrapSlot.GetComponent<Image>().sprite;
                 }
                 return;
             }
