@@ -2793,8 +2793,8 @@ MonoBehaviour:
   ObservedComponents:
   - {fileID: 0}
   ObservedComponentsFoldoutOpen: 1
-  viewIdField: 0
-  instantiationId: -1
+  viewIdField: 4
+  instantiationId: 4
   currentMasterID: -1
   isRuntimeInstantiated: 0
 --- !u!114 &114336870716942952
@@ -3172,11 +3172,11 @@ MonoBehaviour:
   TrapPrefabs:
   - {fileID: 0}
   - {fileID: 0}
-  TrapKeyCodes: 3800000039000000
+  TrapKeyCodes: 1e01000039000000
   BuildingLayers:
     serializedVersion: 2
-    m_Bits: 0
-  maxBuildingRange: 0
+    m_Bits: 256
+  maxBuildingRange: 10
   materialCost: 0
 --- !u!114 &114498523390942218
 MonoBehaviour:

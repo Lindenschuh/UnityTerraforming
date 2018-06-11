@@ -229,6 +229,7 @@ MonoBehaviour:
   resourceType: 0
   resourceAmount: 10
   inventoryIcon: {fileID: 0}
+  objectPrefab: {fileID: 0}
 --- !u!114 &114630447736467784
 MonoBehaviour:
   m_ObjectHideFlags: 1
