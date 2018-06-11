@@ -1,4 +1,5 @@
-﻿using Invector.vShooter;
+﻿using Invector.vCamera;
+using Invector.vShooter;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -22,6 +23,8 @@ public class UIControl : MonoBehaviour {
     private bool isCounting;
     private GameObject inventoryObject;
     private vShooterMeleeInput inputScript;
+    private vThirdPersonCamera thirdPCamera;
+    private GameObject visiblePickupItem;
     // Use this for initialization
     void Start () {
         buildScript = GameObject.FindGameObjectWithTag("Player").GetComponent<BuildMode>();
@@ -37,6 +40,8 @@ public class UIControl : MonoBehaviour {
 
         inputScript = GetComponent<vShooterMeleeInput>();
         uiCanvas = GameObject.Find("UICanvas");
+        thirdPCamera = FindObjectOfType<vThirdPersonCamera>();
+        visiblePickupItem = null;
     }
 	
 	// Update is called once per frame
@@ -45,6 +50,23 @@ public class UIControl : MonoBehaviour {
         HandleUIInteraction();
         HandleInventory();
         HandleBuildKeys();
+
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        RaycastHit hit;
+        if (Physics.Raycast(ray, out hit, 20f))
+        {
+            if (visiblePickupItem != null && hit.collider.gameObject != visiblePickupItem)
+            {
+                visiblePickupItem.GetComponentInChildren<WorldUIManager>().SetVisible(false);
+            }
+
+            if (hit.collider.gameObject.layer == LayerMask.NameToLayer("Resource"))
+            {
+                visiblePickupItem = hit.collider.gameObject;
+                visiblePickupItem.GetComponentInChildren<WorldUIManager>().SetVisible(true);
+            }
+            else visiblePickupItem = null;
+        }
     }
 
     public void resetResourceCounter(BuildResources resourceType,int oldAmount, int newAmount)

@@ -41,7 +41,8 @@ GameObject:
   - component: {fileID: 54908326807841014}
   - component: {fileID: 136742421562063598}
   - component: {fileID: 114630447736467784}
-  - component: {fileID: 114637477646896428}
+  - component: {fileID: 114465925108835238}
+  - component: {fileID: 114152443432302208}
   m_Layer: 18
   m_Name: WoodRes
   m_TagString: BuildResource
@@ -60,7 +61,6 @@ GameObject:
   - component: {fileID: 223107664193576024}
   - component: {fileID: 114082104080010504}
   - component: {fileID: 114086508091892324}
-  - component: {fileID: 114612941860035408}
   m_Layer: 5
   m_Name: PickupCanvas
   m_TagString: Untagged
@@ -75,7 +75,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1536768557994300}
   m_LocalRotation: {x: 0.95853996, y: 0.19279578, z: 0.10788953, w: -0.17997448}
-  m_LocalPosition: {x: 1.356, y: 1.301, z: -8.036}
+  m_LocalPosition: {x: 0.36, y: 0.82, z: -8.39}
   m_LocalScale: {x: 0.13910155, y: 0.1597971, z: 0.12761824}
   m_Children:
   - {fileID: 224540593230426790}
@@ -176,6 +176,18 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &114152443432302208
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1536768557994300}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e004d3f234c45624cbf4a7f392d7c9aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pickupCanvas: {fileID: 1710010130205326}
 --- !u!114 &114346846925415104
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -203,17 +215,19 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
---- !u!114 &114612941860035408
+--- !u!114 &114465925108835238
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1710010130205326}
+  m_GameObject: {fileID: 1536768557994300}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e004d3f234c45624cbf4a7f392d7c9aa, type: 3}
+  m_Script: {fileID: 11500000, guid: a9236384e8a54864ea1610099404403f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  resourceType: 0
+  resourceAmount: 10
 --- !u!114 &114630447736467784
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -236,23 +250,10 @@ MonoBehaviour:
   ObservedComponents:
   - {fileID: 0}
   ObservedComponentsFoldoutOpen: 1
-  viewIdField: 10
-  instantiationId: 10
+  viewIdField: 0
+  instantiationId: -1
   currentMasterID: -1
   isRuntimeInstantiated: 0
---- !u!114 &114637477646896428
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1536768557994300}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a9236384e8a54864ea1610099404403f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  resourceType: 0
-  resourceAmount: 0
 --- !u!136 &136742421562063598
 CapsuleCollider:
   m_ObjectHideFlags: 1

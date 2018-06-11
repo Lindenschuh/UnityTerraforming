@@ -12,6 +12,9 @@ public class ResourceObject : MonoBehaviour {
     private void Awake()
     {
         Physics.IgnoreLayerCollision(gameObject.layer, gameObject.layer);
+        Physics.IgnoreLayerCollision(gameObject.layer, LayerMask.NameToLayer("Player"));
+        Physics.IgnoreLayerCollision(gameObject.layer, LayerMask.NameToLayer("Minimap"));
+        Physics.IgnoreLayerCollision(gameObject.layer, LayerMask.NameToLayer("HeadTrack"));
     }
     // Update is called once per frame
     void Update () {

@@ -23,8 +23,6 @@ public class ResourceControl : MonoBehaviour {
         resLayer = LayerMask.NameToLayer("Resource");
         uiControl = GetComponent<UIControl>();
         head = GameObject.Find("Head");
-
-        //Physics.IgnoreLayerCollision(gameObject.layer, LayerMask.NameToLayer("Player"));
 	}
 	
 	// Update is called once per frame
@@ -35,16 +33,6 @@ public class ResourceControl : MonoBehaviour {
     public int GetResourceInfo(BuildResources resType)
     {
         return resourceInfo[resType];
-    }
-    private void OnCollisionEnter(Collision collision)
-    {
-        if (LayerMask.LayerToName(gameObject.layer) == "Player" && LayerMask.LayerToName(collision.gameObject.layer) == "Resource")
-        {
-            Physics.IgnoreCollision(GetComponent<Collider>(), collision.collider);
-            TakeResource(collision);
-        }
-
-        
     }
 
     public void AddResource(BuildResources resourceType, int amount)
@@ -59,15 +47,13 @@ public class ResourceControl : MonoBehaviour {
         resourceInfo[resourceType] -= amount;
         uiControl.resetResourceCounter(resourceType, oldAmount, resourceInfo[resourceType]);
     }
-    private void TakeResource(Collision collision)
-    {
-        ResourceObject resourceTaken = collision.transform.gameObject.GetComponent<ResourceObject>();
-        AddResource(resourceTaken.resourceType, resourceTaken.resourceAmount);
-        collision.rigidbody.MovePosition(tpCamera.transform.position + tpCamera.transform.forward * 2);
-        //collision.rigidbody.velocity = ((tpCamera.transform.position + tpCamera.transform.forward*2) - collision.transform.position) * 5;
-        collision.rigidbody.MovePosition(head.transform.position);
-        Destroy(collision.gameObject);
-    }
 
-   
+    private void PickItem(GameObject item)
+    {
+        item.GetComponent<Rigidbody>().MovePosition(head.transform.position);
+
+
+
+        Destroy(item);
+    }
 }
