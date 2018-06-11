@@ -672,8 +672,8 @@ MonoBehaviour:
   ObservedComponents:
   - {fileID: 114095454001305284}
   ObservedComponentsFoldoutOpen: 1
-  viewIdField: 0
-  instantiationId: -1
+  viewIdField: 2
+  instantiationId: 2
   currentMasterID: -1
   isRuntimeInstantiated: 0
 --- !u!114 &114701520458898714
@@ -689,7 +689,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   EntityPrefab: {fileID: 1509233189404536, guid: 80818a67e1ad617419cbc2ff3516be62,
     type: 2}
-  SpawnRadius: 30
+  SpawnRadius: 50
   WaveCount: 10
   EntityGrowFactor: 0
   MaxEntitiesAtOnce: 5

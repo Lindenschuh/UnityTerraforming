@@ -59,7 +59,7 @@ namespace UnityTerraforming.GameAi
                 // initialise all points where enemies will spawn
                 for (int i = 0; i < enemiesToSpawn; i++)
                 {
-                    var point = SpawnerEye.GetRandomSpawnPoint(SpawnRadius);
+                    var point = Vector3.zero;
                     if (IsPointvalid(point, pointsForSpawn))
                     {
                         pointsForSpawn.Add(point);
