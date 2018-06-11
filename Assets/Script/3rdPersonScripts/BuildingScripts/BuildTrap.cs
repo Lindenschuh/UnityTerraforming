@@ -11,13 +11,14 @@ public class BuildTrap : Photon.PunBehaviour {
     public int materialCost;
 
     private bool buildAllowed;
+    private bool trapBuildingActive;
     private Camera playerCam;
     private GameObject actualTrap;
     private GameObject trap;
     private Transform actualHit;
     private ResourceControl resourceControl;
     private BuildResources selectedMaterial;
-
+    private InventoryManager inventoryManager;
     // Use this for initialization
     void Start ()
     {
@@ -26,12 +27,14 @@ public class BuildTrap : Photon.PunBehaviour {
         playerCam = Camera.main;
         buildAllowed = false;
         resourceControl = GetComponent<ResourceControl>();
-        selectedMaterial = BuildResources.Trap;
+        selectedMaterial = BuildResources.TrapInstant;
+        trapBuildingActive = false;
     }
 	
 	// Update is called once per frame
 	void Update ()
     {
+        
         GetTrapOfKey();
 
         if (actualTrap != null)
@@ -50,13 +53,16 @@ public class BuildTrap : Photon.PunBehaviour {
 
     private void GetTrapOfKey()
     {
-        if (Input.GetKeyUp(TrapKeyCodes[0]))
+        
+        if (Input.GetKeyUp(KeyCode.F5))
         {
-            InitializeTrapBuild(TrapPrefabs[0]);
+            if (trapBuildingActive) trapBuildingActive = false;
+            else trapBuildingActive = true;
+            if(trapBuildingActive) InitializeTrapBuild(resourceControl.GetSelectedTrap());
         }
-        else if (Input.GetKeyUp(TrapKeyCodes[1]))
+        if (trapBuildingActive && Input.GetKeyUp(KeyCode.Mouse1))
         {
-            InitializeTrapBuild(TrapPrefabs[1]);
+            resourceControl.SelectNextTrap();
         }
     }
 

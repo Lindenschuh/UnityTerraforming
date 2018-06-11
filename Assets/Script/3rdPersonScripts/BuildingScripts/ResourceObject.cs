@@ -5,6 +5,8 @@ using UnityEngine;
 public class ResourceObject : MonoBehaviour {
     public BuildResources resourceType;
     public int resourceAmount;
+    public Sprite inventoryIcon;
+    public GameObject objectPrefab;
 	// Use this for initialization
 	void Start () {
         

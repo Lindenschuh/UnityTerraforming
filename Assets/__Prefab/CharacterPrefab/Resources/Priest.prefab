@@ -1771,7 +1771,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1234179483241218}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3, y: 100, z: 3}
+  m_LocalPosition: {x: 0, y: 0.23, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4803132351512614}
@@ -2827,7 +2827,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   openCloseEvents: 0
   openCloseWindow: 1
-  selectedToolbar: 0
+  selectedToolbar: 7
   damageLayer:
     serializedVersion: 2
     m_Bits: 257
@@ -3173,6 +3173,11 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   TrapKeyCodes: 3800000039000000
+  BuildingLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  maxBuildingRange: 0
+  materialCost: 0
 --- !u!114 &114498523390942218
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3341,7 +3346,7 @@ MonoBehaviour:
   startSmooth: 0
   lockCamera: 0
   offsetMouse: {x: 0, y: 0}
-  indexList: 2
+  indexList: 0
   indexLookPoint: 0
   offSetPlayerPivot: 0
   distance: 5
@@ -3409,10 +3414,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxResourceAmount: 0
   resourceAmount: 0
+  inventory: {fileID: 0}
   playerLayer:
     serializedVersion: 2
     m_Bits: 0
-  resourceType: 0
+  resourceType: 
 --- !u!114 &114895288125254708
 MonoBehaviour:
   m_ObjectHideFlags: 1

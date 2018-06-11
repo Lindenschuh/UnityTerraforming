@@ -27,13 +27,15 @@ public class UIControl : MonoBehaviour {
     private vShooterMeleeInput inputScript;
     private vThirdPersonCamera thirdPCamera;
     private GameObject visiblePickupItem;
+    
     // Use this for initialization
     void Start () {
         buildScript = GameObject.FindGameObjectWithTag("Player").GetComponent<BuildMode>();
         resControl = GetComponent<ResourceControl>();
         resourceInfo = new Dictionary<BuildResources, int>();
         resourceInfo.Add(BuildResources.Wood, 0);
-        resourceInfo.Add(BuildResources.Trap, 0);
+        resourceInfo.Add(BuildResources.TrapInstant, 0);
+        resourceInfo.Add(BuildResources.TrapTick, 0);
         woodCountUI = GameObject.Find("WoodCount");
         woodCountInventory = GameObject.Find("WoodCountInventory");
         trapCountUI = GameObject.Find("TrapCount");
@@ -82,17 +84,23 @@ public class UIControl : MonoBehaviour {
                 resourceInfo[resourceType] = newAmount;
                 if (!isCounting)
                 {
-                    StartCoroutine(Wait(oldAmount, BuildResources.Wood, woodCountUI));
+                    StartCoroutine(Wait(oldAmount, resourceType, woodCountUI));
                 }             
                 break;
-            case BuildResources.Trap:
+            case BuildResources.TrapInstant:
                 resourceInfo[resourceType] = newAmount;
                 if (!isCounting)
                 {
-                    StartCoroutine(Wait(oldAmount, BuildResources.Trap, trapCountUI));
+                    //StartCoroutine(Wait(oldAmount, resourceType, trapCountUI));
                 }
                 break;
-
+            case BuildResources.TrapTick:
+                resourceInfo[resourceType] = newAmount;
+                if (!isCounting)
+                {
+                    //StartCoroutine(Wait(oldAmount, resourceType, trapCountUI));
+                }
+                break;
         }
     }
 
@@ -128,13 +136,13 @@ public class UIControl : MonoBehaviour {
     {
         if (Input.GetKeyUp(KeyCode.P))
         {
-            inventoryObject.SetActive(!inventoryObject.GetActive());
+            inventoryObject.SetActive(!inventoryObject.active);
             //inventoryObject.GetComponentInChildren<UIComponentControl>().enabled = inventoryObject.GetActive();
             //uiCanvas.SetActive(!inventoryObject.GetActive());
-            inputScript.lockInput = inventoryObject.GetActive();
-            inputScript.LockCursor(inventoryObject.GetActive());
-            inputScript.ShowCursor(inventoryObject.GetActive());
-            inputScript.SetLockCameraInput(inventoryObject.GetActive());
+            inputScript.lockInput = inventoryObject.active;
+            inputScript.LockCursor(inventoryObject.active);
+            inputScript.ShowCursor(inventoryObject.active);
+            inputScript.SetLockCameraInput(inventoryObject.active);
         }
         if (inventoryObject.GetActive())
         {
