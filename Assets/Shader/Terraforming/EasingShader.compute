@@ -1,0 +1,106 @@
+﻿// Each #kernel tells which function to compile; you can have many kernels
+#pragma kernel CSLerp
+#pragma kernel CSCubic
+#pragma kernel CSMean
+#pragma kernel CSQuint
+
+RWStructuredBuffer<float> Result;
+float2 BrushSize;
+float Value;
+
+//Helper functions
+float when_gt(float x, float y)
+{
+	return max(sign(x - y), 0.0);
+}
+float when_lt(float x, float y)
+{
+	return max(sign(y - x), 0.0);
+}
+
+float when_ge(float x, float y)
+{
+	return 1.0 - when_lt(x, y);
+}
+float when_eq(float x, float y)
+{
+	return 1.0 - abs(sign(x - y));
+}
+
+float when_le(float x, float y)
+{
+	return 1.0 - when_gt(x, y);
+}
+
+//Easing Functions
+
+float EaseInOutCubic(float start, float end, float value)
+{
+	value /= .5f;
+	end -= start;
+	if (value < 1) return end * 0.5f * value * value * value + start;
+	value -= 2;
+	return end * 0.5f * (value * value * value + 2) + start;
+}
+
+float Lerp(float start, float end, float value)
+{
+	return (start + value * (end - start));
+}
+
+float EaseOutQuint(float start, float end, float value)
+{
+	value--;
+	end -= start;
+	return end * (value * value * value * value * value + 1) + start;
+}
+
+//Entry Points
+
+[numthreads(5, 5, 1)]
+void CSLerp(uint2 id : SV_DispatchThreadID)
+{
+	int newID = id.x + id.y * ((BrushSize.y / 10) * 10);
+
+	float HalfBufferSizeX = BrushSize.x / 2.0;
+	float HalfBufferSizeY = BrushSize.y / 2.0;
+	float distance = (pow(id.x - HalfBufferSizeX, 2) + pow(id.y - HalfBufferSizeY, 2));
+	float percentage = ((pow(HalfBufferSizeX, 2) - distance) / pow(HalfBufferSizeX, 2)) * when_le(distance, pow(HalfBufferSizeX, 2));
+	Result[newID] = Lerp(Result[newID], Result[newID] + Value, percentage);
+}
+
+[numthreads(5, 5, 1)]
+void CSCubic(uint2 id : SV_DispatchThreadID)
+{
+	int newID = id.x + id.y * ((BrushSize.y / 10) * 10);
+
+	float HalfBufferSizeX = BrushSize.x / 2.0;
+	float HalfBufferSizeY = BrushSize.y / 2.0;
+	float distance = (pow(id.x - HalfBufferSizeX, 2) + pow(id.y - HalfBufferSizeY, 2));
+	float percentage = ((pow(HalfBufferSizeX, 2) - distance) / pow(HalfBufferSizeX, 2)) * when_le(distance, pow(HalfBufferSizeX, 2));
+	Result[newID] = EaseInOutCubic(Result[newID], Result[newID] + Value, percentage);
+}
+
+[numthreads(5, 5, 1)]
+void CSQuint(uint2 id : SV_DispatchThreadID)
+{
+	int newID = id.x + id.y * ((BrushSize.y / 10) * 10);
+
+	float HalfBufferSizeX = BrushSize.x / 2.0;
+	float HalfBufferSizeY = BrushSize.y / 2.0;
+	float distance = (pow(id.x - HalfBufferSizeX, 2) + pow(id.y - HalfBufferSizeY, 2));
+	float percentage = ((pow(HalfBufferSizeX, 2) - distance) / pow(HalfBufferSizeX, 2)) * when_le(distance, pow(HalfBufferSizeX, 2));
+	Result[newID] = EaseOutQuint(Result[newID], Result[newID] + Value, percentage);
+}
+
+[numthreads(5, 5, 1)]
+void CSMean(uint2 id : SV_DispatchThreadID)
+{
+	int newID = id.x + id.y * ((ceil(BrushSize.y / 10)) * 10);
+
+	float HalfBufferSizeX = BrushSize.x / 2.0;
+	float HalfBufferSizeY = BrushSize.y / 2.0;
+	float distance = (pow(id.x - HalfBufferSizeX, 2) + pow(id.y - HalfBufferSizeY, 2));
+
+	Result[newID] = Lerp(Result[newID], Value, 0.1 * when_le(distance, pow(HalfBufferSizeX, 2)));
+}

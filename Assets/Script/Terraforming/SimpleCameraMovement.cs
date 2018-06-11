@@ -7,8 +7,15 @@ public class SimpleCameraMovement : MonoBehaviour
     public float MovementSpeed;
     public float ScrollSpeed;
 
+    public float HeightRadius;
+
+    private float _startHeight;
+
+    public GodStateManager GodState;
+
     private void Start()
     {
+        _startHeight = transform.position.y;
         Cursor.lockState = CursorLockMode.Confined;
     }
 
@@ -17,6 +24,11 @@ public class SimpleCameraMovement : MonoBehaviour
     {
         Vector2 movement = new Vector2(Input.GetAxis("Vertical"), Input.GetAxis("Horizontal")) * MovementSpeed * Time.deltaTime;
         float scroll = Input.mouseScrollDelta.y * ScrollSpeed * Time.deltaTime;
-        transform.position = new Vector3(transform.position.x - movement.x, transform.position.y - scroll, transform.position.z + movement.y);
+
+        Vector2 ClampedMovement = GodState.BoundCenter.position.xz() + Vector2.ClampMagnitude(new Vector2(transform.position.x - movement.x, transform.position.z + movement.y) - GodState.BoundCenter.position.xz(), GodState.BoundRadius);
+        transform.position = new Vector3(ClampedMovement.x,
+            Mathf.Clamp(transform.position.y - scroll, _startHeight - HeightRadius, _startHeight + HeightRadius),
+            ClampedMovement.y
+            );
     }
 }

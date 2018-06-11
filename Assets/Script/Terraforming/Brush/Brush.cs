@@ -13,6 +13,7 @@ public abstract class Brush : MonoBehaviour
     public Material BadIndicator;
 
     protected GameObject HoverIndicator;
+    public ShaderManager CSHandler;
 
     public abstract float[,] CalculateBrushUp(float[,] currentBrushValues);
 
@@ -24,57 +25,30 @@ public abstract class Brush : MonoBehaviour
         ChangebrushSize(BrushWidth, BrushHeight);
     }
 
-    private void FixedUpdate()
+    public void PlaceIndicatorPositive(Vector3 destination)
     {
-        if (Input.GetKeyDown(KeyCode.PageUp))
-        {
-            ChangebrushSize(BrushWidth + 5, BrushHeight + 5);
-        }
-        if (Input.GetKeyDown(KeyCode.PageDown))
-        {
-            ChangebrushSize(BrushWidth - 5, BrushHeight - 5);
-        }
-    }
+        if (HoverIndicator.GetComponent<Renderer>().material != GoodIndicator)
+            HoverIndicator.GetComponent<Renderer>().material = GoodIndicator;
 
-    public virtual bool IsAreaFree(Vector3 destination)
-    {
-        RaycastHit[] hits;
-        hits = Physics.BoxCastAll(destination, new Vector3(BrushWidth / 2f, 5f, BrushHeight / 2f), Vector3.one);
-
-        foreach (RaycastHit hit in hits)
-        {
-            if (hit.collider.GetComponent<Terrain>() != null || hit.collider.gameObject == HoverIndicator)
-                continue;
-
-            if (hit.rigidbody == null)
-            {
-                PlaceIndicator(false, destination);
-                return false;
-            }
-
-            if (hit.rigidbody.isKinematic)
-            {
-                PlaceIndicator(false, destination);
-                return false;
-            }
-        }
-        PlaceIndicator(true, destination);
-        return true;
-    }
-
-    protected void PlaceIndicator(bool isFree, Vector3 destination)
-    {
         HoverIndicator.SetActive(true);
         HoverIndicator.transform.position = destination;
-        HoverIndicator.GetComponent<Renderer>().material = isFree ? GoodIndicator : BadIndicator;
+    }
+
+    public void PlaceIndicatorNegative(Vector3 destination)
+    {
+        if (HoverIndicator.GetComponent<Renderer>().material != BadIndicator)
+            HoverIndicator.GetComponent<Renderer>().material = BadIndicator;
+
+        HoverIndicator.SetActive(true);
+        HoverIndicator.transform.position = destination;
     }
 
     public void ChangebrushSize(int width, int height)
     {
-        BrushHeight = (int)Mathf.Clamp(height, 0, MaxBrushValue);
-        BrushWidth = (int)Mathf.Clamp(width, 0, MaxBrushValue);
-        float percentage = MaxBrushValue * 2 - (BrushWidth + BrushHeight);
-        sizeModificator = percentage / (MaxBrushValue * 2);
+        BrushHeight = (int)Mathf.Clamp(height, 5, MaxBrushValue);
+        BrushWidth = (int)Mathf.Clamp(width, 5, MaxBrushValue);
+        float percentage = (MaxBrushValue + 10) * 2 - (BrushWidth + BrushHeight);
+        sizeModificator = percentage / ((MaxBrushValue + 10) * 2);
         MakeIndicator();
     }
 
@@ -82,7 +56,8 @@ public abstract class Brush : MonoBehaviour
     {
         if (HoverIndicator == null)
         {
-            HoverIndicator = GameObject.CreatePrimitive(PrimitiveType.Cube);
+            HoverIndicator = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+            Destroy(HoverIndicator.GetComponent<SphereCollider>());
             HoverIndicator.GetComponent<Renderer>().material = GoodIndicator;
             HoverIndicator.transform.parent = transform;
             HoverIndicator.SetActive(false);

@@ -22,6 +22,7 @@ GameObject:
   - component: {fileID: 33606760526417892}
   - component: {fileID: 65003602352635462}
   - component: {fileID: 23418386318638732}
+  - component: {fileID: 114087167673810576}
   m_Layer: 8
   m_Name: Square
   m_TagString: Obsticle
@@ -55,6 +56,7 @@ MeshRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RenderingLayerMask: 4294967295
   m_Materials:
   - {fileID: 2100000, guid: 6d13726591616c942ad5947c9de99bbf, type: 2}
   m_StaticBatchInfo:
@@ -95,3 +97,15 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &114087167673810576
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1167206470166340}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d212fd38b5be65c42ab4add081a8074b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 150
