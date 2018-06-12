@@ -5,7 +5,6 @@ using UnityEngine;
 
 public class ObjectPlacer : Photon.PunBehaviour
 {        
-    public GameObject[] prefabs;
     public int tries;
     public int prefabsCount;
     public Terrain terrain;

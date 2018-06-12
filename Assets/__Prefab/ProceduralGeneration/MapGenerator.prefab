@@ -101,7 +101,7 @@ MonoBehaviour:
   height: 513
   noiseScale: 100
   octaves: 1
-  persistance: 0.523
+  persistance: 0.5
   lacunarity: 3.38
   seed: 0
   offset: {x: 0, y: 0}
