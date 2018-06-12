@@ -65,10 +65,11 @@ public class TerraManipulation : Photon.PunBehaviour
 
     private void AbilityBehaivor()
     {
-        if (CalculateInpactPoint(Input.mousePosition, new Vector2Int((int)GodState.AbilityMng.CurrentAbility.Width, (int)GodState.AbilityMng.CurrentAbility.Height), out lastRelative, out lastImpact))
+        if (CalculateInpactPoint(Input.mousePosition, new Vector2Int((int)GodState.AbilityMng.CurrentAbility.Radius * 2, (int)GodState.AbilityMng.CurrentAbility.Radius * 2), out lastRelative, out lastImpact))
         {
             if (isInRange())
             {
+                GodState.AbilityMng.CurrentAbility.PlaceIndicator(lastRelative);
                 if (Input.GetMouseButtonDown(0))
                 {
                     photonView.RPC("RPCUseAbility", PhotonTargets.All, lastRelative);

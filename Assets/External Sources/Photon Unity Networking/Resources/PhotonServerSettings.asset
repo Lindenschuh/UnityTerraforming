@@ -21,7 +21,7 @@ MonoBehaviour:
   ServerAddress: 
   ServerPort: 5055
   VoiceServerPort: 5055
-  JoinLobby: 0
+  JoinLobby: 1
   EnableLobbyStatistics: 0
   PunLogging: 0
   NetworkLogging: 1
@@ -45,6 +45,7 @@ MonoBehaviour:
   - RPCChangePlayerTeam
   - RPCChangeRadius
   - RPCChangeRoomMaxPlayers
+  - RPCCreateRandomRangePair
   - RPCDestroyBuilding
   - RPCDropResources
   - RPCGenerateMap
@@ -52,11 +53,11 @@ MonoBehaviour:
   - RPCLiftTerrain
   - RPCLowerTerrain
   - RPCSendRandom
+  - RPCSetTrap
   - RPCStartGame
   - RPCSwitchAbility
   - RPCSwitchBrush
   - RPCSwitchMode
   - RPCUpdateRoom
   - RPCUseAbility
-  - RPCSetTrap
   DisableAutoOpenWizard: 1
