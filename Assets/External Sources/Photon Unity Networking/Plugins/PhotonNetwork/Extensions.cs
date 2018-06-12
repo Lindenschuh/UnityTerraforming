@@ -229,10 +229,10 @@ public static class GameObjectExtensions
     /// <returns>Unity 3.5: active. Any newer Unity: activeInHierarchy.</returns>
     public static bool GetActive(this GameObject target)
     {
-        #if UNITY_3_5
+#if UNITY_3_5
         return target.active;
-        #else
-        return target.activeInHierarchy;
+#else
+        return true;// target.activeInHierarchy;
         #endif
     }
 

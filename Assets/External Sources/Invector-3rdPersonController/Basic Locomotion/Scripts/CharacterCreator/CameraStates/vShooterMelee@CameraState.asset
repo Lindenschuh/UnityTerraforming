@@ -62,7 +62,7 @@ MonoBehaviour:
     lookPoints: []
     cameraMode: 0
   - Name: Aiming
-    forward: -1
+    forward: 0
     right: 0.61
     defaultDistance: 1
     maxDistance: 1.5

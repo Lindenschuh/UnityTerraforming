@@ -251,6 +251,7 @@ GameObject:
   - component: {fileID: 114255202575065826}
   - component: {fileID: 114238025243710128}
   - component: {fileID: 114176701809258162}
+  - component: {fileID: 114418591948066332}
   m_Layer: 10
   m_Name: Priest
   m_TagString: Player
@@ -2826,7 +2827,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   openCloseEvents: 0
   openCloseWindow: 1
-  selectedToolbar: 0
+  selectedToolbar: 7
   damageLayer:
     serializedVersion: 2
     m_Bits: 257
@@ -3157,6 +3158,26 @@ MonoBehaviour:
         Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   applyAttributeEvents: []
   inEquip: 0
+--- !u!114 &114418591948066332
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1234179483241218}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 30e6517706dd4af4cb77d66cdc2d7135, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TrapPrefabs:
+  - {fileID: 1244475482265986, guid: 4582014ea3dbada428d40a9bb79a8033, type: 2}
+  - {fileID: 1244475482265986, guid: b0bcb343ba933f14da6c403e25a7f566, type: 2}
+  TrapKeyCodes: 1e01000039000000
+  BuildingLayers:
+    serializedVersion: 2
+    m_Bits: 256
+  maxBuildingRange: 10
+  materialCost: 20
 --- !u!114 &114498523390942218
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3325,7 +3346,7 @@ MonoBehaviour:
   startSmooth: 0
   lockCamera: 0
   offsetMouse: {x: 0, y: 0}
-  indexList: 2
+  indexList: 0
   indexLookPoint: 0
   offSetPlayerPivot: 0
   distance: 5
@@ -3393,10 +3414,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxResourceAmount: 0
   resourceAmount: 0
+  inventory: {fileID: 0}
   playerLayer:
     serializedVersion: 2
-    m_Bits: 0
-  resourceType: 0
+    m_Bits: 1
+  resourceType: 0000000001000000
 --- !u!114 &114895288125254708
 MonoBehaviour:
   m_ObjectHideFlags: 1

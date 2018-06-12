@@ -6,25 +6,28 @@ using UnityEngine;
 public class ResourceControl : MonoBehaviour {
     public int maxResourceAmount;
     public int resourceAmount;
+    public GameObject inventory;
     public LayerMask playerLayer;
     private LayerMask resLayer;
     private UIControl uiControl;
-    public BuildResources resourceType;
+    public BuildResources[] resourceType;
     private GameObject head;
     protected Dictionary<BuildResources, int> resourceInfo;
-
+    private GameObject UI;
     protected vThirdPersonCamera tpCamera;
     // Use this for initialization
     void Start () {
         tpCamera = FindObjectOfType<vThirdPersonCamera>();
-        resourceType = BuildResources.Wood;
+        //resourceType = BuildResources.Wood;
         resourceInfo = new Dictionary<BuildResources, int>();
-        resourceInfo[resourceType] = 0;
+        resourceInfo.Add(BuildResources.Wood, 0);
+        resourceInfo.Add(BuildResources.TrapInstant, 0);
+        resourceInfo.Add(BuildResources.TrapTick, 0);
+        //resourceInfo[resourceType] = 0;
         resLayer = LayerMask.NameToLayer("Resource");
         uiControl = GetComponent<UIControl>();
         head = GameObject.Find("Head");
-
-        //Physics.IgnoreLayerCollision(gameObject.layer, LayerMask.NameToLayer("Player"));
+        UI = GameObject.Find("UI");
 	}
 	
 	// Update is called once per frame
@@ -36,16 +39,6 @@ public class ResourceControl : MonoBehaviour {
     {
         return resourceInfo[resType];
     }
-    private void OnCollisionEnter(Collision collision)
-    {
-        if (LayerMask.LayerToName(gameObject.layer) == "Player" && LayerMask.LayerToName(collision.gameObject.layer) == "Resource")
-        {
-            Physics.IgnoreCollision(GetComponent<Collider>(), collision.collider);
-            TakeResource(collision);
-        }
-
-        
-    }
 
     public void AddResource(BuildResources resourceType, int amount)
     {
@@ -53,21 +46,26 @@ public class ResourceControl : MonoBehaviour {
         resourceInfo[resourceType] += amount;
         uiControl.resetResourceCounter(resourceType, oldAmount, resourceInfo[resourceType]);
     }
+
     public void UseResource(BuildResources resourceType, int amount)
     {
         int oldAmount = resourceInfo[resourceType];
         resourceInfo[resourceType] -= amount;
         uiControl.resetResourceCounter(resourceType, oldAmount, resourceInfo[resourceType]);
     }
-    private void TakeResource(Collision collision)
+
+    public void PickupItem(GameObject item)
     {
-        ResourceObject resourceTaken = collision.transform.gameObject.GetComponent<ResourceObject>();
-        AddResource(resourceTaken.resourceType, resourceTaken.resourceAmount);
-        collision.rigidbody.MovePosition(tpCamera.transform.position + tpCamera.transform.forward * 2);
-        //collision.rigidbody.velocity = ((tpCamera.transform.position + tpCamera.transform.forward*2) - collision.transform.position) * 5;
-        collision.rigidbody.MovePosition(head.transform.position);
-        Destroy(collision.gameObject);
+        inventory.GetComponent<InventoryManager>().PickupItem(item);
     }
 
-   
+    public GameObject GetSelectedTrap()
+    {
+        return inventory.GetComponent<InventoryManager>().GetSelectedTrap();
+    }
+
+    public void SelectNextTrap()
+    {
+        inventory.GetComponent<InventoryManager>().SelectNextTrap();
+    }
 }
