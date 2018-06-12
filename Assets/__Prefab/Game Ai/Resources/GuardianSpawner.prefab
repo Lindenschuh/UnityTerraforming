@@ -110,23 +110,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!1 &1781352802630852
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 5
-  m_Component:
-  - component: {fileID: 4563606877036498}
-  - component: {fileID: 114095454001305284}
-  - component: {fileID: 114659821948816518}
-  m_Layer: 0
-  m_Name: SpawnerEye
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
 --- !u!1 &1785537631884224
 GameObject:
   m_ObjectHideFlags: 0
@@ -206,7 +189,7 @@ Transform:
   m_LocalScale: {x: 14, y: 15, z: 14}
   m_Children: []
   m_Father: {fileID: 4906713905976638}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4166935253736364
 Transform:
@@ -233,7 +216,7 @@ Transform:
   m_Children:
   - {fileID: 4727280129128946}
   m_Father: {fileID: 4906713905976638}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4295546335881760
 Transform:
@@ -300,19 +283,6 @@ Transform:
   m_Father: {fileID: 4727280129128946}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &4563606877036498
-Transform:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1781352802630852}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 35, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 4906713905976638}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4727280129128946
 Transform:
   m_ObjectHideFlags: 1
@@ -342,7 +312,6 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 4563606877036498}
   - {fileID: 4166475763601802}
   - {fileID: 4241004144564416}
   m_Father: {fileID: 0}
@@ -639,44 +608,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &114095454001305284
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1781352802630852}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 23b1df66a6542164a911776c6ddb994c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  MaxTries: 5
---- !u!114 &114659821948816518
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1781352802630852}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ownerId: 0
-  group: 0
-  OwnerShipWasTransfered: 0
-  prefixBackup: -1
-  synchronization: 3
-  onSerializeTransformOption: 3
-  onSerializeRigidBodyOption: 2
-  ownershipTransfer: 0
-  ObservedComponents:
-  - {fileID: 114095454001305284}
-  ObservedComponentsFoldoutOpen: 1
-  viewIdField: 0
-  instantiationId: -1
-  currentMasterID: -1
-  isRuntimeInstantiated: 0
 --- !u!114 &114701520458898714
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -695,7 +626,7 @@ MonoBehaviour:
   EntityGrowFactor: 0
   MaxEntitiesAtOnce: 1
   DistanceBetweenEntities: 0
-  SpawnerEye: {fileID: 114095454001305284}
+  SpawnerEye: {fileID: 0}
   WaitBetweenSpawn: 2
   WaitBetweenWaves: 180
   WaitOnStart: 15

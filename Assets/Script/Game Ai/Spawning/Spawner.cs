@@ -28,8 +28,6 @@ namespace UnityTerraforming.GameAi
 
         public float DistanceBetweenEntities;
 
-        public SpawnerEye SpawnerEye;
-
         public float WaitBetweenSpawn;
         public float WaitBetweenWaves;
         public float WaitOnStart;

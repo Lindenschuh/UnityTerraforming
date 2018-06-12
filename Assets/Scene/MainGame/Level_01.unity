@@ -154,25 +154,9 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 114259735006641792, guid: 54aa2db14001d914bb4ac34534a2e6aa,
         type: 2}
-      propertyPath: DestinationPrefab
-      value: 
-      objectReference: {fileID: 1802668065496030, guid: 9930dcc504397b741bf6be62c16782ff,
-        type: 2}
-    - target: {fileID: 114259735006641792, guid: 54aa2db14001d914bb4ac34534a2e6aa,
-        type: 2}
-      propertyPath: SpawnerPrefab
-      value: 
-      objectReference: {fileID: 1243623761956138, guid: 4f05a592be2e53d4280912264d5ff62d,
-        type: 2}
-    - target: {fileID: 114259735006641792, guid: 54aa2db14001d914bb4ac34534a2e6aa,
-        type: 2}
       propertyPath: godStateManager
       value: 
       objectReference: {fileID: 1371987811}
-    - target: {fileID: 1036098438998508, guid: 54aa2db14001d914bb4ac34534a2e6aa, type: 2}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 54aa2db14001d914bb4ac34534a2e6aa, type: 2}
   m_IsPrefabParent: 0
