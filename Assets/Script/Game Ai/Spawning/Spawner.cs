@@ -11,7 +11,7 @@ namespace UnityTerraforming.GameAi
         void OnCaptured();
     }
 
-    public abstract class Spawner : MonoBehaviour
+    public abstract class Spawner : Photon.PunBehaviour
     {
         public GameObject EntityPrefab;
 
@@ -67,9 +67,7 @@ namespace UnityTerraforming.GameAi
                 // Spawn the Entities
                 pointsForSpawn.ForEach(point =>
                 {
-                    var spawned = Instantiate(EntityPrefab, point, Quaternion.identity);
-                    InitialiseTowerSpecificEnemy(spawned);
-                    _entitiesAlive.Add(spawned);
+                    photonView.RPC("RPCSpawnEnemy", PhotonTargets.All, point);
                 });
 
                 if (WaveCount < _currentWaveCounter)
@@ -137,5 +135,17 @@ namespace UnityTerraforming.GameAi
         }
 
         #endregion Observer
+
+        #region RPC
+
+        [PunRPC]
+        private void RPCSpawnEnemy(Vector3 point)
+        {
+            var spawned = Instantiate(EntityPrefab, point, Quaternion.identity);
+            InitialiseTowerSpecificEnemy(spawned);
+            _entitiesAlive.Add(spawned);
+        }
+
+        #endregion
     }
 }
