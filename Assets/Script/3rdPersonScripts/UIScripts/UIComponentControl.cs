@@ -78,7 +78,7 @@ public class UIComponentControl : Photon.PunBehaviour, IPointerEnterHandler, IPo
         movableUIComp.GetComponent<SlotManager>().Reset();
     }
     // Use this for initialization
-    void Start () {
+    void OnEnable () {
         tpCamera = FindObjectOfType<vThirdPersonCamera>();
         player = GameObject.FindGameObjectWithTag("Player");
         dropAmountInput = GameObject.Find("DropAmount");

@@ -8,9 +8,9 @@ using UnityEngine.UI;
 
 public class UIControl : MonoBehaviour {
 
-    public GameObject wallIcon;
-    public GameObject groundIcon;
-    public GameObject rampIcon;
+    private GameObject wallIcon;
+    private GameObject groundIcon;
+    private GameObject rampIcon;
 
     public GameObject selectedUIElement;
 
@@ -29,7 +29,7 @@ public class UIControl : MonoBehaviour {
     private GameObject visiblePickupItem;
     
     // Use this for initialization
-    void Start () {
+    void OnEnable () {
         buildScript = GameObject.FindGameObjectWithTag("Player").GetComponent<BuildMode>();
         resControl = GetComponent<ResourceControl>();
         resourceInfo = new Dictionary<BuildResources, int>();
@@ -47,6 +47,9 @@ public class UIControl : MonoBehaviour {
 
         inputScript = GetComponent<vShooterMeleeInput>();
         uiCanvas = GameObject.Find("UICanvas");
+        wallIcon = GameObject.Find("WallPanel");
+        groundIcon = GameObject.Find("GroundPanel");
+        rampIcon = GameObject.Find("RampPanel");
         thirdPCamera = FindObjectOfType<vThirdPersonCamera>();
         visiblePickupItem = null;
     }

@@ -42,8 +42,12 @@ public class GameManager : MonoBehaviour
 
         if (PhotonNetwork.player.CustomProperties[PropertyRole].ToString() == Priest)
         {
+
             Debug.LogWarning(PhotonNetwork.player.NickName);
+            GameObject.Find("GodUI").SetActive(false);
+            GameObject.Find("God").SetActive(false);
             GameObject priest = GameObject.FindGameObjectWithTag(PlayerTag);
+            GameObject.Find("UI").transform.GetChild(0).gameObject.SetActive(true);
             priest.GetComponent<vThirdPersonController>().enabled = true;
             priest.transform.GetChild(0).gameObject.SetActive(true);
             priest.GetComponent<vShooterMeleeInput>().enabled = true;
@@ -53,11 +57,14 @@ public class GameManager : MonoBehaviour
             priest.GetComponent<vGenericAction>().enabled = true;
             priest.GetComponent<BuildMode>().enabled = true;
             priest.GetComponent<vItemManager>().enabled = true;
-            priest.GetComponent<ResourceControl>().enabled = true;
+            priest.GetComponent<ResourceControl>().enabled = true;           
             priest.GetComponent<UIControl>().enabled = true;
-            priest.GetComponentInChildren<vThirdPersonCamera>().enabled = true;
-            priest.GetComponentInChildren<Camera>().enabled = true;
+            priest.transform.Find("vThirdPersonCamera").gameObject.SetActive(true);
+                  
+            //priest.GetComponentInChildren<Camera>().enabled = true;
+            //priest.GetComponentInChildren<vThirdPersonCamera>().enabled = true;
             priest.GetComponentInChildren<Health>().enabled = true;
+
         }
         else
         {
@@ -68,6 +75,7 @@ public class GameManager : MonoBehaviour
             mainCamera.GetComponent<SimpleCameraMovement>().GodState = godStateManager;
             GameObject terrain = GameObject.Find(Terrain);
             terrain.GetComponent<TerraManipulation>().MainCamera = mainCamera;
+            GameObject.Find("UI").SetActive(false);
         }
     }
 }
