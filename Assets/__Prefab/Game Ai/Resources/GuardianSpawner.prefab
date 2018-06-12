@@ -672,8 +672,8 @@ MonoBehaviour:
   ObservedComponents:
   - {fileID: 114095454001305284}
   ObservedComponentsFoldoutOpen: 1
-  viewIdField: 2
-  instantiationId: 2
+  viewIdField: 0
+  instantiationId: -1
   currentMasterID: -1
   isRuntimeInstantiated: 0
 --- !u!114 &114701520458898714
@@ -690,12 +690,11 @@ MonoBehaviour:
   EntityPrefab: {fileID: 1509233189404536, guid: 80818a67e1ad617419cbc2ff3516be62,
     type: 2}
   SpawnRadius: 50
-  WaveCount: 10
+  WaveCount: 5
   EntityGrowFactor: 0
-  MaxEntitiesAtOnce: 5
-  DistanceBetweenEntities: 3
+  MaxEntitiesAtOnce: 1
+  DistanceBetweenEntities: 0
   SpawnerEye: {fileID: 114095454001305284}
   WaitBetweenSpawn: 2
-  WaitBetweenWaves: 15
-  WaitOnStart: 5
-  PlayerTransform: {fileID: 0}
+  WaitBetweenWaves: 180
+  WaitOnStart: 15

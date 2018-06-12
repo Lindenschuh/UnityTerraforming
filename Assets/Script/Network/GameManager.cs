@@ -12,12 +12,6 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
 
-    public GameObject DestinationPrefab;
-    public GameObject SpawnerPrefab;
-
-    [HideInInspector]
-    public GameObject MainDestination;
-
     private void Awake()
     {
         if (instance == null)
@@ -35,19 +29,12 @@ public class GameManager : MonoBehaviour
     {
         Transform spawnPoint;
 
-        spawnPoint = GameObject.Find("SpawnPoint_Destination").transform;
-        GameObject destinationGO = Instantiate(DestinationPrefab, spawnPoint);
-        MainDestination = destinationGO.gameObject;
-
-        spawnPoint = GameObject.Find("SpawnPoint_Spawner").transform;
-        GameObject spawner = Instantiate(SpawnerPrefab, spawnPoint);
-
         spawnPoint = GameObject.Find("SpawnPoint_" + PhotonNetwork.player.CustomProperties["role"].ToString()).transform;
         PhotonNetwork.Instantiate(PhotonNetwork.player.CustomProperties["role"].ToString(), spawnPoint.position, spawnPoint.rotation, 0);
 
         if (PhotonNetwork.player.CustomProperties["role"].ToString() == "Priest")
         {
-            Debug.LogWarning(PhotonNetwork.player.NickName);        
+            Debug.LogWarning(PhotonNetwork.player.NickName);
             GameObject priest = GameObject.FindGameObjectWithTag("Player");
             priest.GetComponent<vThirdPersonController>().enabled = true;
             priest.transform.GetChild(0).gameObject.SetActive(true);
