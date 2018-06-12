@@ -164,6 +164,11 @@ Prefab:
       value: 
       objectReference: {fileID: 1243623761956138, guid: 4f05a592be2e53d4280912264d5ff62d,
         type: 2}
+    - target: {fileID: 114259735006641792, guid: 54aa2db14001d914bb4ac34534a2e6aa,
+        type: 2}
+      propertyPath: godStateManager
+      value: 
+      objectReference: {fileID: 1371987811}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 54aa2db14001d914bb4ac34534a2e6aa, type: 2}
   m_IsPrefabParent: 0
