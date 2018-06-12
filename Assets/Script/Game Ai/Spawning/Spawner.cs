@@ -67,7 +67,9 @@ namespace UnityTerraforming.GameAi
                 // Spawn the Entities
                 pointsForSpawn.ForEach(point =>
                 {
-                    photonView.RPC("RPCSpawnEnemy", PhotonTargets.All, point);
+                    var spawned = PhotonNetwork.Instantiate(EntityPrefab.name, point, Quaternion.identity, 0);
+                    InitialiseTowerSpecificEnemy(spawned);
+                    _entitiesAlive.Add(spawned);
                 });
 
                 if (WaveCount < _currentWaveCounter)
@@ -135,17 +137,5 @@ namespace UnityTerraforming.GameAi
         }
 
         #endregion Observer
-
-        #region RPC
-
-        [PunRPC]
-        private void RPCSpawnEnemy(Vector3 point)
-        {
-            var spawned = Instantiate(EntityPrefab, point, Quaternion.identity);
-            InitialiseTowerSpecificEnemy(spawned);
-            _entitiesAlive.Add(spawned);
-        }
-
-        #endregion
     }
 }
