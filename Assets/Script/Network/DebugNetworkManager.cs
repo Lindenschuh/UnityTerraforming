@@ -66,7 +66,7 @@ public class DebugNetworkManager : Photon.PunBehaviour
             priest.GetComponent<vHeadTrack>().enabled = true;
             priest.GetComponent<vGenericAction>().enabled = true;
             priest.GetComponent<BuildMode>().enabled = true;
-            priest.GetComponent<vItemManager>().enabled = true;
+            //priest.GetComponent<vItemManager>().enabled = true;
             priest.GetComponent<ResourceControl>().enabled = true;
             priest.GetComponent<UIControl>().enabled = true;
             priest.transform.Find("vThirdPersonCamera").gameObject.SetActive(true);
