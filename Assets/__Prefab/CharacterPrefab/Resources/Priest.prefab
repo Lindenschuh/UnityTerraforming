@@ -2786,12 +2786,14 @@ MonoBehaviour:
   group: 0
   OwnerShipWasTransfered: 0
   prefixBackup: -1
-  synchronization: 0
+  synchronization: 3
   onSerializeTransformOption: 3
   onSerializeRigidBodyOption: 2
   ownershipTransfer: 0
   ObservedComponents:
-  - {fileID: 0}
+  - {fileID: 114498523390942218}
+  - {fileID: 114255202575065826}
+  - {fileID: 114238025243710128}
   ObservedComponentsFoldoutOpen: 1
   viewIdField: 0
   instantiationId: -1
@@ -3266,6 +3268,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb69f52d733310543ba0539512608fae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  wallIcon: {fileID: 0}
+  groundIcon: {fileID: 0}
+  rampIcon: {fileID: 0}
   selectedUIElement: {fileID: 0}
 --- !u!114 &114505467999071656
 MonoBehaviour:
