@@ -622,10 +622,10 @@ MonoBehaviour:
   EntityPrefab: {fileID: 1509233189404536, guid: 80818a67e1ad617419cbc2ff3516be62,
     type: 2}
   SpawnRadius: 50
-  WaveCount: 0
+  WaveCount: 5
   EntityGrowFactor: 0
-  MaxEntitiesAtOnce: 0
-  DistanceBetweenEntities: 0
+  MaxEntitiesAtOnce: 1
+  DistanceBetweenEntities: 1
   WaitBetweenSpawn: 2
   WaitBetweenWaves: 180
   WaitOnStart: 15

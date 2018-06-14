@@ -23,21 +23,6 @@ public class InteractionScript: Photon.PunBehaviour
     {
         instance = this;
         player = GameObject.FindGameObjectWithTag("Player");
-        GameObject priest = GameObject.FindGameObjectWithTag("Player");
-        priest.GetComponent<vThirdPersonController>().enabled = true;
-        priest.transform.GetChild(0).gameObject.SetActive(true);
-        priest.GetComponent<vShooterMeleeInput>().enabled = true;
-        priest.GetComponent<vShooterManager>().enabled = true;
-        priest.GetComponent<vAmmoManager>().enabled = true;
-        priest.GetComponent<vHeadTrack>().enabled = true;
-        priest.GetComponent<vGenericAction>().enabled = true;
-        priest.GetComponent<BuildMode>().enabled = true;
-        priest.GetComponent<vItemManager>().enabled = true;
-        priest.GetComponent<ResourceControl>().enabled = true;
-        priest.GetComponent<UIControl>().enabled = true;
-        priest.GetComponentInChildren<vThirdPersonCamera>().enabled = true;
-        priest.GetComponentInChildren<Camera>().enabled = true;
-        priest.GetComponentInChildren<Health>().enabled = true;
     }
     private InteractionScript() { }
 	
@@ -55,10 +40,6 @@ public class InteractionScript: Photon.PunBehaviour
         }
     }
 
-    public void DropInventoryObject()
-    {
-
-    }
     public void CheckBuildings(GameObject plate)
     {
         mainPlate = plate;

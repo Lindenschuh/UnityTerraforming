@@ -42,10 +42,7 @@ public class GameManager : MonoBehaviour
 
         if (PhotonNetwork.player.CustomProperties[PropertyRole].ToString() == Priest)
         {
-
-            Debug.LogWarning(PhotonNetwork.player.NickName);
             GameObject.Find("GodUI").SetActive(false);
-            //GameObject.Find("God").SetActive(false);
             GameObject priest = GameObject.FindGameObjectWithTag(PlayerTag);
             GameObject.Find("UI").transform.GetChild(0).gameObject.SetActive(true);
             GameObject.Find("GodController").SetActive(false);
@@ -61,9 +58,6 @@ public class GameManager : MonoBehaviour
             priest.GetComponent<ResourceControl>().enabled = true;           
             priest.GetComponent<UIControl>().enabled = true;
             priest.transform.Find("vThirdPersonCamera").gameObject.SetActive(true);
-                  
-            //priest.GetComponentInChildren<Camera>().enabled = true;
-            //priest.GetComponentInChildren<vThirdPersonCamera>().enabled = true;
             priest.GetComponentInChildren<Health>().enabled = true;
 
         }

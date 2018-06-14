@@ -54,6 +54,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Loglevel: 1
   MaxPlayersPerRoom: 1
+  Player: {fileID: 4225426483543834, guid: 7ee510210e53fc34984bb87f0ae0b09b, type: 2}
+  godStateManager: {fileID: 0}
 --- !u!114 &114676205561423490
 MonoBehaviour:
   m_ObjectHideFlags: 1
