@@ -31,12 +31,15 @@ namespace UnityTerraforming.GameAi
 
             Vector3 orientationVec = OriAsVector(Agent.Orientation);
             Vector3 targetPosition = (Offset * orientationVec) + transform.position;
+
             targetPosition = targetPosition + (OriAsVector(targetOrientation) * Radius);
             targetAux.transform.position = targetPosition;
+
             steering = base.GetSteering();
             steering.linear = targetAux.transform.position - transform.position;
             steering.linear.Normalize();
             steering.linear *= Agent.MaxAccel;
+
             return steering;
         }
     }

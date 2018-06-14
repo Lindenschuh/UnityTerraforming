@@ -667,21 +667,6 @@ Prefab:
       propertyPath: m_RootOrder
       value: 7
       objectReference: {fileID: 0}
-    - target: {fileID: 114701520458898714, guid: 47afaccb1e0d24940bb7233e2e4285a0,
-        type: 2}
-      propertyPath: PlayerTransform
-      value: 
-      objectReference: {fileID: 1494004512}
-    - target: {fileID: 114659821948816518, guid: 47afaccb1e0d24940bb7233e2e4285a0,
-        type: 2}
-      propertyPath: viewIdField
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 114659821948816518, guid: 47afaccb1e0d24940bb7233e2e4285a0,
-        type: 2}
-      propertyPath: instantiationId
-      value: 2
-      objectReference: {fileID: 0}
     - target: {fileID: 114845924893990998, guid: 47afaccb1e0d24940bb7233e2e4285a0,
         type: 2}
       propertyPath: viewIdField
@@ -692,11 +677,6 @@ Prefab:
       propertyPath: instantiationId
       value: 2
       objectReference: {fileID: 0}
-    - target: {fileID: 23469161587716974, guid: 47afaccb1e0d24940bb7233e2e4285a0,
-        type: 2}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: 6e06b6d0c696f9544b327c597d334766, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 47afaccb1e0d24940bb7233e2e4285a0, type: 2}
   m_IsPrefabParent: 0
@@ -1015,26 +995,6 @@ Transform:
   m_Father: {fileID: 153100452}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1914253508 stripped
-GameObject:
-  m_PrefabParentObject: {fileID: 1894281576639286, guid: 47afaccb1e0d24940bb7233e2e4285a0,
-    type: 2}
-  m_PrefabInternal: {fileID: 985475102}
---- !u!114 &1914253510
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1914253508}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 48e8b6d18d050e3438e6d2eea1acb4f4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  RotationSpeed: 5
-  DefaultMaterial: {fileID: 2100000, guid: 6e06b6d0c696f9544b327c597d334766, type: 2}
-  MaterialCaptured: {fileID: 2100000, guid: 26c109d730171f144863a35262e52f00, type: 2}
-  Captured: 0
 --- !u!1 &2047209736
 GameObject:
   m_ObjectHideFlags: 0
