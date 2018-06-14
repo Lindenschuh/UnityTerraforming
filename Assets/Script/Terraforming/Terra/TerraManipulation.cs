@@ -52,7 +52,7 @@ public class TerraManipulation : Photon.PunBehaviour
 
     public bool isInRange()
     {
-        return (lastRelative - GodState.BoundCenter.position).magnitude <= GodState.BoundRadius;
+        return (lastRelative.xz() - GodState.BoundCenter.position.xz()).magnitude <= GodState.BoundRadius;
     }
 
     private void FixedUpdate()

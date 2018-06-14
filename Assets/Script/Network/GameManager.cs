@@ -45,7 +45,7 @@ public class GameManager : MonoBehaviour
 
             Debug.LogWarning(PhotonNetwork.player.NickName);
             GameObject.Find("GodUI").SetActive(false);
-            GameObject.Find("God").SetActive(false);
+            //GameObject.Find("God").SetActive(false);
             GameObject priest = GameObject.FindGameObjectWithTag(PlayerTag);
             GameObject.Find("UI").transform.GetChild(0).gameObject.SetActive(true);
             priest.GetComponent<vThirdPersonController>().enabled = true;
