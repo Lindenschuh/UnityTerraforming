@@ -171,6 +171,7 @@ GameObject:
   - component: {fileID: 4334153602770080}
   - component: {fileID: 33533907477690372}
   - component: {fileID: 23469161587716974}
+  - component: {fileID: 114708857912920500}
   m_Layer: 0
   m_Name: Crystal
   m_TagString: Untagged
@@ -629,6 +630,20 @@ MonoBehaviour:
   WaitBetweenSpawn: 2
   WaitBetweenWaves: 180
   WaitOnStart: 15
+--- !u!114 &114708857912920500
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1894281576639286}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 48e8b6d18d050e3438e6d2eea1acb4f4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  RotationSpeed: 5
+  DefaultMaterial: {fileID: 2100000, guid: 6e06b6d0c696f9544b327c597d334766, type: 2}
+  CapturedMaterial: {fileID: 2100000, guid: 26c109d730171f144863a35262e52f00, type: 2}
 --- !u!114 &114845924893990998
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -651,7 +666,7 @@ MonoBehaviour:
   ObservedComponents:
   - {fileID: 0}
   ObservedComponentsFoldoutOpen: 1
-  viewIdField: 0
-  instantiationId: -1
+  viewIdField: 2
+  instantiationId: 2
   currentMasterID: -1
   isRuntimeInstantiated: 0
