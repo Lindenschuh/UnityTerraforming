@@ -10,6 +10,7 @@ public class TerraManipulation : Photon.PunBehaviour
     public Camera MainCamera;
     public GodStateManager GodState;
     public GodData GD;
+    public GodControlls GodCon;
 
     private Terrain Terra;
     private TerrainData TData;
@@ -70,7 +71,7 @@ public class TerraManipulation : Photon.PunBehaviour
             if (isInRange())
             {
                 GodState.AbilityMng.CurrentAbility.PlaceIndicator(lastRelative);
-                if (Input.GetMouseButtonDown(0))
+                if (GodCon.Lift)
                 {
                     photonView.RPC("RPCUseAbility", PhotonTargets.All, lastRelative);
                 }
@@ -85,12 +86,12 @@ public class TerraManipulation : Photon.PunBehaviour
             if (isInRange())
             {
                 GodState.BrushMng.CurrentActive.PlaceIndicatorPositive(lastRelative);
-                if (Input.GetMouseButton(0))
+                if (GodCon.Lift)
                 {
                     if (GD.Lift())
                         photonView.RPC("RPCLiftTerrain", PhotonTargets.All, lastImpact.x, lastImpact.y, GodState.BrushMng.CurrentActive.BrushWidth, GodState.BrushMng.CurrentActive.BrushHeight);
                 }
-                if (Input.GetMouseButton(1))
+                if (GodCon.Lower)
                 {
                     if (GD.Lower())
                         photonView.RPC("RPCLowerTerrain", PhotonTargets.All, lastImpact.x, lastImpact.y, GodState.BrushMng.CurrentActive.BrushWidth, GodState.BrushMng.CurrentActive.BrushHeight);
@@ -107,6 +108,9 @@ public class TerraManipulation : Photon.PunBehaviour
     {
         mouseImpact = new Vector2Int();
         relativePoint = new Vector3();
+        if (GodCon == null)
+            return false;
+
         RaycastHit hit;
         Ray ray = MainCamera.ScreenPointToRay(mousePos);
         bool hasHit;
