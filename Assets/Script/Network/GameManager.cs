@@ -48,6 +48,7 @@ public class GameManager : MonoBehaviour
             //GameObject.Find("God").SetActive(false);
             GameObject priest = GameObject.FindGameObjectWithTag(PlayerTag);
             GameObject.Find("UI").transform.GetChild(0).gameObject.SetActive(true);
+            GameObject.Find("GodController").SetActive(false);
             priest.GetComponent<vThirdPersonController>().enabled = true;
             priest.transform.GetChild(0).gameObject.SetActive(true);
             priest.GetComponent<vShooterMeleeInput>().enabled = true;

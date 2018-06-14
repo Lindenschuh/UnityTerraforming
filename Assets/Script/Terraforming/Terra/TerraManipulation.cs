@@ -108,7 +108,7 @@ public class TerraManipulation : Photon.PunBehaviour
     {
         mouseImpact = new Vector2Int();
         relativePoint = new Vector3();
-        if (GodCon == null)
+        if (GodCon == null || !GodCon.isActiveAndEnabled)
             return false;
 
         RaycastHit hit;
