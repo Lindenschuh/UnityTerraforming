@@ -1054,6 +1054,7 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!114 &11417258
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1074,8 +1075,8 @@ MonoBehaviour:
   OnDoAction:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Invector.vCharacterController.vActions.vActionListener+vOnActionHandle,
-      Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+    m_TypeName: vActionListener+vOnActionHandle, Assembly-CSharp, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
   actionTag: LadderTrigger
   verticallInput:
     useInput: 1
@@ -1114,16 +1115,6 @@ MonoBehaviour:
     keyboardAxisInvert: 0
     mobileAxisInvert: 0
   debugMode: 0
-  OnEnterLadder:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
-  OnExitLadder:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
 --- !u!114 &11469148
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1144,8 +1135,8 @@ MonoBehaviour:
   OnDoAction:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Invector.vCharacterController.vActions.vActionListener+vOnActionHandle,
-      Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+    m_TypeName: vActionListener+vOnActionHandle, Assembly-CSharp, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
   actionInput:
     useInput: 1
     isAxisInUse: 0
@@ -1176,18 +1167,145 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5deb9ff5611cb9d4596d397ac57ee8c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  horizontalInput: 
-  verticallInput: 
-  jumpInput: 32
-  strafeInput: 9
-  sprintInput: 304
-  rotateCameraXInput: 
-  rotateCameraYInput: 
+  openCloseEvents: 0
+  openCloseWindow: 1
+  selectedToolbar: 0
+  lockInput: 0
+  lockCamera: 0
+  rotateToCameraWhileStrafe: 0
+  horizontalInput:
+    useInput: 1
+    isAxisInUse: 0
+    keyboard: Horizontal
+    keyboardAxis: 0
+    joystick: LeftAnalogHorizontal
+    joystickAxis: 0
+    mobile: Horizontal
+    mobileAxis: 0
+    joystickAxisInvert: 0
+    keyboardAxisInvert: 0
+    mobileAxisInvert: 0
+  verticallInput:
+    useInput: 1
+    isAxisInUse: 0
+    keyboard: Vertical
+    keyboardAxis: 0
+    joystick: LeftAnalogVertical
+    joystickAxis: 0
+    mobile: Vertical
+    mobileAxis: 0
+    joystickAxisInvert: 0
+    keyboardAxisInvert: 0
+    mobileAxisInvert: 0
+  jumpInput:
+    useInput: 1
+    isAxisInUse: 0
+    keyboard: Space
+    keyboardAxis: 0
+    joystick: X
+    joystickAxis: 0
+    mobile: X
+    mobileAxis: 0
+    joystickAxisInvert: 0
+    keyboardAxisInvert: 0
+    mobileAxisInvert: 0
+  rollInput:
+    useInput: 1
+    isAxisInUse: 0
+    keyboard: Q
+    keyboardAxis: 0
+    joystick: B
+    joystickAxis: 0
+    mobile: B
+    mobileAxis: 0
+    joystickAxisInvert: 0
+    keyboardAxisInvert: 0
+    mobileAxisInvert: 0
+  strafeInput:
+    useInput: 1
+    isAxisInUse: 0
+    keyboard: Tab
+    keyboardAxis: 0
+    joystick: RightStickClick
+    joystickAxis: 0
+    mobile: RightStickClick
+    mobileAxis: 0
+    joystickAxisInvert: 0
+    keyboardAxisInvert: 0
+    mobileAxisInvert: 0
+  sprintInput:
+    useInput: 1
+    isAxisInUse: 0
+    keyboard: LeftShift
+    keyboardAxis: 0
+    joystick: LeftStickClick
+    joystickAxis: 0
+    mobile: LeftStickClick
+    mobileAxis: 0
+    joystickAxisInvert: 0
+    keyboardAxisInvert: 0
+    mobileAxisInvert: 0
+  crouchInput:
+    useInput: 1
+    isAxisInUse: 0
+    keyboard: C
+    keyboardAxis: 0
+    joystick: Y
+    joystickAxis: 0
+    mobile: Y
+    mobileAxis: 0
+    joystickAxisInvert: 0
+    keyboardAxisInvert: 0
+    mobileAxisInvert: 0
+  rotateCameraXInput:
+    useInput: 1
+    isAxisInUse: 0
+    keyboard: Mouse X
+    keyboardAxis: 0
+    joystick: RightAnalogHorizontal
+    joystickAxis: 0
+    mobile: Mouse X
+    mobileAxis: 0
+    joystickAxisInvert: 0
+    keyboardAxisInvert: 0
+    mobileAxisInvert: 0
+  rotateCameraYInput:
+    useInput: 1
+    isAxisInUse: 0
+    keyboard: Mouse Y
+    keyboardAxis: 0
+    joystick: RightAnalogVertical
+    joystickAxis: 0
+    mobile: Mouse Y
+    mobileAxis: 0
+    joystickAxisInvert: 0
+    keyboardAxisInvert: 0
+    mobileAxisInvert: 0
+  cameraZoomInput:
+    useInput: 1
+    isAxisInUse: 0
+    keyboard: Mouse ScrollWheel
+    keyboardAxis: 0
+    joystick: 
+    joystickAxis: 0
+    mobile: 
+    mobileAxis: 0
+    joystickAxisInvert: 0
+    keyboardAxisInvert: 0
+    mobileAxisInvert: 0
+  tpCamera: {fileID: 0}
   customCameraState: 
   customlookAtPoint: 
   changeCameraState: 0
   smoothCameraState: 0
   keepDirection: 0
+  OnLateUpdate:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  cc: {fileID: 0}
+  hud: {fileID: 0}
 --- !u!114 &11492892
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1202,66 +1320,62 @@ MonoBehaviour:
   openCloseEvents: 0
   openCloseWindow: 1
   selectedToolbar: 1
-  _isDead: 0
-  _currentHealth: 0
   maxHealth: 100
   healthRecovery: 0
+  maxStamina: 200
+  staminaRecovery: 1.2
+  currentStaminaRecoveryDelay: 0
   healthRecoveryDelay: 0
   currentHealthRecoveryDelay: 0
+  currentStamina: 0
+  currentHealth: 0
+  deathBy: 0
+  removeComponentsAfterDie: 0
   onReceiveDamage:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Invector.vHealthController+OnReceiveDamage, Assembly-CSharp, Version=0.0.0.0,
+    m_TypeName: Invector.CharacterController.OnReceiveDamage, Assembly-CSharp, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
   onDead:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Invector.vHealthController+OnDead, Assembly-CSharp, Version=0.0.0.0,
+    m_TypeName: Invector.CharacterController.OnDead, Assembly-CSharp, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
-  deathBy: 0
-  removeComponentsAfterDie: 0
   onActiveRagdoll:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Invector.vCharacterController.OnActiveRagdoll, Assembly-CSharp, Version=0.0.0.0,
+    m_TypeName: Invector.CharacterController.OnActiveRagdoll, Assembly-CSharp, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
   onActionEnter:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Invector.vCharacterController.OnActionHandle, Assembly-CSharp, Version=0.0.0.0,
+    m_TypeName: Invector.CharacterController.OnActionHandle, Assembly-CSharp, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
   onActionStay:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Invector.vCharacterController.OnActionHandle, Assembly-CSharp, Version=0.0.0.0,
+    m_TypeName: Invector.CharacterController.OnActionHandle, Assembly-CSharp, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
   onActionExit:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Invector.vCharacterController.OnActionHandle, Assembly-CSharp, Version=0.0.0.0,
+    m_TypeName: Invector.CharacterController.OnActionHandle, Assembly-CSharp, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
   debugWindow: 0
-  maxStamina: 200
-  staminaRecovery: 1.2
-  currentStamina: 0
-  currentStaminaRecoveryDelay: 0
   sprintStamina: 30
   jumpStamina: 30
   rollStamina: 25
   OnStaminaEnd:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
   groundLayer:
-    serializedVersion: 2
     m_Bits: 1
   autoCrouchLayer:
-    serializedVersion: 2
     m_Bits: 1
   headDetect: 0.95
   stopMoveLayer:
-    serializedVersion: 2
     m_Bits: 4096
   stopMoveHeight: 0.65
   stopMoveDistance: 0.5
@@ -1290,14 +1404,12 @@ MonoBehaviour:
   jumpCounter: 0
   jumpForward: 3
   jumpHeight: 4
-  groundCheckMethod: 1
   groundMinDistance: 0.25
   groundMaxDistance: 0.5
   stepOffsetEnd: 0.45
   stepOffsetStart: 0
   stepSmooth: 4
   slopeLimit: 45
-  slideVelocity: 7
   extraGravity: -10
   ragdollVel: -16
   isGrounded: 0
@@ -1338,12 +1450,8 @@ MonoBehaviour:
   direction: 0
   verticalVelocity: 0
   velocity: 0
-  jumpMultiplier: 1
   matchTarget: {fileID: 0}
   lookAtWeight: 0
-  mouseLayerMask:
-    serializedVersion: 2
-    m_Bits: 1
   rotateToMousePoint: 0
   lookPos: {x: 0, y: 0, z: 0}
   topDownMove: {x: 0, y: 0, z: 0}
@@ -1373,6 +1481,7 @@ SkinnedMeshRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RenderingLayerMask: 4294967295
   m_Materials:
   - {fileID: 2100000, guid: e273db19c8bd7704099afa4200e56a2c, type: 2}
   m_StaticBatchInfo:

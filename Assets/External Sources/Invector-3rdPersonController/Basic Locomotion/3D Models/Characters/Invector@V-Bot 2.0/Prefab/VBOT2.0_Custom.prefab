@@ -2504,6 +2504,7 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!137 &13702304
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1
@@ -2517,6 +2518,7 @@ SkinnedMeshRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RenderingLayerMask: 4294967295
   m_Materials:
   - {fileID: 2100000, guid: 2fccb76f588d4d749928713d38489484, type: 2}
   - {fileID: 2100000, guid: df6e3b8b89f6ab04086bb67157f8e06e, type: 2}
@@ -2634,6 +2636,7 @@ SkinnedMeshRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RenderingLayerMask: 4294967295
   m_Materials:
   - {fileID: 2100000, guid: 2fccb76f588d4d749928713d38489484, type: 2}
   - {fileID: 2100000, guid: df6e3b8b89f6ab04086bb67157f8e06e, type: 2}
@@ -2751,6 +2754,7 @@ SkinnedMeshRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RenderingLayerMask: 4294967295
   m_Materials:
   - {fileID: 2100000, guid: 2fccb76f588d4d749928713d38489484, type: 2}
   - {fileID: 2100000, guid: df6e3b8b89f6ab04086bb67157f8e06e, type: 2}
@@ -2868,6 +2872,7 @@ SkinnedMeshRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RenderingLayerMask: 4294967295
   m_Materials:
   - {fileID: 2100000, guid: 2fccb76f588d4d749928713d38489484, type: 2}
   - {fileID: 2100000, guid: df6e3b8b89f6ab04086bb67157f8e06e, type: 2}

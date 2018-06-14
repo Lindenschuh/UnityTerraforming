@@ -211,6 +211,7 @@ MeshRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RenderingLayerMask: 4294967295
   m_Materials:
   - {fileID: 2100000, guid: 850ca38c0bc85e04f8a7bd491c3724fc, type: 2}
   m_StaticBatchInfo:
@@ -268,6 +269,7 @@ TrailRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 0
+  m_RenderingLayerMask: 4294967295
   m_Materials:
   - {fileID: 2100000, guid: 7a9c81640763dc54b9638d56c3c7f72a, type: 2}
   m_StaticBatchInfo:
@@ -296,18 +298,24 @@ TrailRenderer:
     widthCurve:
       serializedVersion: 2
       m_Curve:
-      - serializedVersion: 2
+      - serializedVersion: 3
         time: 0
         value: 0.02
         inSlope: 0
         outSlope: 0
         tangentMode: 0
-      - serializedVersion: 2
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
         time: 1
         value: 0.15
         inSlope: 0
         outSlope: 0
         tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
@@ -652,6 +660,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19c789670a80b704eba4dfebed94a111, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  openCloseEvents: 0
+  openCloseWindow: 0
+  selectedToolbar: 0
   comment: You can use the Ammo Standalone if you're using the template without the
     Inventory or ItemManager, this way the ammo value goes directly into the AmmoManager.
 --- !u!114 &114785041282648922

@@ -32,12 +32,12 @@ public class BuildMode : Photon.PunBehaviour {
     private UIControl uiController;
     private BuildResources selectedMaterial;
     private ResourceControl resourceControl;
-    protected vThirdPersonCamera tpCamera;
+    protected GameObject tpCamera;
     private buildMode presentBuildMode;
-
+    private vShooterMeleeInput shooterInput;
     // Use this for initialization
     void Start () {
-        tpCamera = FindObjectOfType<vThirdPersonCamera>();
+        //tpCamera = Camera.main.gameObject;
         presentBuildMode = buildMode.buildModeOff;
         resourceControl = GetComponent<ResourceControl>();
         //adjust the scale of the ramp to fit in grid.
@@ -48,6 +48,7 @@ public class BuildMode : Photon.PunBehaviour {
         transparentRamp.localScale = new Vector3(scaleX, scaleY, scaleZ);
         uiController = GetComponentInParent<UIControl>();
         selectedMaterial = BuildResources.Wood;
+        shooterInput = gameObject.GetComponent<vShooterMeleeInput>();
     }
 
     // Update is called once per frame
@@ -70,7 +71,7 @@ public class BuildMode : Photon.PunBehaviour {
 
         if (presentBuildMode != buildMode.buildModeOff)
         {
-            Vector3 pos = tpCamera.transform.position + tpCamera.transform.forward * (gridSize + 2);
+            Vector3 pos = Camera.main.transform.position + Camera.main.transform.forward * (gridSize + 2);
 
             position = SnapToNearestGridcell(pos);
 
@@ -147,10 +148,14 @@ public class BuildMode : Photon.PunBehaviour {
         if (square != null) Destroy(square.gameObject);
         if (presentBuildMode == mode)
         {
+            shooterInput.lockMeleeInput = false;
+            shooterInput.lockShooterInput = false;
             presentBuildMode = buildMode.buildModeOff;
             return;
         }else
         {
+            shooterInput.lockMeleeInput = true;
+            shooterInput.lockShooterInput = true;
             presentBuildMode = mode;
             square = Instantiate(component, position, Quaternion.identity);
         }
@@ -179,7 +184,7 @@ public class BuildMode : Photon.PunBehaviour {
         else if (!(snapPointZ - halfGridSize <= hitPoint.z)) snapPointZ -= gridSize;
 
         //Get the nearest 90° rotation of y-Achsis to rotate the component into this position
-        var rotation = tpCamera.transform.rotation.eulerAngles;
+        var rotation = Camera.main.transform.rotation.eulerAngles;
         rotation.x = 0;
         rotation.y = Mathf.Round(rotation.y / 90) * 90 - 90;
         rotation.z = 0;

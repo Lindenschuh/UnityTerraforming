@@ -2759,6 +2759,7 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!114 &11429400
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3038,52 +3039,141 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 73fbf3aa05f6be24780438449f505aa3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  openCloseEvents: 0
+  openCloseWindow: 0
+  selectedToolbar: 0
+  maxHealth: 100
+  healthRecovery: 0
+  maxStamina: 200
+  staminaRecovery: 1.2
+  currentStaminaRecoveryDelay: 0
+  healthRecoveryDelay: 0
+  currentHealthRecoveryDelay: 0
+  currentStamina: 0
+  currentHealth: 0
+  deathBy: 0
+  removeComponentsAfterDie: 0
+  onReceiveDamage:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: Invector.CharacterController.OnReceiveDamage, Assembly-CSharp, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  onDead:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: Invector.CharacterController.OnDead, Assembly-CSharp, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  onActiveRagdoll:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: Invector.CharacterController.OnActiveRagdoll, Assembly-CSharp, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  onActionEnter:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: Invector.CharacterController.OnActionHandle, Assembly-CSharp, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  onActionStay:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: Invector.CharacterController.OnActionHandle, Assembly-CSharp, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  onActionExit:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: Invector.CharacterController.OnActionHandle, Assembly-CSharp, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  debugWindow: 0
+  sprintStamina: 30
+  jumpStamina: 30
+  rollStamina: 25
+  OnStaminaEnd:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
   groundLayer:
-    serializedVersion: 2
     m_Bits: 1
-  groundMinDistance: 0.2
-  groundMaxDistance: 0.5
+  autoCrouchLayer:
+    m_Bits: 1
+  headDetect: 0.95
+  stopMoveLayer:
+    m_Bits: 4096
+  stopMoveHeight: 0.65
+  stopMoveDistance: 0.5
+  useRootMotion: 0
   locomotionType: 0
-  lockMovement: 0
-  freeRotationSpeed: 10
-  strafeRotationSpeed: 10
+  freeSpeed:
+    rotationSpeed: 10
+    walkByDefault: 0
+    walkSpeed: 2
+    runningSpeed: 3
+    sprintSpeed: 4
+    crouchSpeed: 2
+  strafeSpeed:
+    rotationSpeed: 10
+    walkByDefault: 0
+    walkSpeed: 2
+    runningSpeed: 3
+    sprintSpeed: 4
+    crouchSpeed: 2
+  rotateByWorld: 0
+  turnOnSpotAnim: 1
+  rollControl: 0
+  randomIdleTime: 0
   jumpAirControl: 1
   jumpTimer: 0.3
   jumpCounter: 0
   jumpForward: 3
   jumpHeight: 25
-  useRootMotion: 0
-  freeWalkSpeed: 2.5
-  freeRunningSpeed: 3
-  freeSprintSpeed: 4
-  strafeWalkSpeed: 2.5
-  strafeRunningSpeed: 3
-  strafeSprintSpeed: 4
+  groundMinDistance: 0.2
+  groundMaxDistance: 0.5
   stepOffsetEnd: 0.45
   stepOffsetStart: 0.05
   stepSmooth: 2.5
   slopeLimit: 45
   extraGravity: -10
+  ragdollVel: -16
   isGrounded: 0
-  isStrafing: 0
+  isCrouching: 0
+  inCrouchArea: 0
   isSprinting: 0
   isSliding: 0
+  stopMove: 0
+  autoCrouch: 0
+  isRolling: 0
   isJumping: 0
+  isGettingUp: 0
+  inTurn: 0
+  quickStop: 0
+  landHigh: 0
+  customAction: 0
   targetDirection: {x: 0, y: 0, z: 0}
+  targetRotation: {x: 0, y: 0, z: 0, w: 0}
+  strafeMagnitude: 0
   freeRotation: {x: 0, y: 0, z: 0, w: 0}
   keepDirection: 0
-  animator: {fileID: 0}
+  oldInput: {x: 0, y: 0}
   _rigidbody: {fileID: 0}
-  maxFrictionPhysics: {fileID: 0}
   frictionPhysics: {fileID: 0}
+  maxFrictionPhysics: {fileID: 0}
   slippyPhysics: {fileID: 0}
   _capsuleCollider: {fileID: 0}
+  lockMovement: 0
+  lockInStrafe: 0
+  lockSpeed: 0
+  lockRotation: 0
+  forceRootMotion: 0
+  colliderRadius: 0
   colliderHeight: 0
+  colliderCenter: {x: 0, y: 0, z: 0}
   input: {x: 0, y: 0}
   speed: 0
   direction: 0
   verticalVelocity: 0
   velocity: 0
+  matchTarget: {fileID: 0}
+  lookAtWeight: 0
 --- !u!114 &11469604
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3394,6 +3484,7 @@ SkinnedMeshRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RenderingLayerMask: 4294967295
   m_Materials:
   - {fileID: 2100000, guid: ed2c55cb744c48c459f2f9c83be317dc, type: 2}
   - {fileID: 2100000, guid: da7b997c606f9064f853b75db2815fbc, type: 2}
@@ -3511,6 +3602,7 @@ SkinnedMeshRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RenderingLayerMask: 4294967295
   m_Materials:
   - {fileID: 2100000, guid: ed2c55cb744c48c459f2f9c83be317dc, type: 2}
   - {fileID: 2100000, guid: da7b997c606f9064f853b75db2815fbc, type: 2}
@@ -3628,6 +3720,7 @@ SkinnedMeshRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RenderingLayerMask: 4294967295
   m_Materials:
   - {fileID: 2100000, guid: ed2c55cb744c48c459f2f9c83be317dc, type: 2}
   - {fileID: 2100000, guid: da7b997c606f9064f853b75db2815fbc, type: 2}
@@ -3745,6 +3838,7 @@ SkinnedMeshRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RenderingLayerMask: 4294967295
   m_Materials:
   - {fileID: 2100000, guid: ed2c55cb744c48c459f2f9c83be317dc, type: 2}
   - {fileID: 2100000, guid: da7b997c606f9064f853b75db2815fbc, type: 2}
