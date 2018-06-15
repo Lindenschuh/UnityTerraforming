@@ -8,7 +8,7 @@ namespace UnityTerraforming.GameAi
     [RequireComponent(typeof(Agent))]
     public class Guardian : BasicAi
     {
-        public Transform GuardianDestination;
+        public GuardianSpawner GuardianDestination;
         public float GuardRadius;
 
         public BehaviourTree Tree;
@@ -35,7 +35,7 @@ namespace UnityTerraforming.GameAi
             agent = GetComponent<Agent>();
         }
 
-        public bool CheckIfInsideOfGuardianDestination() => (transform.position - GuardianDestination.position).magnitude <= GuardRadius;
+        public bool CheckIfInsideOfGuardianDestination() => (transform.position - GuardianDestination.transform.position).magnitude <= GuardRadius;
 
         private void Update()
         {
@@ -58,7 +58,7 @@ namespace UnityTerraforming.GameAi
                         break;
 
                     case SteeringTypes.ARRIVE:
-                        agent.SetSteering(SteeringManager.GetArrive(agent, GuardianDestination.position, TargetRadius, SlowRadius));
+                        agent.SetSteering(SteeringManager.GetArrive(agent, GuardianDestination.transform.position, TargetRadius, SlowRadius));
                         break;
 
                     case SteeringTypes.LEAVE:
@@ -95,6 +95,11 @@ namespace UnityTerraforming.GameAi
         private void AttackPlayer()
         {
             Debug.Log("I WILL KILL YOU! MORTAL SCUMBAG!");
+        }
+
+        private void OnDestroy()
+        {
+            GuardianDestination.SpawedInstanceDied(gameObject);
         }
     }
 }

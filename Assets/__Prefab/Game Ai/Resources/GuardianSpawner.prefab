@@ -620,10 +620,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5004bf72a4dfe094c829e613264ba351, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  EntityPrefab: {fileID: 1509233189404536, guid: 80818a67e1ad617419cbc2ff3516be62,
+  EntityPrefab: {fileID: 1722717609552858, guid: a31f7d4d95045ed4da4cd559d056a3ab,
     type: 2}
   SpawnRadius: 50
-  WaveCount: 0
+  WaveCount: 5
   EntityGrowFactor: 0
   MaxEntitiesAtOnce: 1
   DistanceBetweenEntities: 1

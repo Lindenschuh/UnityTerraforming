@@ -35,7 +35,8 @@ namespace UnityTerraforming.GameAi
         public virtual void Update()
         {
             Vector3 displacement = Velocity * Time.deltaTime;
-            transform.rotation = Quaternion.LookRotation(Velocity);
+            if (Velocity.magnitude > 0)
+                transform.rotation = Quaternion.LookRotation(Velocity);
 
             if (Orientation < 0)
                 Orientation += 360f;
