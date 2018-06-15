@@ -26,7 +26,7 @@ namespace UnityTerraforming.GameAi
             steering = new Steering();
         }
 
-        public void SetSteering(Steering steering, float weight)
+        public void SetSteering(Steering steering, float weight = 1f)
         {
             this.steering.linear += (weight * steering.linear);
             this.steering.angualr += (weight * steering.angualr);
@@ -35,7 +35,7 @@ namespace UnityTerraforming.GameAi
         public virtual void Update()
         {
             Vector3 displacement = Velocity * Time.deltaTime;
-            Orientation += Rotation * Time.deltaTime;
+            transform.rotation = Quaternion.LookRotation(Velocity);
 
             if (Orientation < 0)
                 Orientation += 360f;
@@ -43,8 +43,6 @@ namespace UnityTerraforming.GameAi
                 Orientation -= 360f;
 
             transform.Translate(displacement, Space.World);
-            transform.rotation = new Quaternion();
-            transform.Rotate(Vector3.up, Orientation);
         }
 
         public virtual void LateUpdate()

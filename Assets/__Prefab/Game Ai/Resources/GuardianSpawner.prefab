@@ -623,7 +623,7 @@ MonoBehaviour:
   EntityPrefab: {fileID: 1509233189404536, guid: 80818a67e1ad617419cbc2ff3516be62,
     type: 2}
   SpawnRadius: 50
-  WaveCount: 5
+  WaveCount: 0
   EntityGrowFactor: 0
   MaxEntitiesAtOnce: 1
   DistanceBetweenEntities: 1
@@ -641,7 +641,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 48e8b6d18d050e3438e6d2eea1acb4f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  RotationSpeed: 5
+  RotationSpeed: 20
   DefaultMaterial: {fileID: 2100000, guid: 6e06b6d0c696f9544b327c597d334766, type: 2}
   CapturedMaterial: {fileID: 2100000, guid: 26c109d730171f144863a35262e52f00, type: 2}
 --- !u!114 &114845924893990998
@@ -666,7 +666,7 @@ MonoBehaviour:
   ObservedComponents:
   - {fileID: 0}
   ObservedComponentsFoldoutOpen: 1
-  viewIdField: 0
-  instantiationId: -1
+  viewIdField: 2
+  instantiationId: 2
   currentMasterID: -1
   isRuntimeInstantiated: 0

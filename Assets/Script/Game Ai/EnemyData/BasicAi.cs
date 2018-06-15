@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace UnityTerraforming.GameAi
 {
-    public class BasicAi : MonoBehaviour
+    public class BasicAi : Photon.MonoBehaviour
     {
         public float LookRadius;
         public float AttackRadius;

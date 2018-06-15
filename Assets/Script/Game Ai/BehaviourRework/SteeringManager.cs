@@ -128,7 +128,7 @@ namespace UnityTerraforming.GameAi
         {
             float wanderOrientation = Random.Range(-rate, +rate);
 
-            Vector3 currentDirection = agent.Velocity;
+            Vector3 currentDirection = OriAsVector(wanderOrientation);
             Vector3 targetPosition = (offset * currentDirection) + agent.transform.position;
 
             return GetSeek(agent, targetPosition);
@@ -177,6 +177,14 @@ namespace UnityTerraforming.GameAi
             steering.linear = -firstRelativePos.normalized * agent.MaxAccel;
 
             return steering;
+        }
+
+        public static Vector3 OriAsVector(float orientation)
+        {
+            Vector3 vector = Vector3.zero;
+            vector.x = Mathf.Sin(orientation * Mathf.Deg2Rad) * 1f;
+            vector.z = Mathf.Cos(orientation * Mathf.Deg2Rad) * 1f;
+            return vector.normalized;
         }
     }
 }
