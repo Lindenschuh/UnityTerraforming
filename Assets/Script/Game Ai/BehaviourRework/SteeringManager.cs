@@ -3,6 +3,18 @@ using System.Collections.Generic;
 
 namespace UnityTerraforming.GameAi
 {
+    public enum SteeringTypes
+    {
+        ATTACK,
+        SEEK,
+        FLEE,
+        ARRIVE,
+        LEAVE,
+        AVOID_WALLS,
+        AVOID_AGENTS,
+        WANDER
+    }
+
     public static class SteeringManager
     {
         private const float TIME_TO_TARGET = 0.1f;
