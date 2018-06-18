@@ -6,36 +6,56 @@ using UnityEngine;
 public class ObjectPlacer : Photon.PunBehaviour
 {        
     public int tries;
-    public int prefabsCount;
     public Terrain terrain;
     public ObjectSettings[] objects;
 
     private float terrainWidth;
     private float terrainHeight;
 
+    private struct AllowedMapData
+    {
+        public int width;
+        public int height;
+        public float heightValue;
 
-    void Start()
+        public AllowedMapData(int width, int height, float heightValue)
+        {
+            this.width = width;
+            this.height = height;
+            this.heightValue = heightValue;
+        }
+    }
+
+
+    void Awake()
     {
         // get size of terrain
         terrainWidth = terrain.terrainData.heightmapWidth / 2;
         terrainHeight = terrain.terrainData.heightmapHeight / 2;
 
         if (PhotonNetwork.isMasterClient)
-            StartCoroutine(SpawnObjects(objects, RandomizeOnTerrain, prefabsCount, tries));
+            StartCoroutine(SpawnObjects(objects, RandomizeOnTerrain, objects.Length, tries));
     }
 
-    private IEnumerator SpawnObjects(ObjectSettings[] prefabsToSpawn, System.Action<PositionCheck, float[]> randomizeDelegate, int spawnCount, int maximumRetry = 50)
+    private IEnumerator SpawnObjects(ObjectSettings[] prefabsToSpawn, System.Action<PositionCheck, float[]> randomizeDelegate, int spawnCount, int tries = 50)
     {
         foreach (ObjectSettings prefab in prefabsToSpawn)
         {
             PositionCheck positionCheck = new PositionCheck();
-            float[][] positions = GetActualPosition(prefab);
-            for (int i = 0; i < positions.GetLength(0); i++)
-                yield return StartCoroutine(SpawnObject(prefab, positionCheck, randomizeDelegate, positions[i], maximumRetry));
+            float[][] positions = GetActualPosition(prefab, tries);
+            int spawnPositionAmount = 0;
+            foreach (float[] heightValue in positions)
+            {
+                if (heightValue[0] == 0 && heightValue[1] == 0 && heightValue[2] == 0 && heightValue[3] == 0)
+                    break;
+                spawnPositionAmount++;
+            }
+            for (int i = 0; i < spawnPositionAmount; i++)
+                yield return StartCoroutine(SpawnObject(prefab, positionCheck, randomizeDelegate, positions[i], tries));
         }
     }
 
-    IEnumerator SpawnObject(ObjectSettings prefabToSpawn, PositionCheck positionCheck, System.Action<PositionCheck, float[]> randomizeDelegate, float[] position, int maximumRetry = 50, bool allowOverdraw = false)
+    IEnumerator SpawnObject(ObjectSettings prefabToSpawn, PositionCheck positionCheck, System.Action<PositionCheck, float[]> randomizeDelegate, float[] position, int tries = 50, bool allowOverdraw = false)
     {
         int currentObjectsCount = 0;
         int currentRetry = 0;
@@ -46,7 +66,7 @@ public class ObjectPlacer : Photon.PunBehaviour
         CheckForCollisions template = Instantiate(prefabToSpawn.preFab).AddComponent<CheckForCollisions>();
 
 
-        while (currentObjectsCount < prefabToSpawn.amount && currentRetry < maximumRetry)
+        while (currentObjectsCount < prefabToSpawn.amount && currentRetry < tries)
         {
             positionCheck.Reset();
             RandomizeOnTerrain(positionCheck, position);
@@ -60,14 +80,27 @@ public class ObjectPlacer : Photon.PunBehaviour
                 currentRetry++;
                 continue;
             }
+            positionCheck.randomPosition = new Vector3(positionCheck.randomPosition.x, positionCheck.randomPosition.y - 0.5f, positionCheck.randomPosition.z);
             PhotonNetwork.Instantiate(prefabToSpawn.preFab.name, positionCheck.randomPosition, positionCheck.normalizedRotation, 0);
             currentObjectsCount++;
         }
         Destroy(template.gameObject);
     }
 
-    private float[][] GetActualPosition(ObjectSettings prefabToSpawn)
+    private float[][] GetActualPosition(ObjectSettings prefabToSpawn, int tries)
     {
+        List<AllowedMapData> allowedPlaces = new List<AllowedMapData>();
+        float actualHeight;
+        for (int i = 0; i < terrainWidth * 2; i++)
+        {
+            for (int j = 0; j < terrainHeight * 2; j++)
+            {
+                actualHeight = terrain.terrainData.GetHeight(i, j);
+                if (actualHeight <= prefabToSpawn.maxHeight || prefabToSpawn.maxHeight == 0)
+                    allowedPlaces.Add(new AllowedMapData(i, j, actualHeight));
+            }
+        }
+
         // check if spawnpoint is within map
         if (prefabToSpawn.point.x > terrainWidth)
             prefabToSpawn.point.x = terrainWidth;
@@ -81,73 +114,85 @@ public class ObjectPlacer : Photon.PunBehaviour
 
         // get Center of spawning circle with procentural values from settings
         float[] center = new float[] {prefabToSpawn.point.x, prefabToSpawn.point.y };
-        float outerWidth = center[0] + (prefabToSpawn.outerCircle * terrainWidth);
-        float outerHeight = center[1] + (prefabToSpawn.outerCircle * terrainHeight);
+        float outerWidth = prefabToSpawn.outerCircle * terrainWidth;
+        float outerHeight = prefabToSpawn.outerCircle * terrainHeight;
 
         // check if outer circle is within terrain coords
-        if (terrainWidth - center[0] < 0) // || outerWidth - terrainWidth < 0)
+        // check width
+        if (center[0] - outerWidth < 0)
         {
-            center[0] = center[0] + outerWidth;
-            outerWidth = center[0] + (prefabToSpawn.outerCircle * terrainWidth);
+            outerWidth = center[0] - 1;
+        }
+        else if(center[0] + outerWidth > terrainWidth * 2)
+        {
+            outerWidth = ((terrainWidth * 2) - center[0]) - 1;
         }
 
-        if (terrainHeight - center[1] < 0) // || outerHeight - terrainHeight < 0)
+        //check height
+        if (center[1] - outerHeight < 0)
         {
-            center[1] = center[1] + outerHeight;
-            outerHeight = center[1] + (prefabToSpawn.outerCircle * terrainHeight);
+            outerHeight = center[1] - 1;
+        }
+        else if (center[1] + outerHeight > terrainHeight * 2)
+        {
+            outerHeight = ((terrainHeight * 2) - center[1]) - 1;
         }
 
-        float innerWidth = center[0] + (prefabToSpawn.innerCircle * terrainWidth);
-        float innerHeight = center[1] + (prefabToSpawn.innerCircle * terrainHeight);
+        float innerWidth = prefabToSpawn.innerCircle * terrainWidth;
+        float innerHeight = prefabToSpawn.innerCircle * terrainHeight;
+
         // areas of spawning
-
         float[][] positions = new float[prefabToSpawn.differentLocations][];
         for (int i = 0; i < prefabToSpawn.differentLocations; i++)
         {
             positions[i] = new float[4];
             float rndWidth = 0;
             float rndHeight = 0;
-            int chances = 50;
-            while (chances > 0)
+            while (tries > 0)
             {
                 bool spawnOk = true;
 
-                int check = Random.Range(0, 4);
-
-                if (check <= 1)
-                {
-                    rndWidth = Random.Range(center[0] - (outerWidth - center[0]), outerWidth);
-                    rndHeight = Random.Range(innerHeight, outerHeight);
-                }
-                else if (check <= 2)
-                {
-                    rndWidth = Random.Range(innerWidth, outerWidth);
-                    rndHeight = Random.Range(center[1] - (outerHeight - center[1]), outerHeight);
+                AllowedMapData placeToCheck = allowedPlaces[Random.Range(0, allowedPlaces.Count)];
+                if(((placeToCheck.width < center[0] + outerWidth && placeToCheck.width > center[0] + innerWidth) ^ (placeToCheck.width > center[0] - outerWidth && placeToCheck.width < center[0] - innerWidth)) ||
+                    ((placeToCheck.height < center[1] + outerHeight && placeToCheck.height > center[1] + innerHeight) ^ (placeToCheck.height > center[1] - outerHeight && placeToCheck.height < center[1] - innerHeight)))
+                { 
+                    rndWidth = placeToCheck.width;
+                    rndHeight = placeToCheck.height;
                 }
                 else
                 {
-                    rndWidth = Random.Range(innerWidth, outerWidth);
-                    rndHeight = Random.Range(innerHeight, outerHeight);
+                    tries--;
+                    continue;
                 }
 
-                if (Random.Range(0, 100) <= 50)
-                    rndWidth = center[0] - (rndWidth - center[0]);
-                if (Random.Range(0, 100) <= 50)
-                    rndHeight = center[1] - (rndHeight - center[1]);
+                foreach (AllowedMapData allowedMapData in allowedPlaces)
+                {
+                    if (allowedMapData.width == (int)rndWidth && allowedMapData.height == (int)rndHeight)
+                    {
+                        spawnOk = true;
+                        break;
+                    }
+                    else
+                    {
+                        spawnOk = false;
+                    }
 
-                if (i > 0)
+                }
+
+                if (i > 0 && spawnOk)
                 {
                     for (int j = 0; j < i; j++)
                     {
                         if ((positions[j][0] <= rndWidth + prefabToSpawn.distanceBetweenLocations && positions[j][1] >= rndWidth - prefabToSpawn.distanceBetweenLocations) && (positions[j][2] <= rndHeight + prefabToSpawn.distanceBetweenLocations && positions[j][3] >= rndHeight - prefabToSpawn.distanceBetweenLocations))
                         {
-                            chances--;
+                            tries--;
                             spawnOk = false;
                             break;
                         }
                     }
                 }
-                if (spawnOk && chances > 0)
+
+                if (spawnOk && tries > 0)
                 {
                     int size = prefabToSpawn.size / 2;
                     positions[i][0] = rndWidth - size < 0 ? 0 : rndWidth - size;
