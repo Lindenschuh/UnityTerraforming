@@ -265,9 +265,9 @@ MonoBehaviour:
   FeelerAngle: 60
   FeelerScale: 2
   CollisionRadius: 4
-  WanderOffset: 5
-  WanderRadius: 3
-  WanderRate: 50
+  WanderOffset: 14
+  WanderRadius: 5
+  WanderRate: 180
 --- !u!114 &114953582672077820
 MonoBehaviour:
   m_ObjectHideFlags: 1
