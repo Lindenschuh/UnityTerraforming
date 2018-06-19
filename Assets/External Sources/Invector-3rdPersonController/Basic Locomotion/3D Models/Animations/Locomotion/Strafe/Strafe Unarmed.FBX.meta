@@ -1,9 +1,9 @@
 fileFormatVersion: 2
-guid: 363a35ed378d5a94fabd76477af4a67b
+guid: ce90c0de0b76506499b09edc42bbf33d
 timeCreated: 1466055534
 licenseType: Store
 ModelImporter:
-  serializedVersion: 22
+  serializedVersion: 18
   fileIDToRecycleName:
     100000: Invector
     100002: Invector Head
@@ -125,58 +125,28 @@ ModelImporter:
     7400016: NW2
     9500000: //RootNode
     13700000: V_Bot
-  externalObjects:
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: base-1
-    second: {fileID: 2100000, guid: 58bd0eaa5af6eb048b335397cf8c01e0, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: base-2
-    second: {fileID: 2100000, guid: a7d41db828f182442832dd03e7dbee04, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: chrome
-    second: {fileID: 2100000, guid: ed1499bf5f605e44aab16017f6cb8d3b, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: metal
-    second: {fileID: 2100000, guid: d0d91de8c1b516348b45e62378c7cfbb, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: rubber
-    second: {fileID: 2100000, guid: 0a9af0f4969c1d2438eda2193f06cf1e, type: 2}
   materials:
     importMaterials: 1
     materialName: 0
     materialSearch: 1
-    materialLocation: 0
   animations:
     legacyGenerateAnimations: 4
     bakeSimulation: 0
-    resampleCurves: 1
     optimizeGameObjects: 0
     motionNodeName: 
-    rigImportErrors: 
-    rigImportWarnings: 
     animationImportErrors: 
-    animationImportWarnings: 
+    animationImportWarnings: "\nClip 'Take 001' has import animation warnings that
+      might lower retargeting quality:\n\t'Invector Spine1' has translation animation
+      that will be discarded.\n"
     animationRetargetingWarnings: "\nRetargeting quality report for clip 'Take 001':\n\tRetargeting
       quality is good. No significant differences with original animation were found.\n"
     animationDoRetargetingWarnings: 1
-    importAnimatedCustomProperties: 0
     animationCompression: 0
-    animationRotationError: 0.5
-    animationPositionError: 0.5
-    animationScaleError: 0.5
+    animationRotationError: .5
+    animationPositionError: .5
+    animationScaleError: .5
     animationWrapMode: 0
     extraExposedTransformPaths: []
-    extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
       name: S
@@ -188,7 +158,6 @@ ModelImporter:
       level: 0
       cycleOffset: 0
       loop: 0
-      hasAdditiveReferencePose: 0
       loopTime: 1
       loopBlend: 1
       loopBlendOrientation: 1
@@ -374,7 +343,6 @@ ModelImporter:
         weight: 0
       maskType: 0
       maskSource: {instanceID: 0}
-      additiveReferencePoseFrame: 0
     - serializedVersion: 16
       name: N
       takeName: Take 001
@@ -385,7 +353,6 @@ ModelImporter:
       level: 0
       cycleOffset: 0
       loop: 0
-      hasAdditiveReferencePose: 0
       loopTime: 1
       loopBlend: 1
       loopBlendOrientation: 1
@@ -571,7 +538,6 @@ ModelImporter:
         weight: 0
       maskType: 0
       maskSource: {instanceID: 0}
-      additiveReferencePoseFrame: 0
     - serializedVersion: 16
       name: NE
       takeName: Take 001
@@ -582,7 +548,6 @@ ModelImporter:
       level: 0
       cycleOffset: 0
       loop: 0
-      hasAdditiveReferencePose: 0
       loopTime: 1
       loopBlend: 1
       loopBlendOrientation: 1
@@ -768,7 +733,6 @@ ModelImporter:
         weight: 0
       maskType: 0
       maskSource: {instanceID: 0}
-      additiveReferencePoseFrame: 0
     - serializedVersion: 16
       name: NW1
       takeName: Take 001
@@ -779,7 +743,6 @@ ModelImporter:
       level: 0
       cycleOffset: 0
       loop: 0
-      hasAdditiveReferencePose: 0
       loopTime: 1
       loopBlend: 1
       loopBlendOrientation: 1
@@ -965,7 +928,6 @@ ModelImporter:
         weight: 0
       maskType: 0
       maskSource: {instanceID: 0}
-      additiveReferencePoseFrame: 0
     - serializedVersion: 16
       name: E
       takeName: Take 001
@@ -976,7 +938,6 @@ ModelImporter:
       level: 0
       cycleOffset: 0
       loop: 0
-      hasAdditiveReferencePose: 0
       loopTime: 1
       loopBlend: 1
       loopBlendOrientation: 1
@@ -1162,7 +1123,6 @@ ModelImporter:
         weight: 0
       maskType: 0
       maskSource: {instanceID: 0}
-      additiveReferencePoseFrame: 0
     - serializedVersion: 16
       name: SE
       takeName: Take 001
@@ -1173,7 +1133,6 @@ ModelImporter:
       level: 0
       cycleOffset: 0
       loop: 0
-      hasAdditiveReferencePose: 0
       loopTime: 1
       loopBlend: 1
       loopBlendOrientation: 1
@@ -1359,7 +1318,6 @@ ModelImporter:
         weight: 0
       maskType: 0
       maskSource: {instanceID: 0}
-      additiveReferencePoseFrame: 0
     - serializedVersion: 16
       name: SW
       takeName: Take 001
@@ -1370,7 +1328,6 @@ ModelImporter:
       level: 0
       cycleOffset: 0
       loop: 0
-      hasAdditiveReferencePose: 0
       loopTime: 1
       loopBlend: 1
       loopBlendOrientation: 1
@@ -1556,7 +1513,6 @@ ModelImporter:
         weight: 0
       maskType: 0
       maskSource: {instanceID: 0}
-      additiveReferencePoseFrame: 0
     - serializedVersion: 16
       name: W
       takeName: Take 001
@@ -1567,7 +1523,6 @@ ModelImporter:
       level: 0
       cycleOffset: 0
       loop: 0
-      hasAdditiveReferencePose: 0
       loopTime: 1
       loopBlend: 1
       loopBlendOrientation: 1
@@ -1753,7 +1708,6 @@ ModelImporter:
         weight: 0
       maskType: 0
       maskSource: {instanceID: 0}
-      additiveReferencePoseFrame: 0
     - serializedVersion: 16
       name: NW2
       takeName: Take 001
@@ -1764,7 +1718,6 @@ ModelImporter:
       level: 0
       cycleOffset: 0
       loop: 0
-      hasAdditiveReferencePose: 0
       loopTime: 1
       loopBlend: 1
       loopBlendOrientation: 1
@@ -1950,25 +1903,19 @@ ModelImporter:
         weight: 0
       maskType: 0
       maskSource: {instanceID: 0}
-      additiveReferencePoseFrame: 0
     isReadable: 1
   meshes:
     lODScreenPercentages: []
     globalScale: 1
     meshCompression: 0
     addColliders: 0
-    importVisibility: 0
     importBlendShapes: 1
-    importCameras: 0
-    importLights: 0
     swapUVChannels: 0
     generateSecondaryUV: 0
     useFileUnits: 1
     optimizeMeshForGPU: 1
     keepQuads: 0
     weldVertices: 1
-    preserveHierarchy: 0
-    indexFormat: 1
     secondaryUVAngleDistortion: 8
     secondaryUVAreaDistortion: 15.000001
     secondaryUVHardAngle: 88
@@ -1976,13 +1923,12 @@ ModelImporter:
     useFileScale: 1
   tangentSpace:
     normalSmoothAngle: 60
+    splitTangentsAcrossUV: 1
     normalImportMode: 0
     tangentImportMode: 3
-    normalCalculationMode: 0
   importAnimation: 1
   copyAvatar: 1
   humanDescription:
-    serializedVersion: 2
     human:
     - boneName: Invector Pelvis
       humanName: Hips
@@ -2394,292 +2340,289 @@ ModelImporter:
         modified: 0
     skeleton:
     - name: Invector Biped(Clone)
-      parentName: 
       position: {x: 0, y: 0, z: 0}
       rotation: {x: 0, y: 0, z: 0, w: 1}
       scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
     - name: V_Bot
-      parentName: 
       position: {x: 0, y: 0, z: 0}
       rotation: {x: 0, y: 0, z: 0, w: 1}
       scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
     - name: Invector
-      parentName: 
-      position: {x: -0.000014286041, y: 0.99594826, z: -0.020196885}
-      rotation: {x: 0.5, y: -0.5, z: -0.5, w: -0.5}
-      scale: {x: 0.99999994, y: 0.99999994, z: 1}
+      position: {x: -1.42860408e-05, y: .995948255, z: -.0201968849}
+      rotation: {x: .5, y: -.5, z: -.5, w: -.5}
+      scale: {x: .99999994, y: .99999994, z: 1}
+      transformModified: 1
     - name: Invector Footsteps
-      parentName: 
-      position: {x: -0, y: 0, z: -0.96509427}
+      position: {x: -0, y: 0, z: -.965094268}
       rotation: {x: 0, y: 0, z: 0, w: 1}
       scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
     - name: Invector Pelvis
-      parentName: 
       position: {x: 0, y: 0, z: 0}
-      rotation: {x: 0.5, y: -0.5, z: -0.5, w: -0.5}
+      rotation: {x: .5, y: -.5, z: -.5, w: -.5}
       scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
     - name: Invector Spine
-      parentName: 
-      position: {x: -0.05574539, y: -0.000034687517, z: 0.00000007243477}
+      position: {x: -.0557453893, y: -3.46875167e-05, z: 7.24347728e-08}
       rotation: {x: 0, y: 0, z: 0, w: 1}
-      scale: {x: 0.99999994, y: 0.9999999, z: 0.99999994}
+      scale: {x: .99999994, y: .999999881, z: .99999994}
+      transformModified: 1
     - name: Invector Spine1
-      parentName: 
-      position: {x: -0.16141967, y: -0.0002693796, z: -7.473864e-10}
+      position: {x: -.161419675, y: -.000269379612, z: -7.47386375e-10}
       rotation: {x: 0, y: 0, z: 0, w: 1}
       scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
     - name: Invector L Clavicle
-      parentName: 
-      position: {x: -0.31430733, y: -0.009639514, z: 0.063190386}
-      rotation: {x: 0.7071068, y: -0.000000030908623, z: -0.7071068, w: 0.000000030908623}
-      scale: {x: 1, y: 0.9999999, z: 0.99999994}
+      position: {x: -.314307332, y: -.00963951368, z: .0631903857}
+      rotation: {x: .707106829, y: -3.09086232e-08, z: -.707106829, w: 3.09086232e-08}
+      scale: {x: 1, y: .999999881, z: .99999994}
+      transformModified: 1
     - name: Invector L UpperArm
-      parentName: 
-      position: {x: -0.13383228, y: 0.0000000047683715, z: 0}
+      position: {x: -.133832276, y: 4.76837148e-09, z: 0}
       rotation: {x: 0, y: 0, z: 0, w: 1}
-      scale: {x: 0.99999994, y: 1.0000002, z: 0.9999999}
+      scale: {x: .99999994, y: 1.00000024, z: .999999881}
+      transformModified: 1
     - name: Invector L Forearm
-      parentName: 
-      position: {x: -0.2831397, y: -0.000000019073486, z: -0.00000030517577}
+      position: {x: -.283139706, y: -1.90734859e-08, z: -3.05175774e-07}
       rotation: {x: 0, y: 0, z: 0, w: 1}
-      scale: {x: 0.9999998, y: 0.9999997, z: 1.0000001}
+      scale: {x: .999999821, y: .999999702, z: 1.00000012}
+      transformModified: 1
     - name: Invector L Hand
-      parentName: 
-      position: {x: -0.29911384, y: 0.000000019073486, z: 0.00000015258789}
-      rotation: {x: 0.7071068, y: 0, z: 0, w: -0.7071068}
-      scale: {x: 0.99999994, y: 0.99999994, z: 0.9999999}
+      position: {x: -.29911384, y: 1.90734859e-08, z: 1.52587887e-07}
+      rotation: {x: .707106829, y: 0, z: 0, w: -.707106829}
+      scale: {x: .99999994, y: .99999994, z: .999999881}
+      transformModified: 1
     - name: Invector L Finger0
-      parentName: 
-      position: {x: -0.028786926, y: 0.02101654, z: -0.017762126}
-      rotation: {x: 0, y: 0.3826835, z: 0, w: -0.9238795}
-      scale: {x: 1.0000001, y: 1, z: 1.0000002}
+      position: {x: -.0287869256, y: .02101654, z: -.0177621264}
+      rotation: {x: 0, y: .382683486, z: 0, w: -.923879504}
+      scale: {x: 1.00000012, y: 1, z: 1.00000024}
+      transformModified: 1
     - name: Invector L Finger01
-      parentName: 
-      position: {x: -0.03200962, y: -0.000000076293944, z: 0}
+      position: {x: -.0320096202, y: -7.62939436e-08, z: 0}
       rotation: {x: 0, y: 0, z: 0, w: 1}
-      scale: {x: 0.9999998, y: 0.99999994, z: 0.9999998}
+      scale: {x: .999999821, y: .99999994, z: .999999821}
+      transformModified: 1
     - name: Invector L Finger02
-      parentName: 
-      position: {x: -0.032009736, y: 0.000000057220458, z: 0}
+      position: {x: -.0320097357, y: 5.72204577e-08, z: 0}
       rotation: {x: 0, y: 0, z: 0, w: 1}
-      scale: {x: 0.99999964, y: 0.9999998, z: 1.0000001}
+      scale: {x: .999999642, y: .999999821, z: 1.00000012}
+      transformModified: 1
     - name: Invector L Finger4
-      parentName: 
-      position: {x: -0.0728627, y: 0.01568222, z: 0.03940836}
+      position: {x: -.0728626996, y: .0156822205, z: .0394083597}
       rotation: {x: 0, y: 0, z: 0, w: 1}
-      scale: {x: 1, y: 0.9999998, z: 0.99999994}
+      scale: {x: 1, y: .999999821, z: .99999994}
+      transformModified: 1
     - name: Invector L Finger41
-      parentName: 
-      position: {x: -0.023645706, y: 0, z: 0.000000019073486}
+      position: {x: -.0236457065, y: 0, z: 1.90734859e-08}
       rotation: {x: 0, y: 0, z: 0, w: 1}
-      scale: {x: 1.0000001, y: 1, z: 1}
+      scale: {x: 1.00000012, y: 1, z: 1}
+      transformModified: 1
     - name: Invector L Finger42
-      parentName: 
-      position: {x: -0.023645706, y: 0.00000015258789, z: 0}
+      position: {x: -.0236457065, y: 1.52587887e-07, z: 0}
       rotation: {x: 0, y: 0, z: 0, w: 1}
-      scale: {x: 0.99999964, y: 0.9999995, z: 0.9999997}
+      scale: {x: .999999642, y: .999999523, z: .999999702}
+      transformModified: 1
     - name: Invector L Finger2
-      parentName: 
-      position: {x: -0.097393565, y: 0.0074330135, z: 0.0018953704}
+      position: {x: -.0973935649, y: .00743301352, z: .00189537043}
       rotation: {x: 0, y: 0, z: 0, w: 1}
-      scale: {x: 1, y: 0.99999976, z: 0.9999998}
+      scale: {x: 1, y: .999999762, z: .999999821}
+      transformModified: 1
     - name: Invector L Finger21
-      parentName: 
-      position: {x: -0.028718414, y: -0.00000030517577, z: 0}
+      position: {x: -.0287184138, y: -3.05175774e-07, z: 0}
       rotation: {x: 0, y: 0, z: 0, w: 1}
-      scale: {x: 0.99999994, y: 0.99999976, z: 1.0000001}
+      scale: {x: .99999994, y: .999999762, z: 1.00000012}
+      transformModified: 1
     - name: Invector L Finger22
-      parentName: 
-      position: {x: -0.026453398, y: -0.00000015258789, z: 0}
+      position: {x: -.0264533982, y: -1.52587887e-07, z: 0}
       rotation: {x: 0, y: 0, z: 0, w: 1}
-      scale: {x: 1, y: 0.99999976, z: 0.99999994}
+      scale: {x: 1, y: .999999762, z: .99999994}
+      transformModified: 1
     - name: Invector L Finger1
-      parentName: 
-      position: {x: -0.09117111, y: 0.010775757, z: -0.022802353}
+      position: {x: -.0911711082, y: .010775757, z: -.0228023529}
       rotation: {x: 0, y: 0, z: 0, w: 1}
-      scale: {x: 0.9999999, y: 0.99999994, z: 1.0000001}
+      scale: {x: .999999881, y: .99999994, z: 1.00000012}
+      transformModified: 1
     - name: Invector L Finger11
-      parentName: 
-      position: {x: -0.030102614, y: -0.00000015258789, z: 0}
+      position: {x: -.0301026143, y: -1.52587887e-07, z: 0}
       rotation: {x: 0, y: 0, z: 0, w: 1}
-      scale: {x: 0.99999994, y: 0.99999976, z: 0.9999998}
+      scale: {x: .99999994, y: .999999762, z: .999999821}
+      transformModified: 1
     - name: Invector L Finger12
-      parentName: 
-      position: {x: -0.030102614, y: 0, z: 0}
+      position: {x: -.0301026143, y: 0, z: 0}
       rotation: {x: 0, y: 0, z: 0, w: 1}
-      scale: {x: 0.9999999, y: 0.9999999, z: 0.99999976}
+      scale: {x: .999999881, y: .999999881, z: .999999762}
+      transformModified: 1
     - name: Invector L Finger3
-      parentName: 
-      position: {x: -0.08843689, y: 0.009529724, z: 0.02141508}
+      position: {x: -.0884368867, y: .00952972379, z: .0214150809}
       rotation: {x: 0, y: 0, z: 0, w: 1}
-      scale: {x: 1.0000001, y: 0.9999998, z: 0.9999998}
+      scale: {x: 1.00000012, y: .999999821, z: .999999821}
+      transformModified: 1
     - name: Invector L Finger31
-      parentName: 
-      position: {x: -0.025424652, y: 0.00000015258789, z: 0}
+      position: {x: -.0254246518, y: 1.52587887e-07, z: 0}
       rotation: {x: 0, y: 0, z: 0, w: 1}
-      scale: {x: 1, y: 0.99999994, z: 0.9999999}
+      scale: {x: 1, y: .99999994, z: .999999881}
+      transformModified: 1
     - name: Invector L Finger32
-      parentName: 
-      position: {x: -0.025424728, y: 0, z: 0}
+      position: {x: -.0254247282, y: 0, z: 0}
       rotation: {x: 0, y: 0, z: 0, w: 1}
-      scale: {x: 1.0000001, y: 1.0000001, z: 1.0000002}
+      scale: {x: 1.00000012, y: 1.00000012, z: 1.00000024}
+      transformModified: 1
     - name: Invector Neck
-      parentName: 
-      position: {x: -0.32673773, y: -0.0006997657, z: 0.000031187752}
+      position: {x: -.326737732, y: -.000699765689, z: 3.1187752e-05}
       rotation: {x: 0, y: 0, z: 0, w: 1}
-      scale: {x: 1, y: 0.99999994, z: 0.9999999}
+      scale: {x: 1, y: .99999994, z: .999999881}
+      transformModified: 1
     - name: Invector Head
-      parentName: 
-      position: {x: -0.051744536, y: -0.000000038146972, z: 0}
+      position: {x: -.0517445356, y: -3.81469718e-08, z: 0}
       rotation: {x: 0, y: 0, z: 0, w: 1}
-      scale: {x: 1.0000002, y: 1.0000001, z: 1.0000001}
+      scale: {x: 1.00000024, y: 1.00000012, z: 1.00000012}
+      transformModified: 1
     - name: Invector R Clavicle
-      parentName: 
-      position: {x: -0.31430733, y: -0.009639163, z: -0.06319045}
-      rotation: {x: 0.7071068, y: -0.000000030908623, z: 0.7071068, w: -0.000000030908623}
-      scale: {x: 1, y: 1.0000001, z: 0.99999994}
+      position: {x: -.314307332, y: -.00963916257, z: -.0631904528}
+      rotation: {x: .707106829, y: -3.09086232e-08, z: .707106829, w: -3.09086232e-08}
+      scale: {x: 1, y: 1.00000012, z: .99999994}
+      transformModified: 1
     - name: Invector R UpperArm
-      parentName: 
-      position: {x: -0.13383226, y: 0, z: 0}
+      position: {x: -.133832261, y: 0, z: 0}
       rotation: {x: 0, y: 0, z: 0, w: 1}
-      scale: {x: 1, y: 1.0000004, z: 1.0000002}
+      scale: {x: 1, y: 1.00000036, z: 1.00000024}
+      transformModified: 1
     - name: Invector R Forearm
-      parentName: 
-      position: {x: -0.28313977, y: -0.000000019073486, z: 0}
+      position: {x: -.283139765, y: -1.90734859e-08, z: 0}
       rotation: {x: 0, y: 0, z: 0, w: 1}
-      scale: {x: 1.0000002, y: 1, z: 1.0000002}
+      scale: {x: 1.00000024, y: 1, z: 1.00000024}
+      transformModified: 1
     - name: Invector R Hand
-      parentName: 
-      position: {x: -0.29911402, y: 0.000000038146972, z: 0}
-      rotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
-      scale: {x: 0.9999996, y: 0.99999946, z: 0.9999998}
+      position: {x: -.299114019, y: 3.81469718e-08, z: 0}
+      rotation: {x: .707106829, y: 0, z: 0, w: .707106829}
+      scale: {x: .999999583, y: .999999464, z: .999999821}
+      transformModified: 1
     - name: Invector R Finger0
-      parentName: 
-      position: {x: -0.028786926, y: 0.021016387, z: 0.017762145}
-      rotation: {x: 0, y: 0.38268346, z: 0, w: 0.9238795}
-      scale: {x: 1.0000001, y: 1.0000001, z: 1.0000002}
+      position: {x: -.0287869256, y: .0210163873, z: .017762145}
+      rotation: {x: 0, y: .382683456, z: 0, w: .923879504}
+      scale: {x: 1.00000012, y: 1.00000012, z: 1.00000024}
+      transformModified: 1
     - name: Invector R Finger01
-      parentName: 
-      position: {x: -0.032009657, y: -0.000000038146972, z: 0.00000030517577}
+      position: {x: -.0320096575, y: -3.81469718e-08, z: 3.05175774e-07}
       rotation: {x: 0, y: 0, z: 0, w: 1}
-      scale: {x: 1.0000002, y: 1, z: 1.0000001}
+      scale: {x: 1.00000024, y: 1, z: 1.00000012}
+      transformModified: 1
     - name: Invector R Finger02
-      parentName: 
-      position: {x: -0.032009657, y: -0.000000019073486, z: -0.00000015258789}
+      position: {x: -.0320096575, y: -1.90734859e-08, z: -1.52587887e-07}
       rotation: {x: 0, y: 0, z: 0, w: 1}
-      scale: {x: 1.0000001, y: 0.99999976, z: 0.9999999}
+      scale: {x: 1.00000012, y: .999999762, z: .999999881}
+      transformModified: 1
     - name: Invector R Finger4
-      parentName: 
-      position: {x: -0.072862774, y: 0.01568222, z: -0.03940834}
+      position: {x: -.0728627741, y: .0156822205, z: -.0394083411}
       rotation: {x: 0, y: 0, z: 0, w: 1}
-      scale: {x: 1.0000001, y: 1.0000001, z: 1.0000001}
+      scale: {x: 1.00000012, y: 1.00000012, z: 1.00000012}
+      transformModified: 1
     - name: Invector R Finger41
-      parentName: 
-      position: {x: -0.023645783, y: 0, z: 0}
+      position: {x: -.0236457828, y: 0, z: 0}
       rotation: {x: 0, y: 0, z: 0, w: 1}
-      scale: {x: 0.9999997, y: 0.99999964, z: 0.9999997}
+      scale: {x: .999999702, y: .999999642, z: .999999702}
+      transformModified: 1
     - name: Invector R Finger42
-      parentName: 
-      position: {x: -0.023645706, y: 0.00000015258789, z: 0.000000019073486}
+      position: {x: -.0236457065, y: 1.52587887e-07, z: 1.90734859e-08}
       rotation: {x: 0, y: 0, z: 0, w: 1}
-      scale: {x: 1.0000004, y: 1.0000006, z: 0.99999994}
+      scale: {x: 1.00000036, y: 1.0000006, z: .99999994}
+      transformModified: 1
     - name: Invector R Finger2
-      parentName: 
-      position: {x: -0.097393565, y: 0.0074327085, z: -0.0018953704}
+      position: {x: -.0973935649, y: .00743270852, z: -.00189537043}
       rotation: {x: 0, y: 0, z: 0, w: 1}
-      scale: {x: 1.0000002, y: 1.0000001, z: 0.99999994}
+      scale: {x: 1.00000024, y: 1.00000012, z: .99999994}
+      transformModified: 1
     - name: Invector R Finger21
-      parentName: 
-      position: {x: -0.028718337, y: 0, z: 0.000000009536743}
+      position: {x: -.0287183374, y: 0, z: 9.53674295e-09}
       rotation: {x: 0, y: 0, z: 0, w: 1}
-      scale: {x: 1.0000002, y: 1.0000004, z: 1.0000001}
+      scale: {x: 1.00000024, y: 1.00000036, z: 1.00000012}
+      transformModified: 1
     - name: Invector R Finger22
-      parentName: 
-      position: {x: -0.026453324, y: -0.00000015258789, z: -0.000000019073486}
+      position: {x: -.0264533237, y: -1.52587887e-07, z: -1.90734859e-08}
       rotation: {x: 0, y: 0, z: 0, w: 1}
-      scale: {x: 0.9999995, y: 0.9999998, z: 0.99999994}
+      scale: {x: .999999523, y: .999999821, z: .99999994}
+      transformModified: 1
     - name: Invector R Finger1
-      parentName: 
-      position: {x: -0.09117103, y: 0.010775452, z: 0.022802372}
+      position: {x: -.0911710337, y: .0107754515, z: .0228023715}
       rotation: {x: 0, y: 0, z: 0, w: 1}
-      scale: {x: 1.0000002, y: 1.0000004, z: 1.0000001}
+      scale: {x: 1.00000024, y: 1.00000036, z: 1.00000012}
+      transformModified: 1
     - name: Invector R Finger11
-      parentName: 
-      position: {x: -0.03010269, y: -0.00000015258789, z: 0}
+      position: {x: -.0301026907, y: -1.52587887e-07, z: 0}
       rotation: {x: 0, y: 0, z: 0, w: 1}
-      scale: {x: 0.9999999, y: 1, z: 0.9999998}
+      scale: {x: .999999881, y: 1, z: .999999821}
+      transformModified: 1
     - name: Invector R Finger12
-      parentName: 
-      position: {x: -0.03010269, y: -0.00000015258789, z: 0}
+      position: {x: -.0301026907, y: -1.52587887e-07, z: 0}
       rotation: {x: 0, y: 0, z: 0, w: 1}
-      scale: {x: 0.9999998, y: 1, z: 0.99999994}
+      scale: {x: .999999821, y: 1, z: .99999994}
+      transformModified: 1
     - name: Invector R Finger3
-      parentName: 
-      position: {x: -0.08843681, y: 0.009529571, z: -0.021415062}
+      position: {x: -.0884368122, y: .00952957105, z: -.0214150622}
       rotation: {x: 0, y: 0, z: 0, w: 1}
-      scale: {x: 1.0000004, y: 1.0000004, z: 1}
+      scale: {x: 1.00000036, y: 1.00000036, z: 1}
+      transformModified: 1
     - name: Invector R Finger31
-      parentName: 
-      position: {x: -0.025424652, y: 0, z: 0}
+      position: {x: -.0254246518, y: 0, z: 0}
       rotation: {x: 0, y: 0, z: 0, w: 1}
-      scale: {x: 0.99999976, y: 1, z: 1}
+      scale: {x: .999999762, y: 1, z: 1}
+      transformModified: 1
     - name: Invector R Finger32
-      parentName: 
-      position: {x: -0.025424728, y: 0.00000015258789, z: 0}
+      position: {x: -.0254247282, y: 1.52587887e-07, z: 0}
       rotation: {x: 0, y: 0, z: 0, w: 1}
-      scale: {x: 0.9999998, y: 0.99999994, z: 1.0000001}
+      scale: {x: .999999821, y: .99999994, z: 1.00000012}
+      transformModified: 1
     - name: Invector L Thigh
-      parentName: 
-      position: {x: 0.00000015258789, y: 0.00000019311905, z: 0.10877226}
-      rotation: {x: 0, y: 1, z: 0, w: -0.00000004371139}
-      scale: {x: 0.9999999, y: 0.9999999, z: 0.9999997}
+      position: {x: 1.52587887e-07, y: 1.9311905e-07, z: .108772263}
+      rotation: {x: 0, y: 1, z: 0, w: -4.37113883e-08}
+      scale: {x: .999999881, y: .999999881, z: .999999702}
+      transformModified: 1
     - name: Invector L Calf
-      parentName: 
-      position: {x: -0.4727842, y: 0, z: 0.000000009536743}
+      position: {x: -.472784191, y: 0, z: 9.53674295e-09}
       rotation: {x: 0, y: 0, z: 0, w: 1}
-      scale: {x: 0.9999998, y: 0.99999994, z: 0.9999999}
+      scale: {x: .999999821, y: .99999994, z: .999999881}
+      transformModified: 1
     - name: Invector L Foot
-      parentName: 
-      position: {x: -0.43035188, y: 0.0000000047683715, z: 0.000000009536743}
+      position: {x: -.430351883, y: 4.76837148e-09, z: 9.53674295e-09}
       rotation: {x: 0, y: 0, z: 0, w: 1}
-      scale: {x: 1, y: 0.9999999, z: 1.0000001}
+      scale: {x: 1, y: .999999881, z: 1.00000012}
+      transformModified: 1
     - name: Invector L Toe0
-      parentName: 
-      position: {x: -0.10102283, y: 0.14005819, z: -0.000000009536743}
-      rotation: {x: 0, y: 0, z: 0.7071068, w: -0.7071068}
-      scale: {x: 0.99999994, y: 0.9999999, z: 1.0000001}
+      position: {x: -.101022832, y: .14005819, z: -9.53674295e-09}
+      rotation: {x: 0, y: 0, z: .707106829, w: -.707106829}
+      scale: {x: .99999994, y: .999999881, z: 1.00000012}
+      transformModified: 1
     - name: Invector R Thigh
-      parentName: 
-      position: {x: -0.00000015258789, y: -0.00000010728836, z: -0.10877226}
-      rotation: {x: 0, y: 1, z: 0, w: -0.00000004371139}
-      scale: {x: 1, y: 0.9999998, z: 0.9999998}
+      position: {x: -1.52587887e-07, y: -1.07288358e-07, z: -.108772263}
+      rotation: {x: 0, y: 1, z: 0, w: -4.37113883e-08}
+      scale: {x: 1, y: .999999821, z: .999999821}
+      transformModified: 1
     - name: Invector R Calf
-      parentName: 
-      position: {x: -0.47278422, y: 0.0000000047683715, z: -0.000000009536743}
+      position: {x: -.472784221, y: 4.76837148e-09, z: -9.53674295e-09}
       rotation: {x: 0, y: 0, z: 0, w: 1}
-      scale: {x: 0.9999999, y: 1.0000002, z: 0.99999994}
+      scale: {x: .999999881, y: 1.00000024, z: .99999994}
+      transformModified: 1
     - name: Invector R Foot
-      parentName: 
-      position: {x: -0.43035188, y: 0.0000000047683715, z: -0.000000009536743}
+      position: {x: -.430351883, y: 4.76837148e-09, z: -9.53674295e-09}
       rotation: {x: 0, y: 0, z: 0, w: 1}
-      scale: {x: 1.0000001, y: 0.99999976, z: 1.0000001}
+      scale: {x: 1.00000012, y: .999999762, z: 1.00000012}
+      transformModified: 1
     - name: Invector R Toe0
-      parentName: 
-      position: {x: -0.10102283, y: 0.14005817, z: -0.000000009536743}
-      rotation: {x: 0, y: 0, z: 0.7071068, w: -0.7071068}
-      scale: {x: 0.9999998, y: 0.99999976, z: 0.9999999}
-    armTwist: 0.5
-    foreArmTwist: 0.5
-    upperLegTwist: 0.5
-    legTwist: 0.5
-    armStretch: 0.05
-    legStretch: 0.05
+      position: {x: -.101022832, y: .140058175, z: -9.53674295e-09}
+      rotation: {x: 0, y: 0, z: .707106829, w: -.707106829}
+      scale: {x: .999999821, y: .999999762, z: .999999881}
+      transformModified: 1
+    armTwist: .5
+    foreArmTwist: .5
+    upperLegTwist: .5
+    legTwist: .5
+    armStretch: .0500000007
+    legStretch: .0500000007
     feetSpacing: 0
     rootMotionBoneName: 
-    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
     hasTranslationDoF: 1
-    hasExtraRoot: 0
-    skeletonHasParents: 0
   lastHumanDescriptionAvatarSource: {fileID: 9000000, guid: d0a2ae0fb3030d7458ca6b4d44f76fa0,
     type: 3}
   animationType: 3
