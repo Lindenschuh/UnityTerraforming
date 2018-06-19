@@ -1,4 +1,5 @@
-﻿using Invector.vShooter;
+﻿using Invector.vCamera;
+using Invector.vShooter;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -7,9 +8,9 @@ using UnityEngine.UI;
 
 public class UIControl : MonoBehaviour {
 
-    public GameObject wallIcon;
-    public GameObject groundIcon;
-    public GameObject rampIcon;
+    private GameObject wallIcon;
+    private GameObject groundIcon;
+    private GameObject rampIcon;
 
     public GameObject selectedUIElement;
 
@@ -17,19 +18,28 @@ public class UIControl : MonoBehaviour {
     private BuildMode buildScript;
     private GameObject woodCountUI;
     private GameObject woodCountInventory;
+    private GameObject trapCountUI;
+    private GameObject trapCountInventory;
     public Dictionary<BuildResources, int> resourceInfo;
     private ResourceControl resControl;
     private bool isCounting;
     private GameObject inventoryObject;
     private vShooterMeleeInput inputScript;
+    private vThirdPersonCamera thirdPCamera;
+    private GameObject visiblePickupItem;
+    
     // Use this for initialization
-    void Start () {
+    void OnEnable () {
         buildScript = GameObject.FindGameObjectWithTag("Player").GetComponent<BuildMode>();
         resControl = GetComponent<ResourceControl>();
         resourceInfo = new Dictionary<BuildResources, int>();
         resourceInfo.Add(BuildResources.Wood, 0);
+        resourceInfo.Add(BuildResources.TrapInstant, 0);
+        resourceInfo.Add(BuildResources.TrapTick, 0);
         woodCountUI = GameObject.Find("WoodCount");
         woodCountInventory = GameObject.Find("WoodCountInventory");
+        trapCountUI = GameObject.Find("TrapCount");
+        trapCountInventory = GameObject.Find("TrapCountInventory");
         isCounting = false;
         inventoryObject = GameObject.Find("InventoryPanel");
 
@@ -37,6 +47,11 @@ public class UIControl : MonoBehaviour {
 
         inputScript = GetComponent<vShooterMeleeInput>();
         uiCanvas = GameObject.Find("UICanvas");
+        wallIcon = GameObject.Find("WallPanel");
+        groundIcon = GameObject.Find("GroundPanel");
+        rampIcon = GameObject.Find("RampPanel");
+        thirdPCamera = FindObjectOfType<vThirdPersonCamera>();
+        visiblePickupItem = null;
     }
 	
 	// Update is called once per frame
@@ -45,6 +60,23 @@ public class UIControl : MonoBehaviour {
         HandleUIInteraction();
         HandleInventory();
         HandleBuildKeys();
+
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        RaycastHit hit;
+        if (Physics.Raycast(ray, out hit, 20f))
+        {
+            if (visiblePickupItem != null && hit.collider.gameObject != visiblePickupItem)
+            {
+                visiblePickupItem.GetComponentInChildren<WorldUIManager>().SetVisible(false);
+            }
+
+            if (hit.collider.gameObject.layer == LayerMask.NameToLayer("Resource"))
+            {
+                visiblePickupItem = hit.collider.gameObject;
+                visiblePickupItem.GetComponentInChildren<WorldUIManager>().SetVisible(true);
+            }
+            else visiblePickupItem = null;
+        }
     }
 
     public void resetResourceCounter(BuildResources resourceType,int oldAmount, int newAmount)
@@ -55,11 +87,23 @@ public class UIControl : MonoBehaviour {
                 resourceInfo[resourceType] = newAmount;
                 if (!isCounting)
                 {
-                    StartCoroutine(Wait(oldAmount));
-                }
-                
+                    StartCoroutine(Wait(oldAmount, resourceType, woodCountUI));
+                }             
                 break;
-
+            case BuildResources.TrapInstant:
+                resourceInfo[resourceType] = newAmount;
+                if (!isCounting)
+                {
+                    //StartCoroutine(Wait(oldAmount, resourceType, trapCountUI));
+                }
+                break;
+            case BuildResources.TrapTick:
+                resourceInfo[resourceType] = newAmount;
+                if (!isCounting)
+                {
+                    //StartCoroutine(Wait(oldAmount, resourceType, trapCountUI));
+                }
+                break;
         }
     }
 
@@ -95,17 +139,17 @@ public class UIControl : MonoBehaviour {
     {
         if (Input.GetKeyUp(KeyCode.P))
         {
-            inventoryObject.SetActive(!inventoryObject.GetActive());
+            inventoryObject.SetActive(!inventoryObject.active);
             //inventoryObject.GetComponentInChildren<UIComponentControl>().enabled = inventoryObject.GetActive();
             //uiCanvas.SetActive(!inventoryObject.GetActive());
-            inputScript.lockInput = inventoryObject.GetActive();
-            inputScript.LockCursor(inventoryObject.GetActive());
-            inputScript.ShowCursor(inventoryObject.GetActive());
-            inputScript.SetLockCameraInput(inventoryObject.GetActive());
+            inputScript.lockInput = inventoryObject.active;
+            inputScript.LockCursor(inventoryObject.active);
+            inputScript.ShowCursor(inventoryObject.active);
+            inputScript.SetLockCameraInput(inventoryObject.active);
         }
         if (inventoryObject.GetActive())
         {
-            woodCountInventory.GetComponent<Text>().text = resourceInfo[BuildResources.Wood].ToString();
+            //woodCountInventory.GetComponent<Text>().text = resourceInfo[BuildResources.Wood].ToString();
             if (Input.GetKeyDown(KeyCode.Mouse0))
             {
 
@@ -137,15 +181,15 @@ public class UIControl : MonoBehaviour {
     }
 
 
-    IEnumerator Wait(int oldAmount)
+    IEnumerator Wait(int oldAmount, BuildResources resource, GameObject uiControll)
     {
         isCounting = true;
-            while (resControl.GetResourceInfo(BuildResources.Wood) != oldAmount )
+            while (resControl.GetResourceInfo(resource) != oldAmount )
             {
-            if (resControl.GetResourceInfo(BuildResources.Wood) < oldAmount) oldAmount--;
+            if (resControl.GetResourceInfo(resource) < oldAmount) oldAmount--;
             else oldAmount++;
             yield return new WaitForSeconds(0.05f);
-                woodCountUI.GetComponent<Text>().text = oldAmount.ToString();
+                uiControll.GetComponent<Text>().text = oldAmount.ToString();
 
             }
         

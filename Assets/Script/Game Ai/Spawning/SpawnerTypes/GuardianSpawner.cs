@@ -6,15 +6,12 @@ namespace UnityTerraforming.GameAi
 {
     public class GuardianSpawner : Spawner
     {
-        public Transform PlayerTransform;
-
         public override void InitialiseTowerSpecificEnemy(GameObject spawnedEntity)
         {
             var guardian = spawnedEntity.GetComponent<Guardian>();
 
             if (guardian != null)
             {
-                guardian.PlayerTransform = PlayerTransform;
                 guardian.GuardianDestination = this;
                 guardian.ArriveRef.Target = gameObject;
             }

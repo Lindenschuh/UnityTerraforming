@@ -1965,6 +1965,7 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!137 &13752050
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1
@@ -1978,6 +1979,7 @@ SkinnedMeshRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RenderingLayerMask: 4294967295
   m_Materials:
   - {fileID: 2100000, guid: 97bfabe6a936682438273df31b50630e, type: 2}
   m_StaticBatchInfo:

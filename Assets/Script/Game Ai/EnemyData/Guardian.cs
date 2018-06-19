@@ -27,9 +27,6 @@ namespace UnityTerraforming.GameAi
         private void Awake()
         {
             _playerLayer = LayerMask.NameToLayer("Player");
-
-            if (GuardianDestination != null)
-                ArriveRef.Target = GuardianDestination.gameObject;
         }
 
         public bool PlayerInAttackRange()

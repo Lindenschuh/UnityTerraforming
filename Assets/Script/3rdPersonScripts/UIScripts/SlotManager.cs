@@ -7,6 +7,7 @@ public class SlotManager : MonoBehaviour {
     public int amount;
     public Vector3 slotPosition;
     public Transform parentObject;
+    public BuildResources res;
 	// Use this for initialization
 	void Start () {
         
@@ -19,4 +20,11 @@ public class SlotManager : MonoBehaviour {
 	void Update () {
 		
 	}
+
+    public void Reset()
+    {
+        objectInInventory = null;
+        amount = 0;
+        gameObject.GetComponentInParent<InventoryManager>().Reset();
+    }
 }

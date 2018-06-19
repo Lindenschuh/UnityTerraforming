@@ -12,11 +12,13 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
 
-    public GameObject DestinationPrefab;
-    public GameObject SpawnerPrefab;
+    public GodStateManager godStateManager;
 
-    [HideInInspector]
-    public GameObject MainDestination;
+    private readonly string God = "God(Clone)";
+    private readonly string Priest = "Priest";
+    private readonly string Terrain = "Terrain";
+    private readonly string PropertyRole = "role";
+    private readonly string PlayerTag = "Player";
 
     private void Awake()
     {
@@ -35,20 +37,15 @@ public class GameManager : MonoBehaviour
     {
         Transform spawnPoint;
 
-        spawnPoint = GameObject.Find("SpawnPoint_Destination").transform;
-        GameObject destinationGO = Instantiate(DestinationPrefab, spawnPoint);
-        MainDestination = destinationGO.gameObject;
+        spawnPoint = GameObject.Find($"SpawnPoint_{ PhotonNetwork.player.CustomProperties[PropertyRole].ToString() }").transform;
+        PhotonNetwork.Instantiate(PhotonNetwork.player.CustomProperties[PropertyRole].ToString(), spawnPoint.position, spawnPoint.rotation, 0);
 
-        spawnPoint = GameObject.Find("SpawnPoint_Spawner").transform;
-        GameObject spawner = Instantiate(SpawnerPrefab, spawnPoint);
-
-        spawnPoint = GameObject.Find("SpawnPoint_" + PhotonNetwork.player.CustomProperties["role"].ToString()).transform;
-        PhotonNetwork.Instantiate(PhotonNetwork.player.CustomProperties["role"].ToString(), spawnPoint.position, spawnPoint.rotation, 0);
-
-        if (PhotonNetwork.player.CustomProperties["role"].ToString() == "Priest")
+        if (PhotonNetwork.player.CustomProperties[PropertyRole].ToString() == Priest)
         {
-            Debug.LogWarning(PhotonNetwork.player.NickName);        
-            GameObject priest = GameObject.FindGameObjectWithTag("Player");
+            GameObject.Find("GodUI").SetActive(false);
+            GameObject priest = GameObject.FindGameObjectWithTag(PlayerTag);
+            GameObject.Find("UI").transform.GetChild(0).gameObject.SetActive(true);
+            GameObject.Find("GodController").SetActive(false);
             priest.GetComponent<vThirdPersonController>().enabled = true;
             priest.transform.GetChild(0).gameObject.SetActive(true);
             priest.GetComponent<vShooterMeleeInput>().enabled = true;
@@ -58,20 +55,22 @@ public class GameManager : MonoBehaviour
             priest.GetComponent<vGenericAction>().enabled = true;
             priest.GetComponent<BuildMode>().enabled = true;
             priest.GetComponent<vItemManager>().enabled = true;
-            priest.GetComponent<ResourceControl>().enabled = true;
+            priest.GetComponent<ResourceControl>().enabled = true;           
             priest.GetComponent<UIControl>().enabled = true;
-            priest.GetComponentInChildren<vThirdPersonCamera>().enabled = true;
-            priest.GetComponentInChildren<Camera>().enabled = true;
+            priest.transform.Find("vThirdPersonCamera").gameObject.SetActive(true);
             priest.GetComponentInChildren<Health>().enabled = true;
+
         }
         else
         {
-            GameObject god = GameObject.Find("God(Clone)");
+            GameObject god = GameObject.Find(God);
             god.GetComponentInChildren<Camera>().enabled = true;
             god.GetComponentInChildren<SimpleCameraMovement>().enabled = true;
-            Camera mainCamera = GameObject.Find("God(Clone)").GetComponentInChildren<Camera>();
-            GameObject terrain = GameObject.Find("Terrain");
+            Camera mainCamera = GameObject.Find(God).GetComponentInChildren<Camera>();
+            mainCamera.GetComponent<SimpleCameraMovement>().GodState = godStateManager;
+            GameObject terrain = GameObject.Find(Terrain);
             terrain.GetComponent<TerraManipulation>().MainCamera = mainCamera;
+            GameObject.Find("UI").SetActive(false);
         }
     }
 }

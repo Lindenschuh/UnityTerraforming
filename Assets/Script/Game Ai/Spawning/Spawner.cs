@@ -11,7 +11,7 @@ namespace UnityTerraforming.GameAi
         void OnCaptured();
     }
 
-    public abstract class Spawner : MonoBehaviour
+    public abstract class Spawner : Photon.PunBehaviour
     {
         public GameObject EntityPrefab;
 
@@ -27,8 +27,6 @@ namespace UnityTerraforming.GameAi
         public int MaxEntitiesAtOnce;
 
         public float DistanceBetweenEntities;
-
-        public SpawnerEye SpawnerEye;
 
         public float WaitBetweenSpawn;
         public float WaitBetweenWaves;
@@ -59,7 +57,7 @@ namespace UnityTerraforming.GameAi
                 // initialise all points where enemies will spawn
                 for (int i = 0; i < enemiesToSpawn; i++)
                 {
-                    var point = Vector3.zero;
+                    var point = transform.position;
                     if (IsPointvalid(point, pointsForSpawn))
                     {
                         pointsForSpawn.Add(point);
@@ -69,7 +67,7 @@ namespace UnityTerraforming.GameAi
                 // Spawn the Entities
                 pointsForSpawn.ForEach(point =>
                 {
-                    var spawned = Instantiate(EntityPrefab, point, Quaternion.identity);
+                    var spawned = PhotonNetwork.Instantiate(EntityPrefab.name, point, Quaternion.identity, 0);
                     InitialiseTowerSpecificEnemy(spawned);
                     _entitiesAlive.Add(spawned);
                 });

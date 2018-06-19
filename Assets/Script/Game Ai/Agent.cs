@@ -74,10 +74,5 @@ namespace UnityTerraforming.GameAi
 
             steering = new Steering();
         }
-
-        public GameObject GetAriveDestination()
-        {
-            return GameManager.instance.MainDestination.gameObject;
-        }
     }
 }
