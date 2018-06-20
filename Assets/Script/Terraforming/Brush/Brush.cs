@@ -9,11 +9,13 @@ public abstract class Brush : MonoBehaviour
     public int BrushHeight;
     public float MaxBrushValue;
     public float sizeModificator;
-    public Material GoodIndicator;
-    public Material BadIndicator;
+    public Color GoodIndicator;
+    public Color BadIndicator;
+    public ShaderManager CSHandler;
 
     protected GameObject HoverIndicator;
-    public ShaderManager CSHandler;
+
+    private float height = 5f;
 
     public abstract float[,] CalculateBrushUp(float[,] currentBrushValues);
 
@@ -23,24 +25,24 @@ public abstract class Brush : MonoBehaviour
     {
         MakeIndicator();
         ChangebrushSize(BrushWidth, BrushHeight);
+        HoverIndicator = transform.parent.gameObject.GetComponentInChildren<Projector>().gameObject;
     }
 
     public void PlaceIndicatorPositive(Vector3 destination)
     {
-        if (HoverIndicator.GetComponent<Renderer>().material != GoodIndicator)
-            HoverIndicator.GetComponent<Renderer>().material = GoodIndicator;
+        HoverIndicator.GetComponent<Projector>().material.SetColor("_Color", GoodIndicator);
 
         HoverIndicator.SetActive(true);
-        HoverIndicator.transform.position = destination;
+        HoverIndicator.transform.position = new Vector3(destination.x,destination.y + height,destination.z);
     }
 
     public void PlaceIndicatorNegative(Vector3 destination)
     {
-        if (HoverIndicator.GetComponent<Renderer>().material != BadIndicator)
-            HoverIndicator.GetComponent<Renderer>().material = BadIndicator;
+
+        HoverIndicator.GetComponent<Projector>().material.SetColor("_Color", BadIndicator);
 
         HoverIndicator.SetActive(true);
-        HoverIndicator.transform.position = destination;
+        HoverIndicator.transform.position = new Vector3(destination.x, destination.y + height, destination.z);
     }
 
     public void ChangebrushSize(int width, int height)
@@ -58,7 +60,7 @@ public abstract class Brush : MonoBehaviour
         {
             HoverIndicator = GameObject.CreatePrimitive(PrimitiveType.Sphere);
             Destroy(HoverIndicator.GetComponent<SphereCollider>());
-            HoverIndicator.GetComponent<Renderer>().material = GoodIndicator;
+  
             HoverIndicator.transform.parent = transform;
             HoverIndicator.SetActive(false);
         }

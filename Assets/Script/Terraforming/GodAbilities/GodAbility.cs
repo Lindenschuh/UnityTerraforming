@@ -15,7 +15,10 @@ public abstract class GodAbility : MonoBehaviour
         indicator.GetComponent<Renderer>().material = Indicator_mat;
         indicator.transform.localScale = new Vector3(Radius * 2, 0.5f, Radius * 2);
         indicator.transform.parent = transform;
+        SetUp();
     }
+
+    public abstract void SetUp();
 
     public abstract void UseAbility(Vector3 Impact);
 
