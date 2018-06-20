@@ -6,7 +6,7 @@ using UnityEngine;
 public class ResourceControl : MonoBehaviour {
     public int maxResourceAmount;
     public int resourceAmount;
-    public GameObject inventory;
+    
     public LayerMask playerLayer;
     private LayerMask resLayer;
     private UIControl uiControl;
@@ -28,6 +28,7 @@ public class ResourceControl : MonoBehaviour {
         uiControl = GetComponent<UIControl>();
         head = GameObject.Find("Head");
         UI = GameObject.Find("UI");
+
 	}
 	
 	// Update is called once per frame
@@ -56,16 +57,17 @@ public class ResourceControl : MonoBehaviour {
 
     public void PickupItem(GameObject item)
     {
-        inventory.GetComponent<InventoryManager>().PickupItem(item);
+        GameObject.Find("UI").GetComponentInChildren<InventoryManager>(true).PickupItem(item);
+       
     }
 
     public GameObject GetSelectedTrap()
     {
-        return inventory.GetComponent<InventoryManager>().GetSelectedTrap();
+        return GameObject.Find("UI").GetComponentInChildren<InventoryManager>(true).GetSelectedTrap();
     }
 
     public void SelectNextTrap()
     {
-        inventory.GetComponent<InventoryManager>().SelectNextTrap();
+        GameObject.Find("UI").GetComponentInChildren<InventoryManager>(true).SelectNextTrap();
     }
 }

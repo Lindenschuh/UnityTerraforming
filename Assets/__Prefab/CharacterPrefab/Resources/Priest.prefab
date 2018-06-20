@@ -4881,7 +4881,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxResourceAmount: 999
   resourceAmount: 200
-  inventory: {fileID: 0}
   playerLayer:
     serializedVersion: 2
     m_Bits: 0
