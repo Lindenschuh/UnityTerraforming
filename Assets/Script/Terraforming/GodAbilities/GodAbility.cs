@@ -5,16 +5,12 @@ using UnityEngine;
 public abstract class GodAbility : MonoBehaviour
 {
     public float Radius;
-    public Material Indicator_mat;
+    public Color Indicator_col;
     private GameObject indicator;
 
     private void Start()
     {
-        indicator = GameObject.CreatePrimitive(PrimitiveType.Sphere);
-        Destroy(indicator.GetComponent<SphereCollider>());
-        indicator.GetComponent<Renderer>().material = Indicator_mat;
-        indicator.transform.localScale = new Vector3(Radius * 2, 0.5f, Radius * 2);
-        indicator.transform.parent = transform;
+        indicator = transform.parent.GetComponentInChildren<Projector>().gameObject;
         SetUp();
     }
 
@@ -24,6 +20,7 @@ public abstract class GodAbility : MonoBehaviour
 
     public void PlaceIndicator(Vector3 destination)
     {
-        indicator.transform.position = destination;
+        indicator.GetComponent<Projector>().material.SetColor("_Color", Indicator_col);
+        indicator.transform.position = new Vector3(destination.x,destination.y + 5f,destination.z);
     }
 }
