@@ -1526,11 +1526,6 @@ Prefab:
       propertyPath: instantiationId
       value: 10
       objectReference: {fileID: 0}
-    - target: {fileID: 114545418632543688, guid: 0b9786721e0400949978ffb034e889ec,
-        type: 2}
-      propertyPath: selectedToolbar
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 0b9786721e0400949978ffb034e889ec, type: 2}
   m_IsPrefabParent: 0

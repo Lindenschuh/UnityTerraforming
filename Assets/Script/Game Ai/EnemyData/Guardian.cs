@@ -1,60 +1,105 @@
-﻿using System;
-using System.Collections;
+﻿using UnityEngine;
 using System.Collections.Generic;
-using UnityEngine;
+using System;
+using Photon;
 
 namespace UnityTerraforming.GameAi
 {
-    [RequireComponent(typeof(Seek))]
-    [RequireComponent(typeof(Arrive))]
-    [RequireComponent(typeof(Wander))]
-    [RequireComponent(typeof(AvoidAgents))]
-    [RequireComponent(typeof(AvoidWall))]
-    public class Guardian : MonoBehaviour
+    [RequireComponent(typeof(Agent))]
+    public class Guardian : BasicAi
     {
-        public Spawner GuardianDestination;
+        public GuardianSpawner GuardianDestination;
         public float GuardRadius;
-        public float LookRadius;
-        public float AttacRadius;
 
-        public Transform PlayerTransform;
+        public BehaviourTree Tree;
 
-        private int _playerLayer;
+        public Transform Player;
 
-        public Seek SeekRef;
-        public Arrive ArriveRef;
+        public float SlowRadius;
+        public float TargetRadius;
+        public float AvoidDistance;
+
+        public float FeelerAngle = 60f;
+        public float FeelerScale = 2f;
+
+        public float CollisionRadius = 4f;
+
+        public float WanderOffset;
+        public float WanderRadius;
+        public float WanderRate;
+
+        private Agent agent;
 
         private void Awake()
         {
-            _playerLayer = LayerMask.NameToLayer("Player");
+            agent = GetComponent<Agent>();
         }
 
-        public bool PlayerInAttackRange()
-        {
-            if (PlayerTransform == null) return false;
+        public bool CheckIfInsideOfGuardianDestination() => (transform.position - GuardianDestination.transform.position).magnitude <= GuardRadius;
 
-            return (transform.position - PlayerTransform.position).magnitude <= AttacRadius;
-        }
-
-        public bool InsideGuardRadius()
+        private void Update()
         {
-            if (GuardianDestination == null) return false;
-            return (transform.position - GuardianDestination.transform.position).magnitude < GuardRadius;
-        }
-
-        public bool CheckPlayerInSight()
-        {
-            Collider[] coliders = Physics.OverlapSphere(transform.position, LookRadius);
-            foreach (Collider col in coliders)
+            //if (PhotonNetwork.isMasterClient)
+            //{
+            List<SteeringTypes> steerings = Tree.GetActions(this);
+            foreach (SteeringTypes st in steerings)
             {
-                if (col.gameObject.layer == _playerLayer)
+                switch (st)
                 {
-                    PlayerTransform = col.gameObject.transform;
-                    SeekRef.Target = PlayerTransform.gameObject;
-                    return true;
+                    case SteeringTypes.ATTACK:
+                        AttackPlayer();
+                        break;
+
+                    case SteeringTypes.SEEK:
+                        agent.SetSteering(SteeringManager.GetSeek(agent, Player.position));
+                        break;
+
+                    case SteeringTypes.FLEE:
+                        break;
+
+                    case SteeringTypes.ARRIVE:
+                        agent.SetSteering(SteeringManager.GetArrive(agent, GuardianDestination.transform.position, TargetRadius, SlowRadius));
+                        break;
+
+                    case SteeringTypes.LEAVE:
+                        break;
+
+                    case SteeringTypes.AVOID_WALLS:
+                        agent.SetSteering(SteeringManager.GetAvoidWalls(agent, LookRadius, AvoidDistance, FeelerAngle, FeelerScale));
+                        break;
+
+                    case SteeringTypes.AVOID_AGENTS:
+                        agent.SetSteering(SteeringManager.GetAvoidAgents(agent, CheckSourroundingAgents(), CollisionRadius));
+                        break;
+
+                    case SteeringTypes.WANDER:
+                        agent.SetSteering(SteeringManager.GetWander(agent, WanderOffset, WanderRadius, WanderRate));
+                        break;
                 }
             }
-            return false;
+            //}
+        }
+
+        private List<Agent> CheckSourroundingAgents()
+        {
+            var targets = new List<Agent>();
+            foreach (Collider c in Physics.OverlapSphere(transform.position, LookRadius))
+            {
+                var agent = c.GetComponent<Agent>();
+                if (agent != null)
+                    targets.Add(agent);
+            }
+            return targets;
+        }
+
+        private void AttackPlayer()
+        {
+            Debug.Log("I WILL KILL YOU! MORTAL SCUMBAG!");
+        }
+
+        private void OnDestroy()
+        {
+            GuardianDestination.SpawedInstanceDied(gameObject);
         }
     }
 }
