@@ -27,7 +27,7 @@ public class ObjectPlacer : Photon.PunBehaviour
     }
 
 
-    void Awake()
+    void Start()
     {
         // get size of terrain
         terrainWidth = terrain.terrainData.heightmapWidth / 2;

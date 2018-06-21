@@ -5,12 +5,6 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 0
-    path: Assets/Scene/MainGame/Lobby.unity
-    guid: bb0ba4220c9a56f419bc550bf56eba9d
-  - enabled: 0
-    path: Assets/Scene/MainGame/Level_01.unity
-    guid: 8fc3f6aac364dd749ac37c0e4414db1d
   - enabled: 1
     path: Assets/Scene/MainGame/Level_Priest.unity
     guid: 8a7489931816cd0439f40cf5ab80a885

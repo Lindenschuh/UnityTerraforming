@@ -42,6 +42,7 @@ public class DebugNetworkManager : Photon.PunBehaviour
         PhotonNetwork.automaticallySyncScene = true;
         PhotonNetwork.logLevel = Loglevel;
         PhotonNetwork.offlineMode = true;
+        //PhotonNetwork.ConnectUsingSettings(_gameVersion);
 
     }
 
@@ -92,6 +93,7 @@ public class DebugNetworkManager : Photon.PunBehaviour
     public override void OnConnectedToMaster()
     {
         Debug.Log("OnConnectedToMaster() was called by PUN");
+        PhotonNetwork.JoinLobby();
         PhotonNetwork.CreateRoom(null, new RoomOptions() { MaxPlayers = MaxPlayersPerRoom }, null);
     }
 
