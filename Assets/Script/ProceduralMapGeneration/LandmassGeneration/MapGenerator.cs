@@ -19,7 +19,7 @@ public class MapGenerator : Photon.PunBehaviour {
 
     public bool autoUpdate;
 
-    private void Start()
+    private void Awake()
     {
         GenerateMap();
     }

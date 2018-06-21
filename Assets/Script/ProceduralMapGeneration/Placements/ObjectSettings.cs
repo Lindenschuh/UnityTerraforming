@@ -13,10 +13,11 @@ public class ObjectSettings : MonoBehaviour {
     public int size;
     [Range(0, 5)]
     public float distanceBetweenObjects;
-    [Range(0, 50)]
+    [Range(0, 100)]
     public float distanceBetweenLocations;
     public int differentLocations;
     public int amount;
+    public float maxHeight;
     public GameObject preFab;
 
     private int minDistance = 0;
@@ -53,6 +54,9 @@ public class ObjectSettings : MonoBehaviour {
 
         if (differentLocations < 0)
             differentLocations = 0;
+
+        if (maxHeight < 0)
+            maxHeight = 0;
 	}
 
 
