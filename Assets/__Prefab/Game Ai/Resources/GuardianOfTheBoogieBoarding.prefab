@@ -29,6 +29,7 @@ GameObject:
   - component: {fileID: 114485553755178832}
   - component: {fileID: 114953582672077820}
   - component: {fileID: 114030672883526942}
+  - component: {fileID: 114305863069286370}
   m_Layer: 0
   m_Name: GuardianOfTheBoogieBoarding
   m_TagString: Untagged
@@ -117,7 +118,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d212fd38b5be65c42ab4add081a8074b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 200
 --- !u!114 &114040347356885420
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -136,6 +136,36 @@ MonoBehaviour:
   Orientation: 85.3
   Rotation: 0
   Velocity: {x: 0, y: 0, z: 0}
+--- !u!114 &114305863069286370
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1722717609552858}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f56a83ea88140fa4f869bb2f7ffdb184, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  openCloseEvents: 0
+  openCloseWindow: 1
+  selectedToolbar: 0
+  _isDead: 0
+  _currentHealth: 100
+  maxHealth: 100
+  healthRecovery: 0
+  healthRecoveryDelay: 0
+  currentHealthRecoveryDelay: 0
+  onReceiveDamage:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: Invector.vHealthController+OnReceiveDamage, Assembly-CSharp, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  onDead:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: Invector.vHealthController+OnDead, Assembly-CSharp, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
 --- !u!114 &114485553755178832
 MonoBehaviour:
   m_ObjectHideFlags: 1
