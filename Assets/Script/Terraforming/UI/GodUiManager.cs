@@ -23,7 +23,7 @@ public class GodUiManager : MonoBehaviour
 
     private void UpdateUiState()
     {
-        if (GodState.BrushMng.gameObject.GetActive())
+        if (GodState.BrushMng.gameObject.activeSelf)
         {
             AbilityUi.SetActive(false);
             BrushUi.SetActive(true);

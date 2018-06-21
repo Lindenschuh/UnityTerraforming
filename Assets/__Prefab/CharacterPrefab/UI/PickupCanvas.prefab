@@ -39,14 +39,13 @@ GameObject:
   - component: {fileID: 223269937096981062}
   - component: {fileID: 114525692665656540}
   - component: {fileID: 114286496542704400}
-  - component: {fileID: 114560251229603878}
   m_Layer: 5
   m_Name: PickupCanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &114286496542704400
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -111,17 +110,6 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
---- !u!114 &114560251229603878
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1676291785922798}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e004d3f234c45624cbf4a7f392d7c9aa, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!222 &222412573777670728
 CanvasRenderer:
   m_ObjectHideFlags: 1
@@ -154,7 +142,7 @@ RectTransform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1676291785922798}
-  m_LocalRotation: {x: -0.95853996, y: -0.19279578, z: -0.10788953, w: -0.17997448}
+  m_LocalRotation: {x: -0.15927659, y: -0.64145386, z: -0.13852441, w: 0.73754925}
   m_LocalPosition: {x: 0, y: 0, z: 0.47}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:

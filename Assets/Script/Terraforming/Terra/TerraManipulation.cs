@@ -58,7 +58,7 @@ public class TerraManipulation : Photon.PunBehaviour
 
     private void FixedUpdate()
     {
-        if (GodState.BrushMng.gameObject.GetActive())
+        if (GodState.BrushMng.gameObject.activeSelf)
             BrushBehaivor();
         else
             AbilityBehaivor();

@@ -31,8 +31,16 @@ public class GodStateManager : Photon.PunBehaviour
     [PunRPC]
     private void RPCSwitchMode()
     {
-        BrushMng.gameObject.SetActive(!BrushMng.gameObject.GetActive());
-        AbilityMng.gameObject.SetActive(!AbilityMng.gameObject.GetActive());
+        if (BrushMng.gameObject.activeSelf)
+        {
+            BrushMng.gameObject.SetActive(false);
+            AbilityMng.gameObject.SetActive(true);
+        }
+        else
+        {
+            BrushMng.gameObject.SetActive(true);
+            AbilityMng.gameObject.SetActive(false);
+        }
     }
 
     [PunRPC]

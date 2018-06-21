@@ -1,25 +1,18 @@
 ﻿using Invector;
-using Invector.vShooter;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Health : MonoBehaviour {
+[RequireComponent(typeof(vHealthController))]
+public class Health : MonoBehaviour
+{
 
-    public int health;
-
-
+    private vHealthController healthController;
 	// Use this for initialization
 	void Start () {
-        gameObject.GetComponent<vHealthController>().onDead.AddListener(OnDeath);
-
+        healthController = gameObject.GetComponent<vHealthController>();
+            healthController.onDead.AddListener(OnDeath);
     }
 	
-	// Update is called once per frame
-	void Update () {
-		
-	}
     public void OnDeath(GameObject gameobjct)
     {
         if (gameObject.layer == LayerMask.NameToLayer("BuildComponent"))
@@ -32,24 +25,14 @@ public class Health : MonoBehaviour {
         }
         if (gameObject.tag == "Player")
         {
-            GameObject.Find("HealthSlider").GetComponent<Slider>().value = health;
+            GameObject.Find("HealthSlider").GetComponent<Slider>().value = healthController.currentHealth;
         }
     }
    
     public void AddDamage(int damage)
     {
-        
-        health -= damage;
 
-        if(health <= 0)
-        {
-            Destroy(gameObject);
-
-        }else
-        {
-
-        }
+        healthController.TakeDamage(new vDamage(damage));
     }
-
-
 }
+
