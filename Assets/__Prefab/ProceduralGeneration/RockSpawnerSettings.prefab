@@ -86,5 +86,5 @@ MonoBehaviour:
   distanceBetweenLocations: 1
   differentLocations: 100
   amount: 1
-  maxHeight: 0
+  maxHeight: 60
   preFab: {fileID: 1390808159254106, guid: dd266a75b21cb1f4ba1b2b2d555c0425, type: 2}

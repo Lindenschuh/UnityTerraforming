@@ -80,7 +80,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tries: 100
-  prefabsCount: 3
   terrain: {fileID: 0}
   objects:
   - {fileID: 114962200983228234, guid: 7d625e6bd5a7a2449bbdfd20a669df1e, type: 2}
