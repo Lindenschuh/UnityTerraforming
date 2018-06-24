@@ -620,7 +620,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5004bf72a4dfe094c829e613264ba351, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  EntityPrefab: {fileID: 1509233189404536, guid: 80818a67e1ad617419cbc2ff3516be62,
+  EntityPrefab: {fileID: 1722717609552858, guid: a31f7d4d95045ed4da4cd559d056a3ab,
     type: 2}
   SpawnRadius: 50
   WaveCount: 5
@@ -641,7 +641,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 48e8b6d18d050e3438e6d2eea1acb4f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  RotationSpeed: 5
+  RotationSpeed: 20
   DefaultMaterial: {fileID: 2100000, guid: 6e06b6d0c696f9544b327c597d334766, type: 2}
   CapturedMaterial: {fileID: 2100000, guid: 26c109d730171f144863a35262e52f00, type: 2}
 --- !u!114 &114845924893990998

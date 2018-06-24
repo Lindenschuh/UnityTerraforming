@@ -79,13 +79,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b381c3198b0806544b1414c855d2b01f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  prefabs:
-  - {fileID: 1802668065496030, guid: 9930dcc504397b741bf6be62c16782ff, type: 2}
   tries: 100
-  prefabsCount: 1
   terrain: {fileID: 0}
   objects:
   - {fileID: 114962200983228234, guid: 7d625e6bd5a7a2449bbdfd20a669df1e, type: 2}
+  - {fileID: 114713636512627784, guid: f863b7b73f3276e418c04ec771a36e22, type: 2}
+  - {fileID: 114546014165002086, guid: 9d637aca094b02e4e81f596941071660, type: 2}
+  - {fileID: 114854852792990466, guid: 86ed1cf0ed89a6340b720ed47ef09f5f, type: 2}
 --- !u!114 &114688486092583230
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -99,10 +99,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   width: 513
   height: 513
-  noiseScale: 100
-  octaves: 1
-  persistance: 0.5
-  lacunarity: 3.38
+  noiseScale: 200
+  octaves: 3
+  persistance: 1
+  lacunarity: 1.5
   seed: 0
-  offset: {x: 0, y: 0}
+  offset: {x: 100, y: 100}
   autoUpdate: 1

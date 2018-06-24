@@ -18,7 +18,6 @@ public class UIComponentControl : Photon.PunBehaviour, IPointerEnterHandler, IPo
     private GameObject objectToDrop;
     private UIControl uiControl;
     private Vector3 position;
-    private vThirdPersonCamera tpCamera;
 
     public void OnPointerEnter(PointerEventData eventData)
     {
@@ -58,7 +57,7 @@ public class UIComponentControl : Photon.PunBehaviour, IPointerEnterHandler, IPo
 
         if(realAmount > 0)
         {
-            
+            vThirdPersonCamera tpCamera = FindObjectOfType<vThirdPersonCamera>();
             Vector3 dropPosition = tpCamera.transform.position + tpCamera.transform.forward * 5;
             photonView.RPC("RPCDropResources", PhotonTargets.All,BuildResources.Wood , realAmount, dropPosition);
 
@@ -70,6 +69,7 @@ public class UIComponentControl : Photon.PunBehaviour, IPointerEnterHandler, IPo
 
     private void DropItem(GameObject item, int amount)
     {
+        vThirdPersonCamera tpCamera = FindObjectOfType<vThirdPersonCamera>();
         Vector3 dropPosition = tpCamera.transform.position + tpCamera.transform.forward * 5;
         GameObject instItem = Instantiate(item);
         instItem.transform.position = dropPosition;
@@ -79,7 +79,7 @@ public class UIComponentControl : Photon.PunBehaviour, IPointerEnterHandler, IPo
     }
     // Use this for initialization
     void OnEnable () {
-        tpCamera = FindObjectOfType<vThirdPersonCamera>();
+
         player = GameObject.FindGameObjectWithTag("Player");
         dropAmountInput = GameObject.Find("DropAmount");
         dropAmountInput.GetComponent<InputField>().onEndEdit.AddListener(delegate { DropAmountChanged(dropAmountInput.GetComponent<InputField>().textComponent); });
@@ -156,6 +156,7 @@ public class UIComponentControl : Photon.PunBehaviour, IPointerEnterHandler, IPo
             default:
                 return;
         }
+        vThirdPersonCamera tpCamera = FindObjectOfType<vThirdPersonCamera>();
         instRes.transform.position = tpCamera.transform.position + tpCamera.transform.forward * 5;
         instRes.GetComponent<ResourceObject>().resourceAmount = amount;
     }
