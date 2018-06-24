@@ -5,11 +5,9 @@ using UnityEngine;
 public class Trap : MonoBehaviour {
 
     public float damagePerTick;
-    public int ticks;
-    public int duration;
+    public float tickTimer;
     public LayerMask enemies;
 
-    private float tickTimer;
     private float nextTickTime;
     private bool activated;
     private float timeLeft;
@@ -17,12 +15,7 @@ public class Trap : MonoBehaviour {
     private void Start()
     {
         activated = false;
-        nextTickTime = duration / ticks;
-        tickTimer = nextTickTime;
         timeLeft = 0;
-
-        if (ticks == 1 && duration > 1)
-            duration = 1;
     }
 
     private void Update()
@@ -34,19 +27,14 @@ public class Trap : MonoBehaviour {
                 activated = true;
         }
 
-        if (activated && ticks > 0)
+        if (activated)
         {
             timeLeft += Time.deltaTime;
             if (timeLeft >= tickTimer)
             {
                 DamageEnemies();
             }
-
-        }
-
-        if (ticks <= 0)
-            Destroy(gameObject);
-        
+        }    
     }
 
     private void DamageEnemies()
@@ -56,7 +44,6 @@ public class Trap : MonoBehaviour {
         {
             enemyHit.transform.GetComponent<Health>().AddDamage((int)damagePerTick);
         }
-        ticks--;
         tickTimer += nextTickTime;
     }
 

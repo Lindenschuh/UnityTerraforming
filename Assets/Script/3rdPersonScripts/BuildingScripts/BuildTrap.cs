@@ -1,21 +1,23 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class BuildTrap : Photon.PunBehaviour {
 
-    public GameObject[] TrapPrefabs;
-    public KeyCode[] TrapKeyCodes;
+    private enum TrapType {TrapFire, TrapIce, None }
+
+    public Material[] TrapMaterials;
     public LayerMask BuildingLayers;
     public float maxBuildingRange;
     public int materialCost;
 
+    private TrapType actualTrapType;
     private bool buildAllowed;
     private bool trapBuildingActive;
     private Camera playerCam;
-    private GameObject actualTrap;
-    private GameObject trap;
-    private Transform actualHit;
+    private Transform actualTransform;
+    private Color actualTransformColor;
     private ResourceControl resourceControl;
     private BuildResources selectedMaterial;
     private InventoryManager inventoryManager;
@@ -37,14 +39,14 @@ public class BuildTrap : Photon.PunBehaviour {
         
         GetTrapOfKey();
 
-        if (actualTrap != null)
+        if (actualTrapType != TrapType.None)
         {
             CheckForBuilding();
             if (buildAllowed)
             {
                 if (Input.GetKeyUp(KeyCode.Mouse0) && resourceControl.GetResourceInfo(selectedMaterial) >= materialCost)
                 {
-                    photonView.RPC("RPCSetTrap", PhotonTargets.All, actualTrap.name, trap.transform.position, trap.transform.rotation, trap.transform.localScale);
+                    photonView.RPC("RPCSetTrap", PhotonTargets.All, actualTrapType.ToString(), Input.mousePosition, maxBuildingRange, BuildingLayers);
                     resourceControl.UseResource(selectedMaterial, materialCost);
                 }
             }
@@ -68,14 +70,13 @@ public class BuildTrap : Photon.PunBehaviour {
 
     private void InitializeTrapBuild(GameObject trapPrefab)
     {
-        if (actualTrap != null && actualTrap.name == trapPrefab.name + "(Clone)")
+        if (actualTrapType != TrapType.None && actualTrapType.ToString() == trapPrefab.name)
         {
-            Destroy(trap);
-            actualTrap = null;
+            actualTrapType = TrapType.None;
         }
         else
         {
-            actualTrap = trapPrefab;
+            actualTrapType = (TrapType) Enum.Parse(typeof(TrapType), trapPrefab.name);
         }
     }
 
@@ -85,44 +86,49 @@ public class BuildTrap : Photon.PunBehaviour {
         Ray ray = playerCam.ScreenPointToRay(Input.mousePosition);
         if (Physics.Raycast(ray, out hit, maxBuildingRange, BuildingLayers))
         {
-            if (hit.transform != actualHit)
+            // check if new building has been selected
+            if (actualTransform != hit.transform)
             {
-                Destroy(trap);
-                trap = actualTrap;
-                Vector3 trapPosition;
+                ResetBuilding();
+                actualTransform = hit.transform;
+                actualTransformColor = hit.transform.GetComponent<Renderer>().material.color;
+            }
 
-                if (hit.transform.localScale.x < hit.transform.localScale.y)
-                {
-                    trapPosition = transform.position.x > hit.transform.position.x ? new Vector3(hit.transform.position.x + hit.transform.localScale.x, hit.transform.position.y, hit.transform.position.z) : new Vector3(hit.transform.position.x - hit.transform.localScale.x, hit.transform.position.y, hit.transform.position.z);
-                }
-                else
-                {
-                    trapPosition = transform.position.y > hit.transform.position.y ? new Vector3(hit.transform.position.x, hit.transform.position.y + hit.transform.localScale.y, hit.transform.position.z) : new Vector3(hit.transform.position.x, hit.transform.position.y - hit.transform.localScale.y, hit.transform.position.z);
-                }
-
-                trap = Instantiate(actualTrap, trapPosition, hit.transform.rotation);
-                trap.transform.localScale = hit.transform.localScale;
-                Color color = actualTrap.GetComponent<Renderer>().sharedMaterial.color;
-                color.a = 0.1f;
-                trap.GetComponent<Renderer>().sharedMaterial.color = color;
-                actualHit = hit.transform;
+            // check if a trap has already been activated
+            if (!hit.transform.GetComponent<Trap>().enabled)
+            {
+                hit.transform.GetComponent<Renderer>().material.color = Color.green;
                 buildAllowed = true;
             }
+            else
+            {
+                hit.transform.GetComponent<Renderer>().material.color = Color.red;
+                buildAllowed = false;
+            }
         }
-        else if (Vector3.Distance(actualTrap.transform.position, transform.position) > maxBuildingRange)
+        else
         {
-            Destroy(trap);
+            ResetBuilding();
             buildAllowed = false;
-        }       
+        }
+    }
 
+    private void ResetBuilding()
+    {
+        actualTransform.GetComponent<Renderer>().material.color = actualTransformColor;
+        actualTransform = null;
     }
 
     [PunRPC]
-    private void RPCSetTrap(string prefabName, Vector3 position, Quaternion rotation, Vector3 scale)
+    private void RPCSetTrap(string prefabName, Vector3 mousePosition, float maxBuildingRange, LayerMask BuildingLayers)
     {
-        GameObject rpcTrap = Resources.Load(prefabName) as GameObject;
-        rpcTrap = Instantiate(rpcTrap, position, rotation);
-        rpcTrap.transform.localScale = scale;
-        rpcTrap.GetComponent<Trap>().enabled = true;
+        RaycastHit hit;
+        Ray ray = playerCam.ScreenPointToRay(mousePosition);
+        if (Physics.Raycast(ray, out hit, maxBuildingRange, BuildingLayers))
+        {
+            GameObject rpcTrap = Resources.Load(prefabName) as GameObject;
+            rpcTrap.GetComponent<Trap>().enabled = true;
+            rpcTrap.transform.parent = hit.transform;
+        }
     }
 }
