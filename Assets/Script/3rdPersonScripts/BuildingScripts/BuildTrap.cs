@@ -10,7 +10,6 @@ public class BuildTrap : Photon.PunBehaviour {
     public Material[] TrapMaterials;
     public LayerMask BuildingLayers;
     public float maxBuildingRange;
-    public int materialCost;
 
     private TrapType actualTrapType;
     private bool buildAllowed;
@@ -19,8 +18,8 @@ public class BuildTrap : Photon.PunBehaviour {
     private Transform actualTransform;
     private Color actualTransformColor;
     private ResourceControl resourceControl;
-    private BuildResources selectedMaterial;
     private InventoryManager inventoryManager;
+    private bool firstVisit;
     // Use this for initialization
     void Start ()
     {
@@ -29,9 +28,9 @@ public class BuildTrap : Photon.PunBehaviour {
         playerCam = Camera.main;
         buildAllowed = false;
         resourceControl = GetComponent<ResourceControl>();
-        selectedMaterial = BuildResources.TrapFire;
         actualTrapType = TrapType.None;
         trapBuildingActive = false;
+        firstVisit = true;
     }
 	
 	// Update is called once per frame
@@ -49,28 +48,29 @@ public class BuildTrap : Photon.PunBehaviour {
                 {
                     photonView.RPC("RPCSetTrap", PhotonTargets.All, actualTrapType.ToString(), Input.mousePosition, maxBuildingRange, BuildingLayers);
                     GameObject.Find("UI").GetComponentInChildren<InventoryManager>(true).RemoveTrap();
+                    ResetBuilding();
                 }
             }
         }
     }
 
     private void GetTrapOfKey()
-    {
-        
+    {       
         if (Input.GetKeyUp(KeyCode.F5))
         {
             if (trapBuildingActive)
             {
                 trapBuildingActive = false;
                 actualTrapType = TrapType.None;
-                ResetBuilding();
+                firstVisit = true;
             }
             else
                 trapBuildingActive = true;
-
-            if(trapBuildingActive)
-                InitializeTrapBuild(resourceControl.GetSelectedTrap());
         }
+
+        if (trapBuildingActive)
+            InitializeTrapBuild(resourceControl.GetSelectedTrap());
+
         if (trapBuildingActive && Input.GetKeyUp(KeyCode.Mouse1))
         {
             resourceControl.SelectNextTrap();
@@ -79,10 +79,9 @@ public class BuildTrap : Photon.PunBehaviour {
 
     private void InitializeTrapBuild(GameObject trapPrefab)
     {
-        if (actualTrapType != TrapType.None && actualTrapType.ToString() == trapPrefab.name)
+        if (trapPrefab == null || (actualTrapType != TrapType.None && actualTrapType.ToString() == trapPrefab.name))
         {
             actualTrapType = TrapType.None;
-            ResetBuilding();
         }
         else
         {
@@ -96,6 +95,13 @@ public class BuildTrap : Photon.PunBehaviour {
         Ray ray = playerCam.ScreenPointToRay(Input.mousePosition);
         if (Physics.Raycast(ray, out hit, maxBuildingRange, BuildingLayers))
         {
+            // check for color of first visited prefab
+            if (firstVisit)
+            {
+                actualTransformColor = hit.transform.GetComponent<Renderer>().material.color;
+                firstVisit = false;
+            }
+
             // check if new building has been selected
             if (actualTransform != null && actualTransform != hit.transform)
             {

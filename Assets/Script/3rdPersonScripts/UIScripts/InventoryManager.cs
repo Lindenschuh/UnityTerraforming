@@ -65,7 +65,10 @@ public class InventoryManager : MonoBehaviour {
 
     public GameObject GetSelectedTrap()
     {
-        return selectedTrapSlot.GetComponent<SlotManager>().objectInInventory;
+        if (selectedTrapSlot != null)
+            return selectedTrapSlot.GetComponent<SlotManager>().objectInInventory;
+        else
+            return null;
     }
 
     public void RemoveTrap()
