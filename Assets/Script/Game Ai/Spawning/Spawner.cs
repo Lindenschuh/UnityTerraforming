@@ -9,43 +9,53 @@ namespace UnityTerraforming.GameAi
 {
     public abstract class Spawner : Photon.PunBehaviour
     {
-        public GameObject EntityPrefab;
+        public GameObject GuardianPrefab;
+        public GameObject AttackerPrefab;
 
         // How big will the Waves be.
-        public int WaveCount;
+        public int GuardianWaveCount;
 
-        public int MaxEntitiesAtOnce;
+        public int AttackingWaveCount;
+
+        public int MaxGuardianWavesAlive;
+        public int MaxAttackingWavesAlive;
 
         public float WaitBetweenSpawn;
         public float WaitBetweenWaves;
         public float WaitOnStart;
 
+        public float AttackerOffset;
+
         public readonly UnityEvent OnCapturedEvent;
 
-        private List<GameObject> _entitiesAlive;
+        private List<GameObject> _guardingEntitiesAlive;
+
+        private List<GameObject> _attackingEntitiesAlive;
 
         private bool _captured = false;
 
         private void Start()
         {
-            StartCoroutine(SpawnWaves());
-            _entitiesAlive = new List<GameObject>();
+            StartCoroutine(SpawnGuardingWaves());
+            StartCoroutine(SpawnAttackingWaves());
+            _guardingEntitiesAlive = new List<GameObject>();
+            _attackingEntitiesAlive = new List<GameObject>();
         }
 
-        public IEnumerator SpawnWaves()
+        public IEnumerator SpawnGuardingWaves()
         {
             yield return new WaitForSeconds(WaitOnStart);
 
             // as long the point is not captured
             while (!_captured)
             {
-                if (_entitiesAlive.Count < MaxEntitiesAtOnce)
-                    for (int i = 0; i < WaveCount; i++)
+                if ((_guardingEntitiesAlive.Count / GuardianWaveCount) < MaxGuardianWavesAlive)
+                    for (int i = 0; i < GuardianWaveCount; i++)
                     {
                         if (_captured) break;
-                        var spawend = Instantiate(EntityPrefab, transform.transform.position, Quaternion.identity);
-                        InstantiateTowerSpecificEnemy(spawend);
-                        _entitiesAlive.Add(spawend);
+                        var spawend = Instantiate(GuardianPrefab, transform.transform.position, Quaternion.identity);
+                        InstantiateTowerSpecificGuard(spawend);
+                        _guardingEntitiesAlive.Add(spawend);
                         yield return new WaitForSeconds(WaitBetweenSpawn);
                     }
 
@@ -53,10 +63,34 @@ namespace UnityTerraforming.GameAi
             }
         }
 
+        public IEnumerator SpawnAttackingWaves()
+        {
+            yield return new WaitForSeconds(WaitOnStart + AttackerOffset);
+
+            // as long the point is not captured
+            while (!_captured)
+            {
+                if ((_attackingEntitiesAlive.Count / GuardianWaveCount) < MaxGuardianWavesAlive)
+                    for (int i = 0; i < GuardianWaveCount; i++)
+                    {
+                        if (_captured) break;
+                        var spawend = Instantiate(AttackerPrefab, transform.transform.position, Quaternion.identity);
+                        InstantiateTowerSpecificAtttacker(spawend);
+                        _attackingEntitiesAlive.Add(spawend);
+                        yield return new WaitForSeconds(WaitBetweenSpawn + AttackerOffset);
+                    }
+
+                yield return new WaitForSeconds(WaitBetweenWaves + AttackerOffset);
+            }
+        }
+
         public void SpawedInstanceDied(GameObject instance)
         {
-            _entitiesAlive.Remove(instance);
-            if (_entitiesAlive.Count == 0)
+            if (_guardingEntitiesAlive.Contains(instance))
+                _guardingEntitiesAlive.Remove(instance);
+            if (_attackingEntitiesAlive.Contains(instance))
+                _attackingEntitiesAlive.Remove(instance);
+            if (_guardingEntitiesAlive.Count == 0)
             {
                 _captured = true;
                 GetComponentInChildren<Crystral>().TooggleCaptured(_captured);
@@ -64,6 +98,8 @@ namespace UnityTerraforming.GameAi
             }
         }
 
-        public abstract void InstantiateTowerSpecificEnemy(GameObject spawnedEntity);
+        public abstract void InstantiateTowerSpecificGuard(GameObject spawnedEntity);
+
+        public abstract void InstantiateTowerSpecificAtttacker(GameObject spawedEntity);
     }
 }

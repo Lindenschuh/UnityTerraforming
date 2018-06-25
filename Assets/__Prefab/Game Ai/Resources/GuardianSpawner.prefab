@@ -238,7 +238,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1894281576639286}
-  m_LocalRotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+  m_LocalRotation: {x: -0.69367045, y: 0.13719101, z: 0.13719101, w: 0.69367045}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 5.9986496, y: 5.9986496, z: 18.737053}
   m_Children: []
@@ -620,16 +620,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5004bf72a4dfe094c829e613264ba351, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  EntityPrefab: {fileID: 1722717609552858, guid: a31f7d4d95045ed4da4cd559d056a3ab,
+  GuardianPrefab: {fileID: 1722717609552858, guid: a31f7d4d95045ed4da4cd559d056a3ab,
     type: 2}
-  SpawnRadius: 50
-  WaveCount: 5
-  EntityGrowFactor: 0
-  MaxEntitiesAtOnce: 1
-  DistanceBetweenEntities: 1
+  AttackerPrefab: {fileID: 1493336954933564, guid: be0e227f052aa5e46b11a1e2ec04da14,
+    type: 2}
+  GuardianWaveCount: 5
+  AttackingWaveCount: 3
+  MaxGuardianWavesAlive: 2
+  MaxAttackingWavesAlive: 3
   WaitBetweenSpawn: 2
-  WaitBetweenWaves: 180
-  WaitOnStart: 15
+  WaitBetweenWaves: 20
+  WaitOnStart: 1
+  AttackerOffset: 2
+  MainDestination: {fileID: 0}
 --- !u!114 &114708857912920500
 MonoBehaviour:
   m_ObjectHideFlags: 1
