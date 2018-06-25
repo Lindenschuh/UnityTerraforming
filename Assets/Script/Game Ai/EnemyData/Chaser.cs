@@ -8,7 +8,7 @@ namespace UnityTerraforming.GameAi
     public class Chaser : BasicAi
     {
         // TBD wie wird der Chaser gespawned
-        public Spawner spawner;
+        public GuardianSpawner spawner;
 
         public BehaviourTree Tree;
 
@@ -30,7 +30,7 @@ namespace UnityTerraforming.GameAi
             agent = GetComponent<Agent>();
         }
 
-        private void Update()
+        private void FixedUpdate()
         {
             if (PhotonNetwork.isMasterClient)
             {
@@ -40,11 +40,11 @@ namespace UnityTerraforming.GameAi
                     switch (st)
                     {
                         case SteeringTypes.ATTACK:
-                            AttackPlayer();
+                            Attack();
                             break;
 
                         case SteeringTypes.SEEK:
-                            agent.SetSteering(SteeringManager.GetSeek(agent, LastPlayerPosition));
+                            agent.SetSteering(SteeringManager.GetSeek(agent, LastPlayerPosition.position));
                             break;
 
                         case SteeringTypes.FLEE:
@@ -72,14 +72,18 @@ namespace UnityTerraforming.GameAi
             }
         }
 
-        private void AttackPlayer()
+        private void Attack()
         {
             Debug.Log("I WILL KILL YOU! MORTAL SCUMBAG!");
+            if (LastPlayerPosition != null)
+            {
+                LastPlayerPosition.GetComponent<Health>().AddDamage(agent.Damage);
+            }
         }
 
         private void OnDestroy()
         {
-            // Unregister at Spawner
+            spawner.SpawedInstanceDied(gameObject);
         }
     }
 }

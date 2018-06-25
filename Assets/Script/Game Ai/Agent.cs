@@ -12,6 +12,8 @@ namespace UnityTerraforming.GameAi
         public float MaxAngularAccel;
         public float Orientation;
 
+        public int Damage = 2;
+
         [HideInInspector]
         public float Rotation;
 

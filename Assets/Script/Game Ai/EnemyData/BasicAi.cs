@@ -12,7 +12,7 @@ namespace UnityTerraforming.GameAi
         public LayerMask PlayerLayer;
 
         [HideInInspector]
-        public Vector3 LastPlayerPosition;
+        public Transform LastPlayerPosition;
 
         public bool CheckPlayerInSight()
         {
@@ -20,7 +20,7 @@ namespace UnityTerraforming.GameAi
 
             if (colliders.Length > 0)
             {
-                LastPlayerPosition = colliders[0].transform.position;
+                LastPlayerPosition = colliders[0].transform;
                 return true;
             }
             return false;
