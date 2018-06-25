@@ -21,8 +21,8 @@ public class ResourceControl : MonoBehaviour {
         //resourceType = BuildResources.Wood;
         resourceInfo = new Dictionary<BuildResources, int>();
         resourceInfo.Add(BuildResources.Wood, 0);
-        resourceInfo.Add(BuildResources.TrapInstant, 0);
-        resourceInfo.Add(BuildResources.TrapTick, 0);
+        resourceInfo.Add(BuildResources.TrapFire, 0);
+        resourceInfo.Add(BuildResources.TrapIce, 0);
         //resourceInfo[resourceType] = 0;
         resLayer = LayerMask.NameToLayer("Resource");
         uiControl = GetComponent<UIControl>();

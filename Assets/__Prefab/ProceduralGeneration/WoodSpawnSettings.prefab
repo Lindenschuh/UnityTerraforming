@@ -9,45 +9,44 @@ Prefab:
     m_Modifications: []
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
-  m_RootGameObject: {fileID: 1354849911039204}
+  m_RootGameObject: {fileID: 1242392043914582}
   m_IsPrefabParent: 1
---- !u!1 &1354849911039204
+--- !u!1 &1242392043914582
 GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 5
   m_Component:
-  - component: {fileID: 4532984559767148}
-  - component: {fileID: 114688486092583230}
-  - component: {fileID: 114300217606507284}
-  - component: {fileID: 114520220226399554}
+  - component: {fileID: 4503919947219412}
+  - component: {fileID: 114283765361107334}
+  - component: {fileID: 114051510027993466}
   m_Layer: 0
-  m_Name: MapGenerator
+  m_Name: WoodSpawnSettings
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4532984559767148
+--- !u!4 &4503919947219412
 Transform:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1354849911039204}
+  m_GameObject: {fileID: 1242392043914582}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 126.63257, y: 31.735683, z: 60.245327}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &114300217606507284
+--- !u!114 &114051510027993466
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1354849911039204}
+  m_GameObject: {fileID: 1242392043914582}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
@@ -57,53 +56,35 @@ MonoBehaviour:
   group: 0
   OwnerShipWasTransfered: 0
   prefixBackup: -1
-  synchronization: 0
+  synchronization: 3
   onSerializeTransformOption: 3
   onSerializeRigidBodyOption: 2
   ownershipTransfer: 0
   ObservedComponents:
-  - {fileID: 0}
+  - {fileID: 4476330111944650, guid: aefdf40d468319b4981a2b22ae4e611e, type: 2}
   ObservedComponentsFoldoutOpen: 1
   viewIdField: 0
   instantiationId: -1
   currentMasterID: -1
   isRuntimeInstantiated: 0
---- !u!114 &114520220226399554
+--- !u!114 &114283765361107334
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1354849911039204}
+  m_GameObject: {fileID: 1242392043914582}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b381c3198b0806544b1414c855d2b01f, type: 3}
+  m_Script: {fileID: 11500000, guid: 8e5b0ce904b14d24889ffce6ac28b76d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tries: 100
-  terrain: {fileID: 0}
-  objects:
-  - {fileID: 114962200983228234, guid: 7d625e6bd5a7a2449bbdfd20a669df1e, type: 2}
-  - {fileID: 114713636512627784, guid: f863b7b73f3276e418c04ec771a36e22, type: 2}
-  - {fileID: 114546014165002086, guid: 9d637aca094b02e4e81f596941071660, type: 2}
-  - {fileID: 114854852792990466, guid: 86ed1cf0ed89a6340b720ed47ef09f5f, type: 2}
-  - {fileID: 114283765361107334, guid: ac95ef11efbe6824f9f9e07ffe15e6fa, type: 2}
---- !u!114 &114688486092583230
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1354849911039204}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 95c2804ef9ac40f4b80465c0a26ad931, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  width: 513
-  height: 513
-  noiseScale: 200
-  octaves: 3
-  persistance: 1
-  lacunarity: 1.5
-  seed: 0
-  offset: {x: 100, y: 100}
-  autoUpdate: 1
+  point: {x: 250, y: 250}
+  outerCircle: 0.995
+  innerCircle: 0
+  size: 1
+  distanceBetweenObjects: 1
+  distanceBetweenLocations: 1
+  differentLocations: 1000
+  amount: 1
+  maxHeight: 0
+  preFab: {fileID: 1916901614761758, guid: aefdf40d468319b4981a2b22ae4e611e, type: 2}

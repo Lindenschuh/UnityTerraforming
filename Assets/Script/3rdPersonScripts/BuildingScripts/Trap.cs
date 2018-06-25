@@ -7,6 +7,7 @@ public class Trap : MonoBehaviour {
     public float damagePerTick;
     public float tickTimer;
     public LayerMask enemies;
+    public Vector3 direction;
 
     private float nextTickTime;
     private bool activated;
@@ -22,15 +23,18 @@ public class Trap : MonoBehaviour {
     {
         if (!activated)
         {
-            RaycastHit[] BoxCastHit = Physics.BoxCastAll(transform.position, transform.localScale, transform.up, transform.localRotation, 4, enemies, QueryTriggerInteraction.Collide);
+            Collider collider = transform.GetComponent<Collider>();
+            RaycastHit[] BoxCastHit = Physics.BoxCastAll(transform.position, collider.bounds.size * 0.5f, direction, transform.localRotation, 4, enemies, QueryTriggerInteraction.Collide);
             if (BoxCastHit.Length > 0)
+            {
                 activated = true;
+            }
         }
 
         if (activated)
         {
             timeLeft += Time.deltaTime;
-            if (timeLeft >= tickTimer)
+            if (timeLeft >= nextTickTime)
             {
                 DamageEnemies();
             }
@@ -39,12 +43,14 @@ public class Trap : MonoBehaviour {
 
     private void DamageEnemies()
     {
-        RaycastHit[] BoxCastHit = Physics.BoxCastAll(transform.position, transform.localScale, transform.up, transform.localRotation, 4, enemies, QueryTriggerInteraction.Collide);
+        gameObject.GetComponentInChildren<ParticleSystem>().Play();
+        Collider collider = transform.GetComponent<Collider>();
+        RaycastHit[] BoxCastHit = Physics.BoxCastAll(transform.position, collider.bounds.size * 0.5f, direction, transform.localRotation, 4, enemies, QueryTriggerInteraction.Collide);
         foreach (RaycastHit enemyHit in BoxCastHit)
         {
             enemyHit.transform.GetComponent<Health>().AddDamage((int)damagePerTick);
         }
-        tickTimer += nextTickTime;
+        nextTickTime += tickTimer;
     }
 
 }

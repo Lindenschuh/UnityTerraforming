@@ -124,11 +124,11 @@ public class UIComponentControl : Photon.PunBehaviour, IPointerEnterHandler, IPo
                     {
                         switch (movableUIComp.GetComponent<SlotManager>().res)
                         {
-                            case BuildResources.TrapInstant:
+                            case BuildResources.TrapFire:
                                 DropItem(instantTrap, 1);
                                 
                                 break;
-                            case BuildResources.TrapTick:
+                            case BuildResources.TrapIce:
                                 DropItem(tickTrap, 1);
                                 break;
                         }

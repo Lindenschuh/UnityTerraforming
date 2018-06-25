@@ -4185,11 +4185,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 30e6517706dd4af4cb77d66cdc2d7135, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TrapPrefabs: []
+  TrapMaterials: []
   BuildingLayers:
     serializedVersion: 2
-    m_Bits: 0
-  maxBuildingRange: 0
+    m_Bits: 256
+  maxBuildingRange: 10
   materialCost: 0
 --- !u!114 &114232688306088062
 MonoBehaviour:

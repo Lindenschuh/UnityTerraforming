@@ -29,7 +29,8 @@ public class BuildTrap : Photon.PunBehaviour {
         playerCam = Camera.main;
         buildAllowed = false;
         resourceControl = GetComponent<ResourceControl>();
-        selectedMaterial = BuildResources.TrapInstant;
+        selectedMaterial = BuildResources.TrapFire;
+        actualTrapType = TrapType.None;
         trapBuildingActive = false;
     }
 	
@@ -58,9 +59,16 @@ public class BuildTrap : Photon.PunBehaviour {
         
         if (Input.GetKeyUp(KeyCode.F5))
         {
-            if (trapBuildingActive) trapBuildingActive = false;
-            else trapBuildingActive = true;
-            if(trapBuildingActive) InitializeTrapBuild(resourceControl.GetSelectedTrap());
+            if (trapBuildingActive)
+            {
+                trapBuildingActive = false;
+                actualTrapType = TrapType.None;
+            }
+            else
+                trapBuildingActive = true;
+
+            if(trapBuildingActive)
+                InitializeTrapBuild(resourceControl.GetSelectedTrap());
         }
         if (trapBuildingActive && Input.GetKeyUp(KeyCode.Mouse1))
         {
@@ -73,6 +81,7 @@ public class BuildTrap : Photon.PunBehaviour {
         if (actualTrapType != TrapType.None && actualTrapType.ToString() == trapPrefab.name)
         {
             actualTrapType = TrapType.None;
+            ResetBuilding();
         }
         else
         {
@@ -87,15 +96,16 @@ public class BuildTrap : Photon.PunBehaviour {
         if (Physics.Raycast(ray, out hit, maxBuildingRange, BuildingLayers))
         {
             // check if new building has been selected
-            if (actualTransform != hit.transform)
+            if (actualTransform != null && actualTransform != hit.transform)
             {
                 ResetBuilding();
-                actualTransform = hit.transform;
                 actualTransformColor = hit.transform.GetComponent<Renderer>().material.color;
             }
 
+            actualTransform = hit.transform;
+
             // check if a trap has already been activated
-            if (!hit.transform.GetComponent<Trap>().enabled)
+            if (hit.transform.childCount <= 0)
             {
                 hit.transform.GetComponent<Renderer>().material.color = Color.green;
                 buildAllowed = true;
@@ -108,8 +118,11 @@ public class BuildTrap : Photon.PunBehaviour {
         }
         else
         {
-            ResetBuilding();
-            buildAllowed = false;
+            if (actualTransform != null)
+            {
+                ResetBuilding();
+                buildAllowed = false;
+            }
         }
     }
 
@@ -127,8 +140,13 @@ public class BuildTrap : Photon.PunBehaviour {
         if (Physics.Raycast(ray, out hit, maxBuildingRange, BuildingLayers))
         {
             GameObject rpcTrap = Resources.Load(prefabName) as GameObject;
+            rpcTrap = Instantiate(rpcTrap);
             rpcTrap.GetComponent<Trap>().enabled = true;
             rpcTrap.transform.parent = hit.transform;
+            rpcTrap.transform.position = hit.transform.position;
+            rpcTrap.transform.rotation = hit.transform.rotation;
+            rpcTrap.transform.localScale = new Vector3(1, 1, 1);
+            rpcTrap.GetComponent<Trap>().direction = hit.normal;
         }
     }
 }

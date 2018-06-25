@@ -72,6 +72,7 @@ public class DebugNetworkManager : Photon.PunBehaviour
             priest.GetComponent<UIControl>().enabled = true;
             priest.transform.Find("vThirdPersonCamera").gameObject.SetActive(true);
             priest.GetComponentInChildren<Health>().enabled = true;
+            priest.GetComponent<BuildTrap>().enabled = true;
         }
         else
         {
