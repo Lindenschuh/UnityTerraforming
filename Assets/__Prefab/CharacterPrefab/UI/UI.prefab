@@ -2597,8 +2597,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba8b825f1a7184f4f9f26a17a29d99e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  objectInInventory: {fileID: 1536768557994300, guid: e3749c0cb678ace4b901f00d69f1a992,
-    type: 2}
+  objectInInventory: {fileID: 0}
   amount: 0
   slotPosition: {x: 0, y: 0, z: 0}
   parentObject: {fileID: 0}
@@ -2614,10 +2613,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9cc981eb13697d44898ab65893b1d9c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  woodRes: {fileID: 1536768557994300, guid: e3749c0cb678ace4b901f00d69f1a992, type: 2}
-  instantTrap: {fileID: 1536768557994300, guid: b9991cfe6c4f4a3438729f790aa83489,
-    type: 2}
-  tickTrap: {fileID: 1536768557994300, guid: a4d389945093aa1459e4b148a5ac94b5, type: 2}
+  woodRes: {fileID: 1916901614761758, guid: aefdf40d468319b4981a2b22ae4e611e, type: 2}
+  TrapFire: {fileID: 1536768557994300, guid: b9991cfe6c4f4a3438729f790aa83489, type: 2}
+  TrapSpike: {fileID: 1536768557994300, guid: a4d389945093aa1459e4b148a5ac94b5, type: 2}
 --- !u!114 &114808188633958692
 MonoBehaviour:
   m_ObjectHideFlags: 1

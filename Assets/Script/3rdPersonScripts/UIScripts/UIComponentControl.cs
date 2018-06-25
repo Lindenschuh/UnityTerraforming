@@ -9,8 +9,8 @@ using UnityEngine.UI;
 public class UIComponentControl : Photon.PunBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     public GameObject woodRes;
-    public GameObject instantTrap;
-    public GameObject tickTrap;
+    public GameObject TrapFire;
+    public GameObject TrapSpike;
     private bool isEntered;
     private GameObject movableUIComp;
     private GameObject dropAmountInput;
@@ -125,11 +125,11 @@ public class UIComponentControl : Photon.PunBehaviour, IPointerEnterHandler, IPo
                         switch (movableUIComp.GetComponent<SlotManager>().res)
                         {
                             case BuildResources.TrapFire:
-                                DropItem(instantTrap, 1);
+                                DropItem(TrapFire, 1);
                                 
                                 break;
-                            case BuildResources.TrapIce:
-                                DropItem(tickTrap, 1);
+                            case BuildResources.TrapSpike:
+                                DropItem(TrapSpike, 1);
                                 break;
                         }
                     }

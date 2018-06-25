@@ -17,6 +17,14 @@ public class Trap : MonoBehaviour {
     {
         activated = false;
         timeLeft = 0;
+        if (direction.x > 0 && direction.y > 0 && direction.z < 0 && transform.parent.localRotation.y > 0)
+            transform.localEulerAngles = new Vector3(0, 0, 90);
+        else if (direction.x > 0 || (direction.x > 0 && direction.y > 0 && direction.z < 0 && transform.parent.localRotation.y == 0) || (direction.x < 0 && direction.y < 0 && direction.z > 0  && transform.parent.localRotation.y > 0))
+            transform.localEulerAngles = new Vector3(0, 0, -90);
+        else if (direction.x < 0)
+            transform.localEulerAngles = new Vector3(0, 0, 90);
+        else if (direction.y < 0)
+            transform.localEulerAngles = new Vector3(0, 0, 180);
     }
 
     private void Update()
@@ -43,7 +51,8 @@ public class Trap : MonoBehaviour {
 
     private void DamageEnemies()
     {
-        gameObject.GetComponentInChildren<ParticleSystem>().Play();
+        if (gameObject.GetComponentInChildren<ParticleSystem>())
+            gameObject.GetComponentInChildren<ParticleSystem>().Play();
         Collider collider = transform.GetComponent<Collider>();
         RaycastHit[] BoxCastHit = Physics.BoxCastAll(transform.position, collider.bounds.size * 0.5f, direction, transform.localRotation, 4, enemies, QueryTriggerInteraction.Collide);
         foreach (RaycastHit enemyHit in BoxCastHit)

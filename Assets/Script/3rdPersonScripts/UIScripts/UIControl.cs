@@ -35,7 +35,7 @@ public class UIControl : MonoBehaviour {
         resourceInfo = new Dictionary<BuildResources, int>();
         resourceInfo.Add(BuildResources.Wood, 0);
         resourceInfo.Add(BuildResources.TrapFire, 0);
-        resourceInfo.Add(BuildResources.TrapIce, 0);
+        resourceInfo.Add(BuildResources.TrapSpike, 0);
         woodCountUI = GameObject.Find("WoodCount");
         woodCountInventory = GameObject.Find("WoodCountInventory");
         trapCountUI = GameObject.Find("TrapCount");
@@ -97,7 +97,7 @@ public class UIControl : MonoBehaviour {
                     //StartCoroutine(Wait(oldAmount, resourceType, trapCountUI));
                 }
                 break;
-            case BuildResources.TrapIce:
+            case BuildResources.TrapSpike:
                 resourceInfo[resourceType] = newAmount;
                 if (!isCounting)
                 {

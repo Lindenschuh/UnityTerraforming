@@ -5,7 +5,7 @@ using System;
 
 public class BuildTrap : Photon.PunBehaviour {
 
-    private enum TrapType {TrapFire, TrapIce, None }
+    private enum TrapType {TrapFire, TrapSpike, None }
 
     public Material[] TrapMaterials;
     public LayerMask BuildingLayers;
@@ -143,7 +143,7 @@ public class BuildTrap : Photon.PunBehaviour {
             rpcTrap = Instantiate(rpcTrap);
             rpcTrap.GetComponent<Trap>().enabled = true;
             rpcTrap.transform.parent = hit.transform;
-            rpcTrap.transform.position = hit.transform.position;
+            rpcTrap.transform.position = hit.transform.position + (0.05f * hit.normal);
             rpcTrap.transform.rotation = hit.transform.rotation;
             rpcTrap.transform.localScale = new Vector3(1, 1, 1);
             rpcTrap.GetComponent<Trap>().direction = hit.normal;
