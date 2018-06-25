@@ -3,25 +3,13 @@ using System.Collections.Generic;
 
 namespace UnityTerraforming.GameAi
 {
-    public class BehaviourTree : MonoBehaviour
+    public abstract class BehaviourTree : MonoBehaviour
     {
         public BehaviourNode RootNode;
 
         private void Awake()
         {
-            RootNode = new PlayerInEnemySightNode()
-            {
-                PositiveNode = new PlayerInAttackRangeNode()
-                {
-                    PositiveNode = new AttackPlayerAction(),
-                    NegativeNode = new ChasePlayerAction()
-                },
-                NegativeNode = new EnemyInsideTowerRadiusNode()
-                {
-                    PositiveNode = new WanderAroundAction(),
-                    NegativeNode = new GoBackToTowerAction()
-                }
-            };
+            InitialiseTree();
         }
 
         public List<SteeringTypes> GetActions(BasicAi ai)
@@ -30,5 +18,7 @@ namespace UnityTerraforming.GameAi
 
             return types;
         }
+
+        public abstract void InitialiseTree();
     }
 }

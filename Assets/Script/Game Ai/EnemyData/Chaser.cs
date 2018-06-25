@@ -1,15 +1,14 @@
-﻿using UnityEngine;
+﻿using System.Collections;
 using System.Collections.Generic;
-using System;
-using Photon;
+using UnityEngine;
 
 namespace UnityTerraforming.GameAi
 {
     [RequireComponent(typeof(Agent))]
-    public class Guardian : BasicAi
+    public class Chaser : BasicAi
     {
-        public GuardianSpawner GuardianDestination;
-        public float GuardRadius;
+        // TBD wie wird der Chaser gespawned
+        public Spawner spawner;
 
         public BehaviourTree Tree;
 
@@ -22,9 +21,7 @@ namespace UnityTerraforming.GameAi
 
         public float CollisionRadius = 4f;
 
-        public float WanderOffset;
-        public float WanderRadius;
-        public float WanderRate;
+        public Transform MainDestination;
 
         private Agent agent;
 
@@ -54,7 +51,7 @@ namespace UnityTerraforming.GameAi
                             break;
 
                         case SteeringTypes.ARRIVE:
-                            agent.SetSteering(SteeringManager.GetArrive(agent, GuardianDestination.transform.position, TargetRadius, SlowRadius));
+                            agent.SetSteering(SteeringManager.GetArrive(agent, MainDestination.transform.position, TargetRadius, SlowRadius));
                             break;
 
                         case SteeringTypes.LEAVE:
@@ -69,14 +66,11 @@ namespace UnityTerraforming.GameAi
                             break;
 
                         case SteeringTypes.WANDER:
-                            agent.SetSteering(SteeringManager.GetWander(agent, WanderOffset, WanderRadius, WanderRate));
                             break;
                     }
                 }
             }
         }
-
-        public bool CheckIfInsideOfGuardianDestination() => (transform.position - GuardianDestination.transform.position).magnitude <= GuardRadius;
 
         private void AttackPlayer()
         {
@@ -85,7 +79,7 @@ namespace UnityTerraforming.GameAi
 
         private void OnDestroy()
         {
-            GuardianDestination.SpawedInstanceDied(gameObject);
+            // Unregister at Spawner
         }
     }
 }
