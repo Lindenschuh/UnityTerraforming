@@ -45,10 +45,10 @@ public class BuildTrap : Photon.PunBehaviour {
             CheckForBuilding();
             if (buildAllowed)
             {
-                if (Input.GetKeyUp(KeyCode.Mouse0) && resourceControl.GetResourceInfo(selectedMaterial) >= materialCost)
+                if (Input.GetKeyUp(KeyCode.Mouse0))
                 {
                     photonView.RPC("RPCSetTrap", PhotonTargets.All, actualTrapType.ToString(), Input.mousePosition, maxBuildingRange, BuildingLayers);
-                    resourceControl.UseResource(selectedMaterial, materialCost);
+                    GameObject.Find("UI").GetComponentInChildren<InventoryManager>(true).RemoveTrap();
                 }
             }
         }
@@ -63,6 +63,7 @@ public class BuildTrap : Photon.PunBehaviour {
             {
                 trapBuildingActive = false;
                 actualTrapType = TrapType.None;
+                ResetBuilding();
             }
             else
                 trapBuildingActive = true;
