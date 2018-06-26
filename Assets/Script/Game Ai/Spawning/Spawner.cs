@@ -7,6 +7,29 @@ using System.Linq;
 
 namespace UnityTerraforming.GameAi
 {
+    public class SpawnerStats
+    {
+        public int SpawnedTogether { get; private set; }
+        public int CurrentAlive { get; private set; }
+        public float TimeTilCaptured { get; private set; }
+        public float SpawnTime { get; private set; }
+
+        public SpawnerStats()
+        {
+            SpawnTime = Time.time;
+        }
+
+        public void Spawend()
+        {
+            SpawnedTogether++;
+            CurrentAlive++;
+        }
+
+        public void Died() => CurrentAlive--;
+
+        public void Captured() => TimeTilCaptured = Time.time - SpawnTime;
+    }
+
     public abstract class Spawner : Photon.PunBehaviour
     {
         public GameObject GuardianPrefab;
@@ -34,6 +57,13 @@ namespace UnityTerraforming.GameAi
 
         private bool _captured = false;
 
+        public SpawnerStats Stats;
+
+        private void Awake()
+        {
+            Stats = new SpawnerStats();
+        }
+
         private void Start()
         {
             StartCoroutine(SpawnGuardingWaves());
@@ -56,6 +86,7 @@ namespace UnityTerraforming.GameAi
                         var spawend = Instantiate(GuardianPrefab, transform.transform.position, Quaternion.identity);
                         InstantiateTowerSpecificGuard(spawend);
                         _guardingEntitiesAlive.Add(spawend);
+                        Stats.Spawend();
                         yield return new WaitForSeconds(WaitBetweenSpawn);
                     }
 
@@ -77,6 +108,7 @@ namespace UnityTerraforming.GameAi
                         var spawend = Instantiate(AttackerPrefab, transform.transform.position, Quaternion.identity);
                         InstantiateTowerSpecificAtttacker(spawend);
                         _attackingEntitiesAlive.Add(spawend);
+                        Stats.Spawend();
                         yield return new WaitForSeconds(WaitBetweenSpawn + AttackerOffset);
                     }
 
@@ -87,14 +119,21 @@ namespace UnityTerraforming.GameAi
         public void SpawedInstanceDied(GameObject instance)
         {
             if (_guardingEntitiesAlive.Contains(instance))
+            {
                 _guardingEntitiesAlive.Remove(instance);
+                Stats.Died();
+            }
             if (_attackingEntitiesAlive.Contains(instance))
+            {
                 _attackingEntitiesAlive.Remove(instance);
+                Stats.Died();
+            }
             if (_guardingEntitiesAlive.Count == 0)
             {
                 _captured = true;
                 GetComponentInChildren<Crystral>().TooggleCaptured(_captured);
                 OnCapturedEvent.Invoke();
+                Stats.Captured();
             }
         }
 
