@@ -7,12 +7,14 @@ using System.Linq;
 using Invector.vShooter;
 using Invector.vItemManager;
 using Invector.vCharacterController.vActions;
+using UnityTerraforming.GameAi;
 
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
 
     public GodStateManager godStateManager;
+    public List<GameObject> Spawners = new List<GameObject>();
 
     private readonly string God = "God(Clone)";
     private readonly string Priest = "Priest";
@@ -72,5 +74,11 @@ public class GameManager : MonoBehaviour
             terrain.GetComponent<TerraManipulation>().MainCamera = mainCamera;
             GameObject.Find("UI").SetActive(false);
         }
+    }
+
+    private void Update()
+    {
+        int i = 0;
+        i = i + 1;
     }
 }

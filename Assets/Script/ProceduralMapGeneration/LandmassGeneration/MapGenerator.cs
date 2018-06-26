@@ -39,7 +39,8 @@ public class MapGenerator : Photon.PunBehaviour {
                 octaveOffsets[i] = new Vector2(offSetX, offSetY);
             }
             photonView.RPC("RPCGenerateMap", PhotonTargets.AllBufferedViaServer, octaveOffsets);
-        }      
+        }
+        gameObject.GetComponent<ObjectPlacer>().StartSpawn();
     }
 
     private void OnValidate()
@@ -48,6 +49,13 @@ public class MapGenerator : Photon.PunBehaviour {
             lacunarity = 1;
         if (octaves < 0)
             octaves = 0;
+    }
+
+    private void OnApplicationQuit()
+    {
+        TerrainData TData = GameObject.Find("Terrain").GetComponent<Terrain>().terrainData;
+        float[,] tempHeight = new float[TData.heightmapHeight, TData.heightmapWidth];
+        TData.SetHeights(0, 0, tempHeight);
     }
 
     [PunRPC]
