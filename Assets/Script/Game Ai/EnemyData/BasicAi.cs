@@ -70,7 +70,7 @@ namespace UnityTerraforming.GameAi
             agent.Attacking = true;
             if (LastPlayerPosition != null)
             {
-                LastPlayerPosition.GetComponent<Health>().AddDamage(agent.Damage);
+                LastPlayerPosition.GetComponent<Health>().EnemyAddDamage(agent.Damage);
             }
         }
 
