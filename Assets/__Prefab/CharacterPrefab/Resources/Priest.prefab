@@ -4937,7 +4937,7 @@ MonoBehaviour:
     isAxisInUse: 0
     keyboard: Horizontal
     keyboardAxis: 0
-    joystick: LeftAnalogHorizontal
+    joystick: Horizontal
     joystickAxis: 0
     mobile: Horizontal
     mobileAxis: 0
@@ -4961,7 +4961,7 @@ MonoBehaviour:
     isAxisInUse: 0
     keyboard: Space
     keyboardAxis: 0
-    joystick: Jump
+    joystick: Cancel
     joystickAxis: 0
     mobile: X
     mobileAxis: 0
@@ -4973,7 +4973,7 @@ MonoBehaviour:
     isAxisInUse: 0
     keyboard: Q
     keyboardAxis: 0
-    joystick: Mouse ScrollWheel
+    joystick: Cancel
     joystickAxis: 0
     mobile: B
     mobileAxis: 0
@@ -4997,7 +4997,7 @@ MonoBehaviour:
     isAxisInUse: 0
     keyboard: LeftShift
     keyboardAxis: 0
-    joystick: Horizontal
+    joystick: Cancel
     joystickAxis: 0
     mobile: Horizontal
     mobileAxis: 0
@@ -5009,7 +5009,7 @@ MonoBehaviour:
     isAxisInUse: 0
     keyboard: C
     keyboardAxis: 0
-    joystick: Horizontal
+    joystick: Cancel
     joystickAxis: 0
     mobile: Y
     mobileAxis: 0
@@ -5024,7 +5024,7 @@ MonoBehaviour:
     isAxisInUse: 0
     keyboard: Mouse X
     keyboardAxis: 0
-    joystick: Horizontal
+    joystick: Cancel
     joystickAxis: 0
     mobile: Mouse X
     mobileAxis: 0
@@ -5036,7 +5036,7 @@ MonoBehaviour:
     isAxisInUse: 0
     keyboard: Mouse Y
     keyboardAxis: 0
-    joystick: Horizontal
+    joystick: Cancel
     joystickAxis: 0
     mobile: Mouse Y
     mobileAxis: 0
@@ -5048,7 +5048,7 @@ MonoBehaviour:
     isAxisInUse: 0
     keyboard: Mouse ScrollWheel
     keyboardAxis: 0
-    joystick: Horizontal
+    joystick: Cancel
     joystickAxis: 0
     mobile: Horizontal
     mobileAxis: 0
@@ -5084,7 +5084,7 @@ MonoBehaviour:
     isAxisInUse: 0
     keyboard: Mouse0
     keyboardAxis: 0
-    joystick: Fire1
+    joystick: Cancel
     joystickAxis: 0
     mobile: Horizontal
     mobileAxis: 0
@@ -5096,8 +5096,8 @@ MonoBehaviour:
     isAxisInUse: 0
     keyboard: Alpha1
     keyboardAxis: 0
-    joystick: Fire2
-    joystickAxis: 1
+    joystick: Horizontal
+    joystickAxis: 0
     mobile: Horizontal
     mobileAxis: 0
     joystickAxisInvert: 0
@@ -5108,7 +5108,7 @@ MonoBehaviour:
     isAxisInUse: 0
     keyboard: Mouse1
     keyboardAxis: 0
-    joystick: Fire3
+    joystick: Cancel
     joystickAxis: 0
     mobile: Horizontal
     mobileAxis: 0
@@ -5138,7 +5138,7 @@ MonoBehaviour:
     isAxisInUse: 0
     keyboard: Mouse0
     keyboardAxis: 0
-    joystick: Horizontal
+    joystick: Cancel
     joystickAxis: 1
     mobile: Horizontal
     mobileAxis: 1
@@ -5150,7 +5150,7 @@ MonoBehaviour:
     isAxisInUse: 0
     keyboard: Mouse2
     keyboardAxis: 0
-    joystick: Horizontal
+    joystick: Cancel
     joystickAxis: 1
     mobile: X
     mobileAxis: 0
@@ -5162,7 +5162,7 @@ MonoBehaviour:
     isAxisInUse: 0
     keyboard: R
     keyboardAxis: 0
-    joystick: Horizontal
+    joystick: Cancel
     joystickAxis: 0
     mobile: Horizontal
     mobileAxis: 0
@@ -5186,7 +5186,7 @@ MonoBehaviour:
     isAxisInUse: 0
     keyboard: Z
     keyboardAxis: 0
-    joystick: Horizontal
+    joystick: Cancel
     joystickAxis: 0
     mobile: Horizontal
     mobileAxis: 0
