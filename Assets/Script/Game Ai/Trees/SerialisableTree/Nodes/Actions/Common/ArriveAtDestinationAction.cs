@@ -10,7 +10,6 @@ namespace UnityTerraforming.GameAi
             => new List<SteeringTypes>()
             {
                 SteeringTypes.ARRIVE,
-                SteeringTypes.AVOID_AGENTS,
                 SteeringTypes.AVOID_WALLS
             };
     }

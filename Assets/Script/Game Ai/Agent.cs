@@ -34,7 +34,7 @@ namespace UnityTerraforming.GameAi
             this.steering.angualr += (weight * steering.angualr);
         }
 
-        public virtual void Update()
+        public void FixedUpdate()
         {
             Vector3 displacement = Velocity * Time.deltaTime;
             if (Velocity.magnitude > 0)
@@ -46,10 +46,7 @@ namespace UnityTerraforming.GameAi
                 Orientation -= 360f;
 
             transform.Translate(displacement, Space.World);
-        }
 
-        public virtual void LateUpdate()
-        {
             Velocity += steering.linear * Time.deltaTime;
             Rotation += steering.angualr * Time.deltaTime;
 

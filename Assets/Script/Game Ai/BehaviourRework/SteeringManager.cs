@@ -84,7 +84,7 @@ namespace UnityTerraforming.GameAi
             return steering;
         }
 
-        public static Steering GetAvoidWalls(Agent agent, float lookAhead, float avoidDistance, float feelerAngle = 45, float feelerScale = 2)
+        public static Steering GetAvoidWalls(Agent agent, float lookAhead, float avoidDistance, LayerMask mask, float feelerAngle = 45, float feelerScale = 2)
         {
             Steering steering = new Steering();
             Vector3 position = agent.transform.position;
@@ -101,20 +101,20 @@ namespace UnityTerraforming.GameAi
             Debug.DrawRay(position, directionLeft / feelerScale, Color.red);
             Debug.DrawRay(position, directionRight / feelerScale, Color.blue);
 
-            if (Physics.Raycast(position, direction, out hit, lookAhead))
+            if (Physics.Raycast(position, direction, out hit, lookAhead, mask))
             {
                 target = hit.point + hit.normal * avoidDistance; ;
                 Debug.DrawRay(hit.point, target, Color.yellow);
                 return GetSeek(agent, target);
             }
-            if (Physics.Raycast(position, directionLeft, out hit, lookAhead / feelerScale))
+            if (Physics.Raycast(position, directionLeft, out hit, lookAhead / feelerScale, mask))
             {
                 target = hit.point + hit.normal * avoidDistance; ;
                 Debug.DrawRay(hit.point, target, Color.yellow);
                 return GetSeek(agent, target);
             }
 
-            if (Physics.Raycast(position, directionRight, out hit, lookAhead / feelerScale))
+            if (Physics.Raycast(position, directionRight, out hit, lookAhead / feelerScale, mask))
             {
                 target = hit.point + hit.normal * avoidDistance; ;
                 Debug.DrawRay(hit.point, target, Color.yellow);

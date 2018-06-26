@@ -677,6 +677,15 @@ Prefab:
       propertyPath: instantiationId
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 1382041653876022, guid: cc1fbfc06a1b1fd4a8a1b85f0d313ed8, type: 2}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 65094038797825416, guid: cc1fbfc06a1b1fd4a8a1b85f0d313ed8,
+        type: 2}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: cc1fbfc06a1b1fd4a8a1b85f0d313ed8, type: 2}
   m_IsPrefabParent: 0

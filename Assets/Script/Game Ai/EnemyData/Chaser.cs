@@ -7,7 +7,6 @@ namespace UnityTerraforming.GameAi
     [RequireComponent(typeof(Agent))]
     public class Chaser : BasicAi
     {
-        // TBD wie wird der Chaser gespawned
         public GuardianSpawner spawner;
 
         public BehaviourTree Tree;
@@ -40,7 +39,7 @@ namespace UnityTerraforming.GameAi
                     switch (st)
                     {
                         case SteeringTypes.ATTACK:
-                            Attack();
+                            //Attack();
                             break;
 
                         case SteeringTypes.SEEK:
@@ -58,7 +57,7 @@ namespace UnityTerraforming.GameAi
                             break;
 
                         case SteeringTypes.AVOID_WALLS:
-                            agent.SetSteering(SteeringManager.GetAvoidWalls(agent, LookRadius, AvoidDistance, FeelerAngle, FeelerScale));
+                            agent.SetSteering(SteeringManager.GetAvoidWalls(agent, LookRadius, AvoidDistance, EnvironmentLayers, FeelerAngle, FeelerScale));
                             break;
 
                         case SteeringTypes.AVOID_AGENTS:

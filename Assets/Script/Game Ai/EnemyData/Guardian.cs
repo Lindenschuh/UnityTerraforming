@@ -33,7 +33,7 @@ namespace UnityTerraforming.GameAi
             agent = GetComponent<Agent>();
         }
 
-        private void Update()
+        private void FixedUpdate()
         {
             if (PhotonNetwork.isMasterClient)
             {
@@ -47,7 +47,7 @@ namespace UnityTerraforming.GameAi
                             break;
 
                         case SteeringTypes.SEEK:
-                            agent.SetSteering(SteeringManager.GetSeek(agent, LastPlayerPosition));
+                            agent.SetSteering(SteeringManager.GetSeek(agent, LastPlayerPosition.position));
                             break;
 
                         case SteeringTypes.FLEE:
@@ -61,7 +61,7 @@ namespace UnityTerraforming.GameAi
                             break;
 
                         case SteeringTypes.AVOID_WALLS:
-                            agent.SetSteering(SteeringManager.GetAvoidWalls(agent, LookRadius, AvoidDistance, FeelerAngle, FeelerScale));
+                            agent.SetSteering(SteeringManager.GetAvoidWalls(agent, LookRadius, AvoidDistance, EnvironmentLayers, FeelerAngle, FeelerScale));
                             break;
 
                         case SteeringTypes.AVOID_AGENTS:

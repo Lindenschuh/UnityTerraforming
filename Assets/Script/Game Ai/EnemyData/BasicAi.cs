@@ -10,9 +10,15 @@ namespace UnityTerraforming.GameAi
         public float AttackRadius;
 
         public LayerMask PlayerLayer;
+        public LayerMask EnemyLayers;
+        public LayerMask EnvironmentLayers;
 
         [HideInInspector]
         public Transform LastPlayerPosition;
+
+        private void Awake()
+        {
+        }
 
         public bool CheckPlayerInSight()
         {
@@ -31,7 +37,7 @@ namespace UnityTerraforming.GameAi
         protected List<Agent> CheckSourroundingAgents()
         {
             var targets = new List<Agent>();
-            foreach (Collider c in Physics.OverlapSphere(transform.position, LookRadius))
+            foreach (Collider c in Physics.OverlapSphere(transform.position, LookRadius, EnemyLayers))
             {
                 var agent = c.GetComponent<Agent>();
                 if (agent != null)

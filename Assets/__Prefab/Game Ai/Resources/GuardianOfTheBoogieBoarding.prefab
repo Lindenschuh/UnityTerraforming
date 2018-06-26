@@ -30,7 +30,7 @@ GameObject:
   - component: {fileID: 114030672883526942}
   - component: {fileID: 114305863069286370}
   - component: {fileID: 114970739473921880}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: GuardianOfTheBoogieBoarding
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -134,6 +134,7 @@ MonoBehaviour:
   MaxRotation: 80
   MaxAngularAccel: 150
   Orientation: 85.3
+  Damage: 2
   Rotation: 0
   Velocity: {x: 0, y: 0, z: 0}
 --- !u!114 &114305863069286370
@@ -284,8 +285,14 @@ MonoBehaviour:
   AttackRadius: 1.5
   PlayerLayer:
     serializedVersion: 2
-    m_Bits: 1024
-  LastPlayerPosition: {x: 0, y: 0, z: 0}
+    m_Bits: 3072
+  EnemyLayers:
+    serializedVersion: 2
+    m_Bits: 4096
+  EnvironmentLayers:
+    serializedVersion: 2
+    m_Bits: 4293108697
+  LastPlayerPosition: {fileID: 0}
   GuardianDestination: {fileID: 0}
   GuardRadius: 100
   Tree: {fileID: 114970739473921880}

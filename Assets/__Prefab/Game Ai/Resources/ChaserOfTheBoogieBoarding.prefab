@@ -28,7 +28,9 @@ GameObject:
   - component: {fileID: 114905321829108462}
   - component: {fileID: 114917517242334128}
   - component: {fileID: 54309268277200240}
-  m_Layer: 0
+  - component: {fileID: 114094686007296334}
+  - component: {fileID: 114923925760106648}
+  m_Layer: 12
   m_Name: ChaserOfTheBoogieBoarding
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -105,6 +107,32 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
+--- !u!114 &114094686007296334
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1493336954933564}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ownerId: 0
+  group: 0
+  OwnerShipWasTransfered: 0
+  prefixBackup: -1
+  synchronization: 3
+  onSerializeTransformOption: 3
+  onSerializeRigidBodyOption: 2
+  ownershipTransfer: 0
+  ObservedComponents:
+  - {fileID: 114923925760106648}
+  ObservedComponentsFoldoutOpen: 1
+  viewIdField: 0
+  instantiationId: -1
+  currentMasterID: -1
+  isRuntimeInstantiated: 0
 --- !u!114 &114474543606764776
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -132,6 +160,7 @@ MonoBehaviour:
   MaxRotation: 100
   MaxAngularAccel: 180
   Orientation: 0
+  Damage: 2
   Rotation: 0
   Velocity: {x: 0, y: 0, z: 0}
 --- !u!114 &114760291462583452
@@ -190,8 +219,14 @@ MonoBehaviour:
   AttackRadius: 2
   PlayerLayer:
     serializedVersion: 2
-    m_Bits: 1024
-  LastPlayerPosition: {x: 0, y: 0, z: 0}
+    m_Bits: 3072
+  EnemyLayers:
+    serializedVersion: 2
+    m_Bits: 4096
+  EnvironmentLayers:
+    serializedVersion: 2
+    m_Bits: 4293108697
+  LastPlayerPosition: {fileID: 0}
   spawner: {fileID: 0}
   Tree: {fileID: 114905321829108462}
   SlowRadius: 15
@@ -201,6 +236,83 @@ MonoBehaviour:
   FeelerScale: 2
   CollisionRadius: 4
   MainDestination: {fileID: 0}
+--- !u!114 &114923925760106648
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1493336954933564}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_PositionModel:
+    SynchronizeEnabled: 0
+    TeleportEnabled: 1
+    TeleportIfDistanceGreaterThan: 3
+    InterpolateOption: 2
+    InterpolateMoveTowardsSpeed: 1
+    InterpolateLerpSpeed: 1
+    InterpolateMoveTowardsAcceleration: 2
+    InterpolateMoveTowardsDeceleration: 2
+    InterpolateSpeedCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: -1
+        value: 0
+        inSlope: 0
+        outSlope: Infinity
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 0
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 0
+        outSlope: 1
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 4
+        value: 4
+        inSlope: 1
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    ExtrapolateOption: 0
+    ExtrapolateSpeed: 1
+    ExtrapolateIncludingRoundTripTime: 1
+    ExtrapolateNumberOfStoredPositions: 1
+    DrawErrorGizmo: 1
+  m_RotationModel:
+    SynchronizeEnabled: 0
+    InterpolateOption: 1
+    InterpolateRotateTowardsSpeed: 180
+    InterpolateLerpSpeed: 5
+  m_ScaleModel:
+    SynchronizeEnabled: 0
+    InterpolateOption: 0
+    InterpolateMoveTowardsSpeed: 1
+    InterpolateLerpSpeed: 0
 --- !u!136 &136785286129313932
 CapsuleCollider:
   m_ObjectHideFlags: 1
