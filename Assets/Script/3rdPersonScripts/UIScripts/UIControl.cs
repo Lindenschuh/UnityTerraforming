@@ -34,8 +34,8 @@ public class UIControl : MonoBehaviour {
         resControl = GetComponent<ResourceControl>();
         resourceInfo = new Dictionary<BuildResources, int>();
         resourceInfo.Add(BuildResources.Wood, 0);
-        resourceInfo.Add(BuildResources.TrapInstant, 0);
-        resourceInfo.Add(BuildResources.TrapTick, 0);
+        resourceInfo.Add(BuildResources.TrapFire, 0);
+        resourceInfo.Add(BuildResources.TrapSpike, 0);
         woodCountUI = GameObject.Find("WoodCount");
         woodCountInventory = GameObject.Find("WoodCountInventory");
         trapCountUI = GameObject.Find("TrapCount");
@@ -90,14 +90,14 @@ public class UIControl : MonoBehaviour {
                     StartCoroutine(Wait(oldAmount, resourceType, woodCountUI));
                 }             
                 break;
-            case BuildResources.TrapInstant:
+            case BuildResources.TrapFire:
                 resourceInfo[resourceType] = newAmount;
                 if (!isCounting)
                 {
                     //StartCoroutine(Wait(oldAmount, resourceType, trapCountUI));
                 }
                 break;
-            case BuildResources.TrapTick:
+            case BuildResources.TrapSpike:
                 resourceInfo[resourceType] = newAmount;
                 if (!isCounting)
                 {

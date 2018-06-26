@@ -4,7 +4,6 @@ using UnityEngine;
 
 public enum BuildResources {
     Wood,
-    TrapInstant,
-    TrapTick
-
+    TrapFire,
+    TrapSpike
 }

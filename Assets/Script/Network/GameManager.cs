@@ -47,18 +47,18 @@ public class GameManager : MonoBehaviour
             GameObject.Find("UI").transform.GetChild(0).gameObject.SetActive(true);
             GameObject.Find("GodController").SetActive(false);
             priest.GetComponent<vThirdPersonController>().enabled = true;
-            priest.transform.GetChild(0).gameObject.SetActive(true);
+            priest.transform.GetChild(5).gameObject.SetActive(true);
             priest.GetComponent<vShooterMeleeInput>().enabled = true;
             priest.GetComponent<vShooterManager>().enabled = true;
             priest.GetComponent<vAmmoManager>().enabled = true;
             priest.GetComponent<vHeadTrack>().enabled = true;
             priest.GetComponent<vGenericAction>().enabled = true;
             priest.GetComponent<BuildMode>().enabled = true;
-            priest.GetComponent<vItemManager>().enabled = true;
             priest.GetComponent<ResourceControl>().enabled = true;           
             priest.GetComponent<UIControl>().enabled = true;
             priest.transform.Find("vThirdPersonCamera").gameObject.SetActive(true);
             priest.GetComponentInChildren<Health>().enabled = true;
+            priest.GetComponent<BuildTrap>().enabled = true;
 
         }
         else

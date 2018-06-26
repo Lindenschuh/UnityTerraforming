@@ -25,6 +25,6 @@ public class SlotManager : MonoBehaviour {
     {
         objectInInventory = null;
         amount = 0;
-        gameObject.GetComponentInParent<InventoryManager>().Reset();
+        GameObject.Find("UI").GetComponentInChildren<InventoryManager>(true).Reset();
     }
 }
