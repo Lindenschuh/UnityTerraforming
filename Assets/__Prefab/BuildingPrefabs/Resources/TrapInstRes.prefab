@@ -22,10 +22,10 @@ GameObject:
   - component: {fileID: 33393203166048386}
   - component: {fileID: 23261908555400284}
   - component: {fileID: 54908326807841014}
-  - component: {fileID: 136742421562063598}
   - component: {fileID: 114630447736467784}
   - component: {fileID: 114637477646896428}
   - component: {fileID: 114241368439188798}
+  - component: {fileID: 65432611360445006}
   m_Layer: 18
   m_Name: TrapInstRes
   m_TagString: BuildResource
@@ -139,6 +139,18 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!65 &65432611360445006
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1536768557994300}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.0000001, y: 2, z: 1.0000006}
+  m_Center: {x: -0.0000004172325, y: -4.440892e-16, z: -0.00000008940699}
 --- !u!114 &114241368439188798
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -257,19 +269,6 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
---- !u!136 &136742421562063598
-CapsuleCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1536768557994300}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  m_Radius: 5
-  m_Height: 5
-  m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!222 &222433004298577432
 CanvasRenderer:
   m_ObjectHideFlags: 1
