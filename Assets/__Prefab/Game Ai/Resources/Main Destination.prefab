@@ -116,7 +116,7 @@ MonoBehaviour:
   _isDead: 0
   _currentHealth: 0
   maxHealth: 10000
-  healthRecovery: 0
+  healthRecovery: 5
   healthRecoveryDelay: 0
   currentHealthRecoveryDelay: 0
   onReceiveDamage:
@@ -148,7 +148,8 @@ MonoBehaviour:
   onSerializeTransformOption: 3
   onSerializeRigidBodyOption: 2
   ownershipTransfer: 0
-  ObservedComponents: []
+  ObservedComponents:
+  - {fileID: 0}
   ObservedComponentsFoldoutOpen: 1
   viewIdField: 0
   instantiationId: -1
