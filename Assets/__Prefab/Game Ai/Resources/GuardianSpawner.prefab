@@ -620,18 +620,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5004bf72a4dfe094c829e613264ba351, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GuardianPrefab: {fileID: 1722717609552858, guid: a31f7d4d95045ed4da4cd559d056a3ab,
+  GuardianPrefab: {fileID: 1847217312311774, guid: 127734df3a2670b48bf383515de5640d,
     type: 2}
-  AttackerPrefab: {fileID: 1493336954933564, guid: be0e227f052aa5e46b11a1e2ec04da14,
+  AttackerPrefab: {fileID: 1188767793829170, guid: be0e227f052aa5e46b11a1e2ec04da14,
     type: 2}
   GuardianWaveCount: 5
   AttackingWaveCount: 3
   MaxGuardianWavesAlive: 2
   MaxAttackingWavesAlive: 3
-  WaitBetweenSpawn: 2
+  WaitBetweenSpawn: 2.4
   WaitBetweenWaves: 20
   WaitOnStart: 1
-  AttackerOffset: 2
+  AttackerOffset: 2.27
   MainDestination: {fileID: 0}
 --- !u!114 &114708857912920500
 MonoBehaviour:

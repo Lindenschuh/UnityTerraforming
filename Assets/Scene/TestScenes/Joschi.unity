@@ -677,14 +677,10 @@ Prefab:
       propertyPath: instantiationId
       value: 3
       objectReference: {fileID: 0}
-    - target: {fileID: 1382041653876022, guid: cc1fbfc06a1b1fd4a8a1b85f0d313ed8, type: 2}
-      propertyPath: m_Layer
-      value: 11
-      objectReference: {fileID: 0}
-    - target: {fileID: 65094038797825416, guid: cc1fbfc06a1b1fd4a8a1b85f0d313ed8,
+    - target: {fileID: 114009438776047778, guid: cc1fbfc06a1b1fd4a8a1b85f0d313ed8,
         type: 2}
-      propertyPath: m_IsTrigger
-      value: 1
+      propertyPath: healthRecovery
+      value: 50
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: cc1fbfc06a1b1fd4a8a1b85f0d313ed8, type: 2}
@@ -915,7 +911,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1494004508}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -5.59, y: 1.77, z: -33.71}
+  m_LocalPosition: {x: -40.9, y: 1.77, z: -46.6}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}

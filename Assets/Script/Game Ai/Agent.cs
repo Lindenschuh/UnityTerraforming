@@ -4,13 +4,17 @@ using UnityEngine;
 
 namespace UnityTerraforming.GameAi
 {
+    [RequireComponent(typeof(Animator))]
     public class Agent : MonoBehaviour
     {
+        public float ModelOffset;
+
         public float MaxSpeed;
         public float MaxAccel;
         public float MaxRotation;
         public float MaxAngularAccel;
-        public float Orientation;
+
+        private Animator _animator;
 
         public int Damage = 2;
 
@@ -18,12 +22,22 @@ namespace UnityTerraforming.GameAi
         public float Rotation;
 
         [HideInInspector]
+        public float Orientation;
+
+        [HideInInspector]
         public Vector3 Velocity;
+
+        [HideInInspector]
+        public bool Attacking;
+
+        [HideInInspector]
+        public bool Dying;
 
         protected Steering steering;
 
         private void Start()
         {
+            _animator = GetComponent<Animator>();
             Velocity = Vector3.zero;
             steering = new Steering();
         }
@@ -36,41 +50,55 @@ namespace UnityTerraforming.GameAi
 
         public void FixedUpdate()
         {
-            Vector3 displacement = Velocity * Time.deltaTime;
-            if (Velocity.magnitude > 0)
-                transform.rotation = Quaternion.LookRotation(Velocity);
-
-            if (Orientation < 0)
-                Orientation += 360f;
-            else if (Orientation > 360f)
-                Orientation -= 360f;
-
-            transform.Translate(displacement, Space.World);
-
-            Velocity += steering.linear * Time.deltaTime;
-            Rotation += steering.angualr * Time.deltaTime;
-
-            if (Velocity.magnitude > MaxSpeed)
+            if (!Attacking && !Dying)
             {
-                Velocity.Normalize();
-                Velocity = Velocity * MaxSpeed;
-            }
-            if (steering.angualr == 0)
-            {
-                Rotation = 0;
-            }
+                Vector3 displacement = Velocity * Time.deltaTime;
+                if (Velocity.magnitude > 0)
+                    transform.rotation = Quaternion.LookRotation(Velocity);
 
-            if (Velocity.y != 0)
-            {
-                Velocity.y = 0;
-            }
+                if (Orientation < 0)
+                    Orientation += 360f;
+                else if (Orientation > 360f)
+                    Orientation -= 360f;
 
-            if (steering.linear.sqrMagnitude == 0)
-            {
-                Velocity = Vector3.zero;
-            }
+                transform.Translate(displacement, Space.World);
+                UpdateAnimation();
 
+                Velocity += steering.linear * Time.deltaTime;
+                Rotation += steering.angualr * Time.deltaTime;
+
+                if (Velocity.magnitude > MaxSpeed)
+                {
+                    Velocity.Normalize();
+                    Velocity = Velocity * MaxSpeed;
+                }
+                if (steering.angualr == 0)
+                {
+                    Rotation = 0;
+                }
+
+                if (Velocity.y != 0)
+                {
+                    Velocity.y = 0;
+                }
+
+                if (steering.linear.sqrMagnitude == 0)
+                {
+                    Velocity = Vector3.zero;
+                }
+            }
+            else
+            {
+                UpdateAnimation();
+            }
             steering = new Steering();
+        }
+
+        private void UpdateAnimation()
+        {
+            _animator.SetFloat("WalkSpeed", Velocity.magnitude / MaxSpeed);
+            _animator.SetBool("Attacking", Attacking);
+            _animator.SetBool("Dying", Dying);
         }
     }
 }

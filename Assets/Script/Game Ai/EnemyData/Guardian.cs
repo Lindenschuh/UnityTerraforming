@@ -8,42 +8,24 @@ namespace UnityTerraforming.GameAi
     [RequireComponent(typeof(Agent))]
     public class Guardian : BasicAi
     {
-        public GuardianSpawner GuardianDestination;
-        public float GuardRadius;
+        public float GuardRadius = 75f;
 
-        public BehaviourTree Tree;
-
-        public float SlowRadius = 15;
-        public float TargetRadius = 0.1f;
-        public float AvoidDistance = 10;
-
-        public float FeelerAngle = 60f;
-        public float FeelerScale = 2f;
-
-        public float CollisionRadius = 4f;
-
-        public float WanderOffset;
-        public float WanderRadius;
-        public float WanderRate;
-
-        private Agent agent;
-
-        private void Awake()
-        {
-            agent = GetComponent<Agent>();
-        }
+        public float WanderOffset = 14f;
+        public float WanderRadius = 5f;
+        public float WanderRate = 180f;
 
         private void FixedUpdate()
         {
             if (PhotonNetwork.isMasterClient)
             {
                 List<SteeringTypes> steerings = Tree.GetActions(this);
+                agent.Attacking = false;
                 foreach (SteeringTypes st in steerings)
                 {
                     switch (st)
                     {
                         case SteeringTypes.ATTACK:
-                            AttackPlayer();
+                            Attack();
                             break;
 
                         case SteeringTypes.SEEK:
@@ -54,7 +36,7 @@ namespace UnityTerraforming.GameAi
                             break;
 
                         case SteeringTypes.ARRIVE:
-                            agent.SetSteering(SteeringManager.GetArrive(agent, GuardianDestination.transform.position, TargetRadius, SlowRadius));
+                            agent.SetSteering(SteeringManager.GetArrive(agent, Spawner.transform.position, TargetRadius, SlowRadius));
                             break;
 
                         case SteeringTypes.LEAVE:
@@ -76,16 +58,6 @@ namespace UnityTerraforming.GameAi
             }
         }
 
-        public bool CheckIfInsideOfGuardianDestination() => (transform.position - GuardianDestination.transform.position).magnitude <= GuardRadius;
-
-        private void AttackPlayer()
-        {
-            Debug.Log("I WILL KILL YOU! MORTAL SCUMBAG!");
-        }
-
-        private void OnDestroy()
-        {
-            GuardianDestination.SpawedInstanceDied(gameObject);
-        }
+        public bool CheckIfInsideOfGuardianDestination() => (transform.position - Spawner.transform.position).magnitude <= GuardRadius;
     }
 }

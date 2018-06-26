@@ -7,39 +7,20 @@ namespace UnityTerraforming.GameAi
     [RequireComponent(typeof(Agent))]
     public class Chaser : BasicAi
     {
-        public GuardianSpawner spawner;
-
-        public BehaviourTree Tree;
-
-        public float SlowRadius = 15;
-        public float TargetRadius = 0.1f;
-        public float AvoidDistance = 10;
-
-        public float FeelerAngle = 60f;
-        public float FeelerScale = 2f;
-
-        public float CollisionRadius = 4f;
-
         public Transform MainDestination;
-
-        private Agent agent;
-
-        private void Awake()
-        {
-            agent = GetComponent<Agent>();
-        }
 
         private void FixedUpdate()
         {
             if (PhotonNetwork.isMasterClient)
             {
                 List<SteeringTypes> steerings = Tree.GetActions(this);
+                agent.Attacking = false;
                 foreach (SteeringTypes st in steerings)
                 {
                     switch (st)
                     {
                         case SteeringTypes.ATTACK:
-                            //Attack();
+                            Attack();
                             break;
 
                         case SteeringTypes.SEEK:
@@ -69,20 +50,6 @@ namespace UnityTerraforming.GameAi
                     }
                 }
             }
-        }
-
-        private void Attack()
-        {
-            Debug.Log("I WILL KILL YOU! MORTAL SCUMBAG!");
-            if (LastPlayerPosition != null)
-            {
-                LastPlayerPosition.GetComponent<Health>().AddDamage(agent.Damage);
-            }
-        }
-
-        private void OnDestroy()
-        {
-            spawner.SpawedInstanceDied(gameObject);
         }
     }
 }

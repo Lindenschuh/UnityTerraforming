@@ -87,7 +87,7 @@ namespace UnityTerraforming.GameAi
         public static Steering GetAvoidWalls(Agent agent, float lookAhead, float avoidDistance, LayerMask mask, float feelerAngle = 45, float feelerScale = 2)
         {
             Steering steering = new Steering();
-            Vector3 position = agent.transform.position;
+            Vector3 position = agent.transform.position + Vector3.up * agent.ModelOffset;
             Vector3 rayVector = agent.Velocity.normalized * lookAhead;
             Vector3 direction = rayVector;
             Vector3 directionRight = Quaternion.AngleAxis(feelerAngle, Vector3.up) * rayVector;

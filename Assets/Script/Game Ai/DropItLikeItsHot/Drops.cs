@@ -17,7 +17,7 @@ namespace UnityTerraforming
     {
         public List<Drop> drops;
 
-        private void OnDestroy()
+        public void Drop()
         {
             foreach (Drop d in drops)
             {

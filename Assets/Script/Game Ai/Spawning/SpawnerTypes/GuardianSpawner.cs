@@ -13,7 +13,7 @@ namespace UnityTerraforming.GameAi
             var chaser = spawedEntity.GetComponent<Chaser>();
             if (chaser != null)
             {
-                chaser.spawner = this;
+                chaser.Spawner = this;
                 chaser.MainDestination = MainDestination;
             }
             else
@@ -28,7 +28,7 @@ namespace UnityTerraforming.GameAi
 
             if (guardian != null)
             {
-                guardian.GuardianDestination = this;
+                guardian.Spawner = this;
             }
             else
             {
