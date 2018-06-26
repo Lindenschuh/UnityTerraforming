@@ -13,7 +13,8 @@ namespace Invector.vShooter
         #region variables
 
         [vEditorToolbar("Weapon Settings")]
-        
+
+        public PhotonView photonView;
         public bool isLeftWeapon = false;
         [Tooltip("Hold Charge Input to charge")]
         public bool chargeWeapon = false;
@@ -413,46 +414,89 @@ namespace Invector.vShooter
                 projectileToHide.gameObject.SetActive(false);
             var dir = aimPosition - muzzle.position;
             var rotation = Quaternion.LookRotation(dir);
-            
-            
+            string[] fuckingRPCStringList = ignoreTags.ToArray();
+
+            bool[] hitLayers = new bool[32];
+
+            for (int i = 0; i < 32; i++)
+            {
+                if (hitLayer == (hitLayer | (1 << i)))
+                {
+                    hitLayers[i] = true;
+                }
+            }
+
             if (dispersion > 0 && projectile)
             {
                 for (int i = 0; i < projectilesPerShot; i++)
                 {
-                    var spreadRotation = Quaternion.LookRotation(Dispersion(dir.normalized, DropOffEnd, dispersion));
-                    var obj = Instantiate(projectile, muzzle.transform.position, spreadRotation) as GameObject;
-
-                    var pCtrl = obj.GetComponent<vProjectileControl>();
-
-                    pCtrl.shooterTransform = root;
-                    pCtrl.ignoreTags = ignoreTags;
-                    pCtrl.hitLayer = hitLayer;
-                    pCtrl.damage.sender = sender;
-                    pCtrl.startPosition = obj.transform.position;
-                    pCtrl.maxDamage = (maxDamage / projectilesPerShot)*damageMultiplier;
-                    pCtrl.minDamage = (minDamage / projectilesPerShot)*damageMultiplier;
-                    pCtrl.DropOffStart = DropOffStart;
-                    pCtrl.DropOffEnd = DropOffEnd;
-                    onInstantiateProjectile.Invoke(pCtrl);
-                    StartCoroutine(ShootBullet(obj, spreadRotation * Vector3.forward));
+                    PhotonNetwork.RPC(photonView, "RPCHandleShotEffectDispersion", PhotonTargets.All, true, dir, DropOffEnd, dispersion, projectile.name, muzzle.transform.position, root.gameObject.GetPhotonView().viewID, fuckingRPCStringList, hitLayers, sender.gameObject.GetPhotonView().viewID, maxDamage, projectilesPerShot, damageMultiplier, minDamage, DropOffStart);
                 }
             }
             else if (projectilesPerShot > 0 && projectile)
             {
-                var obj = Instantiate(projectile, muzzle.transform.position, rotation) as GameObject;
-                var pCtrl = obj.GetComponent<vProjectileControl>();
-                pCtrl.shooterTransform = root;
-                pCtrl.ignoreTags = ignoreTags;
-                pCtrl.hitLayer = hitLayer;
-                pCtrl.damage.sender = sender;
-                pCtrl.startPosition = obj.transform.position;
-                pCtrl.maxDamage = (maxDamage / projectilesPerShot) * damageMultiplier;
-                pCtrl.minDamage = (minDamage / projectilesPerShot) * damageMultiplier;
-                pCtrl.DropOffStart = DropOffStart;
-                pCtrl.DropOffEnd = DropOffEnd;
-                onInstantiateProjectile.Invoke(pCtrl);
-                StartCoroutine(ShootBullet(obj, dir));
+                PhotonNetwork.RPC(photonView, "RPCHandleShotEffectPerShot", PhotonTargets.All, true, dir, DropOffEnd, dispersion, projectile.name, muzzle.transform.position, rotation, root.gameObject.GetPhotonView().viewID, fuckingRPCStringList, hitLayers, sender.gameObject.GetPhotonView().viewID, maxDamage, projectilesPerShot, damageMultiplier, minDamage, DropOffStart);
             }
+        }
+
+        [PunRPC]
+        private void RPCHandleShotEffectDispersion(Vector3 dir, float DropOffEnd, float dispersion, string projectileName, Vector3 muzzle, int rootViewID, string[] fuckingRPCStringList, bool[] hitLayers, 
+            int senderViewID, int maxDamage, int projectilesPerShot, int damageMultiplier, int minDamage, float DropOffStart)
+        {
+            GameObject projectile = Resources.Load(projectileName) as GameObject;
+            Transform root = PhotonView.Find(rootViewID).transform;
+            Transform sender = PhotonView.Find(senderViewID).transform;
+            List<string> ignoreTags = fuckingRPCStringList.vToList();
+            LayerMask hitLayer = 0;
+            for (int i = 0; i < 32; i++)
+            {
+                if (hitLayers[i])
+                    hitLayer.value += (int)Mathf.Pow(2, i);
+            }
+            var spreadRotation = Quaternion.LookRotation(Dispersion(dir.normalized, DropOffEnd, dispersion));
+            var obj = Instantiate(projectile, muzzle, spreadRotation) as GameObject;
+            var pCtrl = obj.GetComponent<vProjectileControl>();
+
+            pCtrl.shooterTransform = root;
+            pCtrl.ignoreTags = ignoreTags;
+            pCtrl.hitLayer = hitLayer;
+            pCtrl.damage.sender = sender;
+            pCtrl.startPosition = obj.transform.position;
+            pCtrl.maxDamage = (maxDamage / projectilesPerShot) * damageMultiplier;
+            pCtrl.minDamage = (minDamage / projectilesPerShot) * damageMultiplier;
+            pCtrl.DropOffStart = DropOffStart;
+            pCtrl.DropOffEnd = DropOffEnd;
+            onInstantiateProjectile.Invoke(pCtrl);
+            StartCoroutine(ShootBullet(obj, spreadRotation * Vector3.forward));
+        }
+
+        [PunRPC]
+        private void RPCHandleShotEffectPerShot(Vector3 dir, float DropOffEnd, float dispersion, string projectileName, Vector3 muzzle, Quaternion rotation, int rootViewID, string[] fuckingRPCStringList, bool[] hitLayers,
+            int senderViewID, int maxDamage, int projectilesPerShot, int damageMultiplier, int minDamage, float DropOffStart)
+        {
+            GameObject projectile = Resources.Load(projectileName) as GameObject;
+            Transform root = PhotonView.Find(rootViewID).transform;
+            Transform sender = PhotonView.Find(senderViewID).transform;
+            List<string> ignoreTags = fuckingRPCStringList.vToList();
+            LayerMask hitLayer = 0;
+            for (int i = 0; i < 32; i++)
+            {
+                if (hitLayers[i])
+                    hitLayer.value += (int) Mathf.Pow(2, i);
+            }
+            var obj = Instantiate(projectile, muzzle, rotation) as GameObject;
+            var pCtrl = obj.GetComponent<vProjectileControl>();
+            pCtrl.shooterTransform = root;
+            pCtrl.ignoreTags = ignoreTags;
+            pCtrl.hitLayer = hitLayer;
+            pCtrl.damage.sender = sender;
+            pCtrl.startPosition = obj.transform.position;
+            pCtrl.maxDamage = (maxDamage / projectilesPerShot) * damageMultiplier;
+            pCtrl.minDamage = (minDamage / projectilesPerShot) * damageMultiplier;
+            pCtrl.DropOffStart = DropOffStart;
+            pCtrl.DropOffEnd = DropOffEnd;
+            onInstantiateProjectile.Invoke(pCtrl);
+            StartCoroutine(ShootBullet(obj, dir));
         }
 
         protected int damageMultiplier

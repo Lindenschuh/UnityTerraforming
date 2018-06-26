@@ -4190,7 +4190,6 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 256
   maxBuildingRange: 10
-  materialCost: 0
 --- !u!114 &114232688306088062
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4887,12 +4886,14 @@ MonoBehaviour:
   group: 0
   OwnerShipWasTransfered: 0
   prefixBackup: -1
-  synchronization: 0
+  synchronization: 3
   onSerializeTransformOption: 3
   onSerializeRigidBodyOption: 2
   ownershipTransfer: 0
   ObservedComponents:
-  - {fileID: 0}
+  - {fileID: 114564665338583472}
+  - {fileID: 114776460651372018}
+  - {fileID: 114702214484753688}
   ObservedComponentsFoldoutOpen: 1
   viewIdField: 0
   instantiationId: -1

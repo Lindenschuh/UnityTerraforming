@@ -538,6 +538,7 @@ MonoBehaviour:
     sender: {fileID: 0}
     receiver: {fileID: 0}
     hitPosition: {x: 0, y: 0, z: 0}
+    hitReaction: 1
     recoil_id: 0
     reaction_id: 0
     attackName: projectile
@@ -568,13 +569,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-    m_TypeName: vProjectileControl+ProjectilePassDamage, Assembly-CSharp, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
+    m_TypeName: Invector.vShooter.vProjectileControl+ProjectilePassDamage, Assembly-CSharp,
+      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   onCastCollider:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: vProjectileControl+ProjectileCastColliderEvent, Assembly-CSharp, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
+    m_TypeName: Invector.vShooter.vProjectileControl+ProjectileCastColliderEvent,
+      Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  onDestroyProjectile:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: Invector.vShooter.vProjectileControl+ProjectileCastColliderEvent,
+      Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   damageByDistance: 0
   minDamage: 0
   maxDamage: 0
@@ -583,6 +589,7 @@ MonoBehaviour:
   DropOffEnd: 50
   startPosition: {x: 0, y: 0, z: 0}
   hitLayer:
+    serializedVersion: 2
     m_Bits: 4294967295
   ignoreTags: []
   shooterTransform: {fileID: 0}
@@ -618,6 +625,7 @@ MonoBehaviour:
     sender: {fileID: 0}
     receiver: {fileID: 0}
     hitPosition: {x: 0, y: 0, z: 0}
+    hitReaction: 1
     recoil_id: 0
     reaction_id: 0
     attackName: explosion
@@ -628,8 +636,10 @@ MonoBehaviour:
   forceMode: 1
   method: 2
   applyDamageLayer:
+    serializedVersion: 2
     m_Bits: 768
   applyForceLayer:
+    serializedVersion: 2
     m_Bits: 33025
   timeToExplode: 2
   showGizmos: 0
@@ -669,8 +679,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
-      PublicKeyToken=null
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
 --- !u!114 &11496274
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -691,6 +701,7 @@ MonoBehaviour:
     sender: {fileID: 0}
     receiver: {fileID: 0}
     hitPosition: {x: 0, y: 0, z: 0}
+    hitReaction: 1
     recoil_id: 0
     reaction_id: 1
     attackName: 
@@ -701,8 +712,10 @@ MonoBehaviour:
   forceMode: 1
   method: 2
   applyDamageLayer:
+    serializedVersion: 2
     m_Bits: 0
   applyForceLayer:
+    serializedVersion: 2
     m_Bits: 0
   timeToExplode: 2
   showGizmos: 0
@@ -720,8 +733,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
-      PublicKeyToken=null
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
 --- !u!169 &16965122
 AudioLowPassFilter:
   m_ObjectHideFlags: 1
@@ -28730,6 +28743,8 @@ GameObject:
   - component: {fileID: 5457464}
   - component: {fileID: 11438322}
   - component: {fileID: 11423990}
+  - component: {fileID: 114043153263400600}
+  - component: {fileID: 114744667850138978}
   m_Layer: 11
   m_Name: vRPGAmmo
   m_TagString: Untagged
@@ -28883,3 +28898,106 @@ TrailRenderer:
     generateLightingData: 0
   m_MinVertexDistance: 0.1
   m_Autodestruct: 0
+--- !u!114 &114043153263400600
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1273478506532076}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ownerId: 0
+  group: 0
+  OwnerShipWasTransfered: 0
+  prefixBackup: -1
+  synchronization: 3
+  onSerializeTransformOption: 3
+  onSerializeRigidBodyOption: 2
+  ownershipTransfer: 0
+  ObservedComponents:
+  - {fileID: 114744667850138978}
+  ObservedComponentsFoldoutOpen: 1
+  viewIdField: 0
+  instantiationId: -1
+  currentMasterID: -1
+  isRuntimeInstantiated: 0
+--- !u!114 &114744667850138978
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1273478506532076}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_PositionModel:
+    SynchronizeEnabled: 1
+    TeleportEnabled: 1
+    TeleportIfDistanceGreaterThan: 3
+    InterpolateOption: 2
+    InterpolateMoveTowardsSpeed: 1
+    InterpolateLerpSpeed: 1
+    InterpolateMoveTowardsAcceleration: 2
+    InterpolateMoveTowardsDeceleration: 2
+    InterpolateSpeedCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: -1
+        value: 0
+        inSlope: 0
+        outSlope: Infinity
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 0
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 0
+        outSlope: 1
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 4
+        value: 4
+        inSlope: 1
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    ExtrapolateOption: 0
+    ExtrapolateSpeed: 1
+    ExtrapolateIncludingRoundTripTime: 1
+    ExtrapolateNumberOfStoredPositions: 1
+    DrawErrorGizmo: 1
+  m_RotationModel:
+    SynchronizeEnabled: 1
+    InterpolateOption: 1
+    InterpolateRotateTowardsSpeed: 180
+    InterpolateLerpSpeed: 5
+  m_ScaleModel:
+    SynchronizeEnabled: 0
+    InterpolateOption: 0
+    InterpolateMoveTowardsSpeed: 1
+    InterpolateLerpSpeed: 0

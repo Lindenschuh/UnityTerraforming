@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 4416373137984768}
   - component: {fileID: 198715951869105628}
   - component: {fileID: 199602103191930720}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Ps_Wave_00
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -40,7 +40,8 @@ GameObject:
   - component: {fileID: 65354229649773574}
   - component: {fileID: 23001225217930490}
   - component: {fileID: 33177950571908974}
-  m_Layer: 0
+  - component: {fileID: 114762994836062848}
+  m_Layer: 8
   m_Name: TrapFire
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -57,7 +58,7 @@ GameObject:
   - component: {fileID: 4298328667578172}
   - component: {fileID: 198297764531255504}
   - component: {fileID: 199020770113697018}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Ps_Glow_00
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -74,7 +75,7 @@ GameObject:
   - component: {fileID: 4249102323750304}
   - component: {fileID: 198241592965845854}
   - component: {fileID: 199129295850151590}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Ps_FireWave_00
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -91,7 +92,7 @@ GameObject:
   - component: {fileID: 4212965356818044}
   - component: {fileID: 198897051074935912}
   - component: {fileID: 199765919329625708}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Splash
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -108,7 +109,7 @@ GameObject:
   - component: {fileID: 4247288365951382}
   - component: {fileID: 198891561997968762}
   - component: {fileID: 199558251976299570}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Fx_OilSplashLOW_Root
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -125,7 +126,7 @@ GameObject:
   - component: {fileID: 4952875737393196}
   - component: {fileID: 198760628316883946}
   - component: {fileID: 199653796637830710}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Ps_FireWave_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -142,7 +143,7 @@ GameObject:
   - component: {fileID: 4389788264637318}
   - component: {fileID: 198678495230709904}
   - component: {fileID: 199811850973533102}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Ps_FireExplosion
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -331,6 +332,32 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 4096
   direction: {x: 0, y: 0, z: 0}
+--- !u!114 &114762994836062848
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1244475482265986}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ownerId: 0
+  group: 0
+  OwnerShipWasTransfered: 0
+  prefixBackup: -1
+  synchronization: 0
+  onSerializeTransformOption: 3
+  onSerializeRigidBodyOption: 2
+  ownershipTransfer: 0
+  ObservedComponents:
+  - {fileID: 0}
+  ObservedComponentsFoldoutOpen: 1
+  viewIdField: 0
+  instantiationId: -1
+  currentMasterID: -1
+  isRuntimeInstantiated: 0
 --- !u!198 &198241592965845854
 ParticleSystem:
   m_ObjectHideFlags: 1

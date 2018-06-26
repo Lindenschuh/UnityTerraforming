@@ -20,6 +20,7 @@ public class BuildTrap : Photon.PunBehaviour {
     private ResourceControl resourceControl;
     private InventoryManager inventoryManager;
     private bool firstVisit;
+    private Vector3 normalVector;
     // Use this for initialization
     void Start ()
     {
@@ -46,7 +47,7 @@ public class BuildTrap : Photon.PunBehaviour {
             {
                 if (Input.GetKeyUp(KeyCode.Mouse0))
                 {
-                    photonView.RPC("RPCSetTrap", PhotonTargets.All, actualTrapType.ToString(), Input.mousePosition, maxBuildingRange, BuildingLayers);
+                    photonView.RPC("RPCSetTrap", PhotonTargets.All, actualTrapType.ToString(), actualTransform.position, normalVector);
                     GameObject.Find("UI").GetComponentInChildren<InventoryManager>(true).RemoveTrap();
                     ResetBuilding();
                 }
@@ -122,6 +123,7 @@ public class BuildTrap : Photon.PunBehaviour {
                 hit.transform.GetComponent<Renderer>().material.color = Color.red;
                 buildAllowed = false;
             }
+            normalVector = hit.normal;
         }
         else
         {
@@ -140,20 +142,19 @@ public class BuildTrap : Photon.PunBehaviour {
     }
 
     [PunRPC]
-    private void RPCSetTrap(string prefabName, Vector3 mousePosition, float maxBuildingRange, LayerMask BuildingLayers)
+    private void RPCSetTrap(string prefabName, Vector3 position, Vector3 normalVector)
     {
-        RaycastHit hit;
-        Ray ray = playerCam.ScreenPointToRay(mousePosition);
-        if (Physics.Raycast(ray, out hit, maxBuildingRange, BuildingLayers))
+        Collider[] hitColliders = Physics.OverlapSphere(position, 0.001f);
+        if (hitColliders.Length > 0)
         {
-            GameObject rpcTrap = Resources.Load(prefabName) as GameObject;
-            rpcTrap = Instantiate(rpcTrap);
+            GameObject tempRpcTrap = Resources.Load(prefabName) as GameObject;
+            GameObject rpcTrap = Instantiate(tempRpcTrap);
             rpcTrap.GetComponent<Trap>().enabled = true;
-            rpcTrap.transform.parent = hit.transform;
-            rpcTrap.transform.position = hit.transform.position + (0.05f * hit.normal);
-            rpcTrap.transform.rotation = hit.transform.rotation;
+            rpcTrap.transform.parent = hitColliders[0].transform;
+            rpcTrap.transform.position = hitColliders[0].transform.position + (0.05f * normalVector);
+            rpcTrap.transform.rotation = hitColliders[0].transform.rotation;
             rpcTrap.transform.localScale = new Vector3(1, 1, 1);
-            rpcTrap.GetComponent<Trap>().direction = hit.normal;
+            rpcTrap.GetComponent<Trap>().direction = normalVector;
         }
     }
 }

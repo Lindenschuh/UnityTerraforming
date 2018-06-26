@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 [RequireComponent(typeof(vHealthController))]
-public class Health : MonoBehaviour
+public class Health : Photon.PunBehaviour
 {
 
     private vHealthController healthController;
@@ -31,8 +31,18 @@ public class Health : MonoBehaviour
    
     public void AddDamage(int damage)
     {
-
         healthController.TakeDamage(new vDamage(damage));
+    }
+
+    public void EnemyAddDamage(int damage)
+    {
+        photonView.RPC("RPCEnemyAddDamage", PhotonTargets.All, damage);
+    }
+
+    [PunRPC]
+    private void RPCEnemyAddDamage(int damage)
+    {
+        AddDamage(damage);
     }
 }
 

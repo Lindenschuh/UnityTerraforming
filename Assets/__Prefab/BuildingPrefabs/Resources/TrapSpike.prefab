@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 4063830167656110}
   - component: {fileID: 33461041577842774}
   - component: {fileID: 23074113216867768}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: tap
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -38,7 +38,7 @@ GameObject:
   - component: {fileID: 4067889059964548}
   - component: {fileID: 33932402664162066}
   - component: {fileID: 23154090832058178}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: pinchos
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -55,7 +55,9 @@ GameObject:
   - component: {fileID: 4609765003254528}
   - component: {fileID: 65084686328731180}
   - component: {fileID: 114186211290814950}
-  m_Layer: 0
+  - component: {fileID: 114755035567945868}
+  - component: {fileID: 23603058363574296}
+  m_Layer: 8
   m_Name: TrapSpike
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -173,6 +175,41 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!23 &23603058363574296
+MeshRenderer:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1564571699440598}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RenderingLayerMask: 4294967295
+  m_Materials:
+  - {fileID: 0}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 0
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
 --- !u!33 &33461041577842774
 MeshFilter:
   m_ObjectHideFlags: 1
@@ -216,3 +253,29 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 4096
   direction: {x: 0, y: 0, z: 0}
+--- !u!114 &114755035567945868
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1564571699440598}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ownerId: 0
+  group: 0
+  OwnerShipWasTransfered: 0
+  prefixBackup: -1
+  synchronization: 0
+  onSerializeTransformOption: 3
+  onSerializeRigidBodyOption: 2
+  ownershipTransfer: 0
+  ObservedComponents:
+  - {fileID: 0}
+  ObservedComponentsFoldoutOpen: 1
+  viewIdField: 0
+  instantiationId: -1
+  currentMasterID: -1
+  isRuntimeInstantiated: 0
