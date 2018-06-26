@@ -28,6 +28,7 @@ public class MapGenerator : Photon.PunBehaviour {
     {
         if (PhotonNetwork.isMasterClient)
         {
+            seed = Random.Range(0, 100000);
             System.Random prng = new System.Random(seed);
             Vector2[] octaveOffsets = new Vector2[octaves];
 
