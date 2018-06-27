@@ -8,6 +8,8 @@ using Invector.vShooter;
 using Invector.vItemManager;
 using Invector.vCharacterController.vActions;
 using UnityTerraforming.GameAi;
+using Invector;
+using Invector.vMelee;
 
 public class GameManager : MonoBehaviour
 {
@@ -54,7 +56,13 @@ public class GameManager : MonoBehaviour
             priest.GetComponent<vShooterManager>().enabled = true;
             priest.GetComponent<vAmmoManager>().enabled = true;
             priest.GetComponent<vHeadTrack>().enabled = true;
+            priest.GetComponent<vRagdoll>().enabled = true;
+            priest.GetComponent<vFootStep>().enabled = true;
+            priest.GetComponent<vWeaponHolderManager>().enabled = true;
+            priest.GetComponent<vCollectShooterMeleeControl>().enabled = true;
+            priest.GetComponent<vLockOnShooter>().enabled = true;
             priest.GetComponent<vGenericAction>().enabled = true;
+            priest.GetComponent<vMeleeManager>().enabled = true;
             priest.GetComponent<BuildMode>().enabled = true;
             priest.GetComponent<ResourceControl>().enabled = true;           
             priest.GetComponent<UIControl>().enabled = true;
@@ -73,6 +81,7 @@ public class GameManager : MonoBehaviour
             GameObject terrain = GameObject.Find(Terrain);
             terrain.GetComponent<TerraManipulation>().MainCamera = mainCamera;
             GameObject.Find("UI").SetActive(false);
+
         }
     }
 
