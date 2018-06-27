@@ -206,18 +206,18 @@ namespace Invector.vCharacterController
                 return true;
             }
 
-            // joystick axis
-            if (Input.GetAxis("LeftAnalogHorizontal") != 0.0f ||
-                Input.GetAxis("LeftAnalogVertical") != 0.0f ||
-                Input.GetAxis("RightAnalogHorizontal") != 0.0f ||
-                Input.GetAxis("RightAnalogVertical") != 0.0f ||
-                Input.GetAxis("LT") != 0.0f ||
-                Input.GetAxis("RT") != 0.0f ||
-                Input.GetAxis("D-Pad Horizontal") != 0.0f ||
-                Input.GetAxis("D-Pad Vertical") != 0.0f)
-            {
-                return true;
-            }
+            //// joystick axis
+            //if (Input.GetAxis("LeftAnalogHorizontal") != 0.0f ||
+            //    Input.GetAxis("LeftAnalogVertical") != 0.0f ||
+            //    Input.GetAxis("RightAnalogHorizontal") != 0.0f ||
+            //    Input.GetAxis("RightAnalogVertical") != 0.0f ||
+            //    Input.GetAxis("LT") != 0.0f ||
+            //    Input.GetAxis("RT") != 0.0f ||
+            //    Input.GetAxis("D-Pad Horizontal") != 0.0f ||
+            //    Input.GetAxis("D-Pad Vertical") != 0.0f)
+            //{
+            //    return true;
+            //}
             return false;
         }
 
