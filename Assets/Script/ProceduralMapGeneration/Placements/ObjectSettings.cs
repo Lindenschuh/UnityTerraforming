@@ -6,9 +6,9 @@ public class ObjectSettings : MonoBehaviour {
 
     public Vector2 point;
     [Range(0, 1)]
-    public float outerCircle;
-    [Range(0, 1)]
     public float innerCircle;
+    [Range(0, 1)]
+    public float outerCircle;
     [Range(0, 50)]
     public int size;
     [Range(0, 5)]

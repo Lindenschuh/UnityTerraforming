@@ -430,16 +430,44 @@ namespace Invector.vShooter
             {
                 for (int i = 0; i < projectilesPerShot; i++)
                 {
-                    PhotonNetwork.RPC(photonView, "RPCHandleShotEffectDispersion", PhotonTargets.All, true, dir, DropOffEnd, dispersion, projectile.name, muzzle.transform.position, root.gameObject.GetPhotonView().viewID, fuckingRPCStringList, hitLayers, sender.gameObject.GetPhotonView().viewID, maxDamage, projectilesPerShot, damageMultiplier, minDamage, DropOffStart);
+                    var spreadRotation = Quaternion.LookRotation(Dispersion(dir.normalized, DropOffEnd, dispersion));
+                    var obj = Instantiate(projectile, muzzle.transform.position, spreadRotation) as GameObject;
+                    var pCtrl = obj.GetComponent<vProjectileControl>();
+
+                    pCtrl.shooterTransform = root;
+                    pCtrl.ignoreTags = ignoreTags;
+                    pCtrl.hitLayer = hitLayer;
+                    pCtrl.damage.sender = sender;
+                    pCtrl.startPosition = obj.transform.position;
+                    pCtrl.maxDamage = (maxDamage / projectilesPerShot) * damageMultiplier;
+                    pCtrl.minDamage = (minDamage / projectilesPerShot) * damageMultiplier;
+                    pCtrl.DropOffStart = DropOffStart;
+                    pCtrl.DropOffEnd = DropOffEnd;
+                    onInstantiateProjectile.Invoke(pCtrl);
+                    StartCoroutine(ShootBullet(obj, spreadRotation * Vector3.forward));
+                    //PhotonNetwork.RPC(photonView, "RPCHandleShotEffectDispersion", PhotonTargets.All, true, dir, DropOffEnd, dispersion, projectile.name, muzzle.transform.position, root.gameObject.GetPhotonView().viewID, fuckingRPCStringList, hitLayers, sender.gameObject.GetPhotonView().viewID, maxDamage, projectilesPerShot, damageMultiplier, minDamage, DropOffStart);
                 }
             }
             else if (projectilesPerShot > 0 && projectile)
             {
-                PhotonNetwork.RPC(photonView, "RPCHandleShotEffectPerShot", PhotonTargets.All, true, dir, DropOffEnd, dispersion, projectile.name, muzzle.transform.position, rotation, root.gameObject.GetPhotonView().viewID, fuckingRPCStringList, hitLayers, sender.gameObject.GetPhotonView().viewID, maxDamage, projectilesPerShot, damageMultiplier, minDamage, DropOffStart);
+                var obj = Instantiate(projectile, muzzle.transform.position, rotation) as GameObject;
+                var pCtrl = obj.GetComponent<vProjectileControl>();
+                pCtrl.shooterTransform = root;
+                pCtrl.ignoreTags = ignoreTags;
+                pCtrl.hitLayer = hitLayer;
+                pCtrl.damage.sender = sender;
+                pCtrl.startPosition = obj.transform.position;
+                pCtrl.maxDamage = (maxDamage / projectilesPerShot) * damageMultiplier;
+                pCtrl.minDamage = (minDamage / projectilesPerShot) * damageMultiplier;
+                pCtrl.DropOffStart = DropOffStart;
+                pCtrl.DropOffEnd = DropOffEnd;
+                onInstantiateProjectile.Invoke(pCtrl);
+                StartCoroutine(ShootBullet(obj, dir));
+                //PhotonNetwork.RPC(photonView, "RPCHandleShotEffectPerShot", PhotonTargets.All, true, dir, DropOffEnd, dispersion, projectile.name, muzzle.transform.position, rotation, root.gameObject.GetPhotonView().viewID, fuckingRPCStringList, hitLayers, sender.gameObject.GetPhotonView().viewID, maxDamage, projectilesPerShot, damageMultiplier, minDamage, DropOffStart);
             }
         }
 
-        [PunRPC]
+        //[PunRPC]
         private void RPCHandleShotEffectDispersion(Vector3 dir, float DropOffEnd, float dispersion, string projectileName, Vector3 muzzle, int rootViewID, string[] fuckingRPCStringList, bool[] hitLayers, 
             int senderViewID, int maxDamage, int projectilesPerShot, int damageMultiplier, int minDamage, float DropOffStart)
         {

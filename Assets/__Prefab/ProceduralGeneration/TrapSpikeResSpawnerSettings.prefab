@@ -52,11 +52,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   point: {x: 250, y: 250}
-  outerCircle: 0.3
-  innerCircle: 0.1
+  innerCircle: 0
+  outerCircle: 0.2
   size: 1
   distanceBetweenObjects: 1
-  distanceBetweenLocations: 1
+  distanceBetweenLocations: 0
   differentLocations: 15
   amount: 1
   maxHeight: 0

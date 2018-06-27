@@ -247,8 +247,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f77316d4237e7df4482d6e85e1a2c93d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damagePerTick: 5
-  tickTimer: 5
+  damagePerTick: 100
+  tickTimer: 3
   enemies:
     serializedVersion: 2
     m_Bits: 4096
