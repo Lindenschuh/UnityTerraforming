@@ -2332,7 +2332,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_PositionModel:
-    SynchronizeEnabled: 0
+    SynchronizeEnabled: 1
     TeleportEnabled: 1
     TeleportIfDistanceGreaterThan: 3
     InterpolateOption: 2
@@ -2388,7 +2388,7 @@ MonoBehaviour:
     ExtrapolateNumberOfStoredPositions: 1
     DrawErrorGizmo: 1
   m_RotationModel:
-    SynchronizeEnabled: 0
+    SynchronizeEnabled: 1
     InterpolateOption: 1
     InterpolateRotateTowardsSpeed: 180
     InterpolateLerpSpeed: 5
@@ -2443,6 +2443,7 @@ MonoBehaviour:
   FeelerScale: 2
   CollisionRadius: 4
   AnimationDuration: 2
+  WaitBetweenScans: 3
   PlayerLayer:
     serializedVersion: 2
     m_Bits: 3072
@@ -2452,7 +2453,8 @@ MonoBehaviour:
   EnvironmentLayers:
     serializedVersion: 2
     m_Bits: 4293108697
-  LastPlayerPosition: {fileID: 0}
+  Player: {fileID: 0}
+  MainDestination: {fileID: 0}
   GuardRadius: 75
   WanderOffset: 14
   WanderRadius: 5

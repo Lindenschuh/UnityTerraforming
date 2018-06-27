@@ -29,7 +29,7 @@ namespace UnityTerraforming.GameAi
                             break;
 
                         case SteeringTypes.SEEK:
-                            agent.SetSteering(SteeringManager.GetSeek(agent, LastPlayerPosition.position));
+                            agent.SetSteering(SteeringManager.GetSeek(agent, (_target != null) ? _target.transform.position : Spawner.transform.position));
                             break;
 
                         case SteeringTypes.FLEE:
@@ -47,6 +47,7 @@ namespace UnityTerraforming.GameAi
                             break;
 
                         case SteeringTypes.AVOID_AGENTS:
+                            Debug.Log("Guarian Avoid");
                             agent.SetSteering(SteeringManager.GetAvoidAgents(agent, CheckSourroundingAgents(), CollisionRadius));
                             break;
 

@@ -23,54 +23,79 @@ namespace UnityTerraforming.GameAi
         public float CollisionRadius = 4f;
 
         public float AnimationDuration = 2f;
+        public float WaitBetweenScans = 3f;
 
         public LayerMask PlayerLayer;
         public LayerMask EnemyLayers;
         public LayerMask EnvironmentLayers;
 
-        [HideInInspector]
-        public Transform LastPlayerPosition;
+        public Transform Player;
+        public Transform MainDestination;
+
+        protected GameObject _target;
 
         protected Agent agent;
+
+        protected List<Agent> _souroundingAgents;
+
+        private float _nextScan;
 
         private void Awake()
         {
             agent = GetComponent<Agent>();
+            _souroundingAgents = new List<Agent>();
+            _nextScan = 0;
         }
 
         public bool CheckPlayerInSight()
         {
-            Collider[] colliders = Physics.OverlapSphere(transform.position, LookRadius, PlayerLayer);
-
-            if (colliders.Length > 0)
+            if (MainDestination == null || Player == null)
             {
-                LastPlayerPosition = colliders[0].transform;
+                Debug.LogError("No Player or Main Destiantion assinged");
+                return false;
+            }
+
+            if ((transform.position - MainDestination.position).magnitude < LookRadius)
+            {
+                _target = MainDestination.gameObject;
                 return true;
             }
+            else if ((transform.position - Player.position).magnitude < LookRadius)
+            {
+                _target = Player.gameObject;
+                return true;
+            }
+            _target = null;
             return false;
         }
 
-        public bool CheckPlayerInAttackRange() => Physics.OverlapSphere(transform.position, AttackRadius, PlayerLayer).Length > 0;
+        public bool CheckPlayerInAttackRange() =>
+             _target != null && (_target.transform.position - transform.position).magnitude < AttackRadius;
 
         protected List<Agent> CheckSourroundingAgents()
         {
-            var targets = new List<Agent>();
-            foreach (Collider c in Physics.OverlapSphere(transform.position, LookRadius, EnemyLayers))
+            if (_nextScan > Time.time)
             {
-                var agent = c.GetComponent<Agent>();
-                if (agent != null)
-                    targets.Add(agent);
+                var nextScan = Time.time + WaitBetweenScans;
+                var targets = new List<Agent>();
+                foreach (Collider c in Physics.OverlapSphere(transform.position, LookRadius, EnemyLayers))
+                {
+                    var agent = c.GetComponent<Agent>();
+                    if (agent != null)
+                        targets.Add(agent);
+                }
+
+                _souroundingAgents = targets;
             }
-            return targets;
+            return _souroundingAgents;
         }
 
         protected void Attack()
         {
-            Debug.Log("I WILL KILL YOU! MORTAL SCUMBAG!");
             agent.Attacking = true;
-            if (LastPlayerPosition != null)
+            if (_target != null)
             {
-                LastPlayerPosition.GetComponent<Health>().EnemyAddDamage(agent.Damage);
+                _target.GetComponent<Health>().EnemyAddDamage(agent.Damage);
             }
         }
 
@@ -80,11 +105,6 @@ namespace UnityTerraforming.GameAi
             agent.Dying = true;
             GetComponent<Drops>().Drop();
             new WaitForSeconds(AnimationDuration);
-            Destroy(gameObject);
-        }
-
-        private void DestroySelf()
-        {
             Destroy(gameObject);
         }
     }

@@ -7,8 +7,6 @@ namespace UnityTerraforming.GameAi
     [RequireComponent(typeof(Agent))]
     public class Chaser : BasicAi
     {
-        public Transform MainDestination;
-
         private void FixedUpdate()
         {
             if (PhotonNetwork.isMasterClient)
@@ -24,7 +22,7 @@ namespace UnityTerraforming.GameAi
                             break;
 
                         case SteeringTypes.SEEK:
-                            agent.SetSteering(SteeringManager.GetSeek(agent, LastPlayerPosition.position));
+                            agent.SetSteering(SteeringManager.GetSeek(agent, (_target != null) ? _target.transform.position : MainDestination.transform.position));
                             break;
 
                         case SteeringTypes.FLEE:
@@ -42,6 +40,7 @@ namespace UnityTerraforming.GameAi
                             break;
 
                         case SteeringTypes.AVOID_AGENTS:
+                            Debug.Log("Chaser Avoid ");
                             agent.SetSteering(SteeringManager.GetAvoidAgents(agent, CheckSourroundingAgents(), CollisionRadius));
                             break;
 

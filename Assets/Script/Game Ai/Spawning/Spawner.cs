@@ -32,6 +32,9 @@ namespace UnityTerraforming.GameAi
 
     public abstract class Spawner : Photon.PunBehaviour
     {
+        public Transform Player;
+        public Transform MainDestination;
+
         public GameObject GuardianPrefab;
         public GameObject AttackerPrefab;
 
@@ -49,11 +52,13 @@ namespace UnityTerraforming.GameAi
 
         public float AttackerOffset;
 
+        public Transform SpawnPoint;
+
         public readonly UnityEvent OnCapturedEvent;
 
-        private List<GameObject> _guardingEntitiesAlive;
+        public List<GameObject> GuardingEntitiesAlive { get; private set; }
 
-        private List<GameObject> _attackingEntitiesAlive;
+        public List<GameObject> AttackingEntitiesAlive { get; private set; }
 
         private bool _captured = false;
 
@@ -68,8 +73,8 @@ namespace UnityTerraforming.GameAi
         {
             StartCoroutine(SpawnGuardingWaves());
             StartCoroutine(SpawnAttackingWaves());
-            _guardingEntitiesAlive = new List<GameObject>();
-            _attackingEntitiesAlive = new List<GameObject>();
+            GuardingEntitiesAlive = new List<GameObject>();
+            AttackingEntitiesAlive = new List<GameObject>();
         }
 
         public IEnumerator SpawnGuardingWaves()
@@ -79,13 +84,13 @@ namespace UnityTerraforming.GameAi
             // as long the point is not captured
             while (!_captured)
             {
-                if ((_guardingEntitiesAlive.Count / GuardianWaveCount) < MaxGuardianWavesAlive)
+                if ((GuardingEntitiesAlive.Count / GuardianWaveCount) < MaxGuardianWavesAlive)
                     for (int i = 0; i < GuardianWaveCount; i++)
                     {
                         if (_captured) break;
-                        var spawend = Instantiate(GuardianPrefab, transform.transform.position, Quaternion.identity);
+                        var spawend = Instantiate(GuardianPrefab, SpawnPoint.position, Quaternion.identity);
                         InstantiateTowerSpecificGuard(spawend);
-                        _guardingEntitiesAlive.Add(spawend);
+                        GuardingEntitiesAlive.Add(spawend);
                         Stats.Spawend();
                         yield return new WaitForSeconds(WaitBetweenSpawn);
                     }
@@ -101,13 +106,13 @@ namespace UnityTerraforming.GameAi
             // as long the point is not captured
             while (!_captured)
             {
-                if ((_attackingEntitiesAlive.Count / GuardianWaveCount) < MaxGuardianWavesAlive)
+                if ((AttackingEntitiesAlive.Count / GuardianWaveCount) < MaxGuardianWavesAlive)
                     for (int i = 0; i < GuardianWaveCount; i++)
                     {
                         if (_captured) break;
-                        var spawend = Instantiate(AttackerPrefab, transform.transform.position, Quaternion.identity);
+                        var spawend = Instantiate(AttackerPrefab, SpawnPoint.position, Quaternion.identity);
                         InstantiateTowerSpecificAtttacker(spawend);
-                        _attackingEntitiesAlive.Add(spawend);
+                        AttackingEntitiesAlive.Add(spawend);
                         Stats.Spawend();
                         yield return new WaitForSeconds(WaitBetweenSpawn + AttackerOffset);
                     }
@@ -118,17 +123,17 @@ namespace UnityTerraforming.GameAi
 
         public void SpawedInstanceDied(GameObject instance)
         {
-            if (_guardingEntitiesAlive.Contains(instance))
+            if (GuardingEntitiesAlive.Contains(instance))
             {
-                _guardingEntitiesAlive.Remove(instance);
+                GuardingEntitiesAlive.Remove(instance);
                 Stats.Died();
             }
-            if (_attackingEntitiesAlive.Contains(instance))
+            if (AttackingEntitiesAlive.Contains(instance))
             {
-                _attackingEntitiesAlive.Remove(instance);
+                AttackingEntitiesAlive.Remove(instance);
                 Stats.Died();
             }
-            if (_guardingEntitiesAlive.Count == 0)
+            if (GuardingEntitiesAlive.Count == 0)
             {
                 _captured = true;
                 GetComponentInChildren<Crystral>().TooggleCaptured(_captured);
