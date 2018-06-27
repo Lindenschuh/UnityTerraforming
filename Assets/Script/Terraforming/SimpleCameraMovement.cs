@@ -17,6 +17,7 @@ public class SimpleCameraMovement : MonoBehaviour
     {
         _startHeight = transform.position.y;
         Cursor.lockState = CursorLockMode.Confined;
+        Cursor.visible = false;
     }
 
     // Update is called once per frame

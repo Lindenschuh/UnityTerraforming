@@ -581,8 +581,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Value: 0.001
-  BrushWidth: 50
-  BrushHeight: 50
+  BrushWidth: 10
+  BrushHeight: 10
   MaxBrushValue: 50
   sizeModificator: 0
   GoodIndicator: {r: 0, g: 1, b: 0.0627451, a: 0}
@@ -653,7 +653,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Radius: 5
-  Indicator_col: {r: 0, g: 0, b: 0, a: 0}
+  Indicator_col: {r: 0, g: 0.37254903, b: 1, a: 0}
   DMG: 10
   GodHeight: 20
   InitialDelay: 0

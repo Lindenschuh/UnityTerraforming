@@ -130,7 +130,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MovementSpeed: 100
   ScrollSpeed: 1000
-  HeightRadius: 0
+  HeightRadius: 80
   GodState: {fileID: 0}
 --- !u!114 &114481164657108760
 MonoBehaviour:
