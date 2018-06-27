@@ -141,7 +141,10 @@ namespace UnityTerraforming.GameAi
             }
             if (GuardingEntitiesAlive.Count == 0 && !_captured)
             {
-                photonView.RPC("RPCCaptureTower", PhotonTargets.All, photonView.viewID);
+                GetComponent<GuardianSpawner>()._captured = true;
+                GetComponentInChildren<Crystral>().TooggleCaptured(_captured);
+                OnCapturedEvent.Invoke();
+                Stats.Captured();
             }
         }
 
@@ -149,14 +152,5 @@ namespace UnityTerraforming.GameAi
 
         public abstract void InstantiateTowerSpecificAtttacker(GameObject spawedEntity);
 
-        [PunRPC]
-        private void RPCCaptureTower(int photonViewID)
-        {
-            GameObject tower = PhotonView.Find(photonViewID).transform.gameObject;
-            tower.GetComponent<GuardianSpawner>()._captured = true;
-            tower.GetComponentInChildren<Crystral>().TooggleCaptured(_captured);
-            OnCapturedEvent.Invoke();
-            // Stats.Captured();
-        }
     }
 }

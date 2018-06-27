@@ -66,4 +66,5 @@ MonoBehaviour:
   - RPCEnemyAddDamage
   - RPCSpawnObject
   - RPCInstanceDied
+  - RPCCaptureTower
   DisableAutoOpenWizard: 1

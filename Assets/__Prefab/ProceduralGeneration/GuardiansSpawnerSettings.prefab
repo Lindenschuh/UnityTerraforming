@@ -52,12 +52,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   point: {x: 250, y: 250}
-  outerCircle: 0.9
   innerCircle: 0.5
+  outerCircle: 0.9
   size: 10
   distanceBetweenObjects: 1
   distanceBetweenLocations: 70
-  differentLocations: 5
+  differentLocations: 1
   amount: 1
   maxHeight: 0
   preFab: {fileID: 1637144095446534, guid: 47afaccb1e0d24940bb7233e2e4285a0, type: 2}
