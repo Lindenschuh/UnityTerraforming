@@ -71,6 +71,7 @@ GameObject:
   - component: {fileID: 114372452986155180}
   - component: {fileID: 65154552323520606}
   - component: {fileID: 54191381739847578}
+  - component: {fileID: 114411898409777544}
   m_Layer: 1
   m_Name: Pistol
   m_TagString: Weapon
@@ -940,6 +941,7 @@ MonoBehaviour:
   openCloseEvents: 0
   openCloseWindow: 1
   selectedToolbar: 0
+  photonView: {fileID: 114411898409777544}
   isLeftWeapon: 0
   chargeWeapon: 0
   autoShotOnFinishCharge: 0
@@ -1069,6 +1071,32 @@ MonoBehaviour:
     m_Bits: 0
   root: {fileID: 0}
   isSecundaryWeapon: 0
+--- !u!114 &114411898409777544
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1137708953367906}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ownerId: 0
+  group: 0
+  OwnerShipWasTransfered: 0
+  prefixBackup: -1
+  synchronization: 0
+  onSerializeTransformOption: 3
+  onSerializeRigidBodyOption: 2
+  ownershipTransfer: 0
+  ObservedComponents:
+  - {fileID: 0}
+  ObservedComponentsFoldoutOpen: 1
+  viewIdField: 0
+  instantiationId: -1
+  currentMasterID: -1
+  isRuntimeInstantiated: 0
 --- !u!114 &114543852511367856
 MonoBehaviour:
   m_ObjectHideFlags: 1

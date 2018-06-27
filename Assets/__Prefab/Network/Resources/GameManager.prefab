@@ -52,3 +52,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   godStateManager: {fileID: 0}
+  Spawners: []

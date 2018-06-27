@@ -24,6 +24,7 @@ GameObject:
   - component: {fileID: 23418386318638732}
   - component: {fileID: 114087167673810576}
   - component: {fileID: 114222018797621182}
+  - component: {fileID: 114207962188066720}
   m_Layer: 8
   m_Name: Square
   m_TagString: Obsticle
@@ -109,7 +110,32 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d212fd38b5be65c42ab4add081a8074b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 150
+--- !u!114 &114207962188066720
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1167206470166340}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ownerId: 0
+  group: 0
+  OwnerShipWasTransfered: 0
+  prefixBackup: -1
+  synchronization: 0
+  onSerializeTransformOption: 3
+  onSerializeRigidBodyOption: 2
+  ownershipTransfer: 0
+  ObservedComponents:
+  - {fileID: 0}
+  ObservedComponentsFoldoutOpen: 1
+  viewIdField: 0
+  instantiationId: -1
+  currentMasterID: -1
+  isRuntimeInstantiated: 0
 --- !u!114 &114222018797621182
 MonoBehaviour:
   m_ObjectHideFlags: 1

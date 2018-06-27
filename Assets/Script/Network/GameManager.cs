@@ -7,12 +7,14 @@ using System.Linq;
 using Invector.vShooter;
 using Invector.vItemManager;
 using Invector.vCharacterController.vActions;
+using UnityTerraforming.GameAi;
 
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
 
     public GodStateManager godStateManager;
+    public List<GameObject> Spawners = new List<GameObject>();
 
     private readonly string God = "God(Clone)";
     private readonly string Priest = "Priest";
@@ -47,18 +49,18 @@ public class GameManager : MonoBehaviour
             GameObject.Find("UI").transform.GetChild(0).gameObject.SetActive(true);
             GameObject.Find("GodController").SetActive(false);
             priest.GetComponent<vThirdPersonController>().enabled = true;
-            priest.transform.GetChild(0).gameObject.SetActive(true);
+            priest.transform.GetChild(5).gameObject.SetActive(true);
             priest.GetComponent<vShooterMeleeInput>().enabled = true;
             priest.GetComponent<vShooterManager>().enabled = true;
             priest.GetComponent<vAmmoManager>().enabled = true;
             priest.GetComponent<vHeadTrack>().enabled = true;
             priest.GetComponent<vGenericAction>().enabled = true;
             priest.GetComponent<BuildMode>().enabled = true;
-            priest.GetComponent<vItemManager>().enabled = true;
             priest.GetComponent<ResourceControl>().enabled = true;           
             priest.GetComponent<UIControl>().enabled = true;
             priest.transform.Find("vThirdPersonCamera").gameObject.SetActive(true);
             priest.GetComponentInChildren<Health>().enabled = true;
+            priest.GetComponent<BuildTrap>().enabled = true;
 
         }
         else
@@ -72,5 +74,11 @@ public class GameManager : MonoBehaviour
             terrain.GetComponent<TerraManipulation>().MainCamera = mainCamera;
             GameObject.Find("UI").SetActive(false);
         }
+    }
+
+    private void Update()
+    {
+        int i = 0;
+        i = i + 1;
     }
 }

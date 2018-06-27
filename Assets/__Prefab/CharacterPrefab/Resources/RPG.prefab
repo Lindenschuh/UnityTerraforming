@@ -303,6 +303,7 @@ GameObject:
   - component: {fileID: 114065310728951912}
   - component: {fileID: 65285428367852680}
   - component: {fileID: 54037281661114042}
+  - component: {fileID: 114284142591737118}
   m_Layer: 1
   m_Name: RPG
   m_TagString: Weapon
@@ -799,6 +800,7 @@ MonoBehaviour:
   openCloseEvents: 0
   openCloseWindow: 1
   selectedToolbar: 0
+  photonView: {fileID: 114284142591737118}
   isLeftWeapon: 0
   chargeWeapon: 0
   autoShotOnFinishCharge: 0
@@ -986,6 +988,32 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &114284142591737118
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1971474552221474}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ownerId: 0
+  group: 0
+  OwnerShipWasTransfered: 0
+  prefixBackup: -1
+  synchronization: 0
+  onSerializeTransformOption: 3
+  onSerializeRigidBodyOption: 2
+  ownershipTransfer: 0
+  ObservedComponents:
+  - {fileID: 0}
+  ObservedComponentsFoldoutOpen: 1
+  viewIdField: 0
+  instantiationId: -1
+  currentMasterID: -1
+  isRuntimeInstantiated: 0
 --- !u!114 &114394059481431246
 MonoBehaviour:
   m_ObjectHideFlags: 1

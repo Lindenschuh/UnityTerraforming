@@ -78,5 +78,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b5b6119d9103eb74289e60cd4b08fcba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  woodResource: {fileID: 1536768557994300, guid: e3749c0cb678ace4b901f00d69f1a992,
+  woodResource: {fileID: 1916901614761758, guid: aefdf40d468319b4981a2b22ae4e611e,
     type: 2}

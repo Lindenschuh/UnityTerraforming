@@ -65,7 +65,17 @@ public class InventoryManager : MonoBehaviour {
 
     public GameObject GetSelectedTrap()
     {
-        return selectedTrapSlot.GetComponent<SlotManager>().objectInInventory;
+        if (selectedTrapSlot != null)
+            return selectedTrapSlot.GetComponent<SlotManager>().objectInInventory;
+        else
+            return null;
+    }
+
+    public void RemoveTrap()
+    {
+        selectedTrapSlot.GetComponent<Image>().sprite = null;
+        selectedTrapSlot.GetComponent<Image>().color = new Color(255f, 255f, 255f, 0);
+        selectedTrapSlot.GetComponent<SlotManager>().Reset();
     }
 
     public void SelectNextTrap()

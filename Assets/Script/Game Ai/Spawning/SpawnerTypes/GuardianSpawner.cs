@@ -6,16 +6,35 @@ namespace UnityTerraforming.GameAi
 {
     public class GuardianSpawner : Spawner
     {
-        public override void InstantiateTowerSpecificEnemy(GameObject spawnedEntity)
+        public override void InstantiateTowerSpecificAtttacker(GameObject spawedEntity)
+        {
+            var chaser = spawedEntity.GetComponent<Chaser>();
+            if (chaser != null)
+            {
+                chaser.Spawner = this;
+                chaser.Player = Player;
+                chaser.MainDestination = MainDestination;
+            }
+            else
+            {
+                Debug.LogError("In the Spawned Prefab is no Chaser Script attached. Maybe you choose the wrong Prefab.");
+            }
+        }
+
+        public override void InstantiateTowerSpecificGuard(GameObject spawnedEntity)
         {
             var guardian = spawnedEntity.GetComponent<Guardian>();
 
             if (guardian != null)
             {
-                guardian.GuardianDestination = this;
+                guardian.Spawner = this;
+                guardian.MainDestination = MainDestination;
+                guardian.Player = Player;
             }
             else
-                throw new MissingComponentException("In the Spawned Prefab is no Guardian Script attached. Maybe you choose the wrong Prefab.");
+            {
+                Debug.LogError("In the Spawned Prefab is no Guardian Script attached. Maybe you choose the wrong Prefab.");
+            }
         }
     }
 }

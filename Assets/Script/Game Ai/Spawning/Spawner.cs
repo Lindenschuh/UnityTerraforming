@@ -7,45 +7,93 @@ using System.Linq;
 
 namespace UnityTerraforming.GameAi
 {
+    public class SpawnerStats
+    {
+        public int SpawnedTogether { get; private set; }
+        public int CurrentAlive { get; private set; }
+        public float TimeTilCaptured { get; private set; }
+        public float SpawnTime { get; private set; }
+
+        public SpawnerStats()
+        {
+            SpawnTime = Time.time;
+        }
+
+        public void Spawend()
+        {
+            SpawnedTogether++;
+            CurrentAlive++;
+        }
+
+        public void Died() => CurrentAlive--;
+
+        public void Captured() => TimeTilCaptured = Time.time - SpawnTime;
+    }
+
     public abstract class Spawner : Photon.PunBehaviour
     {
-        public GameObject EntityPrefab;
+        public Transform Player;
+        public Transform MainDestination;
+
+        public GameObject GuardianPrefab;
+        public GameObject AttackerPrefab;
 
         // How big will the Waves be.
-        public int WaveCount;
+        public int GuardianWaveCount;
 
-        public int MaxEntitiesAtOnce;
+        public int AttackingWaveCount;
+
+        public int MaxGuardianWavesAlive;
+        public int MaxAttackingWavesAlive;
 
         public float WaitBetweenSpawn;
         public float WaitBetweenWaves;
         public float WaitOnStart;
 
+        public float AttackerOffset;
+
+        public Transform SpawnPoint;
+
         public readonly UnityEvent OnCapturedEvent;
 
-        private List<GameObject> _entitiesAlive;
+        public List<GameObject> GuardingEntitiesAlive { get; private set; }
+
+        public List<GameObject> AttackingEntitiesAlive { get; private set; }
 
         private bool _captured = false;
 
-        private void Start()
+        public SpawnerStats Stats;
+
+        private void Awake()
         {
-            StartCoroutine(SpawnWaves());
-            _entitiesAlive = new List<GameObject>();
+            Stats = new SpawnerStats();
         }
 
-        public IEnumerator SpawnWaves()
+        private void Start()
+        {
+            StartCoroutine(SpawnGuardingWaves());
+            StartCoroutine(SpawnAttackingWaves());
+            GuardingEntitiesAlive = new List<GameObject>();
+            AttackingEntitiesAlive = new List<GameObject>();
+            if (Player == null)
+                Player = GameObject.FindGameObjectsWithTag("Player")[0].transform;
+        }
+
+        public IEnumerator SpawnGuardingWaves()
         {
             yield return new WaitForSeconds(WaitOnStart);
 
             // as long the point is not captured
             while (!_captured)
             {
-                if (_entitiesAlive.Count < MaxEntitiesAtOnce)
-                    for (int i = 0; i < WaveCount; i++)
+                if ((GuardingEntitiesAlive.Count / GuardianWaveCount) < MaxGuardianWavesAlive)
+                    for (int i = 0; i < GuardianWaveCount; i++)
                     {
                         if (_captured) break;
-                        var spawend = Instantiate(EntityPrefab, transform.transform.position, Quaternion.identity);
-                        InstantiateTowerSpecificEnemy(spawend);
-                        _entitiesAlive.Add(spawend);
+                        var spawend = Instantiate(GuardianPrefab, SpawnPoint.position, Quaternion.identity);
+                        InstantiateTowerSpecificGuard(spawend);
+                        GuardingEntitiesAlive.Add(spawend);
+                        Stats.Spawend();
                         yield return new WaitForSeconds(WaitBetweenSpawn);
                     }
 
@@ -53,17 +101,51 @@ namespace UnityTerraforming.GameAi
             }
         }
 
+        public IEnumerator SpawnAttackingWaves()
+        {
+            yield return new WaitForSeconds(WaitOnStart + AttackerOffset);
+
+            // as long the point is not captured
+            while (!_captured)
+            {
+                if ((AttackingEntitiesAlive.Count / GuardianWaveCount) < MaxGuardianWavesAlive)
+                    for (int i = 0; i < GuardianWaveCount; i++)
+                    {
+                        if (_captured) break;
+                        var spawend = Instantiate(AttackerPrefab, SpawnPoint.position, Quaternion.identity);
+                        InstantiateTowerSpecificAtttacker(spawend);
+                        AttackingEntitiesAlive.Add(spawend);
+                        Stats.Spawend();
+                        yield return new WaitForSeconds(WaitBetweenSpawn + AttackerOffset);
+                    }
+
+                yield return new WaitForSeconds(WaitBetweenWaves + AttackerOffset);
+            }
+        }
+
         public void SpawedInstanceDied(GameObject instance)
         {
-            _entitiesAlive.Remove(instance);
-            if (_entitiesAlive.Count == 0)
+            if (GuardingEntitiesAlive.Contains(instance))
+            {
+                GuardingEntitiesAlive.Remove(instance);
+                Stats.Died();
+            }
+            if (AttackingEntitiesAlive.Contains(instance))
+            {
+                AttackingEntitiesAlive.Remove(instance);
+                Stats.Died();
+            }
+            if (GuardingEntitiesAlive.Count == 0)
             {
                 _captured = true;
                 GetComponentInChildren<Crystral>().TooggleCaptured(_captured);
                 OnCapturedEvent.Invoke();
+                Stats.Captured();
             }
         }
 
-        public abstract void InstantiateTowerSpecificEnemy(GameObject spawnedEntity);
+        public abstract void InstantiateTowerSpecificGuard(GameObject spawnedEntity);
+
+        public abstract void InstantiateTowerSpecificAtttacker(GameObject spawedEntity);
     }
 }

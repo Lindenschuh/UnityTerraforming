@@ -20,7 +20,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4683065267442496}
   - component: {fileID: 114713636512627784}
-  - component: {fileID: 114897403755833120}
   m_Layer: 0
   m_Name: TreeSpawnerSettings
   m_TagString: Untagged
@@ -53,38 +52,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   point: {x: 250, y: 250}
-  outerCircle: 0.95
-  innerCircle: 0.1
-  size: 15
+  innerCircle: 0.05
+  outerCircle: 0.99
+  size: 20
   distanceBetweenObjects: 1
   distanceBetweenLocations: 1
-  differentLocations: 100
-  amount: 10
-  maxHeight: 20
-  preFab: {fileID: 136824, guid: e20da2c5dd2cf684fb876a996791af03, type: 2}
---- !u!114 &114897403755833120
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1092967701291538}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ownerId: 0
-  group: 0
-  OwnerShipWasTransfered: 0
-  prefixBackup: -1
-  synchronization: 0
-  onSerializeTransformOption: 3
-  onSerializeRigidBodyOption: 2
-  ownershipTransfer: 0
-  ObservedComponents:
-  - {fileID: 0}
-  ObservedComponentsFoldoutOpen: 1
-  viewIdField: 0
-  instantiationId: -1
-  currentMasterID: -1
-  isRuntimeInstantiated: 0
+  differentLocations: 150
+  amount: 20
+  maxHeight: 60
+  preFab: {fileID: 191138, guid: 4e2dd32c733005a44b50004d673dc653, type: 2}

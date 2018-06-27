@@ -31,7 +31,7 @@ namespace UnityTerraforming.GameAi
         {
             return new Steering()
             {
-                linear = -((targetPosition + agent.transform.position).normalized * agent.MaxAccel)
+                linear = (agent.transform.position - targetPosition).normalized * agent.MaxAccel
             };
         }
 
@@ -84,41 +84,53 @@ namespace UnityTerraforming.GameAi
             return steering;
         }
 
-        public static Steering GetAvoidWalls(Agent agent, float lookAhead, float avoidDistance, float feelerAngle = 45, float feelerScale = 2)
+        public static Steering GetAvoidWalls(Agent agent, float lookAhead, float avoidDistance, ref Vector3? target, LayerMask mask, float feelerAngle = 45, float feelerScale = 2)
         {
             Steering steering = new Steering();
-            Vector3 position = agent.transform.position;
-            Vector3 rayVector = agent.Velocity.normalized * lookAhead;
-            Vector3 direction = rayVector;
-            Vector3 directionRight = Quaternion.AngleAxis(feelerAngle, Vector3.up) * rayVector;
-            Vector3 directionLeft = Quaternion.AngleAxis(-feelerAngle, Vector3.up) * rayVector;
 
             RaycastHit hit;
 
-            Vector3 target = new Vector3();
-
-            Debug.DrawRay(position, direction, Color.green);
-            Debug.DrawRay(position, directionLeft / feelerScale, Color.red);
-            Debug.DrawRay(position, directionRight / feelerScale, Color.blue);
-
-            if (Physics.Raycast(position, direction, out hit, lookAhead))
+            if (target == null)
             {
-                target = hit.point + hit.normal * avoidDistance; ;
-                Debug.DrawRay(hit.point, target, Color.yellow);
-                return GetSeek(agent, target);
+                Vector3 position = agent.transform.position + Vector3.up * agent.ModelOffset;
+                Vector3 rayVector = agent.Velocity.normalized * lookAhead;
+                Vector3 direction = rayVector;
+                Vector3 directionRight = Quaternion.AngleAxis(feelerAngle, Vector3.up) * rayVector;
+                Vector3 directionLeft = Quaternion.AngleAxis(-feelerAngle, Vector3.up) * rayVector;
+
+                Vector3 newTarget = new Vector3();
+
+                Debug.DrawRay(position, direction, Color.green);
+                Debug.DrawRay(position, directionLeft / feelerScale, Color.red);
+                Debug.DrawRay(position, directionRight / feelerScale, Color.blue);
+
+                if (Physics.Raycast(position, direction, out hit, lookAhead, mask))
+                {
+                    newTarget = hit.point + hit.normal * avoidDistance;
+                    Debug.DrawRay(hit.point, newTarget, Color.yellow);
+                    return GetSeek(agent, newTarget);
+                }
+
+                if (Physics.Raycast(position, directionLeft, out hit, lookAhead / feelerScale, mask))
+                {
+                    newTarget = hit.point + hit.normal * avoidDistance;
+                    Debug.DrawRay(hit.point, newTarget, Color.yellow);
+                    return GetSeek(agent, newTarget);
+                }
+
+                if (Physics.Raycast(position, directionRight, out hit, lookAhead / feelerScale, mask))
+                {
+                    newTarget = hit.point + hit.normal * avoidDistance;
+                    Debug.DrawRay(hit.point, newTarget, Color.yellow);
+                    return GetSeek(agent, newTarget);
+                }
+
+                target = newTarget;
             }
-            if (Physics.Raycast(position, directionLeft, out hit, lookAhead / feelerScale))
+            else
             {
-                target = hit.point + hit.normal * avoidDistance; ;
-                Debug.DrawRay(hit.point, target, Color.yellow);
-                return GetSeek(agent, target);
-            }
-
-            if (Physics.Raycast(position, directionRight, out hit, lookAhead / feelerScale))
-            {
-                target = hit.point + hit.normal * avoidDistance; ;
-                Debug.DrawRay(hit.point, target, Color.yellow);
-                return GetSeek(agent, target);
+                if (target != Vector3.zero)
+                    return GetSeek(agent, (Vector3)target);
             }
 
             return steering;

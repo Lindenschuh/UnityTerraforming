@@ -89,6 +89,7 @@ GameObject:
   - component: {fileID: 114409955311204138}
   - component: {fileID: 54217362612848318}
   - component: {fileID: 65016562127533520}
+  - component: {fileID: 114481501653921706}
   m_Layer: 1
   m_Name: Sniper
   m_TagString: Weapon
@@ -1200,6 +1201,7 @@ MonoBehaviour:
   openCloseEvents: 0
   openCloseWindow: 1
   selectedToolbar: 0
+  photonView: {fileID: 114481501653921706}
   isLeftWeapon: 0
   chargeWeapon: 0
   autoShotOnFinishCharge: 0
@@ -1413,6 +1415,32 @@ MonoBehaviour:
   detachOnStart: 1
   useSmothRotation: 0
   justY: 0
+--- !u!114 &114481501653921706
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1428321094423552}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ownerId: 0
+  group: 0
+  OwnerShipWasTransfered: 0
+  prefixBackup: -1
+  synchronization: 0
+  onSerializeTransformOption: 3
+  onSerializeRigidBodyOption: 2
+  ownershipTransfer: 0
+  ObservedComponents:
+  - {fileID: 0}
+  ObservedComponentsFoldoutOpen: 1
+  viewIdField: 0
+  instantiationId: -1
+  currentMasterID: -1
+  isRuntimeInstantiated: 0
 --- !u!114 &114483908627790206
 MonoBehaviour:
   m_ObjectHideFlags: 1

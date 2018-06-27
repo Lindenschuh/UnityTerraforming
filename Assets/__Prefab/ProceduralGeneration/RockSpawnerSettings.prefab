@@ -20,7 +20,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4492847398305844}
   - component: {fileID: 114854852792990466}
-  - component: {fileID: 114092529637228752}
   m_Layer: 0
   m_Name: RockSpawnerSettings
   m_TagString: Untagged
@@ -41,32 +40,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &114092529637228752
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1636813930581706}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ownerId: 0
-  group: 0
-  OwnerShipWasTransfered: 0
-  prefixBackup: -1
-  synchronization: 0
-  onSerializeTransformOption: 3
-  onSerializeRigidBodyOption: 2
-  ownershipTransfer: 0
-  ObservedComponents:
-  - {fileID: 0}
-  ObservedComponentsFoldoutOpen: 1
-  viewIdField: 0
-  instantiationId: -1
-  currentMasterID: -1
-  isRuntimeInstantiated: 0
 --- !u!114 &114854852792990466
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -86,5 +59,5 @@ MonoBehaviour:
   distanceBetweenLocations: 1
   differentLocations: 100
   amount: 1
-  maxHeight: 60
-  preFab: {fileID: 1390808159254106, guid: dd266a75b21cb1f4ba1b2b2d555c0425, type: 2}
+  maxHeight: 0
+  preFab: {fileID: 165230, guid: 751682349ef7b8546aff2c104411f6b3, type: 2}

@@ -61,4 +61,8 @@ MonoBehaviour:
   - RPCUpdateRoom
   - RPCUseAbility
   - RPCSpawnEnemy
+  - RPCHandleShotEffectDispersion
+  - RPCHandleShotEffectPerShot
+  - RPCEnemyAddDamage
+  - RPCSpawnObject
   DisableAutoOpenWizard: 1

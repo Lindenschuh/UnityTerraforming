@@ -5,11 +5,10 @@ using UnityEngine;
 public class Trap : MonoBehaviour {
 
     public float damagePerTick;
-    public int ticks;
-    public int duration;
+    public float tickTimer;
     public LayerMask enemies;
+    public Vector3 direction;
 
-    private float tickTimer;
     private float nextTickTime;
     private bool activated;
     private float timeLeft;
@@ -17,47 +16,50 @@ public class Trap : MonoBehaviour {
     private void Start()
     {
         activated = false;
-        nextTickTime = duration / ticks;
-        tickTimer = nextTickTime;
         timeLeft = 0;
-
-        if (ticks == 1 && duration > 1)
-            duration = 1;
+        if (direction.x > 0 && direction.y > 0 && direction.z < 0 && transform.parent.localRotation.y > 0)
+            transform.localEulerAngles = new Vector3(0, 0, 90);
+        else if (direction.x > 0 || (direction.x > 0 && direction.y > 0 && direction.z < 0 && transform.parent.localRotation.y == 0) || (direction.x < 0 && direction.y < 0 && direction.z > 0  && transform.parent.localRotation.y > 0))
+            transform.localEulerAngles = new Vector3(0, 0, -90);
+        else if (direction.x < 0)
+            transform.localEulerAngles = new Vector3(0, 0, 90);
+        else if (direction.y < 0)
+            transform.localEulerAngles = new Vector3(0, 0, 180);
     }
 
     private void Update()
     {
         if (!activated)
         {
-            RaycastHit[] BoxCastHit = Physics.BoxCastAll(transform.position, transform.localScale, transform.up, transform.localRotation, 4, enemies, QueryTriggerInteraction.Collide);
+            Collider collider = transform.GetComponent<Collider>();
+            RaycastHit[] BoxCastHit = Physics.BoxCastAll(transform.position, collider.bounds.size * 0.5f, direction, transform.localRotation, 4, enemies, QueryTriggerInteraction.Collide);
             if (BoxCastHit.Length > 0)
+            {
                 activated = true;
+            }
         }
 
-        if (activated && ticks > 0)
+        if (activated)
         {
             timeLeft += Time.deltaTime;
-            if (timeLeft >= tickTimer)
+            if (timeLeft >= nextTickTime)
             {
                 DamageEnemies();
             }
-
-        }
-
-        if (ticks <= 0)
-            Destroy(gameObject);
-        
+        }    
     }
 
     private void DamageEnemies()
     {
-        RaycastHit[] BoxCastHit = Physics.BoxCastAll(transform.position, transform.localScale, transform.up, transform.localRotation, 4, enemies, QueryTriggerInteraction.Collide);
+        if (gameObject.GetComponentInChildren<ParticleSystem>())
+            gameObject.GetComponentInChildren<ParticleSystem>().Play();
+        Collider collider = transform.GetComponent<Collider>();
+        RaycastHit[] BoxCastHit = Physics.BoxCastAll(transform.position, collider.bounds.size * 0.5f, direction, transform.localRotation, 4, enemies, QueryTriggerInteraction.Collide);
         foreach (RaycastHit enemyHit in BoxCastHit)
         {
             enemyHit.transform.GetComponent<Health>().AddDamage((int)damagePerTick);
         }
-        ticks--;
-        tickTimer += nextTickTime;
+        nextTickTime += tickTimer;
     }
 
 }
