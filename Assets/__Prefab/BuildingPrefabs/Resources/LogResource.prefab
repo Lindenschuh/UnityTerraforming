@@ -110,7 +110,7 @@ GameObject:
   - component: {fileID: 114846973753672826}
   - component: {fileID: 114078449359786760}
   - component: {fileID: 54587719797510624}
-  - component: {fileID: 136369724989536946}
+  - component: {fileID: 65846637642770116}
   m_Layer: 18
   m_Name: LogResource
   m_TagString: BuildResource
@@ -138,7 +138,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1916901614761758}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 225, y: 40, z: 260}
+  m_LocalPosition: {x: 150.82616, y: 48.927, z: 95.62667}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4251126834198204}
@@ -315,6 +315,18 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!65 &65846637642770116
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1916901614761758}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.5, y: 0.3, z: 0.5}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &114078449359786760
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -432,19 +444,6 @@ MonoBehaviour:
   resourceAmount: 50
   inventoryIcon: {fileID: 0}
   objectPrefab: {fileID: 0}
---- !u!136 &136369724989536946
-CapsuleCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1916901614761758}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  m_Radius: 0.5
-  m_Height: 1
-  m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!205 &205994459230840218
 LODGroup:
   m_ObjectHideFlags: 1

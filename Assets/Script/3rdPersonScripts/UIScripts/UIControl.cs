@@ -146,6 +146,8 @@ public class UIControl : MonoBehaviour {
             inputScript.LockCursor(inventoryObject.active);
             inputScript.ShowCursor(inventoryObject.active);
             inputScript.SetLockCameraInput(inventoryObject.active);
+            GameObject.Find("DropAmount").active = false;
+
         }
         if (inventoryObject.GetActive())
         {

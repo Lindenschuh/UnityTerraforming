@@ -3322,7 +3322,7 @@ Camera:
     width: 1
     height: 1
   near clip plane: 0.03
-  far clip plane: 250
+  far clip plane: 500
   field of view: 60
   orthographic: 0
   orthographic size: 5
@@ -4085,7 +4085,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   openCloseEvents: 0
-  openCloseWindow: 0
+  openCloseWindow: 1
   selectedToolbar: 0
   actionEnter: 0
   actionStay: 0
@@ -4366,15 +4366,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   openCloseEvents: 0
   openCloseWindow: 1
-  selectedToolbar: 0
+  selectedToolbar: 4
   damageLayer:
     serializedVersion: 2
     m_Bits: 16641
   ignoreTags:
-    value: 64
+    value: 32
     tags:
     - Player
-    - Glass
   blockAimLayer:
     serializedVersion: 2
     m_Bits: 1
@@ -4450,7 +4449,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   openCloseEvents: 0
   openCloseWindow: 1
-  selectedToolbar: 0
+  selectedToolbar: 4
   _isDead: 0
   _currentHealth: 0
   maxHealth: 100
@@ -4741,7 +4740,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   openCloseEvents: 0
-  openCloseWindow: 0
+  openCloseWindow: 1
   selectedToolbar: 0
   meleeManager: {fileID: 0}
   rightHandler:
@@ -4757,9 +4756,9 @@ MonoBehaviour:
     isAxisInUse: 0
     keyboard: RightArrow
     keyboardAxis: 0
-    joystick: D-Pad Horizontal
+    joystick: Horizontal
     joystickAxis: 1
-    mobile: D-Pad Horizontal
+    mobile: Horizontal
     mobileAxis: 1
     joystickAxisInvert: 0
     keyboardAxisInvert: 0
@@ -4938,7 +4937,7 @@ MonoBehaviour:
     isAxisInUse: 0
     keyboard: Horizontal
     keyboardAxis: 0
-    joystick: LeftAnalogHorizontal
+    joystick: Horizontal
     joystickAxis: 0
     mobile: Horizontal
     mobileAxis: 0
@@ -4950,7 +4949,7 @@ MonoBehaviour:
     isAxisInUse: 0
     keyboard: Vertical
     keyboardAxis: 0
-    joystick: LeftAnalogVertical
+    joystick: Vertical
     joystickAxis: 0
     mobile: Vertical
     mobileAxis: 0
@@ -4962,7 +4961,7 @@ MonoBehaviour:
     isAxisInUse: 0
     keyboard: Space
     keyboardAxis: 0
-    joystick: X
+    joystick: Cancel
     joystickAxis: 0
     mobile: X
     mobileAxis: 0
@@ -4974,7 +4973,7 @@ MonoBehaviour:
     isAxisInUse: 0
     keyboard: Q
     keyboardAxis: 0
-    joystick: B
+    joystick: Cancel
     joystickAxis: 0
     mobile: B
     mobileAxis: 0
@@ -4986,9 +4985,9 @@ MonoBehaviour:
     isAxisInUse: 0
     keyboard: Tab
     keyboardAxis: 0
-    joystick: RightStickClick
+    joystick: Horizontal
     joystickAxis: 0
-    mobile: RightStickClick
+    mobile: Horizontal
     mobileAxis: 0
     joystickAxisInvert: 0
     keyboardAxisInvert: 0
@@ -4998,9 +4997,9 @@ MonoBehaviour:
     isAxisInUse: 0
     keyboard: LeftShift
     keyboardAxis: 0
-    joystick: LeftStickClick
+    joystick: Cancel
     joystickAxis: 0
-    mobile: LeftStickClick
+    mobile: Horizontal
     mobileAxis: 0
     joystickAxisInvert: 0
     keyboardAxisInvert: 0
@@ -5010,7 +5009,7 @@ MonoBehaviour:
     isAxisInUse: 0
     keyboard: C
     keyboardAxis: 0
-    joystick: Y
+    joystick: Cancel
     joystickAxis: 0
     mobile: Y
     mobileAxis: 0
@@ -5025,7 +5024,7 @@ MonoBehaviour:
     isAxisInUse: 0
     keyboard: Mouse X
     keyboardAxis: 0
-    joystick: RightAnalogHorizontal
+    joystick: Cancel
     joystickAxis: 0
     mobile: Mouse X
     mobileAxis: 0
@@ -5037,7 +5036,7 @@ MonoBehaviour:
     isAxisInUse: 0
     keyboard: Mouse Y
     keyboardAxis: 0
-    joystick: RightAnalogVertical
+    joystick: Cancel
     joystickAxis: 0
     mobile: Mouse Y
     mobileAxis: 0
@@ -5049,7 +5048,7 @@ MonoBehaviour:
     isAxisInUse: 0
     keyboard: Mouse ScrollWheel
     keyboardAxis: 0
-    joystick: Horizontal
+    joystick: Cancel
     joystickAxis: 0
     mobile: Horizontal
     mobileAxis: 0
@@ -5085,7 +5084,7 @@ MonoBehaviour:
     isAxisInUse: 0
     keyboard: Mouse0
     keyboardAxis: 0
-    joystick: Horizontal
+    joystick: Cancel
     joystickAxis: 0
     mobile: Horizontal
     mobileAxis: 0
@@ -5097,9 +5096,9 @@ MonoBehaviour:
     isAxisInUse: 0
     keyboard: Alpha1
     keyboardAxis: 0
-    joystick: RT
-    joystickAxis: 1
-    mobile: RT
+    joystick: Horizontal
+    joystickAxis: 0
+    mobile: Horizontal
     mobileAxis: 0
     joystickAxisInvert: 0
     keyboardAxisInvert: 0
@@ -5109,7 +5108,7 @@ MonoBehaviour:
     isAxisInUse: 0
     keyboard: Mouse1
     keyboardAxis: 0
-    joystick: Horizontal
+    joystick: Cancel
     joystickAxis: 0
     mobile: Horizontal
     mobileAxis: 0
@@ -5127,9 +5126,9 @@ MonoBehaviour:
     isAxisInUse: 0
     keyboard: Mouse1
     keyboardAxis: 0
-    joystick: LT
+    joystick: Horizontal
     joystickAxis: 1
-    mobile: LT
+    mobile: Horizontal
     mobileAxis: 1
     joystickAxisInvert: 0
     keyboardAxisInvert: 0
@@ -5139,7 +5138,7 @@ MonoBehaviour:
     isAxisInUse: 0
     keyboard: Mouse0
     keyboardAxis: 0
-    joystick: Horizontal
+    joystick: Cancel
     joystickAxis: 1
     mobile: Horizontal
     mobileAxis: 1
@@ -5151,7 +5150,7 @@ MonoBehaviour:
     isAxisInUse: 0
     keyboard: Mouse2
     keyboardAxis: 0
-    joystick: X
+    joystick: Cancel
     joystickAxis: 1
     mobile: X
     mobileAxis: 0
@@ -5163,9 +5162,9 @@ MonoBehaviour:
     isAxisInUse: 0
     keyboard: R
     keyboardAxis: 0
-    joystick: LB
+    joystick: Cancel
     joystickAxis: 0
-    mobile: LB
+    mobile: Horizontal
     mobileAxis: 0
     joystickAxisInvert: 0
     keyboardAxisInvert: 0
@@ -5175,9 +5174,9 @@ MonoBehaviour:
     isAxisInUse: 0
     keyboard: Tab
     keyboardAxis: 0
-    joystick: RightStickClick
+    joystick: Horizontal
     joystickAxis: 0
-    mobile: RightStickClick
+    mobile: Horizontal
     mobileAxis: 0
     joystickAxisInvert: 0
     keyboardAxisInvert: 0
@@ -5187,9 +5186,9 @@ MonoBehaviour:
     isAxisInUse: 0
     keyboard: Z
     keyboardAxis: 0
-    joystick: RB
+    joystick: Cancel
     joystickAxis: 0
-    mobile: RB
+    mobile: Horizontal
     mobileAxis: 0
     joystickAxisInvert: 0
     keyboardAxisInvert: 0
@@ -5218,7 +5217,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   openCloseEvents: 0
-  openCloseWindow: 0
+  openCloseWindow: 1
   selectedToolbar: 0
   tagsToFind:
   - Enemy
