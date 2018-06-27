@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityTerraforming.GameAi;
 
 public class ObjectPlacer : Photon.PunBehaviour
 {        
@@ -11,6 +12,7 @@ public class ObjectPlacer : Photon.PunBehaviour
 
     private float terrainWidth;
     private float terrainHeight;
+    private string mainDestination = "Main Destination(Clone)";
 
     private struct AllowedMapData
     {
@@ -27,7 +29,7 @@ public class ObjectPlacer : Photon.PunBehaviour
     }
 
 
-    void Start()
+    public void StartSpawn()
     {
         // get size of terrain
         terrainWidth = terrain.terrainData.heightmapWidth / 2;
@@ -37,7 +39,7 @@ public class ObjectPlacer : Photon.PunBehaviour
             StartCoroutine(SpawnObjects(objects, RandomizeOnTerrain, objects.Length, tries));
     }
 
-    private IEnumerator SpawnObjects(ObjectSettings[] prefabsToSpawn, System.Action<PositionCheck, float[]> randomizeDelegate, int spawnCount, int tries = 50)
+    private IEnumerator SpawnObjects(ObjectSettings[] prefabsToSpawn, System.Action<PositionCheck, float[]> randomizeDelegate, int spawnCount, int tries = 100)
     {
         foreach (ObjectSettings prefab in prefabsToSpawn)
         {
@@ -81,7 +83,8 @@ public class ObjectPlacer : Photon.PunBehaviour
                 continue;
             }
             positionCheck.randomPosition = new Vector3(positionCheck.randomPosition.x, positionCheck.randomPosition.y - 0.5f, positionCheck.randomPosition.z);
-            PhotonNetwork.Instantiate(prefabToSpawn.preFab.name, positionCheck.randomPosition, positionCheck.normalizedRotation, 0);
+            photonView.RPC("RPCSpawnObject", PhotonTargets.All, prefabToSpawn.preFab.name, positionCheck.randomPosition, positionCheck.normalizedRotation);
+            
             currentObjectsCount++;
         }
         Destroy(template.gameObject);
@@ -150,10 +153,12 @@ public class ObjectPlacer : Photon.PunBehaviour
             float rndHeight = 0;
             while (tries > 0)
             {
+                if (prefabToSpawn.preFab.gameObject.layer == 11 ^ prefabToSpawn.preFab.GetComponent<GuardianSpawner>())
+                    tries = 2;
                 bool spawnOk = true;
 
                 AllowedMapData placeToCheck = allowedPlaces[Random.Range(0, allowedPlaces.Count)];
-                if(((placeToCheck.width < center[0] + outerWidth && placeToCheck.width > center[0] + innerWidth) ^ (placeToCheck.width > center[0] - outerWidth && placeToCheck.width < center[0] - innerWidth)) ||
+                if (((placeToCheck.width < center[0] + outerWidth && placeToCheck.width > center[0] + innerWidth) ^ (placeToCheck.width > center[0] - outerWidth && placeToCheck.width < center[0] - innerWidth)) && 
                     ((placeToCheck.height < center[1] + outerHeight && placeToCheck.height > center[1] + innerHeight) ^ (placeToCheck.height > center[1] - outerHeight && placeToCheck.height < center[1] - innerHeight)))
                 { 
                     rndWidth = placeToCheck.width;
@@ -232,5 +237,19 @@ public class ObjectPlacer : Photon.PunBehaviour
             rotation = Quaternion.AngleAxis(maxAngle, Vector3.up);
 
         return rotation * Quaternion.Euler(Vector3.up * Random.Range(-180f, 180f));
+    }
+
+    [PunRPC]
+    private void RPCSpawnObject(string prefabName, Vector3 position, Quaternion rotation)
+    {
+        GameObject prefab = Resources.Load(prefabName) as GameObject;
+        GameObject spawnedObject = Instantiate(prefab, position, rotation);
+        if (prefab.transform.GetComponent<GuardianSpawner>())
+        {
+            spawnedObject.transform.GetComponent<GuardianSpawner>().MainDestination = GameObject.Find(mainDestination).transform;
+            GameManager gameManager = GameManager.instance;
+            if (gameManager != null)
+                gameManager.Spawners.Add(spawnedObject);
+        }
     }
 }
