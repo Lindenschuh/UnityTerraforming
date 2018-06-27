@@ -111,20 +111,20 @@ MonoBehaviour:
   - texture: {fileID: 2800000, guid: 81fc49c26ea88524481d6f624995ab81, type: 3}
     tint: {r: 0, g: 0, b: 0, a: 0}
     tintStrength: 0
-    startHeight: 0.199
-    blendStrength: 0.073
+    startHeight: 0.55
+    blendStrength: 0.15
     textureScale: 10
   - texture: {fileID: 2800000, guid: a7b7d627c1c5cbe4f93ed1e7f7fb9334, type: 3}
     tint: {r: 0, g: 0, b: 0, a: 0}
     tintStrength: 0
-    startHeight: 0.499
-    blendStrength: 0.08
+    startHeight: 0.6
+    blendStrength: 0.15
     textureScale: 20
   - texture: {fileID: 2800000, guid: e86ee738510af6249a889478f1181008, type: 3}
     tint: {r: 0, g: 0, b: 0, a: 0}
     tintStrength: 0
-    startHeight: 0.78
-    blendStrength: 0.123
+    startHeight: 0.8
+    blendStrength: 0.15
     textureScale: 0
   GodState: {fileID: 0}
   FogColor: {r: 0.3773585, g: 0.3773585, b: 0.3773585, a: 0}

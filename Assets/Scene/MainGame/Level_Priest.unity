@@ -2079,25 +2079,11 @@ Prefab:
       propertyPath: m_RootOrder
       value: 4
       objectReference: {fileID: 0}
-    - target: {fileID: 1508438894196488, guid: 8050461c1f3fa204abf285fe0defb49d, type: 2}
-      propertyPath: m_Name
-      value: Terrain
-      objectReference: {fileID: 0}
-    - target: {fileID: 114549777525745826, guid: 8050461c1f3fa204abf285fe0defb49d,
+    - target: {fileID: 114878938466503566, guid: 8050461c1f3fa204abf285fe0defb49d,
         type: 2}
-      propertyPath: viewIdField
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 114549777525745826, guid: 8050461c1f3fa204abf285fe0defb49d,
-        type: 2}
-      propertyPath: instantiationId
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 114954183578084956, guid: 8050461c1f3fa204abf285fe0defb49d,
-        type: 2}
-      propertyPath: GodState
+      propertyPath: MainCamera
       value: 
-      objectReference: {fileID: 1371987811}
+      objectReference: {fileID: 717264981}
     - target: {fileID: 114878938466503566, guid: 8050461c1f3fa204abf285fe0defb49d,
         type: 2}
       propertyPath: GodState
@@ -2110,23 +2096,24 @@ Prefab:
       objectReference: {fileID: 1547050662}
     - target: {fileID: 114878938466503566, guid: 8050461c1f3fa204abf285fe0defb49d,
         type: 2}
-      propertyPath: MainCamera
-      value: 
-      objectReference: {fileID: 717264981}
-    - target: {fileID: 114878938466503566, guid: 8050461c1f3fa204abf285fe0defb49d,
-        type: 2}
-      propertyPath: TerrainLayer.m_Bits
-      value: 512
-      objectReference: {fileID: 0}
-    - target: {fileID: 1508438894196488, guid: 8050461c1f3fa204abf285fe0defb49d, type: 2}
-      propertyPath: m_Layer
-      value: 9
-      objectReference: {fileID: 0}
-    - target: {fileID: 114878938466503566, guid: 8050461c1f3fa204abf285fe0defb49d,
-        type: 2}
       propertyPath: GodCon
       value: 
       objectReference: {fileID: 1013891021}
+    - target: {fileID: 114954183578084956, guid: 8050461c1f3fa204abf285fe0defb49d,
+        type: 2}
+      propertyPath: GodState
+      value: 
+      objectReference: {fileID: 1371987811}
+    - target: {fileID: 114549777525745826, guid: 8050461c1f3fa204abf285fe0defb49d,
+        type: 2}
+      propertyPath: viewIdField
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114549777525745826, guid: 8050461c1f3fa204abf285fe0defb49d,
+        type: 2}
+      propertyPath: instantiationId
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 8050461c1f3fa204abf285fe0defb49d, type: 2}
   m_IsPrefabParent: 0

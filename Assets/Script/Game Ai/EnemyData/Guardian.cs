@@ -25,7 +25,11 @@ namespace UnityTerraforming.GameAi
                     switch (st)
                     {
                         case SteeringTypes.ATTACK:
-                            Attack();
+                            if (_nextAttack < Time.time)
+                            {
+                                _nextAttack = Time.time + AttackRate;
+                                Attack();
+                            }
                             break;
 
                         case SteeringTypes.SEEK:

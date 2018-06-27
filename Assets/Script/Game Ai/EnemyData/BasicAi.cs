@@ -22,6 +22,7 @@ namespace UnityTerraforming.GameAi
 
         public float CollisionRadius = 4f;
 
+        public float AttackRate = 1.1f;
         public float AnimationDuration = 2f;
         public float WaitBetweenScans = 3f;
         public float WallAvoidanceRate = 0.5f;
@@ -40,8 +41,9 @@ namespace UnityTerraforming.GameAi
 
         protected List<Agent> _souroundingAgents;
 
-        private float _nextScan = 0;
-        protected float _nextavoid = 0;
+        private float _nextScan = 0f;
+        protected float _nextavoid = 0f;
+        protected float _nextAttack = 0f;
 
         protected Vector3? _avoidanceTarget;
 

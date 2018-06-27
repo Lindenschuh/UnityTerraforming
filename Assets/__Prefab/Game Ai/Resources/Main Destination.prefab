@@ -39,7 +39,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1382041653876022}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -47.6, y: 0, z: -72.1}
+  m_LocalPosition: {x: -9.37, y: 0, z: -22.72}
   m_LocalScale: {x: 120, y: 120, z: 120}
   m_Children: []
   m_Father: {fileID: 0}
@@ -115,8 +115,8 @@ MonoBehaviour:
   selectedToolbar: 0
   _isDead: 0
   _currentHealth: 0
-  maxHealth: 10000
-  healthRecovery: 5
+  maxHealth: 3000
+  healthRecovery: 2
   healthRecoveryDelay: 0
   currentHealthRecoveryDelay: 0
   onReceiveDamage:
@@ -151,8 +151,8 @@ MonoBehaviour:
   ObservedComponents:
   - {fileID: 0}
   ObservedComponentsFoldoutOpen: 1
-  viewIdField: 0
-  instantiationId: -1
+  viewIdField: 3
+  instantiationId: 3
   currentMasterID: -1
   isRuntimeInstantiated: 0
 --- !u!114 &114902945167922254
