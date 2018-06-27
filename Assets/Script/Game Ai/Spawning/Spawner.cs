@@ -72,12 +72,15 @@ namespace UnityTerraforming.GameAi
 
         private void Start()
         {
-            StartCoroutine(SpawnGuardingWaves());
-            StartCoroutine(SpawnAttackingWaves());
-            GuardingEntitiesAlive = new List<GameObject>();
-            AttackingEntitiesAlive = new List<GameObject>();
-            if (Player == null)
-                Player = GameObject.FindGameObjectsWithTag("Player")[0].transform;
+            if (PhotonNetwork.isMasterClient)
+            {
+                StartCoroutine(SpawnGuardingWaves());
+                StartCoroutine(SpawnAttackingWaves());
+                GuardingEntitiesAlive = new List<GameObject>();
+                AttackingEntitiesAlive = new List<GameObject>();
+                if (Player == null)
+                    Player = GameObject.FindGameObjectsWithTag("Player")[0].transform;
+            }
         }
 
         public IEnumerator SpawnGuardingWaves()
