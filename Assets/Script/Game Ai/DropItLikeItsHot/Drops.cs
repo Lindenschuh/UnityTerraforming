@@ -24,7 +24,7 @@ namespace UnityTerraforming
                 var random = Random.Range(0f, 1f);
                 if (d.Chance >= random)
                 {
-                    Instantiate(d.Prefab, transform.position, Quaternion.identity);
+                    PhotonNetwork.Instantiate(d.Prefab.name, transform.position, Quaternion.identity, 0);
                 }
             }
         }

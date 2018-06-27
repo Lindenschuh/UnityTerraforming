@@ -2369,6 +2369,7 @@ MonoBehaviour:
   FeelerAngle: 45
   FeelerScale: 4
   CollisionRadius: 4
+  AttackRate: 0.5
   AnimationDuration: 2
   WaitBetweenScans: 3
   WallAvoidanceRate: 0.5
@@ -2505,16 +2506,10 @@ MonoBehaviour:
   drops:
   - Prefab: {fileID: 1916901614761758, guid: aefdf40d468319b4981a2b22ae4e611e, type: 2}
     Chance: 0.5
-  - Prefab: {fileID: 1772301883029044, guid: c26df81ed2d2c6e4db3bcd12bb70c2e7, type: 2}
+  - Prefab: {fileID: 1536768557994300, guid: b9991cfe6c4f4a3438729f790aa83489, type: 2}
     Chance: 0.25
-  - Prefab: {fileID: 1435737720761250, guid: 75d0f729d16b07b4d96ec49d6185dbee, type: 2}
+  - Prefab: {fileID: 1536768557994300, guid: a4d389945093aa1459e4b148a5ac94b5, type: 2}
     Chance: 0.25
-  - Prefab: {fileID: 1956790025952126, guid: b065fdd6af81dcb4195fe3cc98b19e59, type: 2}
-    Chance: 0.25
-  - Prefab: {fileID: 1014458997668292, guid: 08c74015ea8d8044e974e0616ff07d70, type: 2}
-    Chance: 0.25
-  - Prefab: {fileID: 1579631856014624, guid: b905fe1b94808a54b91c68b0be717d1b, type: 2}
-    Chance: 0.1
 --- !u!114 &114512755449330400
 MonoBehaviour:
   m_ObjectHideFlags: 1

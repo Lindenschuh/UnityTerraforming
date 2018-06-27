@@ -1087,7 +1087,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   openCloseEvents: 0
   openCloseWindow: 1
-  selectedToolbar: 0
+  selectedToolbar: 1
   photonView: {fileID: 114611386379746012}
   isLeftWeapon: 0
   chargeWeapon: 0
@@ -1098,8 +1098,8 @@ MonoBehaviour:
   chargeVelocityMultiplier: 2
   automaticWeapon: 1
   shootFrequency: 0.125
-  clipSize: 25
-  ammo: 25
+  clipSize: 1000
+  ammo: 1000
   ammoID: 13
   moveSetID: 2
   upperBodyID: 2

@@ -65,4 +65,5 @@ MonoBehaviour:
   - RPCHandleShotEffectPerShot
   - RPCEnemyAddDamage
   - RPCSpawnObject
+  - RPCInstanceDied
   DisableAutoOpenWizard: 1
