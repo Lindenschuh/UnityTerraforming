@@ -107,21 +107,21 @@ namespace UnityTerraforming.GameAi
                 if (Physics.Raycast(position, direction, out hit, lookAhead, mask))
                 {
                     newTarget = hit.point + hit.normal * avoidDistance;
-                    Debug.DrawRay(hit.point, newTarget, Color.yellow, 10);
+                    Debug.DrawRay(hit.point, newTarget, Color.yellow);
                     return GetSeek(agent, newTarget);
                 }
 
                 if (Physics.Raycast(position, directionLeft, out hit, lookAhead / feelerScale, mask))
                 {
                     newTarget = hit.point + hit.normal * avoidDistance;
-                    Debug.DrawRay(hit.point, newTarget, Color.yellow, 10);
+                    Debug.DrawRay(hit.point, newTarget, Color.yellow);
                     return GetSeek(agent, newTarget);
                 }
 
                 if (Physics.Raycast(position, directionRight, out hit, lookAhead / feelerScale, mask))
                 {
                     newTarget = hit.point + hit.normal * avoidDistance;
-                    Debug.DrawRay(hit.point, newTarget, Color.yellow, 10);
+                    Debug.DrawRay(hit.point, newTarget, Color.yellow);
                     return GetSeek(agent, newTarget);
                 }
 

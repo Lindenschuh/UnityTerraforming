@@ -441,11 +441,6 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 114520220226399554, guid: 6eb9de1e41178ed48918f360103726fb,
-        type: 2}
-      propertyPath: objects.Array.size
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 4532984559767148, guid: 6eb9de1e41178ed48918f360103726fb, type: 2}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -478,11 +473,6 @@ Prefab:
       propertyPath: m_RootOrder
       value: 2
       objectReference: {fileID: 0}
-    - target: {fileID: 114520220226399554, guid: 6eb9de1e41178ed48918f360103726fb,
-        type: 2}
-      propertyPath: terrain
-      value: 
-      objectReference: {fileID: 1206232136}
     - target: {fileID: 114300217606507284, guid: 6eb9de1e41178ed48918f360103726fb,
         type: 2}
       propertyPath: viewIdField
@@ -495,10 +485,9 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 114520220226399554, guid: 6eb9de1e41178ed48918f360103726fb,
         type: 2}
-      propertyPath: objects.Array.data[0]
+      propertyPath: terrain
       value: 
-      objectReference: {fileID: 114962200983228234, guid: 7d625e6bd5a7a2449bbdfd20a669df1e,
-        type: 2}
+      objectReference: {fileID: 1206232136}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 6eb9de1e41178ed48918f360103726fb, type: 2}
   m_IsPrefabParent: 0
@@ -1422,6 +1411,34 @@ Transform:
   - {fileID: 177560898}
   m_Father: {fileID: 220967456}
   m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1184468346
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 486288791}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1184468347}
+  m_Layer: 0
+  m_Name: Missing Prefab
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1184468347
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 486288791}
+  m_GameObject: {fileID: 1184468346}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 15
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!218 &1206232136 stripped
 Terrain:
