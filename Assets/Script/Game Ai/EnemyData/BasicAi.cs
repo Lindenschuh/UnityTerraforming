@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace UnityTerraforming.GameAi
 {
-    public abstract class BasicAi : Photon.MonoBehaviour
+    public abstract class BasicAi : Photon.PunBehaviour
     {
         public GuardianSpawner Spawner;
 
@@ -112,7 +112,7 @@ namespace UnityTerraforming.GameAi
             agent.Dying = true;
             GetComponent<Drops>().Drop();
             new WaitForSeconds(AnimationDuration);
-            Destroy(gameObject);
+            PhotonNetwork.Destroy(gameObject);
         }
     }
 }
