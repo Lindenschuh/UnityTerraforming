@@ -43,11 +43,15 @@ namespace UnityTerraforming.GameAi
                             break;
 
                         case SteeringTypes.AVOID_WALLS:
-                            agent.SetSteering(SteeringManager.GetAvoidWalls(agent, LookRadius, AvoidDistance, EnvironmentLayers, FeelerAngle, FeelerScale));
+                            if (_nextavoid < Time.time)
+                            {
+                                _nextavoid = Time.time + WallAvoidanceRate;
+                                _avoidanceTarget = null;
+                            }
+                            agent.SetSteering(SteeringManager.GetAvoidWalls(agent, LookRadius, AvoidDistance, ref _avoidanceTarget, EnvironmentLayers, FeelerAngle, FeelerScale));
                             break;
 
                         case SteeringTypes.AVOID_AGENTS:
-                            Debug.Log("Guarian Avoid");
                             agent.SetSteering(SteeringManager.GetAvoidAgents(agent, CheckSourroundingAgents(), CollisionRadius));
                             break;
 

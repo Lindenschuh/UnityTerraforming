@@ -2444,6 +2444,7 @@ MonoBehaviour:
   CollisionRadius: 4
   AnimationDuration: 2
   WaitBetweenScans: 3
+  WallAvoidanceRate: 0.2
   PlayerLayer:
     serializedVersion: 2
     m_Bits: 3072

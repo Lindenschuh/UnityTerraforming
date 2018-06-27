@@ -2365,12 +2365,13 @@ MonoBehaviour:
   Tree: {fileID: 114698892827601736}
   SlowRadius: 15
   TargetRadius: 0.1
-  AvoidDistance: 10
-  FeelerAngle: 60
-  FeelerScale: 2
+  AvoidDistance: 5
+  FeelerAngle: 45
+  FeelerScale: 4
   CollisionRadius: 4
   AnimationDuration: 2
   WaitBetweenScans: 3
+  WallAvoidanceRate: 0.5
   PlayerLayer:
     serializedVersion: 2
     m_Bits: 3072
@@ -2382,6 +2383,7 @@ MonoBehaviour:
     m_Bits: 4293370841
   Player: {fileID: 0}
   MainDestination: {fileID: 0}
+  AvoidWallForce: 2
 --- !u!114 &114158291406833502
 MonoBehaviour:
   m_ObjectHideFlags: 1

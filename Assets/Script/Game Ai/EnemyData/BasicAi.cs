@@ -24,6 +24,7 @@ namespace UnityTerraforming.GameAi
 
         public float AnimationDuration = 2f;
         public float WaitBetweenScans = 3f;
+        public float WallAvoidanceRate = 0.5f;
 
         public LayerMask PlayerLayer;
         public LayerMask EnemyLayers;
@@ -35,16 +36,20 @@ namespace UnityTerraforming.GameAi
         protected GameObject _target;
 
         protected Agent agent;
+        protected Steering WallSteering;
 
         protected List<Agent> _souroundingAgents;
 
-        private float _nextScan;
+        private float _nextScan = 0;
+        protected float _nextavoid = 0;
+
+        protected Vector3? _avoidanceTarget;
 
         private void Awake()
         {
             agent = GetComponent<Agent>();
             _souroundingAgents = new List<Agent>();
-            _nextScan = 0;
+            WallSteering = new Steering();
         }
 
         public bool CheckPlayerInSight()

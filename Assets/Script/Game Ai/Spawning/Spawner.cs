@@ -75,6 +75,8 @@ namespace UnityTerraforming.GameAi
             StartCoroutine(SpawnAttackingWaves());
             GuardingEntitiesAlive = new List<GameObject>();
             AttackingEntitiesAlive = new List<GameObject>();
+            if (Player == null)
+                Player = GameObject.FindGameObjectsWithTag("Player")[0].transform;
         }
 
         public IEnumerator SpawnGuardingWaves()

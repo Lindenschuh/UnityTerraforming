@@ -7,6 +7,8 @@ namespace UnityTerraforming.GameAi
     [RequireComponent(typeof(Agent))]
     public class Chaser : BasicAi
     {
+        public float AvoidWallForce = 100;
+
         private void FixedUpdate()
         {
             if (PhotonNetwork.isMasterClient)
@@ -36,11 +38,16 @@ namespace UnityTerraforming.GameAi
                             break;
 
                         case SteeringTypes.AVOID_WALLS:
-                            agent.SetSteering(SteeringManager.GetAvoidWalls(agent, LookRadius, AvoidDistance, EnvironmentLayers, FeelerAngle, FeelerScale));
+                            if (_nextavoid < Time.time)
+                            {
+                                _nextavoid = Time.time + WallAvoidanceRate;
+                                _avoidanceTarget = null;
+                            }
+                            agent.SetSteering(SteeringManager.GetAvoidWalls(agent, LookRadius, AvoidDistance, ref _avoidanceTarget, EnvironmentLayers, FeelerAngle, FeelerScale), AvoidWallForce);
+
                             break;
 
                         case SteeringTypes.AVOID_AGENTS:
-                            Debug.Log("Chaser Avoid ");
                             agent.SetSteering(SteeringManager.GetAvoidAgents(agent, CheckSourroundingAgents(), CollisionRadius));
                             break;
 
