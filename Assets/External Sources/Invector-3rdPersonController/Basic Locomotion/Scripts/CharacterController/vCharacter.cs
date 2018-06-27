@@ -111,7 +111,7 @@ namespace Invector.vCharacterController
         public override void TakeDamage(vDamage damage)
         {
             base.TakeDamage(damage);
-            TriggerDamageRection(damage);
+            //TriggerDamageRection(damage);
         }
 
         protected virtual void TriggerDamageRection(vDamage damage)

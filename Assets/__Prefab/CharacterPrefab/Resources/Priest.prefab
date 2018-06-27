@@ -4449,7 +4449,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   openCloseEvents: 0
   openCloseWindow: 1
-  selectedToolbar: 4
+  selectedToolbar: 0
   _isDead: 0
   _currentHealth: 0
   maxHealth: 100
@@ -4927,7 +4927,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   openCloseEvents: 1
-  openCloseWindow: 1
+  openCloseWindow: 0
   selectedToolbar: 0
   lockInput: 0
   unlockCursorOnStart: 0

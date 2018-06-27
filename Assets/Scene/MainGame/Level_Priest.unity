@@ -1516,12 +1516,12 @@ Prefab:
     - target: {fileID: 114300217606507284, guid: 6eb9de1e41178ed48918f360103726fb,
         type: 2}
       propertyPath: viewIdField
-      value: 10
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 114300217606507284, guid: 6eb9de1e41178ed48918f360103726fb,
         type: 2}
       propertyPath: instantiationId
-      value: 10
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 4532984559767148, guid: 6eb9de1e41178ed48918f360103726fb, type: 2}
       propertyPath: m_RootOrder

@@ -25,24 +25,33 @@ public class Health : Photon.PunBehaviour
         {
             gameobjct.GetComponent<BasicAi>().InstanceDied();
         }
+        else if(gameobjct.tag == "Player")
+        {
+            gameobjct.transform.position = GameObject.Find("SpawnPoint_Priest").transform.position;
+            healthController.ChangeHealth(100);
+            healthController.isDead = false;          
+            GameObject.Find("HealthSlider").GetComponent<Slider>().value = healthController.currentHealth;
+        }
         else
         {
             Destroy(gameObject);
         }
-        if (gameObject.tag == "Player")
-        {
-            GameObject.Find("HealthSlider").GetComponent<Slider>().value = healthController.currentHealth;
-        }
+        
     }
 
     public void AddDamage(int damage)
     {
         healthController.TakeDamage(new vDamage(damage));
+
     }
 
     public void EnemyAddDamage(int damage)
     {
         photonView.RPC("RPCEnemyAddDamage", PhotonTargets.All, damage);
+        if (gameObject.tag == "Player")
+        {
+            GameObject.Find("HealthSlider").GetComponent<Slider>().value = healthController.currentHealth;
+        }
     }
 
     [PunRPC]
