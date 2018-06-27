@@ -22,7 +22,7 @@ namespace UnityTerraforming.GameAi
 
         public float CollisionRadius = 4f;
 
-        public float AttackRate = 1.1f;
+        public float AttackRate = .5f;
         public float AnimationDuration = 2f;
         public float WaitBetweenScans = 3f;
         public float WallAvoidanceRate = 0.5f;
