@@ -455,8 +455,8 @@ MonoBehaviour:
   ObservedComponents:
   - {fileID: 0}
   ObservedComponentsFoldoutOpen: 1
-  viewIdField: 0
-  instantiationId: -1
+  viewIdField: 3
+  instantiationId: 3
   currentMasterID: -1
   isRuntimeInstantiated: 0
 --- !u!114 &114093126638040942
@@ -475,8 +475,8 @@ MonoBehaviour:
   BrushHeight: 10
   MaxBrushValue: 150
   sizeModificator: 0
-  GoodIndicator: {fileID: 0}
-  BadIndicator: {fileID: 0}
+  GoodIndicator: {r: 0, g: 0, b: 0, a: 0}
+  BadIndicator: {r: 0, g: 0, b: 0, a: 0}
   CSHandler: {fileID: 114335439691717686}
 --- !u!114 &114110268958052298
 MonoBehaviour:
@@ -500,8 +500,8 @@ MonoBehaviour:
   ObservedComponents:
   - {fileID: 0}
   ObservedComponentsFoldoutOpen: 1
-  viewIdField: 0
-  instantiationId: -1
+  viewIdField: 1
+  instantiationId: 1
   currentMasterID: -1
   isRuntimeInstantiated: 0
 --- !u!114 &114251925803805982
@@ -544,8 +544,8 @@ MonoBehaviour:
   BrushHeight: 10
   MaxBrushValue: 20
   sizeModificator: 0
-  GoodIndicator: {fileID: 0}
-  BadIndicator: {fileID: 0}
+  GoodIndicator: {r: 0, g: 0, b: 0, a: 0}
+  BadIndicator: {r: 0, g: 0, b: 0, a: 0}
   CSHandler: {fileID: 114335439691717686}
 --- !u!114 &114573540852085556
 MonoBehaviour:
@@ -585,8 +585,8 @@ MonoBehaviour:
   BrushHeight: 50
   MaxBrushValue: 50
   sizeModificator: 0
-  GoodIndicator: {fileID: 0}
-  BadIndicator: {fileID: 0}
+  GoodIndicator: {r: 0, g: 0, b: 0, a: 0}
+  BadIndicator: {r: 0, g: 0, b: 0, a: 0}
   CSHandler: {fileID: 114335439691717686}
 --- !u!114 &114623794729228988
 MonoBehaviour:
@@ -637,8 +637,8 @@ MonoBehaviour:
   ObservedComponents:
   - {fileID: 0}
   ObservedComponentsFoldoutOpen: 1
-  viewIdField: 0
-  instantiationId: -1
+  viewIdField: 5
+  instantiationId: 5
   currentMasterID: -1
   isRuntimeInstantiated: 0
 --- !u!114 &114901880385439210
@@ -653,8 +653,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Radius: 5
-  Indicator_mat: {fileID: 0}
+  Indicator_col: {r: 0, g: 0, b: 0, a: 0}
   DMG: 10
+  GodHeight: 20
+  InitialDelay: 0
+  Duration: 2
+  ThunderStart:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  ThunderEnd:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  ThunderSound: {fileID: 8300000, guid: 0d19565e083b3294183b5b8175a96035, type: 3}
 --- !u!114 &114972175665002608
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -671,8 +685,8 @@ MonoBehaviour:
   BrushHeight: 10
   MaxBrushValue: 150
   sizeModificator: 0
-  GoodIndicator: {fileID: 0}
-  BadIndicator: {fileID: 0}
+  GoodIndicator: {r: 0, g: 0, b: 0, a: 0}
+  BadIndicator: {r: 0, g: 0, b: 0, a: 0}
   CSHandler: {fileID: 114335439691717686}
 --- !u!119 &119328426973485560
 Projector:

@@ -660,8 +660,8 @@ MonoBehaviour:
   MaxGuardianWavesAlive: 2
   MaxAttackingWavesAlive: 3
   WaitBetweenSpawn: 2.4
-  WaitBetweenWaves: 20
-  WaitOnStart: 1
+  WaitBetweenWaves: 100
+  WaitOnStart: 30
   AttackerOffset: 2.27
   SpawnPoint: {fileID: 4459945713732130}
 --- !u!114 &114708857912920500
