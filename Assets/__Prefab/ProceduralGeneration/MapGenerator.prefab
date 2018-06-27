@@ -105,8 +105,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   width: 513
   height: 513
-  noiseScale: 300
-  octaves: 2
+  noiseScale: 250
+  octaves: 1
   persistance: 1
   lacunarity: 1.5
   seed: 0

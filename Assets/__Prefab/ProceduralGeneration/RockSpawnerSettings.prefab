@@ -60,4 +60,4 @@ MonoBehaviour:
   differentLocations: 100
   amount: 1
   maxHeight: 0
-  preFab: {fileID: 100000, guid: 3a6c707703a11574f9159e2ba3465f32, type: 3}
+  preFab: {fileID: 165230, guid: 751682349ef7b8546aff2c104411f6b3, type: 2}
