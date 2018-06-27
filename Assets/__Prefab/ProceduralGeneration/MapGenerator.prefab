@@ -64,8 +64,8 @@ MonoBehaviour:
   ObservedComponents:
   - {fileID: 0}
   ObservedComponentsFoldoutOpen: 1
-  viewIdField: 0
-  instantiationId: -1
+  viewIdField: 4
+  instantiationId: 4
   currentMasterID: -1
   isRuntimeInstantiated: 0
 --- !u!114 &114520220226399554
@@ -105,8 +105,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   width: 513
   height: 513
-  noiseScale: 200
-  octaves: 3
+  noiseScale: 300
+  octaves: 2
   persistance: 1
   lacunarity: 1.5
   seed: 0

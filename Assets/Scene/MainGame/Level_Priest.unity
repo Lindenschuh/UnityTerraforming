@@ -1517,6 +1517,16 @@ Prefab:
       propertyPath: terrain
       value: 
       objectReference: {fileID: 1206232136}
+    - target: {fileID: 114688486092583230, guid: 6eb9de1e41178ed48918f360103726fb,
+        type: 2}
+      propertyPath: noiseScale
+      value: 300
+      objectReference: {fileID: 0}
+    - target: {fileID: 114688486092583230, guid: 6eb9de1e41178ed48918f360103726fb,
+        type: 2}
+      propertyPath: octaves
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 6eb9de1e41178ed48918f360103726fb, type: 2}
   m_IsPrefabParent: 0
