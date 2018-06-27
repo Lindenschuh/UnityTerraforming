@@ -1087,7 +1087,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   openCloseEvents: 0
   openCloseWindow: 1
-  selectedToolbar: 1
+  selectedToolbar: 0
   photonView: {fileID: 114611386379746012}
   isLeftWeapon: 0
   chargeWeapon: 0

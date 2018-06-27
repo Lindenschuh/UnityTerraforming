@@ -484,7 +484,7 @@ MonoBehaviour:
     recoil_id: 0
     reaction_id: -1
     attackName: projectile
-  forceMultiplier: 1
+  forceMultiplier: 0.5
   destroyOnCast: 1
   onPassDamage:
     m_PersistentCalls:
