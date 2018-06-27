@@ -4366,10 +4366,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   openCloseEvents: 0
   openCloseWindow: 1
-  selectedToolbar: 4
+  selectedToolbar: 0
   damageLayer:
     serializedVersion: 2
-    m_Bits: 16641
+    m_Bits: 20737
   ignoreTags:
     value: 32
     tags:

@@ -21,6 +21,7 @@ public class BuildTrap : Photon.PunBehaviour {
     private InventoryManager inventoryManager;
     private bool firstVisit;
     private Vector3 normalVector;
+    private Invector.vShooter.vShooterMeleeInput shooterInput;
     // Use this for initialization
     void Start ()
     {
@@ -32,6 +33,7 @@ public class BuildTrap : Photon.PunBehaviour {
         actualTrapType = TrapType.None;
         trapBuildingActive = false;
         firstVisit = true;
+        shooterInput = gameObject.GetComponent<Invector.vShooter.vShooterMeleeInput>();
     }
 	
 	// Update is called once per frame
@@ -64,9 +66,15 @@ public class BuildTrap : Photon.PunBehaviour {
                 trapBuildingActive = false;
                 actualTrapType = TrapType.None;
                 firstVisit = true;
+                shooterInput.lockMeleeInput = false;
+                shooterInput.lockShooterInput = false;
             }
             else
+            {
                 trapBuildingActive = true;
+                shooterInput.lockMeleeInput = true;
+                shooterInput.lockShooterInput = true;
+            }
         }
 
         if (trapBuildingActive)

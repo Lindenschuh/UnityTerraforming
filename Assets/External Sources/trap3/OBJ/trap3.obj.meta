@@ -3,10 +3,41 @@ guid: c9620876e0800fd4ba1ecfab40b84792
 ModelImporter:
   serializedVersion: 22
   fileIDToRecycleName:
+    100000: pinchos
+    100002: tap
+    100004: tramp3
+    100006: //RootNode
+    400000: pinchos
+    400002: tap
+    400004: tramp3
+    400006: //RootNode
+    2300000: pinchos
+    2300002: tap
+    2300004: tramp3
+    3300000: pinchos
+    3300002: tap
+    3300004: tramp3
     4300000: pinchos
     4300002: tap
     4300004: tramp3
-  externalObjects: {}
+    11100000: //RootNode
+    2186277476908879412: ImportLogs
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: pinchosMat
+    second: {fileID: 2100000, guid: 5383c9eceaacb404ab29d9acd23d04ae, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: tapMat
+    second: {fileID: 2100000, guid: fe51faca861c6804291b43c1bc0105f2, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: tramp3Mat
+    second: {fileID: 2100000, guid: 4867a5dac4924ca4a9052bd78e950510, type: 2}
   materials:
     importMaterials: 1
     materialName: 0
