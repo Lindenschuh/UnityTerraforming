@@ -139,17 +139,24 @@ namespace UnityTerraforming.GameAi
                 AttackingEntitiesAlive.Remove(instance);
                 Stats.Died();
             }
-            if (GuardingEntitiesAlive.Count == 0)
+            if (GuardingEntitiesAlive.Count == 0 && !_captured)
             {
-                _captured = true;
-                GetComponentInChildren<Crystral>().TooggleCaptured(_captured);
-                OnCapturedEvent.Invoke();
-                Stats.Captured();
+                photonView.RPC("RPCCaptureTower", PhotonTargets.All, photonView.viewID);
             }
         }
 
         public abstract void InstantiateTowerSpecificGuard(GameObject spawnedEntity);
 
         public abstract void InstantiateTowerSpecificAtttacker(GameObject spawedEntity);
+
+        [PunRPC]
+        private void RPCCaptureTower(int photonViewID)
+        {
+            GameObject tower = PhotonView.Find(photonViewID).transform.gameObject;
+            tower.GetComponent<GuardianSpawner>()._captured = true;
+            tower.GetComponentInChildren<Crystral>().TooggleCaptured(_captured);
+            OnCapturedEvent.Invoke();
+            // Stats.Captured();
+        }
     }
 }

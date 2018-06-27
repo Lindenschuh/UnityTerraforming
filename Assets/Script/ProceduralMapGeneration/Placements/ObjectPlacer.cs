@@ -83,7 +83,7 @@ public class ObjectPlacer : Photon.PunBehaviour
                 continue;
             }
             positionCheck.randomPosition = new Vector3(positionCheck.randomPosition.x, positionCheck.randomPosition.y - 0.5f, positionCheck.randomPosition.z);
-            if (prefabToSpawn.preFab.gameObject.layer == 11)
+            if (prefabToSpawn.preFab.gameObject.layer == 11 ^ prefabToSpawn.preFab.GetComponent<GuardianSpawner>())
                 PhotonNetwork.Instantiate(prefabToSpawn.preFab.name, positionCheck.randomPosition, positionCheck.normalizedRotation, 0);
             else
                 photonView.RPC("RPCSpawnObject", PhotonTargets.All, prefabToSpawn.preFab.name, positionCheck.randomPosition, positionCheck.normalizedRotation);

@@ -23,7 +23,8 @@ public class Health : Photon.PunBehaviour
         }
         else if (gameobjct.layer == LayerMask.NameToLayer("Enemy"))
         {
-            gameobjct.GetComponent<BasicAi>().InstanceDied();
+            if (PhotonNetwork.isMasterClient)
+                gameobjct.GetComponent<BasicAi>().InstanceDied();
         }
         else if(gameobjct.tag == "Player")
         {
