@@ -84,10 +84,4 @@ public class GameManager : MonoBehaviour
 
         }
     }
-
-    private void Update()
-    {
-        int i = 0;
-        i = i + 1;
-    }
 }

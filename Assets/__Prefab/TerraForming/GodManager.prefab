@@ -475,8 +475,8 @@ MonoBehaviour:
   BrushHeight: 10
   MaxBrushValue: 150
   sizeModificator: 0
-  GoodIndicator: {r: 0, g: 0, b: 0, a: 0}
-  BadIndicator: {r: 0, g: 0, b: 0, a: 0}
+  GoodIndicator: {r: 0, g: 1, b: 0.0627451, a: 0}
+  BadIndicator: {r: 1, g: 0, b: 0, a: 0}
   CSHandler: {fileID: 114335439691717686}
 --- !u!114 &114110268958052298
 MonoBehaviour:
@@ -544,8 +544,8 @@ MonoBehaviour:
   BrushHeight: 10
   MaxBrushValue: 20
   sizeModificator: 0
-  GoodIndicator: {r: 0, g: 0, b: 0, a: 0}
-  BadIndicator: {r: 0, g: 0, b: 0, a: 0}
+  GoodIndicator: {r: 0, g: 1, b: 0.0627451, a: 0}
+  BadIndicator: {r: 1, g: 0, b: 0, a: 0}
   CSHandler: {fileID: 114335439691717686}
 --- !u!114 &114573540852085556
 MonoBehaviour:
@@ -585,8 +585,8 @@ MonoBehaviour:
   BrushHeight: 50
   MaxBrushValue: 50
   sizeModificator: 0
-  GoodIndicator: {r: 0, g: 0, b: 0, a: 0}
-  BadIndicator: {r: 0, g: 0, b: 0, a: 0}
+  GoodIndicator: {r: 0, g: 1, b: 0.0627451, a: 0}
+  BadIndicator: {r: 1, g: 0, b: 0, a: 0}
   CSHandler: {fileID: 114335439691717686}
 --- !u!114 &114623794729228988
 MonoBehaviour:
@@ -685,8 +685,8 @@ MonoBehaviour:
   BrushHeight: 10
   MaxBrushValue: 150
   sizeModificator: 0
-  GoodIndicator: {r: 0, g: 0, b: 0, a: 0}
-  BadIndicator: {r: 0, g: 0, b: 0, a: 0}
+  GoodIndicator: {r: 0, g: 1, b: 0.0627451, a: 0}
+  BadIndicator: {r: 1, g: 0, b: 0, a: 0}
   CSHandler: {fileID: 114335439691717686}
 --- !u!119 &119328426973485560
 Projector:
