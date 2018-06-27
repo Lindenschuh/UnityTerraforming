@@ -1988,6 +1988,10 @@ Prefab:
       propertyPath: GodCon
       value: 
       objectReference: {fileID: 1013891021}
+    - target: {fileID: 4550518338327640, guid: 8050461c1f3fa204abf285fe0defb49d, type: 2}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 8050461c1f3fa204abf285fe0defb49d, type: 2}
   m_IsPrefabParent: 0

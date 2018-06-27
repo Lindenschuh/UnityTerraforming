@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using System.Linq;
+using Photon;
 
 namespace UnityTerraforming.GameAi
 {
@@ -90,7 +91,7 @@ namespace UnityTerraforming.GameAi
                     for (int i = 0; i < GuardianWaveCount; i++)
                     {
                         if (_captured) break;
-                        var spawend = Instantiate(GuardianPrefab, SpawnPoint.position, Quaternion.identity);
+                        var spawend = PhotonNetwork.Instantiate(GuardianPrefab.name, SpawnPoint.position, Quaternion.identity, 0);
                         InstantiateTowerSpecificGuard(spawend);
                         GuardingEntitiesAlive.Add(spawend);
                         Stats.Spawend();
@@ -112,7 +113,7 @@ namespace UnityTerraforming.GameAi
                     for (int i = 0; i < GuardianWaveCount; i++)
                     {
                         if (_captured) break;
-                        var spawend = Instantiate(AttackerPrefab, SpawnPoint.position, Quaternion.identity);
+                        var spawend = PhotonNetwork.Instantiate(AttackerPrefab.name, SpawnPoint.position, Quaternion.identity, 0);
                         InstantiateTowerSpecificAtttacker(spawend);
                         AttackingEntitiesAlive.Add(spawend);
                         Stats.Spawend();
