@@ -655,8 +655,8 @@ MonoBehaviour:
     type: 2}
   AttackerPrefab: {fileID: 1188767793829170, guid: be0e227f052aa5e46b11a1e2ec04da14,
     type: 2}
-  GuardianWaveCount: 1
-  AttackingWaveCount: 3
+  GuardianWaveCount: 2
+  AttackingWaveCount: 5
   MaxGuardianWavesAlive: 2
   MaxAttackingWavesAlive: 3
   WaitBetweenSpawn: 2.4
