@@ -53,5 +53,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MaxGauge: 100
   ManipulationValue: 10
-  RegenerationRate: 0.5
+  RegenerationRate: 5
   LiftGauge: 0
